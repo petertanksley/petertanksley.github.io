@@ -33,7 +33,7 @@ sync: github
 
 ## This Week
 
-- DONE 2026-09-10: skill tree page dark end to end; Research-page teaser card; origin easter egg (`#me`); co-lead role removed; axis colour wash; bigger selected hexes, drawer makes room and stays clear; lineage links in the panel — see `logs/skilltree/2026-09-10_dark-page.md`. Pushed.
+- DONE 2026-09-10: skill tree page dark end to end and full-bleed; Research-page teaser card; origin easter egg (`#me`); co-lead role removed; axis colour wash; icon-only legend; bigger selected hexes, drawer makes room and stays clear; lineage links in the panel with a staged hand-off; McAllister 2026 lineage + supervision fixed — see `logs/skilltree/2026-09-10_dark-page.md`. All pushed and live (last: `593b179`).
 - [ ] Optional: per-article hex stickers for the skill tree via `4_stickers/` (28 needed; tree ships on
   placeholders; Peter deferred 2026-09-07)
 - [ ] Optional: phase stickers beside the matching Research-page sections
