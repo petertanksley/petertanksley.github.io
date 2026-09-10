@@ -414,6 +414,85 @@ h2 { clear: both; }
 }
 
 // ---------------------------------------------------------------------------
+// Skill tree teaser (research page foot): a dark card so the visitor has met the
+// tree's palette before skilltree.qmd flips the whole page to ink.
+// ---------------------------------------------------------------------------
+.tree-card {
+  display: grid; grid-template-columns: 112px 1fr; gap: 1.6rem; align-items: center;
+  margin: 3rem 0 0; padding: 1.5rem 1.7rem; border-radius: 6px;
+  background: $ink; color: $paper; text-decoration: none;
+  transition: background 160ms ease;
+  &:hover, &:focus-visible { text-decoration: none; color: $paper; background: #26242E;
+    .tc-ring { stroke: #5A5768; } .tree-card-more { color: lighten($teal, 18%); } }
+  .tree-card-mark { width: 112px; height: 112px; display: block; }
+  .tc-ring { fill: none; stroke: #3A3845; stroke-width: 2; stroke-linejoin: round; transition: stroke 160ms ease; }
+  .tc-origin { fill: $paper; opacity: 0.85; }
+  .tree-card-text { display: block; }
+  .eyebrow { display: block; color: $teal; }
+  .tree-card-title { display: block; font-family: $font-display; font-size: 1.45rem; font-weight: 600; line-height: 1.15; margin-bottom: 0.4rem; }
+  .tree-card-blurb { display: block; color: #A9A6B3; font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.7rem; }
+  .tree-card-more { display: block; font-family: $font-family-monospace; font-size: 0.8rem; color: $teal; }
+}
+@media (max-width: 640px) { .tree-card { grid-template-columns: 1fr; gap: 1rem; .tree-card-mark { width: 88px; height: 88px; } } }
+
+// ---------------------------------------------------------------------------
+// Dark page. Opt-in per page: `html.page-dark`, added from the page's include-in-header (see
+// skilltree.qmd). Inverts the chrome onto $ink so a dark figure is the page, not a card on paper.
+// Same tokens as the skill tree's --st-* set so the two are seamless.
+// ---------------------------------------------------------------------------
+$dark-bg:   #1C1B22;   // = $ink
+$dark-fg:   $paper;
+$dark-soft: #A9A6B3;
+$dark-rule: #3A3845;
+
+html.page-dark {
+  background: $dark-bg;
+  body { background: $dark-bg; color: $dark-fg; }
+  a { color: $teal; &:hover { color: lighten($teal, 18%); } }
+  :focus-visible { outline-color: $teal; }
+
+  .navbar {
+    background-color: $dark-bg;
+    border-bottom-color: $dark-rule;
+    --bs-navbar-color: #{$dark-soft};
+    --bs-navbar-hover-color: #{$teal};
+    --bs-navbar-active-color: #{$dark-fg};
+    --bs-navbar-brand-color: #{$dark-fg};
+    --bs-navbar-brand-hover-color: #{$teal};
+    .navbar-brand { color: $dark-fg; }
+    .nav-link { color: $dark-soft; &:hover, &:focus-visible { color: $teal; } &.active { color: $dark-fg; } }
+    .quarto-navbar-tools .quarto-navigation-tool { color: $dark-soft; &:hover { color: $teal; } }
+    .dropdown-menu { background: #26242E; border-color: $dark-rule;
+      .dropdown-item { color: $dark-fg; &:hover, &:focus { background: $dark-rule; color: $dark-fg; } } }
+    .navbar-toggler-icon { filter: invert(0.9); }
+  }
+
+  // Title block centred over a radially symmetric figure; the belt bar flips to paper on ink
+  .quarto-title-block { text-align: center; }
+  h1.title, .quarto-title h1 { color: $dark-fg; }
+  .subtitle.lead { color: $dark-soft; max-width: 40em; margin: 0.4rem auto 0; }
+  // the belt stays black (it is a black belt). Larger than the paper-page mark, with a crisp 1px
+  // paper edge, so it reads as an object on the ink rather than a smudge
+  // Edge colours follow the segment they sit on (grey along the black, lighter red along the red):
+  // the dark belt is clipped to the padding box and a lighter copy of the same split shows through
+  // the transparent border.
+  .belt-bar, .belt-bar--sm { width: 104px; height: 9px; border-radius: 2px; border: 1px solid transparent; box-shadow: none;
+                             background: linear-gradient(to right, #000 0 78%, $belt-red 78% 100%) padding-box,
+                                         linear-gradient(to right, #55535F 0 78%, lighten($belt-red, 22%) 78% 100%) border-box; }
+  .belt-bar--center { margin-left: auto; margin-right: auto; }
+
+  .nav-footer { background-color: $dark-bg; border-top-color: $dark-rule; color: $dark-soft;
+    .nav-footer-center { color: $dark-soft; }
+    a { color: $dark-soft; &:hover { color: $teal; } } }
+
+  // The tree loses its card edge: no radius, no side padding, it simply sits on the page
+  .skilltree-wrap { border-radius: 0; padding: 0.5rem 0 1rem; margin-top: 1rem; }
+  // JS pads the right side while the drawer is open (fitAroundPanel); ease it at the drawer's pace
+  .skilltree-wrap { transition: padding-right 1000ms cubic-bezier(0.45, 0.05, 0.2, 1); }
+  @media (prefers-reduced-motion: reduce) { .skilltree-wrap { transition: none; } }
+}
+
+// ---------------------------------------------------------------------------
 // Skill tree (skilltree.qmd, www/skilltree.js, www/tree.json). Generator: 5_skilltree/.
 // Self-contained dark panel: every colour comes from the --st-* tokens on .skilltree-wrap, so it
 // sits on the paper page without inheriting from it. Area colours arrive via tree.json.
@@ -436,9 +515,18 @@ h2 { clear: both; }
   svg { display: block; width: 100%; min-width: 720px; height: auto; overflow: visible; }
 
   .ring-guide  { fill: none; stroke: var(--st-rule); stroke-width: 2.5; stroke-linejoin: round; }
-  .axis        { stroke-width: 3.5; stroke-linecap: round; opacity: 0.7; stroke-dasharray: 2 11; }
+  .axis        { stroke-width: 5; stroke-linecap: round; opacity: 0.9; stroke-dasharray: 3 12; }
+  .axis-glow   { fill: none; pointer-events: none; }
   .origin      { opacity: 1; }
-  .origin-ring { fill: none; stroke: var(--st-fg); stroke-width: 3; opacity: 0.35; stroke-linejoin: round; }
+  .origin-ring { fill: none; stroke: var(--st-fg); stroke-width: 3; opacity: 0.35; stroke-linejoin: round; transition: opacity 160ms, stroke-width 160ms; }
+  // the origin is a button too: click (or #me) turns Peter over and opens the character sheet
+  .origin-node {
+    --lit: 1.35;
+    cursor: pointer; outline: none; transform-box: fill-box; transform-origin: center;
+    &:hover .origin-ring, &:focus-visible .origin-ring { opacity: 0.9; stroke-width: 5; }
+    &.lit { transform: scale(var(--lit)); .origin-ring { opacity: 1; stroke-width: 4; animation: st-pulse 1.6s ease-in-out infinite; } }
+    &.flipping { animation: st-flip 560ms ease-in-out 1 both; }
+  }
   .axis-label  { font-family: $font-display; font-size: 46px; font-weight: 600; dominant-baseline: middle; letter-spacing: 0.01em; }
   .year-label {
     font-family: $font-family-monospace; font-size: 26px; fill: var(--st-soft); text-anchor: middle; dominant-baseline: middle;
@@ -455,6 +543,7 @@ h2 { clear: both; }
   .edge-tip.hot { opacity: 1; r: 7; }
 
   .node {
+    --lit: 1.8;   // how much a selected hex grows; the flip keyframes land on the same value
     cursor: pointer; outline: none;
     transform-box: fill-box; transform-origin: center;
     // HOVER changes nothing geometric — no scale, no motion — so the pointer's target never shifts
@@ -463,7 +552,6 @@ h2 { clear: both; }
     .hex-shade { fill: var(--st-bg); opacity: 0.58; pointer-events: none; transition: opacity 220ms; }
     .hex-ring  { fill: none; stroke: var(--node); stroke-linejoin: round; transition: stroke-width 160ms, opacity 160ms; }
     &.role-lead         .hex-ring { stroke-width: 6; }
-    &.role-co-lead      .hex-ring { stroke-width: 4; }
     &.role-contributing .hex-ring { stroke-width: 2; }
     &.status-preprint, &.status-in_press { .hex-ring { stroke-dasharray: 10 8; } .hex-shade { opacity: 0.74; } }
     // muted tier: deeper shade, quieter ring. Visual only; still focusable and clickable.
@@ -471,7 +559,8 @@ h2 { clear: both; }
     // highlight (hover / keyboard focus): ring up, shade eases, nothing moves
     &:hover, &:focus-visible { .hex-ring { stroke-width: 8; opacity: 1; } .hex-shade { opacity: 0.3; } }
     // revealed (clicked): face-up, lit, lifted a little, ring pulsing
-    &.lit { transform: scale(1.12); .hex-shade { opacity: 0; } .hex-ring { stroke-width: 8; opacity: 1; } }
+    // strokes scale with the transform, so the lit ring is set thin and reads as ~9px at 1.8x
+    &.lit { transform: scale(var(--lit)); .hex-shade { opacity: 0; } .hex-ring { stroke-width: 5; opacity: 1; } }
     &.lit .hex-ring { animation: st-pulse 1.6s ease-in-out infinite; }
     // the flip: one turn from face-away to face-forward. Squeeze on the vertical axis, the shade drops
     // at the midpoint, land upright. Runs once per click.
@@ -481,14 +570,15 @@ h2 { clear: both; }
 }
 @keyframes st-flip {
   0%   { transform: scale(1)    scaleX(1); }
-  50%  { transform: scale(1.08) scaleX(0.03); }
-  100% { transform: scale(1.12) scaleX(1); }
+  50%  { transform: scale(calc(1 + (var(--lit) - 1) * 0.6)) scaleX(0.03); }
+  100% { transform: scale(var(--lit)) scaleX(1); }
 }
 @keyframes st-light { 0% { opacity: 0.58; } 50%, 100% { opacity: 0; } }
-@keyframes st-pulse { 0%, 100% { stroke-width: 8; } 50% { stroke-width: 12; } }
+@keyframes st-pulse { 0%, 100% { stroke-width: 5; } 50% { stroke-width: 7.5; } }
 @media (prefers-reduced-motion: reduce) {
-  .skilltree .node.lit { transform: none; }
-  .skilltree .node.flipping, .skilltree .node.flipping .hex-shade, .skilltree .node.lit .hex-ring { animation: none; }
+  .skilltree .node.lit, .skilltree .origin-node.lit { transform: none; }
+  .skilltree .node.flipping, .skilltree .node.flipping .hex-shade, .skilltree .node.lit .hex-ring,
+  .skilltree .origin-node.flipping, .skilltree .origin-node.lit .origin-ring { animation: none; }
 }
 
 .skilltree-tooltip {
@@ -555,6 +645,22 @@ aside.skilltree-panel {
     .blocks { display: flex; gap: 4px; } .blocks span { width: 22px; height: 12px; background: var(--sp-rule); border-radius: 2px; }
     .blocks span.on { background: var(--node, var(--sp-fg)); } .lab { color: var(--sp-soft); } }
   .sp-note { color: var(--sp-soft); font-size: 0.82rem; margin: 0.4rem 0 0; }
+  // lineage: each connected article is a row-button that opens it in this same panel
+  .sp-kin-lab { font-size: 0.76rem; color: var(--sp-soft); margin: 0.5rem 0 0.2rem; }
+  .sp-kin {
+    display: block; width: 100%; text-align: left; margin: 0.25rem 0; padding: 0.4rem 0.6rem;
+    background: transparent; color: var(--sp-fg); border: 1px solid var(--sp-rule); border-left: 3px solid var(--kin, var(--sp-fg));
+    border-radius: 3px; font: inherit; font-size: 0.84rem; line-height: 1.35; cursor: pointer;
+    .yr { font-family: $font-family-monospace; font-size: 0.74rem; color: var(--sp-soft); margin-right: 0.5rem; }
+    &:hover, &:focus-visible { background: var(--sp-rule); outline: none; }
+  }
+  // character sheet (origin easter egg): label / value rows, an aside under a value where the joke needs a beat
+  .sp-sheet { display: grid; grid-template-columns: 9.5em 1fr; gap: 0.35rem 0.8rem; font-size: 0.86rem; margin: 0;
+    dt { color: var(--sp-soft); font-weight: 400; margin: 0; } dd { margin: 0; }
+    .aside { display: block; color: var(--sp-soft); font-style: italic; font-size: 0.8rem; margin-top: 0.05rem; } }
+  .sp-xp { margin-top: 1rem; padding-top: 0.7rem; border-top: 1px solid var(--sp-rule); color: var(--sp-fg); font-size: 0.86rem; }
+  .sp-stats { .lab { color: var(--sp-soft); } .num { font-family: $font-family-monospace; font-size: 0.74rem; color: var(--sp-soft); }
+    .why { grid-column: 2 / 4; color: var(--sp-soft); font-style: italic; font-size: 0.78rem; margin: -0.15rem 0 0.15rem; } }
   .sp-unscored { color: var(--sp-soft); font-style: italic; font-size: 0.84rem; }
   .sp-link { display: inline-block; margin-top: 1.2rem; padding: 0.5rem 0.9rem; border-radius: 4px; font-weight: 600; font-size: 0.88rem;
              background: var(--node, var(--sp-fg)); color: #141319; text-decoration: none;

@@ -10,7 +10,7 @@ CREDIT <- c(conceptualization = "Conceptualization",
             methods = "Methods (methodology, validation)",
             writing = "Writing (original draft, review & editing)",
             supervision = "Supervision (supervision, admin, funding)")
-ROLES  <- c(lead = "Lead", `co-lead` = "Co-lead", contributing = "Contributing")
+ROLES  <- c(lead = "Lead", contributing = "Contributing")
 EFFORT <- c(`1` = "1 · light", `2` = "2 · modest", `3` = "3 · substantial", `4` = "4 · heavy", `5` = "5 · consuming")
 
 read_articles <- function(path) {

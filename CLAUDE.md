@@ -86,6 +86,23 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
 - Styles are the `.skilltree*` block at the end of `theme.scss`: a self-contained dark panel with
   `--st-*` tokens. Area colours come from `AREA_COL` in `build_tree.R` via `tree.json`; do not
   hardcode them in the qmd or SCSS.
+- **The page is dark end to end** (2026-09-10): navbar, title, tree and footer all sit on `$ink`, the
+  title block is centred over the figure, and the tree has no card edge. Mechanism: the page's
+  `include-in-header` adds `page-dark` to `<html>` before first paint (no paper flash) and the
+  `html.page-dark` block in `theme.scss` restyles the chrome. Reusable: any page can opt in the same
+  way. Keep the name "Skill tree"; Peter decided the same day not to rename it to something literal.
+- **Foreshadowing:** the Research page ends on a dark `.tree-card` (raw HTML in `research.qmd`,
+  styles in `theme.scss`) so the visitor has seen the ink palette before the page flips. It is the
+  only in-site link to the tree besides the navbar; keep it if the Research page is restructured.
+- **Easter egg (2026-09-10):** clicking Peter's hex at the origin (or visiting `#me`) flips it and
+  opens a joke RPG character sheet in the detail panel: Level 2 Research Scientist, Class: None,
+  Race: Homeschooled, etc. The lines live in the `SHEET` object at the top of the panel section of
+  `www/skilltree.js`, not in the YAML; edit them there. Keep it deadpan and in Peter's voice; do not
+  advertise it in the legend.
+- **Panel behaviour (2026-09-10):** a pinned hex grows to `--lit` (1.8) and is lifted into the SVG's
+  top layer so welds and labels pass under it; `fitAroundPanel()` pads the wrap so the tree rescales
+  clear of the drawer (1 s ease); the panel's Lineage section lists builds-on / built-on-by rows that
+  open the connected article in place. Roles are lead and contributing only; co-lead was removed.
 - **The CV's publication list is generated** (2026-09-09): `2_cv/_publications.qmd` is written by
   `5_skilltree/R/render_cv_pubs.R` from the same YAML and included by the CV. Never edit the
   publication block in `tanksley_cv.qmd` or the include by hand. Strings print verbatim from the
@@ -97,6 +114,12 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
 - Preprints carry no blurb (Peter, 2026-09-09): the panel shows none, the app does not require one.
 
 ## Build gotchas
+
+- **Cache-busted script src hides the file from Quarto.** `skilltree.qmd` loads
+  `www/skilltree.js?v=...` so browsers refetch after an edit. The query string stops Quarto's
+  resource discovery from matching the file, so `docs/www/skilltree.js` silently stops updating.
+  `www/skilltree.js` is therefore listed under `project.resources` in `_quarto.yml`; keep it there.
+  Bump the `?v=` value whenever the JS changes (2026-09-10).
 
 - CV publication entries must be fenced divs (`::: {.pub-item}`), never raw single-line
   `<div>`; pandoc leaves those open and truncates the TOC. (Generated now; the generator emits them.)

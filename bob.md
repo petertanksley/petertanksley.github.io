@@ -8,7 +8,7 @@ deadline: null
 target: Personal academic website with CV, about page, and blog
 effort_remaining: ~0 (monitoring; per-article stickers for the skill tree are an optional open-ended side task)
 weekly_commitment: 1h
-last_updated: 2026-09-09
+last_updated: 2026-09-10
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -33,6 +33,8 @@ sync: github
 
 ## This Week
 
+- DONE 2026-09-10: skill tree page dark end to end; Research-page teaser card; origin easter egg (`#me`); co-lead role removed; axis colour wash; bigger selected hexes, drawer makes room and stays clear; lineage links in the panel — see `logs/skilltree/2026-09-10_dark-page.md`. Pushed.
+- [ ] Site-wide: content overflows the right edge at ~420px viewports on every page (live site too). Pre-existing; needs a narrow-screen pass
 - [ ] Optional: per-article hex stickers for the skill tree via `4_stickers/` (28 needed; tree ships on
   placeholders; Peter deferred 2026-09-07)
 - [ ] Optional: phase stickers beside the matching Research-page sections

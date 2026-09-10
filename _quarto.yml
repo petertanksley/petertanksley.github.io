@@ -15,6 +15,9 @@ project:
   resources:
     - "www/tree.json"
     - "www/hex/sm/**"
+    # skilltree.qmd loads this with a ?v= cache-buster, which hides it from Quarto's resource
+    # discovery; without this line the copy in docs/ silently goes stale
+    - "www/skilltree.js"
 
 website:
   title: "Peter T. Tanksley"

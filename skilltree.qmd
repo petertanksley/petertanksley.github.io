@@ -2,9 +2,14 @@
 title: "Skill tree"
 subtitle: "Every article I have written, as a hex. The tree grows outward by year and branches by what the work drew on."
 page-layout: full
+# This page is dark end to end (navbar, title, tree, footer) so the tree reads as the page rather
+# than as a panel dropped onto paper. The class goes on <html> from the head, before first paint,
+# so there is no paper flash; the rules live under `html.page-dark` in theme.scss.
+include-in-header:
+  - text: "<script>document.documentElement.classList.add('page-dark');</script>"
 ---
 
-<div class="belt-bar--sm"></div>
+<div class="belt-bar--sm belt-bar--center"></div>
 
 ```{=html}
 <div class="skilltree-wrap">
@@ -18,5 +23,5 @@ page-layout: full
   <button class="sp-close" type="button" aria-label="Close details">&times;</button>
   <div class="sp-body"><!-- filled by skilltree.js --></div>
 </aside>
-<script src="www/skilltree.js" defer></script>
+<script src="www/skilltree.js?v=2026-09-10n" defer></script>
 ```

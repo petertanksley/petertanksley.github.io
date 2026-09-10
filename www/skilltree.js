@@ -24,7 +24,7 @@
     conceptualization: 'Conceptualization', data: 'Data', analysis: 'Analysis',
     methods: 'Methods', writing: 'Writing', supervision: 'Supervision'
   };
-  const ROLE_LABELS = { lead: 'Lead author', 'co-lead': 'Co-lead', contributing: 'Contributing author' };
+  const ROLE_LABELS = { lead: 'Lead author', contributing: 'Contributing author' };
   const STATUS_LABELS = { in_press: 'in press', preprint: 'preprint', published: '' };
 
   let pinned = null;   // the <g class="node"> whose tooltip is pinned, if any
@@ -98,8 +98,15 @@
     placeTipAt(r.right, r.top + r.height / 2);
   }
   function hideTip() { tip.hidden = true; }
+  let originG = null;   // the origin hex, once drawn; pinned like a node but carries the character sheet
+  let nodesLayer = null;   // the <g> the nodes live in; a pinned node is lifted out of it (see gTop) and returned here
   function unpin() {
-    if (pinned) { pinned.classList.remove('pinned', 'lit', 'flipping'); const id = pinned.dataset.id; pinned = null; if (window._stLineage) window._stLineage(id, false); }
+    if (pinned) {
+      pinned.classList.remove('pinned', 'lit', 'flipping');
+      if (nodesLayer && pinned.parentNode !== nodesLayer) nodesLayer.appendChild(pinned);   // back under the welds and labels
+      const id = pinned.dataset.id; pinned = null; if (window._stLineage) window._stLineage(id, false);
+    }
+    if (originG) originG.classList.remove('pinned', 'lit', 'flipping');
     tip.hidden = true;
     closePanel();
   }
@@ -109,6 +116,17 @@
   const panelBody = panel ? panel.querySelector('.sp-body') : null;
   const EFFORT_LABELS = { 1: 'light', 2: 'modest', 3: 'substantial', 4: 'heavy', 5: 'consuming' };
   function ordinal(k) { const s = ['th', 'st', 'nd', 'rd'], v = k % 100; return k + (s[(v - 20) % 10] || s[v] || s[0]); }
+  let EDGES = [], NODE_BY_ID = {}, nodeToggles = {};   // filled in draw(); lineage links in the panel read them
+  function kinHTML(n) {
+    const row = id => { const k = NODE_BY_ID[id]; return k
+      ? `<button type="button" class="sp-kin" data-id="${esc(k.id)}" style="--kin:${esc(k.colour)}"><span class="yr">${esc(k.year)}</span>${esc(k.title)}</button>` : ''; };
+    const parents  = EDGES.filter(e => e.to === n.id).map(e => row(e.from)).join('');
+    const children = EDGES.filter(e => e.from === n.id).map(e => row(e.to)).join('');
+    if (!parents && !children) return '';
+    return `<div class="sp-h">Lineage</div>` +
+           (parents  ? `<div class="sp-kin-lab">Builds on</div>${parents}` : '') +
+           (children ? `<div class="sp-kin-lab">Built on by</div>${children}` : '');
+  }
   function panelHTML(n, credit, areas) {
     const status = STATUS_LABELS[n.status] || '';
     const meta = [n.year, n.venue, n.citation && !/in press|online first/i.test(n.citation) ? n.citation : '', status].filter(Boolean).join(' · ');
@@ -140,22 +158,89 @@
            `<h2 class="sp-title">${esc(n.title)}</h2>` +
            `<div class="sp-meta">${esc(meta)}</div>` +
            (authors ? `<div class="sp-authors">${esc(authors)}</div>` : '') +
-           blurb + areaDots +
+           blurb + areaDots + kinHTML(n) +
            `<div class="sp-h">What I did</div>` + contrib +
            `<div class="sp-h">Effort</div>` + effort + link;
   }
+  // --- the origin: Peter's character sheet (easter egg; also reachable as #me) ---------------------
+  // Edit the lines here, not in the YAML: this is not an article and never goes through the generator.
+  const SHEET = {
+    vitals: [
+      ['Class',          'None.', 'Ba dum tss.'],
+      ['Race',           'Homeschooled', ''],
+      ['Specialization', 'None / too many', 'Depends who is asking.'],
+      ['Academic pedigree', 'Confused', 'Mixed training. See the three axes.'],
+      ['Armor',          'Black belt', 'Not armor, as has been explained to him.'],
+      ['Familiars',      'The dogs', 'Neither has read the methods section.']
+    ],
+    stats: [
+      ['Strength',     2, 'grapples'],
+      ['Dexterity',    1, 'typing, mostly'],
+      ['Constitution', 3, 'survived a postdoc'],
+      ['Intelligence', 2, 'has read the appendix'],
+      ['Wisdom',       1, 'still runs the fourth robustness check'],
+      ['Charisma',     2, 'the dogs like him']
+    ],
+    xp: 'XP to level 3: \u221e. Not on the tenure track.'
+  };
+  function sheetHTML() {
+    const vitals = '<dl class="sp-sheet">' + SHEET.vitals.map(([k, v, a]) =>
+      `<dt>${esc(k)}</dt><dd>${esc(v)}${a ? `<span class="aside">${esc(a)}</span>` : ''}</dd>`).join('') + '</dl>';
+    const stats = '<div class="sp-grid sp-stats">' + SHEET.stats.map(([k, v, why]) =>
+      `<span class="lab">${esc(k)}</span><span class="bar">${[1, 2, 3].map(i => `<span class="${i <= v ? 'on' : ''}"></span>`).join('')}</span><span class="num">${v}/3</span>` +
+      `<span class="why">${esc(why)}</span>`).join('') + '</div>';
+    return `<div class="sp-eyebrow">Character sheet · unlocked</div>` +
+           `<h2 class="sp-title">Peter T. Tanksley</h2>` +
+           `<div class="sp-meta">Research Scientist · Level 2</div>` +
+           `<div class="sp-h">Vitals</div>` + vitals +
+           `<div class="sp-h">Abilities</div>` + stats +
+           `<p class="sp-note sp-xp">${esc(SHEET.xp)}</p>` +
+           `<a class="sp-link" href="1_about/about.html">Full backstory &rarr;</a>`;
+  }
+  function openSheet(g) {
+    if (!panel) return;
+    panelBody.innerHTML = sheetHTML();
+    panel.style.setProperty('--node', '#FBFAF7');
+    panel.hidden = false;
+    fitAroundPanel(true);
+    lastFocus = g;
+    if (history.replaceState) history.replaceState(null, '', '#me');
+  }
+  // Make room for the drawer: pad the tree's container by exactly the overlap between its right edge
+  // and the panel's left edge, so the SVG rescales to the space left and nothing sits under the panel.
+  // No-op when the panel is a bottom sheet (narrow viewports) or already clear of the tree.
+  const wrap = root.closest('.skilltree-wrap');
+  function fitAroundPanel(open) {
+    if (!wrap || !panel) return;
+    let pad = 0;
+    if (open && window.matchMedia('(min-width: 721px)').matches) {
+      const panelLeft = window.innerWidth - Math.min(400, window.innerWidth * 0.92);
+      pad = Math.max(0, Math.round(wrap.getBoundingClientRect().right - panelLeft) + 16);
+    }
+    wrap.style.paddingRight = pad ? pad + 'px' : '';
+  }
+  window.addEventListener('resize', () => { if (panel && !panel.hidden) fitAroundPanel(true); });
   let lastFocus = null;
   function openPanel(n, g, credit) {
     if (!panel) return;
     panelBody.innerHTML = panelHTML(n, credit, AREAS_ORDER);
+    // lineage rows open the connected article in place (same as clicking its hex)
+    panelBody.querySelectorAll('.sp-kin').forEach(b => b.addEventListener('click', e => {
+      e.stopPropagation();
+      const t = nodeToggles[b.dataset.id]; if (!t) return;
+      t({ preventDefault() {}, stopPropagation() {} });
+      const kg = root.querySelector(`.node[data-id="${b.dataset.id}"]`); if (kg) kg.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }));
     panel.style.setProperty('--node', n.colour);
     panel.hidden = false;
+    fitAroundPanel(true);
     lastFocus = g;
     if (history.replaceState) history.replaceState(null, '', '#' + encodeURIComponent(n.id));
   }
   function closePanel() {
     if (!panel || panel.hidden) return;
     panel.hidden = true;
+    fitAroundPanel(false);
     if (history.replaceState && location.hash) history.replaceState(null, '', location.pathname + location.search);
     if (lastFocus && document.activeElement === panel.querySelector('.sp-close')) lastFocus.focus();
   }
@@ -163,6 +248,8 @@
   // --- draw ----------------------------------------------------------------------------------
   function draw(tree) {
     const m = tree.meta;
+    EDGES = tree.edges || [];
+    NODE_BY_ID = Object.fromEntries((tree.nodes || []).map(n => [n.id, n]));
     const credit = m.credit || Object.keys(CREDIT_LABELS);
     if (m.areas) AREAS_ORDER = m.areas;
     const svg = svgEl('svg', {
@@ -179,15 +266,58 @@
     svgEl('stop', { offset: '55%', 'stop-color': '#FBFAF7', 'stop-opacity': '0.025' }, grad);
     svgEl('stop', { offset: '100%', 'stop-color': '#FBFAF7', 'stop-opacity': '0' }, grad);
     if (m.origin) svgEl('circle', { cx: m.origin.x, cy: m.origin.y, r: Math.min(m.width, m.height) * 0.42, fill: 'url(#st-glow)' }, gT);
+    // a faint wash of each area's colour along its axis, under the guides: a wide line painted with a
+    // gradient that runs perpendicular to the axis, colour at the centre fading out at both edges
+    const GLOW_W = m.hex_w * 3.2;
+    m.axes.forEach((a, i) => {
+      const dx = a.x2 - a.x1, dy = a.y2 - a.y1, len = Math.hypot(dx, dy) || 1;
+      const nx = -dy / len, ny = dx / len, mx = (a.x1 + a.x2) / 2, my = (a.y1 + a.y2) / 2;
+      const g = svgEl('linearGradient', { id: `st-axis-glow-${i}`, gradientUnits: 'userSpaceOnUse',
+        x1: mx - nx * GLOW_W / 2, y1: my - ny * GLOW_W / 2, x2: mx + nx * GLOW_W / 2, y2: my + ny * GLOW_W / 2 }, defs);
+      svgEl('stop', { offset: '0%',   'stop-color': a.colour, 'stop-opacity': '0' }, g);
+      svgEl('stop', { offset: '50%',  'stop-color': a.colour, 'stop-opacity': '0.13' }, g);
+      svgEl('stop', { offset: '100%', 'stop-color': a.colour, 'stop-opacity': '0' }, g);
+      // and a mask so the wash also fades along its length: full near the origin, gone by the label
+      const fade = svgEl('linearGradient', { id: `st-axis-fade-${i}`, gradientUnits: 'userSpaceOnUse', x1: a.x1, y1: a.y1, x2: a.x2, y2: a.y2 }, defs);
+      svgEl('stop', { offset: '0%',   'stop-color': '#fff', 'stop-opacity': '1' }, fade);
+      svgEl('stop', { offset: '55%',  'stop-color': '#fff', 'stop-opacity': '0.8' }, fade);
+      svgEl('stop', { offset: '100%', 'stop-color': '#fff', 'stop-opacity': '0' }, fade);
+      const mask = svgEl('mask', { id: `st-axis-mask-${i}`, maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: m.width, height: m.height }, defs);
+      svgEl('rect', { x: 0, y: 0, width: m.width, height: m.height, fill: `url(#st-axis-fade-${i})` }, mask);
+      svgEl('line', { class: 'axis-glow', x1: a.x1, y1: a.y1, x2: a.x2, y2: a.y2, mask: `url(#st-axis-mask-${i})`,
+        style: `stroke:url(#st-axis-glow-${i})`, 'stroke-width': GLOW_W, 'stroke-linecap': 'round' }, gT);   // round: the three meet in a disc at the origin, not a triangle; the fade mask hides the far cap
+    });
     m.rings.forEach(rg => svgEl('path', { class: 'ring-guide', d: rg.path }, gT));
     m.axes.forEach(a => svgEl('line', { class: 'axis', x1: a.x1, y1: a.y1, x2: a.x2, y2: a.y2, style: `stroke:${a.colour}` }, gT));
+    let toggleOrigin = null;
     if (m.origin) {
       const k = m.origin.scale || 1, ow = m.hex_w * k, oh = m.hex_h * k;
-      svgEl('path', { class: 'origin-ring', d: hexPath(m.origin.x, m.origin.y, ow * 1.02, oh * 1.02) }, gT);
+      originG = svgEl('g', { class: 'origin-node', tabindex: '0', role: 'button',
+        'aria-label': 'Peter Tanksley, at the origin. Opens a character sheet.' }, gT);
       svgEl('image', {
         class: 'origin', href: m.origin.sticker_src, x: m.origin.x - ow / 2, y: m.origin.y - oh / 2,
         width: ow, height: oh, preserveAspectRatio: 'xMidYMid meet', 'aria-hidden': 'true'
-      }, gT);
+      }, originG);
+      svgEl('path', { class: 'origin-ring', d: hexPath(m.origin.x, m.origin.y, ow * 1.02, oh * 1.02) }, originG);
+      const originTip = () => {
+        tip.innerHTML = '<div class="tt-title">Peter T. Tanksley</div><div class="tt-meta">Research Scientist · Level 2 · click to inspect</div>';
+        tip.style.setProperty('--node', '#FBFAF7'); tip.hidden = false;
+      };
+      originG.addEventListener('mouseenter', e => { originTip(); placeTipAt(e.clientX, e.clientY); });
+      originG.addEventListener('mousemove',  e => placeTipAt(e.clientX, e.clientY));
+      originG.addEventListener('mouseleave', hideTip);
+      originG.addEventListener('focus', () => { originTip(); placeTipByNode(originG); });
+      originG.addEventListener('blur', hideTip);
+      toggleOrigin = e => {
+        e.preventDefault(); e.stopPropagation();
+        if (originG.classList.contains('pinned')) { unpin(); return; }
+        unpin();
+        originG.classList.add('pinned', 'flipping', 'lit');
+        tip.hidden = true;
+        openSheet(originG);
+      };
+      originG.addEventListener('click', toggleOrigin);
+      originG.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') toggleOrigin(e); });
     }
 
     // lineage edges (builds_on): parent → child beneath the nodes, a gradient from the parent's colour
@@ -229,7 +359,8 @@
 
     // nodes
     const gN = svgEl('g', { class: 'nodes' }, svg);
-    const nodeToggles = {};
+    nodesLayer = gN;
+    nodeToggles = {};   // module-level so the panel's lineage rows can open a node
     tree.nodes.forEach(n => {
       const cls = `node role-${n.role} status-${n.status}` + (n.featured ? '' : ' muted');
       const label = [n.title, n.year, n.venue].filter(Boolean).join(', ') +
@@ -257,7 +388,7 @@
         e.preventDefault(); e.stopPropagation();
         if (pinned === g) { unpin(); return; }
         unpin(); pinned = g;
-        if (g.parentNode.lastChild !== g) g.parentNode.appendChild(g);   // paint above neighbours; a click, not a hover
+        gTop.appendChild(g);   // lift above neighbours, welds and labels while enlarged; unpin() returns it to gN
         g.classList.add('pinned', 'flipping', 'lit');
         setLineage(n.id, true);
         tip.hidden = true;                                                  // the panel carries the detail now
@@ -272,6 +403,9 @@
 
     // labels last, above everything: axis names past the outer ring, years on each ring's top edge
     const gL = svgEl('g', { class: 'labels' }, svg);
+    // ...except the one pinned node, which is lifted into this top layer so its enlarged tile is not
+    // crossed by welds or year labels
+    const gTop = svgEl('g', { class: 'nodes nodes-top' }, svg);
     m.axes.forEach(a => {
       const t = svgEl('text', { class: 'axis-label', x: a.label_x, y: a.label_y, 'text-anchor': a.anchor, style: `fill:${a.colour}` }, gL);
       t.textContent = a.label;
@@ -289,21 +423,24 @@
         `fill="${opts.fill || 'none'}" stroke="${opts.stroke || 'currentColor'}" stroke-width="${opts.sw || 1.5}" ${opts.dash ? 'stroke-dasharray="3 2.2"' : ''} stroke-linejoin="round"/></svg>`;
       const item = (html, text) => `<span class="lg-item">${html}${esc(text)}</span>`;
       leg.innerHTML =
-        `<div class="lg-row">${m.axes.map(a => item(icon({ fill: a.colour, stroke: a.colour, sw: 1 }), a.label)).join('')}` +
-        `<span class="lg-note">Rings are years, oldest at the centre. Direction is the mix of areas an article drew on; blends take a blended colour.</span></div>` +
-        `<div class="lg-row">${item(icon({ sw: 3 }), 'Lead author')}${item(icon({ sw: 2 }), 'Co-lead')}${item(icon({ sw: 1 }), 'Contributing author')}` +
+        `<div class="lg-row"><span class="lg-note">Rings are years, oldest at the centre. Direction is the mix of areas an article drew on; blends take a blended colour.</span></div>` +
+        `<div class="lg-row">${item(icon({ sw: 3 }), 'Lead author')}${item(icon({ sw: 1 }), 'Contributing author')}` +
         `${item(icon({ sw: 1.5, dash: true }), 'In press or preprint')}` +
         `${item('<svg class="lg-hex" viewBox="0 0 20 23" aria-hidden="true"><path d="M2,19 Q6,9 18,4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="18" cy="4" r="2.4" fill="currentColor"/></svg>', 'Builds on an earlier article')}` +
         `<span class="lg-note">Hover a hex for the summary and its lineage. Click to turn it over.</span></div>`;
     }
 
     document.addEventListener('keydown', e => { if (e.key === 'Escape') unpin(); });
-    document.addEventListener('click', e => { if (!e.target.closest('.node') && !e.target.closest('.skilltree-panel')) unpin(); });
+    document.addEventListener('click', e => { if (!e.target.closest('.node') && !e.target.closest('.origin-node') && !e.target.closest('.skilltree-panel')) unpin(); });
     if (panel) panel.querySelector('.sp-close').addEventListener('click', e => { e.stopPropagation(); unpin(); });
 
     // deep link: /skilltree.html#<id> opens that article, on load and whenever the hash changes
     const openFromHash = () => {
       const want = decodeURIComponent((location.hash || '').slice(1));
+      if (want === 'me' && toggleOrigin) {
+        if (!originG.classList.contains('pinned')) { toggleOrigin({ preventDefault() {}, stopPropagation() {} }); originG.scrollIntoView({ block: 'center' }); }
+        return;
+      }
       if (!want || !nodeToggles[want]) return;
       const g = gN.querySelector(`[data-id="${want}"]`);
       if (pinned === g) return;

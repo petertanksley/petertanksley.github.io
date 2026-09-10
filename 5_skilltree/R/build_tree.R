@@ -27,7 +27,7 @@ AREAS     <- c(biosocial = "Biosocial", criminology = "Criminology", responders 
 # dark-theme area colours: the site's teal / indigo / belt-red lifted so they read on an ink ground
 AREA_COL  <- c(biosocial = "#3FBDB6", criminology = "#A47FE0", responders = "#E2574B")
 BLANK_DARK <- "#6E6A80"        # placeholder hex colour; sits dimmed to ~#33313E at rest (see skilltree.scss)
-ROLES     <- c("lead", "co-lead", "contributing")
+ROLES     <- c("lead", "contributing")   # co-lead dropped 2026-09-10: never used
 STATUSES  <- c("published", "in_press", "preprint")
 CREDIT    <- c("conceptualization", "data", "analysis", "methods", "writing", "supervision")
 

@@ -197,7 +197,7 @@ header <- c(
   "# CV. Judgement fields are Peter's and are preserved:",
   "#   areas.biosocial / .criminology / .responders (0-3 each; they set the article's direction from the",
   "#   origin, so 3/0/0 sits on its axis and 2/2/0 between two axes; the year sets the ring),",
-  "#   role (lead | co-lead | contributing), builds_on (ids of lineage nodes), tier (unused for now),",
+  "#   role (lead | contributing), builds_on (ids of lineage nodes), tier (unused for now),",
   "#   featured (false = muted tier),",
   "#   contribution.* (collapsed CRediT, 0-3 each), effort (1-5), effort_note, blurb, sticker.",
   "# First-run areas and role values are GUESSES from titles and author position — review them.",
