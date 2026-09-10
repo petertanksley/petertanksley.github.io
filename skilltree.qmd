@@ -12,7 +12,7 @@ include-in-header:
 <div class="belt-bar--sm belt-bar--center"></div>
 
 ```{=html}
-<div class="skilltree-wrap">
+<div class="skilltree-wrap column-screen">
   <div class="skilltree" id="skilltree" aria-label="Publication skill tree" data-src="www/tree.json">
     <noscript>This page needs JavaScript to draw the tree. The same publications are listed on the CV.</noscript>
   </div>
@@ -23,5 +23,5 @@ include-in-header:
   <button class="sp-close" type="button" aria-label="Close details">&times;</button>
   <div class="sp-body"><!-- filled by skilltree.js --></div>
 </aside>
-<script src="www/skilltree.js?v=2026-09-10n" defer></script>
+<script src="www/skilltree.js?v=2026-09-10o" defer></script>
 ```

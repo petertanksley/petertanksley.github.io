@@ -423,11 +423,9 @@
         `fill="${opts.fill || 'none'}" stroke="${opts.stroke || 'currentColor'}" stroke-width="${opts.sw || 1.5}" ${opts.dash ? 'stroke-dasharray="3 2.2"' : ''} stroke-linejoin="round"/></svg>`;
       const item = (html, text) => `<span class="lg-item">${html}${esc(text)}</span>`;
       leg.innerHTML =
-        `<div class="lg-row"><span class="lg-note">Rings are years, oldest at the centre. Direction is the mix of areas an article drew on; blends take a blended colour.</span></div>` +
         `<div class="lg-row">${item(icon({ sw: 3 }), 'Lead author')}${item(icon({ sw: 1 }), 'Contributing author')}` +
         `${item(icon({ sw: 1.5, dash: true }), 'In press or preprint')}` +
-        `${item('<svg class="lg-hex" viewBox="0 0 20 23" aria-hidden="true"><path d="M2,19 Q6,9 18,4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="18" cy="4" r="2.4" fill="currentColor"/></svg>', 'Builds on an earlier article')}` +
-        `<span class="lg-note">Hover a hex for the summary and its lineage. Click to turn it over.</span></div>`;
+        `${item('<svg class="lg-hex" viewBox="0 0 20 23" aria-hidden="true"><path d="M2,19 Q6,9 18,4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="18" cy="4" r="2.4" fill="currentColor"/></svg>', 'Builds on an earlier article')}</div>`;
     }
 
     document.addEventListener('keydown', e => { if (e.key === 'Escape') unpin(); });

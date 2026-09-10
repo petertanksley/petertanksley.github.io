@@ -120,7 +120,9 @@
     biosocial: 1
     criminology: 0
     responders: 3
-  builds_on: []
+  builds_on:
+  - gonzalez_2025_relationships
+  - mcallister_2025_markers
   tier: ~
   featured: true
   contribution:
@@ -129,7 +131,7 @@
     analysis: 3
     methods: 3
     writing: 1
-    supervision: 1
+    supervision: 0
   effort: 3
   effort_note: ~
   blurb: I orchestrated and carried out the lead authors’ desired analytic approach

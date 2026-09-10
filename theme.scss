@@ -485,8 +485,17 @@ html.page-dark {
     .nav-footer-center { color: $dark-soft; }
     a { color: $dark-soft; &:hover { color: $teal; } } }
 
-  // The tree loses its card edge: no radius, no side padding, it simply sits on the page
-  .skilltree-wrap { border-radius: 0; padding: 0.5rem 0 1rem; margin-top: 1rem; }
+  // The tree loses its card edge and takes the full screen width (.column-screen on the wrap spans
+  // Quarto's screen-start/screen-end grid columns); the SVG is capped to the viewport height so the
+  // whole tree is on screen at once, and the legend stays in a readable centred column
+  // Every top-level block on this page spans the screen (the title block would otherwise centre on
+  // the body column, which Quarto lays out asymmetrically once a .column-screen element is present).
+  main.content > * { grid-column: screen-start / screen-end; }
+  // The wrap must stretch, not shrink-to-fit: the base rule's auto side margins would size it to the
+  // SVG's 720px min-width. Width-bound, so the tree is as wide as the window less a small gutter.
+  .skilltree-wrap { border-radius: 0; padding: 0.5rem 2rem 1rem; margin: 1rem 0 0; max-width: none; width: 100%; box-sizing: border-box; }
+  .skilltree svg { margin: 0 auto; }
+  .skilltree-legend { width: min(100%, 1240px); margin-left: auto; margin-right: auto; .lg-row { justify-content: center; } }
   // JS pads the right side while the drawer is open (fitAroundPanel); ease it at the drawer's pace
   .skilltree-wrap { transition: padding-right 1000ms cubic-bezier(0.45, 0.05, 0.2, 1); }
   @media (prefers-reduced-motion: reduce) { .skilltree-wrap { transition: none; } }
