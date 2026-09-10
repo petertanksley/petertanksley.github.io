@@ -100,6 +100,7 @@
   function hideTip() { tip.hidden = true; }
   let originG = null;   // the origin hex, once drawn; pinned like a node but carries the character sheet
   let nodesLayer = null;   // the <g> the nodes live in; a pinned node is lifted out of it (see gTop) and returned here
+  let keepPanel = false;   // set while walking a lineage link: unpin the node but leave the drawer open
   function unpin() {
     if (pinned) {
       pinned.classList.remove('pinned', 'lit', 'flipping');
@@ -108,7 +109,7 @@
     }
     if (originG) originG.classList.remove('pinned', 'lit', 'flipping');
     tip.hidden = true;
-    closePanel();
+    if (!keepPanel) closePanel();
   }
 
   // --- detail panel ------------------------------------------------------------------------
@@ -225,11 +226,23 @@
     if (!panel) return;
     panelBody.innerHTML = panelHTML(n, credit, AREAS_ORDER);
     // lineage rows open the connected article in place (same as clicking its hex)
+    // Walking a lineage link is staged so the eye can follow: the text fades out and the current hex
+    // eases back to size; then the linked hex flips and its text fades in. The drawer stays open.
     panelBody.querySelectorAll('.sp-kin').forEach(b => b.addEventListener('click', e => {
       e.stopPropagation();
       const t = nodeToggles[b.dataset.id]; if (!t) return;
-      t({ preventDefault() {}, stopPropagation() {} });
-      const kg = root.querySelector(`.node[data-id="${b.dataset.id}"]`); if (kg) kg.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      const fake = { preventDefault() {}, stopPropagation() {} };
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      keepPanel = true;
+      panelBody.classList.add('sp-fade');
+      unpin();                                     // old hex eases back (transition on .node), panel stays
+      const kg = root.querySelector(`.node[data-id="${b.dataset.id}"]`);
+      if (kg) kg.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+      setTimeout(() => {
+        t(fake);                                   // flips the linked hex and rewrites the panel body
+        panelBody.classList.remove('sp-fade');     // new text fades in
+        keepPanel = false;
+      }, reduce ? 0 : 420);
     }));
     panel.style.setProperty('--node', n.colour);
     panel.hidden = false;
