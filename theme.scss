@@ -558,7 +558,8 @@ html.page-dark {
     // HOVER changes nothing geometric — no scale, no motion — so the pointer's target never shifts
     // under it (a hover lift makes enter/leave thrash at the edges and restarts any animation).
     // Hover = highlight + tooltip. CLICK = flip over and pin.
-    .hex-shade { fill: var(--st-bg); opacity: 0.58; pointer-events: none; transition: opacity 220ms; }
+    transition: transform 420ms ease;   // unpinning eases the tile back to size instead of snapping
+    .hex-shade { fill: var(--st-bg); opacity: 0.58; pointer-events: none; transition: opacity 420ms; }
     .hex-ring  { fill: none; stroke: var(--node); stroke-linejoin: round; transition: stroke-width 160ms, opacity 160ms; }
     &.role-lead         .hex-ring { stroke-width: 6; }
     &.role-contributing .hex-ring { stroke-width: 2; }
@@ -585,6 +586,7 @@ html.page-dark {
 @keyframes st-light { 0% { opacity: 0.58; } 50%, 100% { opacity: 0; } }
 @keyframes st-pulse { 0%, 100% { stroke-width: 5; } 50% { stroke-width: 7.5; } }
 @media (prefers-reduced-motion: reduce) {
+  .skilltree .node, .skilltree-panel .sp-body { transition: none; }
   .skilltree .node.lit, .skilltree .origin-node.lit { transform: none; }
   .skilltree .node.flipping, .skilltree .node.flipping .hex-shade, .skilltree .node.lit .hex-ring,
   .skilltree .origin-node.flipping, .skilltree .origin-node.lit .origin-ring { animation: none; }
@@ -654,6 +656,8 @@ aside.skilltree-panel {
     .blocks { display: flex; gap: 4px; } .blocks span { width: 22px; height: 12px; background: var(--sp-rule); border-radius: 2px; }
     .blocks span.on { background: var(--node, var(--sp-fg)); } .lab { color: var(--sp-soft); } }
   .sp-note { color: var(--sp-soft); font-size: 0.82rem; margin: 0.4rem 0 0; }
+  .sp-body { transition: opacity 360ms ease; }
+  .sp-body.sp-fade { opacity: 0; }
   // lineage: each connected article is a row-button that opens it in this same panel
   .sp-kin-lab { font-size: 0.76rem; color: var(--sp-soft); margin: 0.5rem 0 0.2rem; }
   .sp-kin {
