@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-09-10 15:50",
+    "generated": "2026-09-10 16:20",
     "hex_w": 100,
     "hex_h": 115.47,
     "width": 2781,
@@ -269,7 +269,7 @@
         "analysis": 3,
         "methods": 3,
         "writing": 1,
-        "supervision": 1
+        "supervision": 0
       },
       "scored": true,
       "effort": 3,
@@ -1633,6 +1633,30 @@
       "to_colour": "#DA6170",
       "length_cells": 1.73,
       "adjacent": false
+    },
+    {
+      "from": "gonzalez_2025_relationships",
+      "to": "mcallister_2026_inflammation",
+      "x1": 2048.4,
+      "y1": 931.1,
+      "x2": 2064.4,
+      "y2": 903.4,
+      "from_colour": "#CD7865",
+      "to_colour": "#CD7865",
+      "length_cells": 1,
+      "adjacent": true
+    },
+    {
+      "from": "mcallister_2025_markers",
+      "to": "mcallister_2026_inflammation",
+      "x1": 2014.4,
+      "y1": 872.2,
+      "x2": 2046.4,
+      "y2": 872.2,
+      "from_colour": "#CD7865",
+      "to_colour": "#CD7865",
+      "length_cells": 1,
+      "adjacent": true
     },
     {
       "from": "tanksley_2025_mortality",
