@@ -101,7 +101,7 @@ happy accident worth keeping.
 
 **Spend today:** helmet chain $0.61 + coin test $0.20 + zoomed tier 1 $0.20 + coin chain $0.61 = **$1.62**.
 
-**Still uncommitted.** Peter to review the three coin picks on the local render, then commit + push.
+**Committed and pushed** at the end of the day as `d0a5596` (see the final section).
 
 ## Evening: mixed domains, handcuffs, the tie rule
 

@@ -36,8 +36,7 @@ sync: github
 - DONE 2026-09-18: per-article sticker pipeline built; all 30 articles stickered twice (v1 uniform,
   v2 with tailored per-article motifs + per-article seeds, responders re-rolled with placement
   guardrails); selected hexes 3.4x with reverse flip, gold origin ring — see
-  `logs/skilltree/2026-09-18_article-stickers.md`. **Uncommitted** (~90 files); review on the local
-  render, then commit + push.
+  `logs/skilltree/2026-09-18_article-stickers.md`. Committed and pushed as `d0a5596`; CI publishes.
 - [ ] Decide whether the responders phase sticker (`www/hex/responders.png`, fire helmet) on the
   Research page and CV band should become the coin too (~$0.20).
 - [ ] Optional: phase stickers beside the matching Research-page sections
