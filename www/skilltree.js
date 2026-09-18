@@ -99,15 +99,41 @@
   }
   function hideTip() { tip.hidden = true; }
   let originG = null;   // the origin hex, once drawn; pinned like a node but carries the character sheet
+  let originHome = null;   // the layer the origin is drawn in; it is lifted to the top layer while pinned
   let nodesLayer = null;   // the <g> the nodes live in; a pinned node is lifted out of it (see gTop) and returned here
   let keepPanel = false;   // set while walking a lineage link: unpin the node but leave the drawer open
+  // drop a node back into the nodes layer, under the welds and labels
+  const REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function settle(g) {
+    g.classList.remove('unflipping');
+    if (nodesLayer && g.parentNode !== nodesLayer && !g.classList.contains('pinned')) nodesLayer.appendChild(g);
+  }
   function unpin() {
     if (pinned) {
-      pinned.classList.remove('pinned', 'lit', 'flipping');
-      if (nodesLayer && pinned.parentNode !== nodesLayer) nodesLayer.appendChild(pinned);   // back under the welds and labels
-      const id = pinned.dataset.id; pinned = null; if (window._stLineage) window._stLineage(id, false);
+      const g = pinned;
+      g.classList.remove('pinned', 'lit', 'flipping');
+      // flip back (the reverse of the select turn), staying in the top layer until the shrink ends
+      if (REDUCED) settle(g);
+      else {
+        g.classList.add('unflipping');
+        let done = false; const finish = () => { if (!done) { done = true; settle(g); } };
+        g.addEventListener('animationend', finish, { once: true });
+        setTimeout(finish, 700);   // belt and braces: animationend can be swallowed if the tab is hidden
+      }
+      const id = g.dataset.id; pinned = null; if (window._stLineage) window._stLineage(id, false);
     }
-    if (originG) originG.classList.remove('pinned', 'lit', 'flipping');
+    if (originG && originG.classList.contains('pinned')) {
+      const o = originG;
+      o.classList.remove('pinned', 'lit', 'flipping');
+      const home = () => { o.classList.remove('unflipping'); if (originHome && o.parentNode !== originHome && !o.classList.contains('pinned')) originHome.appendChild(o); };
+      if (REDUCED) home();
+      else {
+        o.classList.add('unflipping');
+        let done = false; const finish = () => { if (!done) { done = true; home(); } };
+        o.addEventListener('animationend', finish, { once: true });
+        setTimeout(finish, 700);
+      }
+    }
     tip.hidden = true;
     if (!keepPanel) closePanel();
   }
@@ -201,7 +227,7 @@
   function openSheet(g) {
     if (!panel) return;
     panelBody.innerHTML = sheetHTML();
-    panel.style.setProperty('--node', '#FBFAF7');
+    panel.style.setProperty('--node', '#D9A441');   // gold, matching .origin-ring
     panel.hidden = false;
     fitAroundPanel(true);
     lastFocus = g;
@@ -307,6 +333,7 @@
       const k = m.origin.scale || 1, ow = m.hex_w * k, oh = m.hex_h * k;
       originG = svgEl('g', { class: 'origin-node', tabindex: '0', role: 'button',
         'aria-label': 'Peter Tanksley, at the origin. Opens a character sheet.' }, gT);
+      originHome = gT;
       svgEl('image', {
         class: 'origin', href: m.origin.sticker_src, x: m.origin.x - ow / 2, y: m.origin.y - oh / 2,
         width: ow, height: oh, preserveAspectRatio: 'xMidYMid meet', 'aria-hidden': 'true'
@@ -314,7 +341,7 @@
       svgEl('path', { class: 'origin-ring', d: hexPath(m.origin.x, m.origin.y, ow * 1.02, oh * 1.02) }, originG);
       const originTip = () => {
         tip.innerHTML = '<div class="tt-title">Peter T. Tanksley</div><div class="tt-meta">Research Scientist · Level 2 · click to inspect</div>';
-        tip.style.setProperty('--node', '#FBFAF7'); tip.hidden = false;
+        tip.style.setProperty('--node', '#D9A441'); tip.hidden = false;   // gold, matching .origin-ring
       };
       originG.addEventListener('mouseenter', e => { originTip(); placeTipAt(e.clientX, e.clientY); });
       originG.addEventListener('mousemove',  e => placeTipAt(e.clientX, e.clientY));
@@ -325,6 +352,8 @@
         e.preventDefault(); e.stopPropagation();
         if (originG.classList.contains('pinned')) { unpin(); return; }
         unpin();
+        originG.classList.remove('unflipping');   // re-selected mid-shrink: cancel the return trip
+        gTop.appendChild(originG);   // lift above the rings, year labels and neighbours while enlarged; unpin() returns it to gT
         originG.classList.add('pinned', 'flipping', 'lit');
         tip.hidden = true;
         openSheet(originG);
@@ -401,6 +430,7 @@
         e.preventDefault(); e.stopPropagation();
         if (pinned === g) { unpin(); return; }
         unpin(); pinned = g;
+        g.classList.remove('unflipping');   // re-selected mid-shrink: cancel the return trip
         gTop.appendChild(g);   // lift above neighbours, welds and labels while enlarged; unpin() returns it to gN
         g.classList.add('pinned', 'flipping', 'lit');
         setLineage(n.id, true);
