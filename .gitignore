@@ -20,3 +20,6 @@ toPdfViaTempFile*
 *.pdf
 .DS_Store
 **/.DS_Store
+
+# Generated per-article sticker candidates and contact sheets (finals live in www/hex/)
+4_stickers/articles/

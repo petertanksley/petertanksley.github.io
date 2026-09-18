@@ -34,9 +34,21 @@ set_nullable <- function(e, key, value) {
   e
 }
 
+# tie rule (Peter, 2026-09-18): when exactly two areas tie and the third is 0, both are written as 2.
+# 3/3/0 says both domains are maxed, which a tie cannot mean; 1/1/0 understates both. 2/2/0 is the
+# honest tie. Direction on the tree is unchanged (same angle, same purity); only the panel dots move.
+normalize_tie <- function(areas) {
+  v <- unlist(areas)
+  if (length(v) != 3 || any(is.na(v))) return(areas)
+  s <- sort(v, decreasing = TRUE)
+  if (s[1] == s[2] && s[3] == 0 && s[1] != 2) for (k in names(v)[v == s[1]]) areas[[k]] <- 2L
+  areas
+}
+
 # apply one article's judgement fields from a plain list of inputs (all optional)
 apply_judgement <- function(e, j) {
   for (k in names(AREAS))  e$areas[k]        <- list(if (is.null(j$areas[[k]]))        NULL else as.integer(j$areas[[k]]))
+  e$areas <- normalize_tie(e$areas)
   for (k in names(CREDIT)) e$contribution[k] <- list(if (is.null(j$contribution[[k]])) NULL else as.integer(j$contribution[[k]]))
   e$role     <- j$role %||% e$role
   e$featured <- isTRUE(j$featured)

@@ -527,14 +527,19 @@ html.page-dark {
   .axis        { stroke-width: 5; stroke-linecap: round; opacity: 0.9; stroke-dasharray: 3 12; }
   .axis-glow   { fill: none; pointer-events: none; }
   .origin      { opacity: 1; }
-  .origin-ring { fill: none; stroke: var(--st-fg); stroke-width: 3; opacity: 0.35; stroke-linejoin: round; transition: opacity 160ms, stroke-width 160ms; }
+  // origin ring is gold (2026-09-18): the one hex that belongs to no domain, so it borrows none of their colours
+  --st-gold: #D9A441;
+  .origin-ring { fill: none; stroke: var(--st-gold); stroke-width: 3; opacity: 0.45; stroke-linejoin: round; transition: opacity 160ms, stroke-width 160ms; }
   // the origin is a button too: click (or #me) turns Peter over and opens the character sheet
   .origin-node {
-    --lit: 1.35;
+    // the origin is drawn at 1.45x a normal hex (origin.scale in tree.json), so its lit scale is the
+    // article --lit divided by that: both land at the same on-screen size when selected
+    --lit: calc(3.4 / 1.45);
     cursor: pointer; outline: none; transform-box: fill-box; transform-origin: center;
     &:hover .origin-ring, &:focus-visible .origin-ring { opacity: 0.9; stroke-width: 5; }
-    &.lit { transform: scale(var(--lit)); .origin-ring { opacity: 1; stroke-width: 4; animation: st-pulse 1.6s ease-in-out infinite; } }
+    &.lit { transform: scale(var(--lit)); .origin-ring { opacity: 1; stroke-width: 3; animation: st-pulse 1.6s ease-in-out infinite; } }
     &.flipping { animation: st-flip 560ms ease-in-out 1 both; }
+    &.unflipping { animation: st-unflip 560ms ease-in-out 1 both; }   // same return trip as the article hexes
   }
   .axis-label  { font-family: $font-display; font-size: 46px; font-weight: 600; dominant-baseline: middle; letter-spacing: 0.01em; }
   .year-label {
@@ -552,30 +557,37 @@ html.page-dark {
   .edge-tip.hot { opacity: 1; r: 7; }
 
   .node {
-    --lit: 1.8;   // how much a selected hex grows; the flip keyframes land on the same value
+    --lit: 3.4;   // how much a selected hex grows (1.8 -> 3 -> 3.4 on 2026-09-18, once the stickers were worth showing); the flip keyframes land on the same value
     cursor: pointer; outline: none;
     transform-box: fill-box; transform-origin: center;
     // HOVER changes nothing geometric — no scale, no motion — so the pointer's target never shifts
     // under it (a hover lift makes enter/leave thrash at the edges and restarts any animation).
     // Hover = highlight + tooltip. CLICK = flip over and pin.
     transition: transform 420ms ease;   // unpinning eases the tile back to size instead of snapping
-    .hex-shade { fill: var(--st-bg); opacity: 0.58; pointer-events: none; transition: opacity 420ms; }
+    // resting shade deepened 0.58 -> 0.74 (2026-09-18): art is a hint at rest and pops hard when lit.
+    // --shade is the resting value; status variants override it and the flip keyframes read it back.
+    --shade: 0.74;
+    .hex-shade { fill: var(--st-bg); opacity: var(--shade); pointer-events: none; transition: opacity 420ms; }
     .hex-ring  { fill: none; stroke: var(--node); stroke-linejoin: round; transition: stroke-width 160ms, opacity 160ms; }
     &.role-lead         .hex-ring { stroke-width: 6; }
     &.role-contributing .hex-ring { stroke-width: 2; }
-    &.status-preprint, &.status-in_press { .hex-ring { stroke-dasharray: 10 8; } .hex-shade { opacity: 0.74; } }
+    &.status-preprint, &.status-in_press { .hex-ring { stroke-dasharray: 10 8; } --shade: 0.84; }
     // muted tier: deeper shade, quieter ring. Visual only; still focusable and clickable.
-    &.muted { .hex-shade { opacity: 0.82; } .hex-ring { opacity: 0.6; } }
+    &.muted { --shade: 0.9; .hex-ring { opacity: 0.6; } }
     // highlight (hover / keyboard focus): ring up, shade eases, nothing moves
-    &:hover, &:focus-visible { .hex-ring { stroke-width: 8; opacity: 1; } .hex-shade { opacity: 0.3; } }
+    &:hover, &:focus-visible { .hex-ring { stroke-width: 8; opacity: 1; } .hex-shade { opacity: 0.45; } }
     // revealed (clicked): face-up, lit, lifted a little, ring pulsing
-    // strokes scale with the transform, so the lit ring is set thin and reads as ~9px at 1.8x
-    &.lit { transform: scale(var(--lit)); .hex-shade { opacity: 0; } .hex-ring { stroke-width: 5; opacity: 1; } }
+    // strokes scale with the transform, so the lit ring is set thin and reads as ~9px at 3x
+    &.lit { transform: scale(var(--lit)); .hex-shade { opacity: 0; } .hex-ring { stroke-width: 3; opacity: 1; } }
     &.lit .hex-ring { animation: st-pulse 1.6s ease-in-out infinite; }
     // the flip: one turn from face-away to face-forward. Squeeze on the vertical axis, the shade drops
     // at the midpoint, land upright. Runs once per click.
     &.flipping { animation: st-flip 560ms ease-in-out 1 both; }
     &.flipping .hex-shade { animation: st-light 560ms steps(1, end) 1 both; }
+    // the flip back (2026-09-18): same turn in reverse on deselect; the shade returns at the midpoint.
+    // skilltree.js keeps the node in the top layer until this ends, then drops it back under the welds.
+    &.unflipping { animation: st-unflip 560ms ease-in-out 1 both; }
+    &.unflipping .hex-shade { animation: st-unlight 560ms steps(1, end) 1 both; }
   }
 }
 @keyframes st-flip {
@@ -583,12 +595,19 @@ html.page-dark {
   50%  { transform: scale(calc(1 + (var(--lit) - 1) * 0.6)) scaleX(0.03); }
   100% { transform: scale(var(--lit)) scaleX(1); }
 }
-@keyframes st-light { 0% { opacity: 0.58; } 50%, 100% { opacity: 0; } }
-@keyframes st-pulse { 0%, 100% { stroke-width: 5; } 50% { stroke-width: 7.5; } }
+@keyframes st-light { 0% { opacity: var(--shade); } 50%, 100% { opacity: 0; } }
+@keyframes st-unflip {
+  0%   { transform: scale(var(--lit)) scaleX(1); }
+  50%  { transform: scale(calc(1 + (var(--lit) - 1) * 0.6)) scaleX(0.03); }
+  100% { transform: scale(1)          scaleX(1); }
+}
+@keyframes st-unlight { 0%, 49% { opacity: 0; } 50%, 100% { opacity: var(--shade); } }
+@keyframes st-pulse { 0%, 100% { stroke-width: 3; } 50% { stroke-width: 4.5; } }
 @media (prefers-reduced-motion: reduce) {
   .skilltree .node, .skilltree-panel .sp-body { transition: none; }
   .skilltree .node.lit, .skilltree .origin-node.lit { transform: none; }
   .skilltree .node.flipping, .skilltree .node.flipping .hex-shade, .skilltree .node.lit .hex-ring,
+  .skilltree .node.unflipping, .skilltree .node.unflipping .hex-shade, .skilltree .origin-node.unflipping,
   .skilltree .origin-node.flipping, .skilltree .origin-node.lit .origin-ring { animation: none; }
 }
 

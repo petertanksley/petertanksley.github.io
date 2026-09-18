@@ -162,12 +162,12 @@ fresh_judgement <- function(a) {
        featured = is.null(cv) || !(cv %in% not_featured),
        contribution = list(conceptualization = NULL, data = NULL, analysis = NULL,
                            methods = NULL, writing = NULL, supervision = NULL),
-       effort = NULL, effort_note = NULL, blurb = NULL, sticker = NULL)
+       effort = NULL, effort_note = NULL, blurb = NULL, sticker = NULL, motif = NULL)
 }
 
 # ---- merge with the existing YAML, if any ---------------------------------------------------
 JUDGEMENT <- c("id", "role", "areas", "builds_on", "tier", "featured", "contribution",
-               "effort", "effort_note", "blurb", "sticker")
+               "effort", "effort_note", "blurb", "sticker", "motif")
 existing <- if (file.exists(out_path)) read_yaml(out_path) else list()
 key_of <- function(e) if (!is.null(e$cv_number) && !is.na(e$cv_number)) paste0("cv", e$cv_number) else paste0("doi:", e$doi)
 existing <- set_names(existing, map_chr(existing, key_of))
@@ -199,7 +199,8 @@ header <- c(
   "#   origin, so 3/0/0 sits on its axis and 2/2/0 between two axes; the year sets the ring),",
   "#   role (lead | contributing), builds_on (ids of lineage nodes), tier (unused for now),",
   "#   featured (false = muted tier),",
-  "#   contribution.* (collapsed CRediT, 0-3 each), effort (1-5), effort_note, blurb, sticker.",
+  "#   contribution.* (collapsed CRediT, 0-3 each), effort (1-5), effort_note, blurb, sticker,",
+  "#   motif (a variant name from 4_stickers/motifs.yml; ~ = inherit from parent or sample by id).",
   "# First-run areas and role values are GUESSES from titles and author position — review them.",
   sprintf("# Last extracted %s from %s", format(Sys.time(), "%Y-%m-%d %H:%M"), basename(cv_path)),
   "")

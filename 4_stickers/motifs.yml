@@ -1,0 +1,145 @@
+# motifs.yml — the visual vocabulary for per-article skill-tree stickers.
+#
+# compose_articles.R stitches these strings into bananarama prompts (4_stickers/articles.yaml)
+# from each article's judgement fields in 5_skilltree/data/articles.yml:
+#   areas.*   (0-3)  -> which anchor object is primary, which accent is secondary, or a fused pair on a tie
+#   builds_on        -> level (1 root, 2 child, 3 grandchild+) and parent stickers as reference images
+#   motif            -> what fills the anchor's slot: a variant NAME from the area's list below, or FREE
+#                       TEXT written for that article (e.g. "a two-faced jester mask"); inherited from
+#                       the parent when unset, otherwise sampled from the list (seeded by the id)
+# Placeholders filled by the composer:
+#   {object} {surface} {noun} = the primary anchor; {variant} = the chosen variant's text;
+#   {accent} = the secondary area's accent; {ref1} {ref2} = [path] placeholders for parent stickers.
+# Vocabulary reference images live in motif_refs/ (committed) and are cited inline as [motif_refs/x].
+# House rules: one clean subject, no text, hexagon OUTLINES only, never a star. Judge framed, at 92 px.
+# The anchor is what reads at 92 px (the silhouette); the variant is what reads when the node is flipped.
+
+# Appended to the shared style block copied from bananarama.yaml.
+style: >
+  One clean symbolic subject, centered, filling the frame, nothing tangential. Plain dark stone
+  wall behind, softly out of focus, candlelit. No people, no animals except where named, no hands.
+
+areas:
+  responders:
+    # Tri-service challenge coin (Peter, 2026-09-18). The reference carries the three marks; the text
+    # keeps the model honest about stars and count, and the scene text must outrank the reference or
+    # the model zooms into the coin face and drops the ledge and candle the levels depend on.
+    noun: bronze challenge coin
+    # Placement guardrails (2026-09-18, second pass): "leaning against" put the coin IN FRONT of the
+    # variant and hid it, and "seen small with empty wall" left half the frame blank. Now: side by
+    # side, both whole, the pair centred and filling the middle of the frame.
+    # Third pass: "fills most of its width" let the coin swallow the frame when the companion was
+    # small (door, bollard). The coin is now sized against the companion and against the frame.
+    object: >-
+      a single heavy bronze challenge coin standing upright on its edge, and beside it {variant}; the
+      two objects sit side by side on the same surface, touching or nearly touching, neither one in
+      front of the other and neither one hiding any part of the other, both shown whole with clear
+      space around them; the coin is about the same height as {variant} and no taller than one third
+      of the picture; the pair is centred, seen from a little distance, with the surface beneath them
+      and the wall behind; the coin's full round rim is visible and the design on its face is exactly
+      the design shown in [motif_refs/coin]: three equal wedges divided by raised bronze ridges, one
+      holding a fire-service Maltese cross, one a plain shield with a completely blank face, one a
+      single staff with one serpent coiled around it; no stars of any kind anywhere
+    surface: a plain stone ledge
+    accent: a simple wax candle
+    variants:
+      boots: a pair of worn black leather duty boots, laces loose
+      jacket: a folded dark uniform jacket
+      radio: a handheld two-way radio with a stub antenna
+      lantern: an old iron-and-glass hand lantern
+      forms: a short stack of yellowed paper forms
+      stethoscope: a coiled stethoscope
+      hose: a coiled canvas fire hose nozzle
+      ledger: a thick leather-bound ledger
+  criminology:
+    # Handcuffs replace the magnifying glass (Peter, 2026-09-18): the glass said "detective".
+    noun: iron handcuffs
+    object: >-
+      a single pair of old-fashioned heavy iron handcuffs, dark hand-forged iron with a short chain
+      between the two cuffs, locked shut around {variant}
+    surface: a plain dark wooden table
+    accent: one small old iron key
+    variants:
+      ledger: a thick leather-bound ledger
+      gavel: a plain wooden gavel
+      keys: a heavy ring of old iron jail keys
+      files: a bundle of case files tied with string
+      skull: a bare human skull, only the skull, no other bones
+      dice: a small pile of bone dice
+      hourglass: a brass-framed hourglass
+      scroll: a rolled parchment scroll sealed with wax
+  biosocial:
+    noun: glass flask
+    object: >-
+      a single round glass laboratory flask, with {variant} rising from its neck like glowing
+      vapor, softly luminous and warm gold
+    surface: a plain dark table
+    accent: a single honeybee
+    variants:
+      helix: one DNA double helix
+      tree: one branching family tree with bare limbs
+      brain: one human brain
+      bees: a small swarm of honeybees
+      clock: one round clock face without numerals
+      child: the silhouette of a small child
+      skyline: a small city skyline of rooftops
+      seedling: one seedling with two leaves and a long root
+
+# Rank vocabulary. The level is the article's depth in the builds_on chain, capped at 3.
+levels:
+  1: >-
+    {object}, resting on {surface}. The scene is dim and quiet and the surface is bare. One short,
+    unlit candle stub stands beside it.
+  2: >-
+    {object}, resting on {surface}. A soft warm glow now surrounds it. One tall lit candle stands
+    beside it, and the faint OUTLINE of a regular hexagon is etched into the surface directly
+    beneath it.
+  3: >-
+    {object}, hovering just above {surface}, radiant with warm light; two tall lit candles with bright
+    flames stand right in front of them on {surface}, one between the two objects and one at the side,
+    both entirely visible; behind everything, one fully glowing OUTLINE of a regular hexagon stands
+    upright. Small embers drift upward.
+
+# Fused objects for articles whose top two areas TIE (always 2/2 by the tie rule). Keys are the two
+# area names sorted alphabetically. `variant_from` names the area whose variant list fills {variant}.
+pairs:
+  biosocial+criminology:
+    noun: flask and handcuffs
+    variant_from: biosocial
+    object: >-
+      a single round glass laboratory flask with {variant} rising from its neck like glowing vapor,
+      softly luminous and warm gold, and a single pair of old-fashioned heavy iron handcuffs locked
+      shut around the neck of the flask, the glowing vapor rising up through the closed iron ring
+    surface: a plain dark wooden table
+  criminology+responders:
+    noun: coin and handcuffs
+    variant_from: criminology
+    object: >-
+      a single heavy bronze challenge coin standing upright on its edge, the design on its face exactly
+      as shown in [motif_refs/coin], with a single pair of old-fashioned heavy iron handcuffs draped over
+      its top edge, one cuff hanging down each side, the coin leaning against {variant}
+    surface: a plain stone ledge
+  biosocial+responders:
+    noun: flask and coin
+    variant_from: biosocial
+    object: >-
+      a single round glass laboratory flask with {variant} rising from its neck like glowing vapor,
+      softly luminous and warm gold, and a single heavy bronze challenge coin, the design on its face
+      exactly as shown in [motif_refs/coin], leaning against the flask and lit by the vapor
+    surface: a plain stone ledge
+
+# The secondary area's mark when the top two do NOT tie. "strong" when its rating is 2 or 3, "faint"
+# when it is 1, absent at 0.
+secondary:
+  strong: "{accent} rests directly on the {noun}."
+  faint: "Far in the background, small and out of focus, {accent}."
+
+# Opening sentence when the article builds on earlier work; the parent finals are attached as
+# reference images. Applied before the level sentence.
+lineage:
+  one: >-
+    This is the SAME {noun} shown in {ref1}, drawn again by the same hand in exactly the same
+    pixel style, palette, and viewing angle, now advanced to a higher rank:
+  two: >-
+    This is the SAME {noun} shown in {ref1} and in {ref2}, drawn again by the same hand in exactly
+    the same pixel style, palette, and viewing angle, now advanced to a higher rank:

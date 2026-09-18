@@ -42,7 +42,7 @@ FIRST_RING <- 2                # ring 1 stays empty as a halo round the origin; 
                                # too coarse to place a 2/2/0 paper honestly once its corner is taken
 ORIGIN_STICKER <- "puzzled"    # site sticker for the centre cell (Peter); falls back to blank
 LABEL_PAD  <- 40               # room beyond the outer ring for axis/year labels
-STICKER_PX <- 220              # downscaled sticker width; finals are 1200 px / ~300 KB, far too heavy
+STICKER_PX <- 220              # downscaled sticker width; finals in www/hex/ are 480x554 (~300 KB), too heavy to ship 30 of
 
 # ---- read + validate ------------------------------------------------------------------------
 arts <- read_yaml(here("5_skilltree", "data", "articles.yml"))
@@ -56,6 +56,10 @@ for (a in arts) {
   if (!setequal(names(a$areas), names(AREAS))) note("%s: areas keys must be exactly %s", a$id, paste(names(AREAS), collapse = ", "))
   else if (length(ar) < 3) note("%s: areas not rated (will sit at the centre of the triangle)", a$id)
   else if (any(ar < 0 | ar > 3) || sum(ar) == 0) note("%s: area ratings must be 0-3 and not all zero", a$id)
+  else { # tie rule (2026-09-18): an honest two-way tie is always written 2/2 -- no domain is maxed out in a tie
+    s <- sort(ar, decreasing = TRUE)
+    if (s[1] == s[2] && s[3] == 0 && s[1] != 2) note("%s: two-way tie must be rated 2/2, found %d/%d (the rating app normalises this)", a$id, s[1], s[2])
+  }
   if (is.null(a$role) || !a$role %in% ROLES) note("%s: role must be one of %s", a$id, paste(ROLES, collapse = "/"))
   if (is.null(a$status) || !a$status %in% STATUSES) note("%s: status must be one of %s", a$id, paste(STATUSES, collapse = "/"))
   if (is.null(a$year) || is.null(a$title)) note("%s: title/year missing", a$id)

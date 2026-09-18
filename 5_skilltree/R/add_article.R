@@ -62,7 +62,7 @@ entry <- list(
   status = "published",                       # set in_press by hand if CrossRef has no volume yet
   role = if (identical(which(map_lgl(au, is_peter))[1], 1L)) "lead" else "contributing",
   areas = set_names(rep(list(NULL), 3), AREAS |> names()), builds_on = list(), tier = NULL, featured = TRUE,
-  contribution = set_names(rep(list(NULL), 6), names(CREDIT)), effort = NULL, effort_note = NULL, blurb = NULL, sticker = NULL)
+  contribution = set_names(rep(list(NULL), 6), names(CREDIT)), effort = NULL, effort_note = NULL, blurb = NULL, sticker = NULL, motif = NULL)
 if (is.na(entry$author_position)) warning("Peter not found in the CrossRef author list — check the entry")
 
 cat(as.yaml(list(entry), indent.mapping.sequence = TRUE, handlers = list(logical = verbatim_logical)))

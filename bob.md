@@ -6,9 +6,9 @@ priority: medium
 path: /Users/PTT2/Documents/GitHub/PROJ_tanksley_website
 deadline: null
 target: Personal academic website with CV, about page, and blog
-effort_remaining: ~0 (monitoring; per-article stickers for the skill tree are an optional open-ended side task)
+effort_remaining: ~0.5h (review + commit the sticker batch; otherwise monitoring)
 weekly_commitment: 1h
-last_updated: 2026-09-10
+last_updated: 2026-09-18
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -33,9 +33,13 @@ sync: github
 
 ## This Week
 
-- DONE 2026-09-10: skill tree page dark end to end and full-bleed; Research-page teaser card; origin easter egg (`#me`); co-lead role removed; axis colour wash; icon-only legend; bigger selected hexes, drawer makes room and stays clear; lineage links in the panel with a staged hand-off; McAllister 2026 lineage + supervision fixed — see `logs/skilltree/2026-09-10_dark-page.md`. All pushed and live (last: `593b179`).
-- [ ] Optional: per-article hex stickers for the skill tree via `4_stickers/` (28 needed; tree ships on
-  placeholders; Peter deferred 2026-09-07)
+- DONE 2026-09-18: per-article sticker pipeline built; all 30 articles stickered twice (v1 uniform,
+  v2 with tailored per-article motifs + per-article seeds, responders re-rolled with placement
+  guardrails); selected hexes 3.4x with reverse flip, gold origin ring — see
+  `logs/skilltree/2026-09-18_article-stickers.md`. **Uncommitted** (~90 files); review on the local
+  render, then commit + push.
+- [ ] Decide whether the responders phase sticker (`www/hex/responders.png`, fire helmet) on the
+  Research page and CV band should become the coin too (~$0.20).
 - [ ] Optional: phase stickers beside the matching Research-page sections
 - [ ] Optional: a news item announcing the skill tree
 

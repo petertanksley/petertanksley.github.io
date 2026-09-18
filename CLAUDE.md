@@ -58,6 +58,18 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   `frame_hex.R` (clip to 480x554 point-up hex) -> `www/hex/`. Band: `hexband.R` ->
   `_hexband.qmd` (append new names to `stickers`, rerun). Refs in `4_stickers/refs/` are
   gitignored personal photos. Full lessons: `logs/2026-09-01_sticker-generation.md`.
+- **Per-article stickers are rule-driven, not hand-prompted** (2026-09-18). `4_stickers/motifs.yml`
+  is the vocabulary (one object per area, a rank sentence per level, secondary accents, lineage
+  openers); `compose_articles.R` reads it with `articles.yml` and writes `articles.yaml` for
+  bananarama. Primary object = highest area rating; level = depth in `builds_on` (capped at 3);
+  parents are attached as reference images, so generation runs one lineage tier at a time:
+  `compose_articles.R` -> `bananarama("4_stickers/articles.yaml")` -> `preview_candidates.R <id>`
+  (contact sheet, framed + 92 px) -> `pick_sticker.R <id> <n>` (frames to `www/hex/<id>.png`, sets
+  `sticker:`, archives the winning square to `finals_src/`, rebuilds the tree) -> compose again for
+  the next tier. Sticker name = article id. Losing candidates are gitignored scratch.
+  Tune the art in `motifs.yml`, never in the R. Article stickers do **not** join the CV hex band.
+  Rank must read as glow/light at 92 px; small etched details vanish. Log:
+  `logs/skilltree/2026-09-18_article-stickers.md`.
 
 ## Skill tree (`skilltree.qmd`, `5_skilltree/`)
 
@@ -73,7 +85,9 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   origin) with three area axes, biosocial 240° / criminology 120° / first responders 0°; direction
   is the vector sum of the 0–3 area ratings; each article takes the free cell on its ring nearest
   its angle, purest first. Lineage: neighbours get a weld across the shared border above the tiles,
-  longer links a curve beneath.
+  longer links a curve beneath. **Tie rule** (2026-09-18): an honest two-way tie between areas is
+  always written 2/2, never 3/3 or 1/1; `helpers.R::normalize_tie()` fixes it on save and
+  `build_tree.R` refuses anything else. Ties get a fused sticker object (`motifs.yml` `pairs`).
 - Interaction: **hover highlights, click flips.** Nothing geometric changes on hover (a hover
   transform thrashes enter/leave at the hex edges). Click flips once and opens the detail panel;
   `#id` deep links. Never rotate a sticker. The resting dim is a filled `hex-shade` path, never a

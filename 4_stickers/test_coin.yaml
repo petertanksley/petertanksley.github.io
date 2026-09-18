@@ -1,0 +1,28 @@
+# throwaway test config (2026-09-18): tri-service challenge coin as the responders object
+defaults:
+  style: 16-bit pixel art illustration, SNES-era aesthetic, chunky visible pixels,
+    soft dithered shading, limited palette in slightly sepia, warm tones throughout,
+    cozy firelit mood. No text, no words, no letters anywhere. Full-bleed composition
+    filling the entire frame edge to edge, main subject centered with generous margin
+    around it. Never draw a frame, border, badge, or outline shape around the scene.
+    Wherever a mystical sigil, talisman, rune circle, or geometric motif appears,
+    it is the OUTLINE of a regular hexagon — a six-SIDED polygon, like a honeycomb
+    cell. Never a hexagram, never a six-pointed star, never a five-pointed star, never
+    a pentagram, never any star shape. One clean symbolic subject, centered, filling
+    the frame, nothing tangential. Plain dark stone wall behind, softly out of focus,
+    candlelit. No people, no animals, no hands.
+  aspect-ratio: '1:1'
+  'n': 3
+  seed: 5891
+output-dir: articles/_tests/
+images:
+  - name: coin_test
+    description: 'A single heavy bronze challenge coin, lying flat and tilted slightly
+      toward the viewer on a plain stone ledge. Its face is divided into three equal
+      wedges by raised bronze ridges. Each wedge carries one thick, simple relief
+      symbol: a Maltese cross in one, a plain shield with a completely blank face
+      in another, and a single staff with one serpent coiled around it in the third.
+      No stars of any kind anywhere. The coin is dull and tarnished, the scene is
+      dim and quiet and the surface is bare. One short, unlit candle stub stands beside
+      it. Nothing else in the picture.'
+
