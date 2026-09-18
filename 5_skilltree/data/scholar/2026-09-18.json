@@ -1,0 +1,229 @@
+{
+  "meta": {
+    "fetched": "2026-09-18 16:47",
+    "scholar_id": "YnIBrB8AAAAJ",
+    "orcid": "0000-0002-3449-2838",
+    "sources": {
+      "scholar": "live",
+      "openalex": "live"
+    }
+  },
+  "scholar": {
+    "citations": 446,
+    "citations_5y": 430,
+    "h_index": 12,
+    "h_index_5y": 12,
+    "i10": 15,
+    "i10_5y": 14,
+    "by_year": [
+      {
+        "year": 2019,
+        "cites": 3
+      },
+      {
+        "year": 2020,
+        "cites": 5
+      },
+      {
+        "year": 2021,
+        "cites": 6
+      },
+      {
+        "year": 2022,
+        "cites": 25
+      },
+      {
+        "year": 2023,
+        "cites": 47
+      },
+      {
+        "year": 2024,
+        "cites": 79
+      },
+      {
+        "year": 2025,
+        "cites": 127
+      },
+      {
+        "year": 2026,
+        "cites": 141
+      }
+    ]
+  },
+  "openalex": {
+    "id": "https://openalex.org/A5080880634",
+    "works": 52,
+    "citations": 347,
+    "h_index": 10,
+    "i10": 12,
+    "by_year": [
+      {
+        "year": 2018,
+        "cites": 7,
+        "works": 1
+      },
+      {
+        "year": 2019,
+        "cites": 69,
+        "works": 2
+      },
+      {
+        "year": 2020,
+        "cites": 25,
+        "works": 1
+      },
+      {
+        "year": 2021,
+        "cites": 29,
+        "works": 5
+      },
+      {
+        "year": 2022,
+        "cites": 65,
+        "works": 3
+      },
+      {
+        "year": 2023,
+        "cites": 87,
+        "works": 9
+      },
+      {
+        "year": 2024,
+        "cites": 25,
+        "works": 4
+      },
+      {
+        "year": 2025,
+        "cites": 37,
+        "works": 18
+      },
+      {
+        "year": 2026,
+        "cites": 3,
+        "works": 9
+      }
+    ]
+  },
+  "articles": {
+    "tanksley_2026_correctional": {
+      "scholar": null,
+      "openalex": null
+    },
+    "schwaba_2026_robust": {
+      "scholar": 30,
+      "openalex": 1
+    },
+    "mcallister_2026_inflammation": {
+      "scholar": 0,
+      "openalex": 0
+    },
+    "eleuterio-da-rocha_2026_striking": {
+      "scholar": 0,
+      "openalex": 0
+    },
+    "wooldredge_2026_upstream": {
+      "scholar": 3,
+      "openalex": 2
+    },
+    "tanksley_2026_clarifying": {
+      "scholar": 0,
+      "openalex": 0
+    },
+    "martaindale_2026_public": {
+      "scholar": 0,
+      "openalex": 0
+    },
+    "tanksley_2025_mortality": {
+      "scholar": 6,
+      "openalex": 2
+    },
+    "blair_2025_we": {
+      "scholar": 6,
+      "openalex": 2
+    },
+    "blair_2025_active": {
+      "scholar": 0,
+      "openalex": 0
+    },
+    "desteiguer_2025_stability": {
+      "scholar": 19,
+      "openalex": 9
+    },
+    "gonzalez_2025_relationships": {
+      "scholar": 5,
+      "openalex": 3
+    },
+    "mcallister_2025_markers": {
+      "scholar": 6,
+      "openalex": 2
+    },
+    "tanksley_2024_polygenic": {
+      "scholar": 31,
+      "openalex": 13
+    },
+    "barnes_2024_risk": {
+      "scholar": 4,
+      "openalex": null
+    },
+    "willems_2024_self": {
+      "scholar": 15,
+      "openalex": 10
+    },
+    "tanksley_2023_history": {
+      "scholar": 15,
+      "openalex": 10
+    },
+    "williams_2023_guidelines": {
+      "scholar": 30,
+      "openalex": 15
+    },
+    "raffington_2023_associations": {
+      "scholar": 39,
+      "openalex": 26
+    },
+    "wertz_2023_genetic": {
+      "scholar": 30,
+      "openalex": 17
+    },
+    "langevin_2022_life": {
+      "scholar": 35,
+      "openalex": 20
+    },
+    "raffington_2022_socially": {
+      "scholar": 64,
+      "openalex": 42
+    },
+    "liu_2022_incarceration": {
+      "scholar": 7,
+      "openalex": 4
+    },
+    "liu_2021_adolescent": {
+      "scholar": 12,
+      "openalex": 9
+    },
+    "tanksley_2020_identifying": {
+      "scholar": 35,
+      "openalex": 25
+    },
+    "barnes_2019_propensity": {
+      "scholar": 29,
+      "openalex": 60
+    },
+    "tanksley_2019_genome": {
+      "scholar": 12,
+      "openalex": 9
+    },
+    "motz_2019_every": {
+      "scholar": 10,
+      "openalex": 7
+    },
+    "fraemke_2026_developmental": {
+      "scholar": 1,
+      "openalex": 1
+    },
+    "williams_2026_genomic": {
+      "scholar": 0,
+      "openalex": 0
+    }
+  }
+}

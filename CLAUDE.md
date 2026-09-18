@@ -97,6 +97,14 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   legend wording is "contributing author". Blurbs for muted papers get the same care as any other.
 - Stickers per article go through the `4_stickers/` pipeline unchanged; until one exists a node
   shows `blank_dark.png`, which `build_tree.R` cuts from `blank.png`'s alpha.
+- **Citation stats** (2026-09-18): `5_skilltree/R/fetch_scholar.R` scrapes Peter's public Google
+  Scholar profile (no API exists) and OpenAlex (by ORCID), writes `www/scholar.json` (declared in
+  `_quarto.yml` resources) and a dated snapshot in `5_skilltree/data/scholar/`. **Run it locally and
+  commit the outputs**; never from CI (no R there, and Scholar blocks datacenter IPs). Expect the odd
+  block: the script keeps the last snapshot's Scholar block and warns. `skilltree.js` draws the card in
+  the tree's upper-right corner; the tree renders without the file. Per-article counts are in the JSON
+  but not displayed. Achievements: `data/achievements.yml` rules + `check_achievements.R` (diffs the two
+  newest snapshots and prints what would fire; posting to `news.yml` is not wired yet).
 - Styles are the `.skilltree*` block at the end of `theme.scss`: a self-contained dark panel with
   `--st-*` tokens. Area colours come from `AREA_COL` in `build_tree.R` via `tree.json`; do not
   hardcode them in the qmd or SCSS.

@@ -1,0 +1,46 @@
+# achievements.yml — rules for Dungeon Crawler Carl-style announcements when a citation metric moves.
+#
+# check_achievements.R diffs the two newest snapshots in data/scholar/ against these rules and prints
+# what would fire. Posting to news.yml is NOT wired yet (next pass, once the reward lines are written).
+#
+# Fields:
+#   id       slug, becomes the news entry id (with the date appended)
+#   metric   dotted path into a snapshot: scholar.citations | scholar.h_index | scholar.i10 |
+#            openalex.citations | articles.<article_id>.scholar
+#   trigger  step      fires on any increase (old < new)
+#            round     fires when new crosses a multiple of `every` that old had not reached
+#            threshold fires once, when new >= `at` and old < `at`
+#   title    headline in the DCC system-message register; {old} {new} {delta} are filled in
+#   reward   the punchline; same placeholders. Peter's voice, sass about the job never about people.
+# House rules from CLAUDE.md apply: one-sentence blurb on the homepage, no sass about responders dying.
+
+- id: h-index-up
+  metric: scholar.h_index
+  trigger: step
+  title: "Level up! h-index is now {new}."
+  reward: >-
+    Reward? Nothing. You went into academia because you thought it was fun, you sick, sick man.
+    Not for the money. You get nothing.
+
+- id: citations-century
+  metric: scholar.citations
+  trigger: round
+  every: 100
+  title: "Achievement unlocked: {new} citations. Somebody read the appendix."
+  reward: >-
+    PLACEHOLDER — Peter writes this one. Rewards so far: zero. Loot table: empty.
+
+- id: i10-up
+  metric: scholar.i10
+  trigger: step
+  title: "New skill acquired: {new} papers with ten or more citations."
+  reward: >-
+    PLACEHOLDER — Peter writes this one.
+
+- id: first-blood-correctional
+  metric: articles.tanksley_2026_correctional.scholar
+  trigger: threshold
+  at: 1
+  title: "First blood: the correctional officer mortality paper has been cited."
+  reward: >-
+    PLACEHOLDER — Peter writes this one.

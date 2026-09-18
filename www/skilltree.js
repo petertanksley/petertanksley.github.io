@@ -492,6 +492,29 @@
     window.addEventListener('hashchange', openFromHash);
   }
 
+  // citation stats card in the tree box's empty upper-right corner. Optional: the tree draws without it.
+  const statsSrc = root.dataset.stats || 'www/scholar.json';
+  const fmtN = n => (n == null ? '\u2013' : Number(n).toLocaleString('en-US'));
+  const fmtDate = s => { const d = new Date(String(s).replace(' ', 'T')); return isNaN(d) ? String(s) : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); };
+  function drawStats(j) {
+    const sc = j && j.scholar; if (!sc) return;
+    const oa = j.openalex || {};
+    const tip = (five, o) => `Since 2021: ${fmtN(five)} \u00b7 OpenAlex: ${fmtN(o)}`;
+    const url = `https://scholar.google.com/citations?user=${encodeURIComponent((j.meta && j.meta.scholar_id) || '')}&hl=en`;
+    const card = document.createElement('div'); card.className = 'st-stats';
+    card.innerHTML =
+      `<div class="ss-eyebrow">Google Scholar</div>` +
+      `<div class="ss-row">` +
+        `<div class="ss-stat" title="${esc(tip(sc.citations_5y, oa.citations))}"><span class="ss-n">${fmtN(sc.citations)}</span><span class="ss-l">citations</span></div>` +
+        `<div class="ss-stat" title="${esc(tip(sc.h_index_5y, oa.h_index))}"><span class="ss-n">${fmtN(sc.h_index)}</span><span class="ss-l">h-index</span></div>` +
+        `<div class="ss-stat" title="${esc(tip(sc.i10_5y, oa.i10))}"><span class="ss-n">${fmtN(sc.i10)}</span><span class="ss-l">i10</span></div>` +
+      `</div>` +
+      `<div class="ss-foot">as of ${esc(fmtDate(j.meta && j.meta.fetched))} \u00b7 <a href="${url}" target="_blank" rel="noopener">profile \u2192</a></div>`;
+    root.appendChild(card);
+  }
+  fetch(statsSrc, { cache: 'no-store' }).then(r => (r.ok ? r.json() : null)).then(j => { if (j) drawStats(j); })
+    .catch(err => console.info('skilltree: no citation stats (' + err.message + ')'));
+
   const src = root.dataset.src || 'www/tree.json';
   fetch(src, { cache: 'no-store' })
     .then(r => { if (!r.ok) throw new Error(`${src}: HTTP ${r.status}`); return r.json(); })

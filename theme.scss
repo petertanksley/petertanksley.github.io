@@ -716,3 +716,25 @@ aside.skilltree-panel {
   .lg-hex { width: 1.1em; height: 1.25em; flex: none; }
   .lg-note { flex: 1 1 18rem; color: var(--st-soft); }
 }
+
+// Citation stats card (www/scholar.json via skilltree.js), tucked into the tree's empty upper-right
+// quadrant: the axes point right, lower-left and upper-left, so nothing lives there. It sits INSIDE
+// .skilltree (position: relative), so when the drawer pads the wrap the card moves left with the tree
+// and never ends up under the panel. Below 720px the tree scrolls sideways, so the card leaves the
+// corner and sits above the tree instead. Gold left rule = the origin's colour: these are Peter's stats.
+.skilltree .st-stats {
+  position: absolute; top: 0.6rem; right: 0.6rem; z-index: 2; pointer-events: none;
+  background: var(--st-panel); border: 1px solid var(--st-rule); border-left: 3px solid var(--st-gold);
+  border-radius: 4px; padding: 0.55rem 0.9rem 0.5rem;
+  .ss-eyebrow { font-family: $font-family-monospace; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--st-gold); }
+  .ss-row  { display: flex; gap: 1.1rem; margin-top: 0.25rem; }
+  .ss-stat { display: flex; flex-direction: column; align-items: flex-start; pointer-events: auto; }
+  .ss-n    { font-family: $font-family-monospace; font-size: 1.35rem; line-height: 1.1; color: var(--st-fg); font-variant-numeric: tabular-nums; }
+  .ss-l    { font-size: 0.68rem; color: var(--st-soft); }
+  .ss-foot { margin-top: 0.35rem; font-size: 0.66rem; color: var(--st-soft);
+    a { color: var(--st-soft); text-decoration: underline; pointer-events: auto; &:hover { color: var(--st-fg); } } }
+}
+@media (max-width: 720px) {
+  .skilltree { display: flex; flex-direction: column; }
+  .skilltree .st-stats { position: static; order: -1; align-self: flex-start; margin: 0 0 0.6rem; }
+}

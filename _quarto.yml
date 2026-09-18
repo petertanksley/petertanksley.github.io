@@ -14,6 +14,7 @@ project:
   # cannot discover them; declare them
   resources:
     - "www/tree.json"
+    - "www/scholar.json"
     - "www/hex/sm/**"
     # skilltree.qmd loads this with a ?v= cache-buster, which hides it from Quarto's resource
     # discovery; without this line the copy in docs/ silently goes stale

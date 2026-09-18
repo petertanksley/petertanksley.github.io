@@ -39,8 +39,13 @@ sync: github
   `logs/skilltree/2026-09-18_article-stickers.md`. Committed and pushed as `d0a5596`; CI publishes.
 - [ ] Decide whether the responders phase sticker (`www/hex/responders.png`, fire helmet) on the
   Research page and CV band should become the coin too (~$0.20).
-- [ ] Backlog (not scheduled): career-rank gold markers on the year rings; Google Scholar stat bar;
-  Dungeon Crawler Carl-style achievement announcements — see "Future work" in
+- DONE 2026-09-18 (evening): Google Scholar stats card on the tree (`fetch_scholar.R`, local, commit the
+  JSON) + achievements data layer (`achievements.yml`, `check_achievements.R`, dry-run only) — see
+  `logs/skilltree/2026-09-18_scholar-stats.md`. Uncommitted.
+- [ ] Peter writes the reward lines in `5_skilltree/data/achievements.yml` (three PLACEHOLDERs); then
+  wire `check_achievements.R --post` to append DCC-voice entries to `news.yml`.
+- [ ] Refresh the stats now and then: `Rscript 5_skilltree/R/fetch_scholar.R` → commit.
+- [ ] Backlog (not scheduled): career-rank gold markers on the year rings — see "Future work" in
   `logs/skilltree/2026-09-18_article-stickers.md`.
 - [ ] Optional: phase stickers beside the matching Research-page sections
 - [ ] Optional: a news item announcing the skill tree
