@@ -226,3 +226,34 @@ Also this evening: origin reverse flip, origin lifted to the top layer while pin
   after the object. Lesson for `motifs.yml`: with reference images attached, clause order is
   priority order. Correctional pick 1, inflammation pick 2 (both `--reseed 5`).
 Project total ≈ $17 of $20.
+
+## Future work (Peter, 2026-09-18; not started)
+
+Three additions to the skill tree, recorded so the ideas survive. None is scheduled.
+
+1. **Career-level markers on the year rings.** Peter's ranks over the tree's span: doctoral student
+   2019–2020, postdoc 2020–2024, research scientist 2024 onward. Idea: a very small gold hex beside the
+   year label where a transition happens (2020, 2024; and 2019 as the starting rank), in the origin's
+   gold (`--st-gold`, `#D9A441`) so it reads as "Peter", not as a domain. Click: it enlarges like an
+   article hex and shows a generated image in the hex plus a short line of text about the rank change
+   (the "level up"). Art would go through the same `4_stickers/` pipeline (a small `career` set;
+   one subject per hex, same pixel style). Data: a `career:` list in `tree.json` meta written by
+   `build_tree.R` from a small YAML (year, title, blurb, sticker); `skilltree.js` draws and toggles
+   them like nodes. Watch the top edge of the canvas: the 2026 label already sits near it.
+
+2. **Google Scholar integration.** A stat bar or side panel on the tree page pulling citations,
+   h-index, i10 (and per-article counts if cheap) from Peter's Scholar profile. Scholar has no API:
+   options are the `scholar` R package (scrapes; rate-limited, brittle), a scheduled GitHub Action
+   that writes `www/scholar.json` and commits it (so CI renders without R and the page stays static),
+   or OpenAlex as the sturdier stand-in for per-article counts. Cache and show the fetch date.
+
+3. **Dungeon Crawler Carl-style achievement announcements.** When a stat crosses a threshold (h-index
+   +1, citations hit a round number, first citation on a new paper), the site posts an announcement
+   in the DCC register: a triumphant system-message header, then the reward line as the punchline.
+   Peter's example: *"Reward? Nothing. You went into academia because you thought it was fun, you
+   sick, sick man. Not for the money. You get nothing."* Mechanism: the same scheduled job diffs the
+   new `scholar.json` against the last one, matches rules in an `achievements.yml` (threshold,
+   title, body template), and appends an entry to `news.yml` (or a dedicated feed) so it shows on the
+   homepage. Voice rules from CLAUDE.md still apply (sass about the job, never about responders
+   dying). Peter: DCC "fits the aesthetic we're building" and may deserve a wider role than
+   announcements; decide after the first one lands.
