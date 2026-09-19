@@ -60,7 +60,8 @@
     }).join('') + '</div>';
   }
   function tooltipHTML(n, credit, areas) {
-    const meta = [n.year, n.venue, STATUS_LABELS[n.status]].filter(Boolean).join(' · ');
+    const jif = n.impact && n.impact.jif != null ? `${pipsHTML(n.impact.tier)}${n.impact.tier ? ' ' : ''}JIF ${fmtJIF(n.impact.jif)}` : '';
+    const meta = [n.year, n.venue, STATUS_LABELS[n.status]].filter(Boolean).join(' · ') + (jif ? ` · ${jif}` : '');
     const pos = (n.author_position && n.authors_n)
       ? `author ${n.author_position} of ${n.authors_n}`
       : (n.author_position ? `author ${n.author_position}` : '');
@@ -75,7 +76,7 @@
       bars = '<div class="tt-unscored">Contribution not yet scored.</div>';
     }
     return `<div class="tt-title">${esc(n.title)}</div>` +
-           `<div class="tt-meta">${esc(meta)}${pos ? ' · ' + esc(pos) : ''}` +
+           `<div class="tt-meta">${meta}${pos ? ' · ' + esc(pos) : ''}` +
            `<span class="tt-role">${esc(ROLE_LABELS[n.role] || n.role)}</span></div>` + areasHTML(n, areas) + bars;
   }
   let AREAS_ORDER = ['biosocial', 'criminology', 'responders'];
@@ -144,6 +145,19 @@
   const EFFORT_LABELS = { 1: 'light', 2: 'modest', 3: 'substantial', 4: 'heavy', 5: 'consuming' };
   function ordinal(k) { const s = ['th', 'st', 'nd', 'rd'], v = k % 100; return k + (s[(v - 20) % 10] || s[v] || s[0]); }
   let EDGES = [], NODE_BY_ID = {}, nodeToggles = {};   // filled in draw(); lineage links in the panel read them
+  let IMPACT = null;   // tree.meta.impact: tier cutoffs, label and the one-line definition the panel prints
+  const fmtJIF = v => (v == null ? '' : Number(v).toFixed(1));
+  const pipsHTML = k => k > 0 ? `<span class="pips" aria-hidden="true">${'\u25CF'.repeat(k)}</span>` : '';
+  // Venue block: the impact factor the venue carried in the JCR year before the article appeared, plus
+  // the pips it earns and, once per panel, what the pips mean. Shown for every node that has a JIF.
+  function venueHTML(n) {
+    const im = n.impact; if (!im || im.jif == null) return '';
+    const yr = im.nearest ? `JCR ${esc(im.jcr_year)}, nearest to ${esc(im.requested_year)}; no impact factor that year` : `JCR ${esc(im.jcr_year)}`;
+    const badge = im.tier > 0 && IMPACT ? `<span class="sp-venue-tier">${pipsHTML(im.tier)} ${esc(IMPACT.label)}</span>` : '';
+    return `<div class="sp-venue"><span class="sp-venue-jif">Impact factor ${esc(fmtJIF(im.jif))}</span>` +
+           `<span class="sp-venue-yr">${yr}</span>${badge}</div>` +
+           (IMPACT && IMPACT.note ? `<p class="sp-venue-note">${esc(IMPACT.note)} ${esc(IMPACT.source || '')}.</p>` : '');
+  }
   function kinHTML(n) {
     const row = id => { const k = NODE_BY_ID[id]; return k
       ? `<button type="button" class="sp-kin" data-id="${esc(k.id)}" style="--kin:${esc(k.colour)}"><span class="yr">${esc(k.year)}</span>${esc(k.title)}</button>` : ''; };
@@ -184,6 +198,7 @@
     return `<div class="sp-eyebrow">${esc(n.year)} · ${esc(ROLE_LABELS[n.role] || n.role)}</div>` +
            `<h2 class="sp-title">${esc(n.title)}</h2>` +
            `<div class="sp-meta">${esc(meta)}</div>` +
+           venueHTML(n) +
            (authors ? `<div class="sp-authors">${esc(authors)}</div>` : '') +
            blurb + areaDots + kinHTML(n) +
            `<div class="sp-h">What I did</div>` + contrib +
@@ -291,6 +306,7 @@
     NODE_BY_ID = Object.fromEntries((tree.nodes || []).map(n => [n.id, n]));
     const credit = m.credit || Object.keys(CREDIT_LABELS);
     if (m.areas) AREAS_ORDER = m.areas;
+    IMPACT = m.impact || null;
     const svg = svgEl('svg', {
       viewBox: `0 0 ${m.width} ${m.height}`, role: 'group',
       'aria-label': 'Publications on concentric rings by year, placed by direction between three research areas: biosocial, criminology and first-responder occupational'
@@ -407,7 +423,8 @@
       const cls = `node role-${n.role} status-${n.status}` + (n.featured ? '' : ' muted');
       const label = [n.title, n.year, n.venue].filter(Boolean).join(', ') +
                     `. ${ROLE_LABELS[n.role] || n.role}. ${areasText(n, m.areas)}.` +
-                    (n.scored ? '' : ' Contribution not yet scored.');
+                    (n.scored ? '' : ' Contribution not yet scored.') +
+                    (n.impact && n.impact.tier > 0 && IMPACT ? ` ${IMPACT.label}, impact factor ${fmtJIF(n.impact.jif)}.` : '');
       const g = svgEl('g', {
         class: cls, tabindex: 0, role: 'button', 'data-id': n.id,
         'aria-label': label, style: `--node: ${n.colour}`
@@ -418,6 +435,17 @@
       }, g);
       svgEl('path', { class: 'hex-shade', d: hexPath(n.x, n.y, m.hex_w * 0.99, m.hex_h * 0.99) }, g);
       svgEl('path', { class: 'hex-ring', d: hexPath(n.x, n.y, m.hex_w * 0.96, m.hex_h * 0.96) }, g);
+      // impact pips (2026-09-19): 1-3 gold dots running down the hex's upper-right edge from the top vertex,
+      // drawn after the shade so they stay lit when the tile is dimmed. No transform, no filter; they ride the
+      // tile's scale when it is pinned. Point-up hex: the edge runs at 30 degrees below horizontal.
+      if (n.impact && n.impact.tier > 0) {
+        const k = n.impact.tier, r = m.hex_w * 0.05, pitch = r * 2.5;
+        const ex = Math.cos(Math.PI / 6), ey = Math.sin(Math.PI / 6);        // along the edge, top vertex -> upper-right vertex
+        const nx = -ey, ny = ex;                                              // inward normal of that edge
+        const sx = n.x + ex * r * 3.2 + nx * r * 2.2, sy = n.y - m.hex_h / 2 + ey * r * 3.2 + ny * r * 2.2;   // first pip
+        const gp = svgEl('g', { class: 'hex-pips', 'data-tier': k }, g);
+        for (let i = 0; i < k; i++) svgEl('circle', { cx: sx + ex * pitch * i, cy: sy + ey * pitch * i, r }, gp);
+      }
 
       // hover / focus: tooltip only. Nothing moves, so the pointer target never shifts underneath.
       g.addEventListener('mouseenter', e => { showTip(n, g, credit); placeTipAt(e.clientX, e.clientY); setLineage(n.id, true); });
@@ -468,6 +496,8 @@
       leg.innerHTML =
         `<div class="lg-row">${item(icon({ sw: 3 }), 'Lead author')}${item(icon({ sw: 1 }), 'Contributing author')}` +
         `${item(icon({ sw: 1.5, dash: true }), 'In press or preprint')}` +
+        // one gold pip at legend size (pips drawn inside a legend hex are too small to read)
+        (IMPACT ? item(`<svg class="lg-hex lg-pips" viewBox="0 0 20 23" aria-hidden="true"><circle cx="10" cy="11.5" r="4.2"/></svg>`, IMPACT.label) : '') +
         `${item('<svg class="lg-hex" viewBox="0 0 20 23" aria-hidden="true"><path d="M2,19 Q6,9 18,4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="18" cy="4" r="2.4" fill="currentColor"/></svg>', 'Builds on an earlier article')}</div>`;
     }
 
