@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-09-18 15:53",
+    "generated": "2026-09-19 15:46",
     "hex_w": 100,
     "hex_h": 115.47,
     "width": 2781,
@@ -135,7 +135,14 @@
       }
     ],
     "areas": ["biosocial", "criminology", "responders"],
-    "credit": ["conceptualization", "data", "analysis", "methods", "writing", "supervision"]
+    "credit": ["conceptualization", "data", "analysis", "methods", "writing", "supervision"],
+    "impact": {
+      "tiers": [5, 10, 25],
+      "lag": 1,
+      "label": "High-impact venue",
+      "note": "Pips mark the journal's Clarivate impact factor in the JCR year before the article appeared: 1 pip at 5, 2 pips at 10, 3 pips at 25.",
+      "source": "Journal Citation Reports (Clarivate)"
+    }
   },
   "nodes": [
     {
@@ -177,6 +184,14 @@
       "effort": 4,
       "effort_note": null,
       "blurb": "After the publication of our paper on law enforcement officer mortality, JC and I collaborated with Matt Logan (Texas State University) to run it back with a new emphasis on correctional officers, using the same NOMS data.",
+      "impact": {
+        "jif": 7.8,
+        "jcr_year": 2025,
+        "requested_year": 2025,
+        "nearest": false,
+        "tier": 1,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/tanksley_2026_correctional.png",
       "x": 2082.4,
       "y": 1412.6,
@@ -226,6 +241,14 @@
       "effort": 2,
       "effort_note": "I was responsible for the prediction analyses in the Add Health data.",
       "blurb": "This was the largest genome-wide association study (GWAS) of the Big Five personality traits EVER. The first and second authors, Ted and Maggie, were wonderful to work with. Final result: Nature.",
+      "impact": {
+        "jif": 56.1,
+        "jcr_year": 2025,
+        "requested_year": 2025,
+        "nearest": false,
+        "tier": 3,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/schwaba_2026_robust.png",
       "x": 834.4,
       "y": 331.8,
@@ -275,6 +298,14 @@
       "effort": 3,
       "effort_note": null,
       "blurb": "I orchestrated and carried out the lead authors’ desired analytic approach using data on firefighter health, fitness, and biomarkers. I did the R stuff; they wrote up the study.",
+      "impact": {
+        "jif": 1.4,
+        "jcr_year": 2025,
+        "requested_year": 2025,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q4"
+      },
       "sticker_src": "www/hex/sm/mcallister_2026_inflammation.png",
       "x": 2082.4,
       "y": 872.2,
@@ -324,6 +355,14 @@
       "effort": 3,
       "effort_note": null,
       "blurb": "As a BJJ practitioner, I had to be part of this project when I heard it was coming down the pike. We partnered with Austin PD to film video vignettes, which we then used to study perceptions of police use of force in two samples—one law enforcement, one general population. Result: both groups found grappling more appropriate than striking… but for different reasons.",
+      "impact": {
+        "jif": 2.3,
+        "jcr_year": 2025,
+        "requested_year": 2025,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/eleuterio-da-rocha_2026_striking.png",
       "x": 2186.4,
       "y": 1052.3,
@@ -373,6 +412,14 @@
       "effort": 1,
       "effort_note": null,
       "blurb": "Back in graduate school (before I knew about R or the tidyverse), I was handed a ridiculously large, and dirty, prison dataset to clean. It took well over a year of working at it by hand to flag string entries for the variables of interest. Years later, my prof reached out with an idea to finally use it. This project is the result.",
+      "impact": {
+        "jif": 3.2,
+        "jcr_year": 2025,
+        "requested_year": 2025,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/wooldredge_2026_upstream.png",
       "x": 834.4,
       "y": 1953,
@@ -422,6 +469,14 @@
       "effort": 5,
       "effort_note": null,
       "blurb": "About a week after publishing the piece on law enforcement officer mortality, we received a comment with several methodological critiques. Most simply reiterated what we ourselves had written in the original article’s limitations section, but one was an important note encouraging us to think about within-occupation comparisons, not just between-occupation ones (i.e., LEOs vs. the general public). This response acknowledged that useful tip and presented the results in that format.",
+      "impact": {
+        "jif": 9.1,
+        "jcr_year": 2025,
+        "requested_year": 2025,
+        "nearest": false,
+        "tier": 1,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/tanksley_2026_clarifying.png",
       "x": 2186.4,
       "y": 1232.5,
@@ -471,6 +526,14 @@
       "effort": 3,
       "effort_note": null,
       "blurb": "This was a follow-on to a project Hunter had already published on law enforcement opinion regarding immediate entry. It pushed those ideas out into the sphere of public opinion, drawing on two samples to probe how the public perceives immediate-entry decisions by police, and where and when they judge them to be correct. I was brought on to help with the analysis, but I managed to slip in some cool plots as well.",
+      "impact": {
+        "jif": 2.3,
+        "jcr_year": 2025,
+        "requested_year": 2025,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/martaindale_2026_public.png",
       "x": 2238.4,
       "y": 1142.4,
@@ -520,6 +583,14 @@
       "effort": 5,
       "effort_note": null,
       "blurb": "After starting at ALERRT, I got interested in officer health and wellness. But the fundamental question of “what does their mortality profile look like?” eluded a straightforward answer with the research on hand. After finding the NOMS data, I knew I had to work on a project that would give the most definitive answer to that question possible. I assembled a merry band of collaborators, and the rest is history.",
+      "impact": {
+        "jif": 7.6,
+        "jcr_year": 2024,
+        "requested_year": 2024,
+        "nearest": false,
+        "tier": 1,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/tanksley_2025_mortality.png",
       "x": 2082.4,
       "y": 1232.5,
@@ -569,6 +640,14 @@
       "effort": 3,
       "effort_note": null,
       "blurb": "This project was Pete Blair’s brainchild. After several unsuccessful attempts to get it published (something to do with the abnormally high level of snarkiness in the prose), I was offered the chance to come on board and push it over the finish line. A cool Sankey plot, an extensive new discussion section on EFA/CDA, and a newly lowered snark level later, we had a winner.",
+      "impact": {
+        "jif": 2,
+        "jcr_year": 2024,
+        "requested_year": 2024,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/blair_2025_we.png",
       "x": 886.4,
       "y": 1862.9,
@@ -618,6 +697,14 @@
       "effort": 3,
       "effort_note": "The figure from this project is one of my favs.",
       "blurb": "In the early hours of New Year’s Day, 2025, a man drove a truck at high speed into a crowd of revelers on Bourbon Street in New Orleans, LA. In the following weeks, we put together a brief report covering what we knew about such vehicle-based active attacks, using data from ActiveAttackData.org. One standout characteristic of these attacks was the consistently high number of casualties relative to other types (e.g., knife, handgun, rifle).",
+      "impact": {
+        "jif": 2,
+        "jcr_year": 2024,
+        "requested_year": 2024,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/blair_2025_active.png",
       "x": 2134.4,
       "y": 1142.4,
@@ -667,6 +754,14 @@
       "effort": 2,
       "effort_note": null,
       "blurb": "A very talented graduate student from my time in the Harden Lab (UT) put together this project examining the stability of DNA methylation over time. I helped with some data curation and visualization, but this was all Abby.",
+      "impact": {
+        "jif": 3.8,
+        "jcr_year": 2024,
+        "requested_year": 2024,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/desteiguer_2025_stability.png",
       "x": 886.4,
       "y": 421.9,
@@ -716,6 +811,14 @@
       "effort": 3,
       "effort_note": null,
       "blurb": "I orchestrated and carried out the lead authors’ desired analytic approach using data on firefighter health, fitness, and biomarkers. I did the R stuff; they wrote up the study.",
+      "impact": {
+        "jif": 1.4,
+        "jcr_year": 2024,
+        "requested_year": 2024,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q3"
+      },
       "sticker_src": "www/hex/sm/gonzalez_2025_relationships.png",
       "x": 2030.4,
       "y": 962.3,
@@ -765,6 +868,14 @@
       "effort": 3,
       "effort_note": null,
       "blurb": "I orchestrated and carried out the lead authors’ desired analytic approach using data on police officer health, fitness, and biomarkers. I did the R stuff; they wrote up the study.",
+      "impact": {
+        "jif": 1.4,
+        "jcr_year": 2024,
+        "requested_year": 2024,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q3"
+      },
       "sticker_src": "www/hex/sm/mcallister_2025_markers.png",
       "x": 1978.4,
       "y": 872.2,
@@ -814,6 +925,14 @@
       "effort": 5,
       "effort_note": "I did all the things. Paige helped.",
       "blurb": "While at the Harden Lab (UT), I orchestrated a project known to my collaborators as the EXIT (EXternalizing and Intergenerational Transmission) Project. It was slow to get going, but it developed into a very interesting analysis of the direct vs. indirect effects (i.e., the intergenerational part) of externalizing polygenic indices. Two cohorts, two types of genetic effects, and a beautiful 2×2 ggplot2 legend were the result… there was an academic paper too, I guess.",
+      "impact": {
+        "jif": 4.8,
+        "jcr_year": 2023,
+        "requested_year": 2023,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/tanksley_2024_polygenic.png",
       "x": 834.4,
       "y": 692.1,
@@ -863,6 +982,14 @@
       "effort": 1,
       "effort_note": null,
       "blurb": "JC had a super interesting idea about perceived arrest risk vs. actual risk. He wrote the paper using data from the Dunedin Longitudinal Study. I just filled in interesting literature-related tidbits about evolutionary psychology.",
+      "impact": {
+        "jif": 6.4,
+        "jcr_year": 2023,
+        "requested_year": 2023,
+        "nearest": false,
+        "tier": 1,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/barnes_2024_risk.png",
       "x": 938.4,
       "y": 1772.9,
@@ -912,6 +1039,14 @@
       "effort": 2,
       "effort_note": null,
       "blurb": "Yayouk, then a postdoc working with Laurel (a former fellow postdoc from the Harden Lab, UT), put together this great analysis of self-control, DNA methylation, and health outcomes in a German cohort and the Texas Twin Project (TTP). I mostly just helped generate the polygenic indices they needed in the TTP.",
+      "impact": {
+        "jif": 4.8,
+        "jcr_year": 2023,
+        "requested_year": 2023,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/willems_2024_self.png",
       "x": 938.4,
       "y": 511.9,
@@ -961,6 +1096,14 @@
       "effort": 4,
       "effort_note": null,
       "blurb": "This project started out as an idea for a special issue on evolutionary psychology. After selling a few friends on the idea, it morphed until it was no longer appropriate for the venue. We pushed ahead anyway, and it ended up being a great piece on incarceration, genes, and neurodegeneration later in life.",
+      "impact": {
+        "jif": 3.7,
+        "jcr_year": 2022,
+        "requested_year": 2022,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q2"
+      },
       "sticker_src": "www/hex/sm/tanksley_2023_history.png",
       "x": 678.4,
       "y": 1142.4,
@@ -1010,6 +1153,14 @@
       "effort": 4,
       "effort_note": null,
       "blurb": "During my time with the Harden Lab (UT), I was also an active member of the Externalizing Consortium. One problem with the original publication was that it used restricted 23andMe data, making data sharing practically impossible-ish. We fixed that by removing the restricted data, but then we needed to benchmark its performance. Thus, this paper.",
+      "impact": {
+        "jif": 2.6,
+        "jcr_year": 2022,
+        "requested_year": 2022,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q2"
+      },
       "sticker_src": "www/hex/sm/williams_2023_guidelines.png",
       "x": 1094.4,
       "y": 602,
@@ -1059,6 +1210,14 @@
       "effort": 3,
       "effort_note": null,
       "blurb": "Laurel, a fellow postdoc at the Harden Lab, worked like mad to get two parallel analyses finished before going on maternity leave: same DNA-methylation measures, same kids, two outcomes. This is the mental-health half, which landed in Clinical Psychological Science. While she was on leave, I was tasked with getting both manuscripts polished up and submitted for publication. With a bit of editing and shiny new data visualizations, they sailed through. Laurel is a badass.",
+      "impact": {
+        "jif": 4.8,
+        "jcr_year": 2022,
+        "requested_year": 2022,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/raffington_2023_associations.png",
       "x": 938.4,
       "y": 692.1,
@@ -1108,6 +1267,14 @@
       "effort": 4,
       "effort_note": null,
       "blurb": "We called this the “genetic handoff” project. It was a HUGE multi-cohort effort headed up by Jasmin Wertz, then a postdoc in the Moffitt and Caspi (Temi and Av) Lab. The basic idea was that genes for educational attainment (à la the EA3 polygenic index) would predict all kinds of parenting behaviors across the entire life course. The contribution from JC, Hexuan (both UC), and me was to analyze the two participating cohorts we had data for.",
+      "impact": {
+        "jif": 29.9,
+        "jcr_year": 2022,
+        "requested_year": 2022,
+        "nearest": false,
+        "tier": 3,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/wertz_2023_genetic.png",
       "x": 990.4,
       "y": 602,
@@ -1157,6 +1324,14 @@
       "effort": 1,
       "effort_note": null,
       "blurb": "This project was developed and executed by Stephanie, a postdoc working with Temi and Av (the Moffitt and Caspi Lab). My involvement was light, mostly critical reviews prior to submission. My dissertation work had been closely related to the topics covered in the paper, so the team was nice enough to ask me along for the ride.",
+      "impact": {
+        "jif": 4.614,
+        "jcr_year": 2021,
+        "requested_year": 2021,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/langevin_2022_life.png",
       "x": 834.4,
       "y": 1052.3,
@@ -1206,6 +1381,14 @@
       "effort": 3,
       "effort_note": null,
       "blurb": "Laurel, a fellow postdoc at the Harden Lab, worked like mad to get two parallel analyses finished before going on maternity leave: same DNA-methylation measures, same kids, two outcomes. This is the cognitive-functioning half, which landed in Psychological Science. While she was on leave, I was tasked with getting both manuscripts polished up and submitted for publication. With a bit of editing and shiny new data visualizations, they sailed through. Laurel is a badass.",
+      "impact": {
+        "jif": 10.172,
+        "jcr_year": 2021,
+        "requested_year": 2021,
+        "nearest": false,
+        "tier": 2,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/raffington_2022_socially.png",
       "x": 1042.4,
       "y": 692.1,
@@ -1255,6 +1438,14 @@
       "effort": 4,
       "effort_note": null,
       "blurb": "This piece was a CASTLE Lab (UC) classic. Hexuan and I proposed the same idea in a lab meeting (he had thought about it more; I just happened to have the same thought and started blabbing about it): incarceration, polygenic risk, depression. Classic GxE. He analyzed the HRS, I analyzed the WLS. It worked out great.",
+      "impact": {
+        "jif": 2.617,
+        "jcr_year": 2021,
+        "requested_year": 2021,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q2"
+      },
       "sticker_src": "www/hex/sm/liu_2022_incarceration.png",
       "x": 782.4,
       "y": 1142.4,
@@ -1304,6 +1495,14 @@
       "effort": 2,
       "effort_note": null,
       "blurb": "Hexuan (UC) led the CASTLE Lab in another great project, looking at the potential deadening effect of adolescent incarceration on educational attainment using the EA3 polygenic index.",
+      "impact": {
+        "jif": 2.36,
+        "jcr_year": 2020,
+        "requested_year": 2020,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q2"
+      },
       "sticker_src": "www/hex/sm/liu_2021_adolescent.png",
       "x": 886.4,
       "y": 1142.4,
@@ -1353,6 +1552,14 @@
       "effort": 5,
       "effort_note": null,
       "blurb": "Shortly after starting to work with JC (UC), I got the opportunity to lead my first big analytic academic project. We partnered with Temi and Av, using their E-Risk study data to examine the genetic contribution to multiple kinds of cognitive functions and psychopathologies. We wanted to know how adjusting for that genetic contribution changed the association between these mental processes and polyvictimization. Long story short: self-control, even after adjusting for genetic contributions, was the best predictor of future polyvictimization.",
+      "impact": {
+        "jif": 2.308,
+        "jcr_year": 2019,
+        "requested_year": 2019,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/tanksley_2020_identifying.png",
       "x": 1094.4,
       "y": 1322.5,
@@ -1402,6 +1609,14 @@
       "effort": 1,
       "effort_note": null,
       "blurb": "This project really kicked off the CASTLE Lab at the University of Cincinnati. Ryan Motz (UC) was combing through the HRS codebook and found a reference to past incarceration. Using that, Ryan, JC, and Hexuan put together this study to examine the impact of genetic risk for aggression on lifetime incarceration risk. They brought together a great group of collaborators, and before the project was done they also brought in newly minted lab members, myself included, to help with the final writing and editing.",
+      "impact": {
+        "jif": 1.983,
+        "jcr_year": 2018,
+        "requested_year": 2018,
+        "nearest": false,
+        "tier": 0,
+        "quartile": "Q2"
+      },
       "sticker_src": "www/hex/sm/barnes_2019_propensity.png",
       "x": 1146.4,
       "y": 1232.5,
@@ -1451,6 +1666,14 @@
       "effort": 4,
       "effort_note": null,
       "blurb": "This was my first project to lead, ever. And while it didn’t include an analytic component, it definitely pushed me to develop both my ability and my awareness when it came to academic writing. I really enjoyed working on it, even though I tended to overthink it at times. It was a lot of fun to work on with the group that became the CASTLE Lab (UC).",
+      "impact": {
+        "jif": 2.5,
+        "jcr_year": 2022,
+        "requested_year": 2018,
+        "nearest": true,
+        "tier": 0,
+        "quartile": null
+      },
       "sticker_src": "www/hex/sm/tanksley_2019_genome.png",
       "x": 1094.4,
       "y": 1142.4,
@@ -1500,6 +1723,14 @@
       "effort": 3,
       "effort_note": null,
       "blurb": "My first academic article, ever. I was not the lead author, but I contributed significantly to the writing and conceptualization of the piece. The part I’ll remember more than anything else is that the hook was mine: I used Locard’s exchange principle to describe how criminal justice contact always leaves some kind of mark on the people who experience it. And genetic risk can exaggerate that mark.",
+      "impact": {
+        "jif": 4.159,
+        "jcr_year": 2019,
+        "requested_year": 2018,
+        "nearest": true,
+        "tier": 0,
+        "quartile": "Q1"
+      },
       "sticker_src": "www/hex/sm/motz_2019_every.png",
       "x": 1146.4,
       "y": 1052.3,
@@ -1549,6 +1780,7 @@
       "effort": 1,
       "effort_note": null,
       "blurb": null,
+      "impact": null,
       "sticker_src": "www/hex/sm/fraemke_2026_developmental.png",
       "x": 782.4,
       "y": 421.9,
@@ -1598,6 +1830,7 @@
       "effort": 4,
       "effort_note": null,
       "blurb": null,
+      "impact": null,
       "sticker_src": "www/hex/sm/williams_2026_genomic.png",
       "x": 938.4,
       "y": 331.8,

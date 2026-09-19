@@ -11,6 +11,7 @@ quarto preview                          # skilltree.qmd renders with the rest of
 ```
 
 ```bash
+Rscript 5_skilltree/R/build_journals.R          # data/jcr/*.csv (JCR exports) -> data/journals.yml (impact factors by JCR year)
 Rscript 5_skilltree/R/render_cv_pubs.R          # write 2_cv/_publications.qmd — the CV's publication block
 Rscript 5_skilltree/R/add_article.R <DOI>       # CrossRef → new YAML entry (add --dry-run to preview)
 ```
@@ -19,6 +20,9 @@ Rscript 5_skilltree/R/add_article.R <DOI>       # CrossRef → new YAML entry (a
 without R, like `_hexband.qmd`. **Adding a paper:** `add_article.R <DOI>` → fix Title Case / middle
 initial in the YAML → rate it in the app → `build_tree.R` + `render_cv_pubs.R` → commit. The
 extractor is now a migration tool only (it reads the generated include).
+
+Impact-factor pips read `data/journals.yml`, generated from the raw JCR exports in `data/jcr/` (see its README);
+rerun `build_journals.R` then `build_tree.R` after adding an export.
 
 Conventions live in the repo `CLAUDE.md` (Skill tree section). Plan and history:
 `logs/skilltree/`. Built 2026-09-07/09 in the (now archived) `PROJ_skill_tree` repo.

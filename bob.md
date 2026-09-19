@@ -6,9 +6,9 @@ priority: medium
 path: /Users/PTT2/Documents/GitHub/PROJ_tanksley_website
 deadline: null
 target: Personal academic website with CV, about page, and blog
-effort_remaining: ~0.5h (review + commit the sticker batch; otherwise monitoring)
+effort_remaining: ~0.5h (hover-check the impact pips in a real browser, commit; otherwise monitoring)
 weekly_commitment: 1h
-last_updated: 2026-09-18
+last_updated: 2026-09-19
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -28,7 +28,8 @@ sync: github
 - Nothing urgent. Skill tree (Research ▸ Skill tree) and the YAML-generated CV publication list are
   live as of 2026-09-09; add news items to `news.yml` as they happen.
 - Publications now change in `5_skilltree/data/articles.yml`, never in the CV directly: edit → rate
-  in the Shiny app if new → `Rscript 5_skilltree/R/build_tree.R` + `render_cv_pubs.R` → commit.
+  in the Shiny app if new → `Rscript 5_skilltree/R/build_tree.R` + `render_cv_pubs.R` → commit. A paper in a
+  new venue also needs its JCR year exported into `5_skilltree/data/jcr/` and `build_journals.R` rerun.
 - Check Crossref for volume/pages on the Nature paper (entry 27) before touching the YAML.
 
 ## This Week
@@ -41,10 +42,16 @@ sync: github
   Research page and CV band should become the coin too (~$0.20).
 - DONE 2026-09-18 (evening): Google Scholar stats card on the tree (`fetch_scholar.R`, local, commit the
   JSON) + achievements data layer (`achievements.yml`, `check_achievements.R`, dry-run only) — see
-  `logs/skilltree/2026-09-18_scholar-stats.md`. Uncommitted.
+  `logs/skilltree/2026-09-18_scholar-stats.md`. Committed as `dcb8cd1`.
+- DONE 2026-09-19: impact-factor pips on the skill tree (bands 5/10/25 on the JCR year before publication;
+  data from Peter's JCR exports in `5_skilltree/data/jcr/`) — see `logs/skilltree/2026-09-19_impact-factor-pips.md`.
+  **Uncommitted**; Peter to hover-check in a real browser, then commit.
 - [ ] Peter writes the reward lines in `5_skilltree/data/achievements.yml` (three PLACEHOLDERs); then
   wire `check_achievements.R --post` to append DCC-voice entries to `news.yml`.
 - [ ] Refresh the stats now and then: `Rscript 5_skilltree/R/fetch_scholar.R` → commit.
+- [ ] Each June/July when Clarivate releases the new JCR year: export all 22 journals for that year from JCR
+  into `5_skilltree/data/jcr/jcr_<year>.csv`, run `build_journals.R` then `build_tree.R`, commit. Clears the
+  nearest-year flags on papers published earlier that year. New venue: same, one journal, one year.
 - [ ] Backlog (not scheduled): career-rank gold markers on the year rings — see "Future work" in
   `logs/skilltree/2026-09-18_article-stickers.md`.
 - [ ] Optional: phase stickers beside the matching Research-page sections
@@ -54,10 +61,10 @@ sync: github
 
 - TBD: volume/issue/pages for entry 27 (Schwaba et al., Nature, doi:10.1038/s41586-026-10992-9)
   when assigned — set `citation:` in `articles.yml` (currently "online first"), rerun `render_cv_pubs.R`;
-  none as of 2026-09-09
+  none as of 2026-09-19 (still online first)
 - TBD: DOI (then volume/pages) for entry 28 (Tanksley, Logan, & Barnes, AJPH, in press) — set `doi:`,
   `status: published`, `citation:` in `articles.yml`; the homepage and research-page `.worklist`
-  blocks are still hand-written and need the same edit
+  blocks are still hand-written and need the same edit; still in production, no DOI as of 2026-09-19
 
 ## Notes
 

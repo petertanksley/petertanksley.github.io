@@ -105,6 +105,15 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   the tree's upper-right corner; the tree renders without the file. Per-article counts are in the JSON
   but not displayed. Achievements: `data/achievements.yml` rules + `check_achievements.R` (diffs the two
   newest snapshots and prints what would fire; posting to `news.yml` is not wired yet).
+- **Impact-factor pips** (2026-09-19): 1-3 gold dots inside a hex's top vertex mark the venue's Clarivate JIF in
+  the JCR year **before** the article's year (`JIF_LAG`), at `IMPACT_TIERS` 5 / 10 / 25 in `build_tree.R`; the panel
+  prints the number, the JCR year and the band definition for every node with a JIF, the tooltip a terse suffix.
+  Data: `5_skilltree/data/jcr/jcr_<year>.csv` are raw JCR exports (Peter, via the TXST library; the JIF is
+  proprietary, no package or API has the historic series) -> `build_journals.R` -> `data/journals.yml`
+  (generated, never hand-edited) -> `build_tree.R`. Venues are matched on normalised title with an `ALIASES` map for
+  CV spellings; do not rename venues on the CV for this. If the JCR year has no JIF (emerging-sources journals
+  before JCR 2022) the **nearest** year is used and flagged, never "latest". New venue: re-export the year(s) it
+  needs into `data/jcr/`, rerun both builders. Never show a JIF on the CV or in prose (voice rule above).
 - Styles are the `.skilltree*` block at the end of `theme.scss`: a self-contained dark panel with
   `--st-*` tokens. Area colours come from `AREA_COL` in `build_tree.R` via `tree.json`; do not
   hardcode them in the qmd or SCSS.

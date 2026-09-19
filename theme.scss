@@ -513,6 +513,7 @@ html.page-dark {
   --st-soft:    #A9A6B3;
   --st-rule:    #3A3845;
   --st-panel:   #26242E;
+  --st-gold:    #D9A441;   // the origin's and the stats card's colour; also the impact pips (moved up from .skilltree 2026-09-19 so the legend sees it)
   background: var(--st-bg); color: var(--st-fg);
   border-radius: 6px; padding: 1.25rem 1.25rem 1rem;
   margin: 1.5rem auto 0; max-width: 1240px;
@@ -528,7 +529,6 @@ html.page-dark {
   .axis-glow   { fill: none; pointer-events: none; }
   .origin      { opacity: 1; }
   // origin ring is gold (2026-09-18): the one hex that belongs to no domain, so it borrows none of their colours
-  --st-gold: #D9A441;
   .origin-ring { fill: none; stroke: var(--st-gold); stroke-width: 3; opacity: 0.45; stroke-linejoin: round; transition: opacity 160ms, stroke-width 160ms; }
   // the origin is a button too: click (or #me) turns Peter over and opens the character sheet
   .origin-node {
@@ -572,8 +572,10 @@ html.page-dark {
     &.role-lead         .hex-ring { stroke-width: 6; }
     &.role-contributing .hex-ring { stroke-width: 2; }
     &.status-preprint, &.status-in_press { .hex-ring { stroke-dasharray: 10 8; } --shade: 0.84; }
+    // impact pips (2026-09-19): gold, inked outline so they sit on any sticker; drawn above the shade
+    .hex-pips { pointer-events: none; circle { fill: var(--st-gold); stroke: var(--st-bg); stroke-width: 1.5; } }
     // muted tier: deeper shade, quieter ring. Visual only; still focusable and clickable.
-    &.muted { --shade: 0.9; .hex-ring { opacity: 0.6; } }
+    &.muted { --shade: 0.9; .hex-ring { opacity: 0.6; } .hex-pips { opacity: 0.6; } }
     // highlight (hover / keyboard focus): ring up, shade eases, nothing moves
     &:hover, &:focus-visible { .hex-ring { stroke-width: 8; opacity: 1; } .hex-shade { opacity: 0.45; } }
     // revealed (clicked): face-up, lit, lifted a little, ring pulsing
@@ -612,6 +614,7 @@ html.page-dark {
 }
 
 .skilltree-tooltip {
+  .pips { color: #D9A441; letter-spacing: 0.1em; }   // impact pips in the meta line (2026-09-19)
   position: fixed; z-index: 1090 !important; pointer-events: none;
   max-width: 320px; padding: 0.7rem 0.85rem;
   background: #26242E; color: #FBFAF7; border: 1px solid #3A3845; border-left: 4px solid var(--node, #FBFAF7);
@@ -660,6 +663,13 @@ aside.skilltree-panel {
   .sp-role  { display: inline-block; font-family: $font-family-monospace; font-size: 0.72rem; padding: 0.05rem 0.45rem;
               border: 1px solid var(--sp-rule); border-radius: 3px; margin-left: 0.3rem; vertical-align: 0.05em; }
   .sp-authors { font-size: 0.85rem; color: var(--sp-soft); margin-bottom: 1rem; }
+  // venue block (2026-09-19): the impact factor the journal carried when the article appeared, and its pips
+  --sp-gold: #D9A441;
+  .sp-venue { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.7rem; font-size: 0.84rem; margin: -0.5rem 0 0.4rem; }
+  .sp-venue-jif { color: var(--sp-fg); }
+  .sp-venue-yr  { color: var(--sp-soft); font-size: 0.78rem; }
+  .sp-venue-tier { color: var(--sp-gold); font-size: 0.8rem; .pips { letter-spacing: 0.1em; margin-right: 0.15rem; } }
+  .sp-venue-note { color: var(--sp-soft); font-size: 0.76rem; font-style: italic; margin: 0 0 0.9rem; }
   .sp-blurb { margin: 0 0 1.1rem; }
   .sp-blurb.pending { color: var(--sp-soft); font-style: italic; }
   .sp-h { font-family: $font-family-monospace; font-size: 0.72rem; color: var(--sp-soft); letter-spacing: 0.04em;
@@ -714,6 +724,7 @@ aside.skilltree-panel {
   .lg-row + .lg-row { border-top: 1px solid var(--st-rule); }
   .lg-item { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--st-fg); white-space: nowrap; }
   .lg-hex { width: 1.1em; height: 1.25em; flex: none; }
+  .lg-pips circle { fill: var(--st-gold); }
   .lg-note { flex: 1 1 18rem; color: var(--st-soft); }
 }
 
