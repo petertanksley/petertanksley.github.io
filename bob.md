@@ -6,7 +6,7 @@ priority: medium
 path: /Users/PTT2/Documents/GitHub/PROJ_tanksley_website
 deadline: null
 target: Personal academic website with CV, about page, and blog
-effort_remaining: ~0.5h (hover-check the impact pips in a real browser, commit; otherwise monitoring)
+effort_remaining: monitoring (annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
 last_updated: 2026-09-19
 repo: https://github.com/petertanksley/petertanksley.github.io
@@ -45,7 +45,7 @@ sync: github
   `logs/skilltree/2026-09-18_scholar-stats.md`. Committed as `dcb8cd1`.
 - DONE 2026-09-19: impact-factor pips on the skill tree (bands 5/10/25 on the JCR year before publication;
   data from Peter's JCR exports in `5_skilltree/data/jcr/`) — see `logs/skilltree/2026-09-19_impact-factor-pips.md`.
-  **Uncommitted**; Peter to hover-check in a real browser, then commit.
+  Checked in the browser by Peter; committed and pushed as `06c971c`, CI publishes.
 - [ ] Peter writes the reward lines in `5_skilltree/data/achievements.yml` (three PLACEHOLDERs); then
   wire `check_achievements.R --post` to append DCC-voice entries to `news.yml`.
 - [ ] Refresh the stats now and then: `Rscript 5_skilltree/R/fetch_scholar.R` → commit.
