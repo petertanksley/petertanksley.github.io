@@ -9,7 +9,7 @@ I work in the Research Ring at the [ALERRT Center](https://alerrt.org), Texas St
 ## First responder health and mortality {#health}
 
 ::: {.hex-mark .hex-mark--section}
-![](www/hex/responders.png){fig-alt="Pixel-art hex sticker: a firefighter's helmet on a stone ledge, three candles behind it burned to different heights."}
+![](www/hex/responders.png){fig-alt="Pixel-art hex sticker: a bronze tri-service challenge coin standing on edge on a stone ledge, a lit candle beside it."}
 :::
 
 This is the center of my work. First responders take on shift work, chronic stress, violence, and toxic exposures as conditions of the job, and the field has remarkably little population-level evidence about what a career of that does to a person. I work with death-certificate data to describe who dies of what, and how that compares with everyone else who works for a living. I measure health in the years before that with self-reports and biomarkers collected in the field. And I study the policies that shape first responder health, presumptive workers' compensation laws especially, because they decide which of those outcomes the law is willing to call work-related.
@@ -23,7 +23,7 @@ This is the center of my work. First responders take on shift work, chronic stre
 ## Police training and public opinion {#training}
 
 ::: {.hex-mark .hex-mark--section}
-![](www/hex/criminology.png){fig-alt="Pixel-art hex sticker: a brass magnifying glass lying on a pinned sheet of parchment, a red string running from the pin."}
+![](www/hex/criminology.png){fig-alt="Pixel-art hex sticker: a pair of heavy iron handcuffs lying on a wooden table, one small iron key beside them and a lit candle behind."}
 :::
 
 ALERRT trains officers for the worst day of their careers, which gives us an unusually good seat for watching how people are taught to decide under pressure. I study the training itself: what transfers to the street, what evaporates in the parking lot, and how you would even measure the difference. I also study what the public makes of the decisions that come out the other end. Officers and civilians can watch the same encounter and describe two different events. Factorial survey experiments let us find the exact moment the stories diverge.

@@ -142,3 +142,121 @@ images:
       three different heights, the tallest still lit, the middle one
       guttering, the shortest gone out. Plain dark stone wall behind.
       Nothing else in the picture.
+
+  # Round 3 (2026-09-19): canonical phase marks for two domains, replacing the helmet (off target for a
+  # mostly law-enforcement corpus) and the magnifying glass (said "detective"). Same objects the article
+  # stickers use (motifs.yml), drawn alone: these are the domain, the articles are instances of it.
+  # Peter decided against reusing an article sticker for the phase mark (2026-09-19). Framed finals go
+  # to www/hex/responders.png and www/hex/criminology.png; the old finals are kept beside them.
+  # responders-coin (first roll, 2026-09-19): reference dominance again -- all three zoomed into the coin
+  # face, no rim, no ledge, no wall. Kept for the record; the re-roll below puts the scene first.
+  - name: responders-coin
+    description: >
+      A single heavy bronze challenge coin standing upright on its edge on a
+      plain stone ledge, seen straight on and centered, the whole coin
+      including its full round rim visible, taking up about two thirds of the
+      height of the picture, with the ledge beneath it and the wall behind.
+      The design on its face is exactly the design shown in [motif_refs/coin]:
+      three equal wedges divided by raised bronze ridges, one holding a
+      fire-service Maltese cross, one a plain shield with a completely blank
+      face, one a single staff with one serpent coiled around it. No stars of
+      any kind anywhere. The coin is dull, tarnished bronze, lit warmly from
+      one side by candlelight from outside the frame. Plain dark stone wall
+      behind, softly out of focus. Nothing else in the picture.
+
+  - name: responders-coin2
+    description: >
+      A quiet candlelit scene seen from a little distance: a plain stone ledge
+      runs across the lower part of the picture, and a plain dark stone wall,
+      softly out of focus, fills everything behind and above it. Standing
+      upright on its edge on the ledge, centered, is one heavy bronze challenge
+      coin, seen whole and small, no taller than half the height of the
+      picture, with clear empty wall above it and to both sides, its full
+      round rim visible all the way around, and a short unlit candle stub on
+      the ledge beside it. The design on the coin's face is exactly the
+      design shown in [motif_refs/coin]: three equal wedges divided by raised
+      bronze ridges, one holding a fire-service Maltese cross, one a plain
+      shield with a completely blank face, one a single staff with one serpent
+      coiled around it; no stars of any kind anywhere. The coin is dull,
+      tarnished bronze, lit from one side by warm candlelight. Nothing else in
+      the picture.
+
+  - name: criminology-cuffs
+    description: >
+      A single pair of old-fashioned heavy iron handcuffs, dark hand-forged
+      iron, two round cuffs joined by a short chain of three links, lying
+      closed on a plain dark wooden table, seen from slightly above, centered
+      and filling the middle of the frame. One small old iron key rests on the
+      table beside them. Warm candlelight from one side, from outside the
+      frame. Plain dark stone wall behind, softly out of focus. Nothing else
+      in the picture.
+
+  # Round 3b (2026-09-19): Peter found the coin2-2 and cuffs-2 picks too dark to read as main stickers
+  # next to genomics. Same objects, with a LIT candle in frame as a real light source and the scene
+  # described as bright, warm and clearly lit, no deep shadows.
+  - name: responders-coin3
+    description: >
+      A bright, warmly lit scene, seen from a little distance: a plain stone
+      ledge runs across the lower part of the picture, and a plain stone wall
+      fills everything behind and above it, glowing warm and light in
+      candlelight, no deep shadows anywhere. Standing upright on its edge on
+      the ledge, centered, is one heavy bronze challenge coin, seen whole and
+      small, no taller than half the height of the picture, with clear wall
+      above it and to both sides and its full round rim visible all the way
+      around. A tall lit candle with a bright flame stands on the ledge right
+      beside the coin, its light falling fully on the coin's face so every
+      raised detail is easy to read; the bronze is bright and polished, not
+      tarnished. The design on the coin's face is exactly the design shown in
+      [motif_refs/coin]: three equal wedges divided by raised bronze ridges,
+      one holding a fire-service Maltese cross, one a plain shield with a
+      completely blank face, one a single staff with one serpent coiled around
+      it; no stars of any kind anywhere. Light, warm sepia palette overall.
+      Nothing else in the picture.
+
+  - name: criminology-cuffs2
+    description: >
+      A bright, warmly lit scene: a single pair of old-fashioned heavy iron
+      handcuffs, dark hand-forged iron, two round cuffs joined by a short chain
+      of three links, lying closed on a plain light-toned wooden table, seen
+      from slightly above, centered and filling the middle of the frame. One
+      small old iron key rests on the table beside them. A tall lit candle
+      with a bright flame stands on the table just behind them, its light
+      falling fully on the cuffs so they stand out dark and crisp against the
+      warm, brightly lit wood; no deep shadows anywhere. A plain stone wall
+      behind glows warm and light in the candlelight. Light, warm sepia
+      palette overall. Nothing else in the picture.
+
+  # Round 3c (2026-09-19): round 3b swung too pale beside the flask. The flask's own square is attached as
+  # a lighting/palette reference (motif_refs/flask_lighting): dark warm wall, the object brightly lit.
+  - name: responders-coin4
+    description: >
+      Lit and coloured exactly like the scene in [motif_refs/flask_lighting]:
+      a dark, warm brown stone wall in soft shadow fills everything behind and
+      above, and the object in front of it is brightly lit by candlelight and
+      easy to read, with a medium warm sepia palette overall, neither pale nor
+      gloomy. The scene: a plain stone ledge runs across the lower part of the
+      picture, and standing upright on its edge on the ledge, centered, is one
+      heavy bronze challenge coin, seen whole, no taller than half the height
+      of the picture, its full round rim visible all the way around, with clear
+      wall above it and to both sides. A lit candle stands on the ledge beside
+      the coin, its light falling fully on the coin's face; the bronze is
+      bright and every raised detail is clear. The design on the coin's face
+      is exactly the design shown in [motif_refs/coin]: three equal wedges
+      divided by raised bronze ridges, one holding a fire-service Maltese
+      cross, one a plain shield with a completely blank face, one a single
+      staff with one serpent coiled around it; no stars of any kind anywhere.
+      Nothing else in the picture.
+
+  - name: criminology-cuffs3
+    description: >
+      Lit and coloured exactly like the scene in [motif_refs/flask_lighting]:
+      a dark, warm brown stone wall in soft shadow fills everything behind, and
+      the objects in front of it are brightly lit by candlelight and easy to
+      read, with a medium warm sepia palette overall, neither pale nor gloomy.
+      The scene: a single pair of old-fashioned heavy iron handcuffs, dark
+      hand-forged iron, two round cuffs joined by a short chain of three
+      links, lying closed on a plain medium-brown wooden table, seen from
+      slightly above, centered and filling the middle of the frame. One small
+      old iron key rests on the table beside them. A lit candle stands on the
+      table just behind them, its light falling fully on the cuffs so they
+      stand out crisp against the warmly lit wood. Nothing else in the picture.

@@ -70,6 +70,17 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   Tune the art in `motifs.yml`, never in the R. Article stickers do **not** join the CV hex band.
   Rank must read as glow/light at 92 px; small etched details vanish. Log:
   `logs/skilltree/2026-09-18_article-stickers.md`.
+- **Phase marks are the domain objects, drawn alone** (Peter, 2026-09-19): first responders = the tri-service
+  challenge coin on a ledge (`www/hex/responders.png`), criminology = iron handcuffs with a key
+  (`www/hex/criminology.png`), biosocial = the flask and helix (`genomics.png`, unchanged). Same objects as
+  `motifs.yml`, so an article sticker reads as an instance of its phase mark. Generated fresh in
+  `bananarama.yaml` round 3, never copied from an article sticker (Peter rejected that route the same day).
+  The old helmet and magnifying glass are kept as `responders_helmet.png` / `criminology_glass.png`.
+  Winning squares in `finals_src/`. Prompt lesson repeated: with `[motif_refs/coin]` attached the model zooms
+  into the coin face unless the scene text comes first and sizes the coin ("no taller than half the picture").
+  Brightness: text alone swung from cellar-dark to sunroom-pale; the fix was attaching the flask's own square
+  (`motif_refs/flask_lighting.jpg`) as a lighting/palette reference. Cite it for any future phase mark so the
+  set stays matched.
 
 ## Skill tree (`skilltree.qmd`, `5_skilltree/`)
 

@@ -38,8 +38,9 @@ sync: github
   v2 with tailored per-article motifs + per-article seeds, responders re-rolled with placement
   guardrails); selected hexes 3.4x with reverse flip, gold origin ring — see
   `logs/skilltree/2026-09-18_article-stickers.md`. Committed and pushed as `d0a5596`; CI publishes.
-- [ ] Decide whether the responders phase sticker (`www/hex/responders.png`, fire helmet) on the
-  Research page and CV band should become the coin too (~$0.20).
+- DONE 2026-09-19: fresh phase stickers for first responders (coin) and criminology (handcuffs), $1.42 over four rolls;
+  Research page, homepage collage and CV band updated; helmet and magnifying glass archived beside them.
+  See `logs/2026-09-19_phase-stickers.md`.
 - DONE 2026-09-18 (evening): Google Scholar stats card on the tree (`fetch_scholar.R`, local, commit the
   JSON) + achievements data layer (`achievements.yml`, `check_achievements.R`, dry-run only) — see
   `logs/skilltree/2026-09-18_scholar-stats.md`. Committed as `dcb8cd1`.

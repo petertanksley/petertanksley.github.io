@@ -13,9 +13,9 @@ stickers <- c(research = "Research hex sticker",
               `left-hand-thoughts` = "Left-hand Thoughts hex sticker",
               # round 2 (2026-09-05): Peter's puzzled face + one mark per career phase
               puzzled = "Puzzled Peter hex sticker",
-              criminology = "Criminology hex sticker",
+              criminology = "Criminology hex sticker: a pair of heavy iron handcuffs lying on a wooden table, one small iron key beside them and a lit candle behind",
               genomics = "Genomics hex sticker",
-              responders = "First responder mortality hex sticker")
+              responders = "First responder hex sticker: a bronze tri-service challenge coin standing on edge on a stone ledge, a lit candle beside it")
 
 n_rows <- 22          # enough to cover a tall viewport; container clips the rest
 n_cols <- 3           # col 1 is flush right (half off-screen on shifted rows)
