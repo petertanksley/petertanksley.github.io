@@ -56,7 +56,7 @@ sync: github
 - [ ] Backlog (not scheduled): career-rank gold markers on the year rings — see "Future work" in
   `logs/skilltree/2026-09-18_article-stickers.md`.
 - [ ] Optional: phase stickers beside the matching Research-page sections
-- [ ] Optional: a news item announcing the skill tree
+- DONE 2026-09-19: news item announcing the skill tree (`skill-tree-2026` in `news.yml`).
 
 ## Upcoming Milestones
 

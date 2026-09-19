@@ -12,6 +12,13 @@
 #   description  ONE lighthearted sentence. Markdown links [text](url) are
 #                allowed and encouraged: they render on the news page and
 #                are stripped to plain text on the homepage
+- date: 2026-09-19
+  id: skill-tree-2026
+  title: "Spent a week making my CV playable"
+  description: >
+    The publication list is now a [skill tree](skilltree.html): hexes by year,
+    three axes for the three careers, lineage lines where a paper grew out of
+    an earlier one, and the CV still exists for adults.
 - date: 2026-09-02
   id: nature-personality-2026
   title: "Career achievement unlocked: get published in Nature. Check."
