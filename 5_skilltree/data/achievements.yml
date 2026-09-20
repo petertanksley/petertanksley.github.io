@@ -31,9 +31,10 @@
 #   Variation (2026-09-20): title, body and a joke reward may each be a LIST of variants. One is picked per firing,
 #   seeded from the achievement's key (rule + paper + snapshot date), so the same feat reads differently on different
 #   papers and dates but a --replay reproduces the ledger exactly. Never seed from the clock.
-#   title    headline: the feat only, short. The paper is named by the `paper` field the ledger carries (the page and
-#            the homepage card print it as a byline; the tree panel, which is already the paper, does not). {old} {new}
-#            {delta} are filled in everywhere below too
+#   title    the joke, as in the books: a label, a deadpan statement or an exclamation, vaguely about the feat and
+#            never the bare fact (Peter, 2026-09-20: "very funny"). The fact lives in the body. The paper is named by
+#            the `paper` field the ledger carries (page and homepage card print it as a byline; the tree panel, which
+#            is already the paper, does not). {old} {new} {delta} are filled in everywhere below too
 #   body     the fact, then the mock. Second person. Dry, not zany; no profanity; sass about the job,
 #            the appendix, peer review and Peter, never about responders dying (CLAUDE.md)
 #   reward   EITHER a joke line (text; "Reward:" is prefixed if missing)
@@ -50,9 +51,9 @@
   metric: scholar.h_index
   trigger: step
   title:
-    - "Level Up. h-index is now {new}."
-    - "Ding. h-index {new}."
-    - "h-index {new}. The Number Has Moved."
+    - "Number Go Up."
+    - "Somebody Tell the Search Committee."
+    - "You've Become Marginally Harder to Ignore."
   body:
     - >-
       One more of your papers has been cited at least {new} times, so the number every hiring committee
@@ -75,9 +76,9 @@
   trigger: round
   every: 100
   title:
-    - "{new} Citations. Somebody Read the Appendix."
-    - "{new} Citations and Counting."
-    - "Cited {new} Times. Round Number, Round of Applause."
+    - "Somebody Read the Appendix."
+    - "Please Stop Refreshing Google Scholar."
+    - "Cited by the Hundred, Read by the Handful."
   body:
     - >-
       Your work has now been cited {new} times. Not by {new} people: a handful of regulars are doing most
@@ -99,9 +100,9 @@
   metric: scholar.i10
   trigger: step
   title:
-    - "New Skill Acquired: {new} Papers with Ten or More Citations."
-    - "i10 is {new}."
-    - "{new} Papers Past Ten."
+    - "Ten Is a Number Now."
+    - "Line Item Acquired."
+    - "Google Would Like a Word."
   body:
     - >-
       Another paper has crossed ten citations, which is the number a paper needs before a metric will
@@ -123,9 +124,9 @@
   metric: articles.*.scholar
   trigger: ladder
   title:
-    - "Cited {times}."
-    - "Cited {times}. Noted."
-    - "Cited {times}, and Counting."
+    - "Someone Was Looking for a Reference."
+    - "You've Been Cited. It Was Probably Fine."
+    - "Easier to Cite Than to Re-Derive."
   body:
     - >-
       Your {year} paper in {venue} has now been cited {times}. Someone needed exactly what you wrote, or
@@ -156,9 +157,9 @@
   metric: articles.*.lineage
   trigger: ladder
   title:
-    - "Founder."
-    - "Root System."
+    - "Patient Zero."
     - "It Grew Legs."
+    - "This Is Your Fault Now."
   body:
     - >-
       Your {year} paper in {venue} builds on none of your earlier work, and {new} later paper{s} of yours now
@@ -185,9 +186,9 @@
   trigger: ladder
   min_age: 2
   title:
-    - "Top {top}% of {year}."
-    - "Top {top}%. Of Everything."
-    - "{year}: Top {top}%."
+    - "Better Than Most Things Nobody Read."
+    - "Top {top}%. Of Everything. Including Corrections."
+    - "The Bad Metric Likes You."
   body:
     - >-
       Among everything published in {year} that OpenAlex has heard of, your paper in {venue} now sits in the

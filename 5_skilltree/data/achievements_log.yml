@@ -9,7 +9,7 @@
   metric: articles.tanksley_2025_mortality.lineage
   old: 0
   new: 2
-  title: Root System.
+  title: It Grew Legs.
   body: 2 of your later papers trace back to your 2025 paper in The Lancet Regional
     Health - Americas, which itself traces back to nothing of yours. That makes it
     a root. Roots get no light and all of the blame.
@@ -28,7 +28,7 @@
   metric: articles.gonzalez_2025_relationships.lineage
   old: 0
   new: 2
-  title: Root System.
+  title: It Grew Legs.
   body: 2 of your later papers trace back to your 2025 paper in Journal of Occupational
     and Environmental Medicine, which itself traces back to nothing of yours. That
     makes it a root. Roots get no light and all of the blame.
@@ -47,7 +47,7 @@
   metric: articles.raffington_2022_socially.lineage
   old: 0
   new: 2
-  title: Founder.
+  title: Patient Zero.
   body: Your 2022 paper in Psychological Science builds on none of your earlier work,
     and 2 later papers of yours now build on it. You started something. Ending it
     is now someone else's problem.
@@ -66,7 +66,7 @@
   metric: articles.raffington_2023_associations.percentile
   old: 0
   new: 98
-  title: Top 2% of 2023.
+  title: Better Than Most Things Nobody Read.
   body: OpenAlex ranks your 2023 paper in Clinical Psychological Science in the top
     2% of everything published that year. The comparison set includes conference abstracts,
     corrections, and a great many things nobody has opened. Still. Top 2%.

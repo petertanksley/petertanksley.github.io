@@ -128,8 +128,9 @@ the news stream). Four surfaces, all reading the ledger:
 - Career-level entries (no `article`: h-index, i10, total citations) ride on `meta.origin.achievements`:
   numeral on Peter's hex, Achievements section on the character sheet.
 
-Titles carry the feat only ("Top 2% of 2023."); the paper is named by the `paper` field, printed as a byline
-on the page and card but not in the panel, which is already the paper.
+Titles are the joke, as in the books ("Patient Zero.", "Please Stop Refreshing Google Scholar."), vaguely about
+the feat and never the bare fact; the body carries the fact (Peter, 2026-09-20). The paper is named by the `paper`
+field, printed as a byline on the page and card but not in the panel, which is already the paper.
 
 **Variation** (Peter, 2026-09-20: "vary the language up so the same achievement doesn't have identical text").
 `title`, `body` and a joke `reward` may each be a list of variants; the checker picks one per firing with a

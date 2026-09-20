@@ -85,3 +85,8 @@ hash of the achievement key with a salt per field, so title, body and reward var
 byte-identical (verified). Three variants written for every title, body and joke reward; two bodies rewritten
 first (citations-century no longer counts one citation per person; Founder got a punchline). Rules file grew to
 six rules, ~190 lines.
+
+## Fourth pass: titles
+
+Peter: titles "need to be funny too... vaguely related to the content... but very funny." All eighteen rewritten as
+DCC-shaped jokes (label / deadpan statement / exclamation); the fact moved entirely into the body.
