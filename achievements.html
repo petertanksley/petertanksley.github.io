@@ -6,11 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Peter T. Tanksley">
-<meta name="dcterms.date" content="2024-07-07">
-<meta name="description" content="Initial post of the LHT (left-hand thoughts) blog.">
 
-<title>Left-hand Thoughts (LHT) #0 – Peter T. Tanksley</title>
+<title>Achievements – Peter T. Tanksley</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -32,20 +29,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<link href="../../www/favicon.svg" rel="icon" type="image/svg+xml">
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-73b0ff3878a4e6fc3716dc69a6aaefa3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-37e9b28b564c4412981193720a460279.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<link href="./www/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-73b0ff3878a4e6fc3716dc69a6aaefa3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-37e9b28b564c4412981193720a460279.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -61,8 +60,67 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<meta name="author" content="Peter T. Tanksley">
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-ach-all .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-key','listing-id','listing-date','listing-since','listing-metric','listing-old','listing-new','listing-title','listing-body','listing-reward','listing-article','listing-paper','listing-tier','listing-box','listing-rank','listing-featured',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
+      
+      searchColumns: ["listing-key","listing-id","listing-date","listing-since","listing-metric","listing-old","listing-new","listing-title","listing-body","listing-reward","listing-article","listing-paper","listing-tier","listing-box","listing-rank","listing-featured"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-ach-all'] = new List('listing-ach-all', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+<meta name="author" content="Peter T. Tanksley">
+<script>document.documentElement.classList.add('page-dark');</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -73,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Peter T. Tanksley</span>
     </a>
   </div>
@@ -88,37 +146,37 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
         <li>
-    <a class="dropdown-item" href="../../research.html">
+    <a class="dropdown-item" href="./research.html">
  <span class="dropdown-text">Research</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../skilltree.html">
+    <a class="dropdown-item" href="./skilltree.html">
  <span class="dropdown-text">Skill tree</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../achievements.html">
+    <a class="dropdown-item" href="./achievements.html">
  <span class="dropdown-text">Achievements</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../projects.html">
+    <a class="dropdown-item" href="./projects.html">
  <span class="dropdown-text">Projects</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../2_cv/tanksley_cv.html">
+    <a class="dropdown-item" href="./2_cv/tanksley_cv.html">
  <span class="dropdown-text">CV</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../../news.html"> 
+    <a class="nav-link" href="./news.html"> 
 <span class="menu-text">News</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../3_posts/posts.html"> 
+    <a class="nav-link" href="./3_posts/posts.html"> 
 <span class="menu-text">Left-hand Thoughts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../1_about/about.html"> 
+    <a class="nav-link" href="./1_about/about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -150,43 +208,15 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Left-hand Thoughts (LHT) #0</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">Quarto</div>
-    <div class="quarto-category">R</div>
-    <div class="quarto-category">LHT</div>
-  </div>
-  </div>
-
-<div>
-  <div class="description">
-    Initial post of the LHT (left-hand thoughts) blog.
-  </div>
+<h1 class="title">Achievements</h1>
+<p class="subtitle lead">System messages from the citation record. The dungeon is always listening.</p>
 </div>
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author"><a href="https://petertanksley.github.io/">Peter T. Tanksley</a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            ALERRT Center, Texas State University
-          </p>
-      </div>
-  </div>
+
 
 <div class="quarto-title-meta">
 
-      
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">July 7, 2024</p>
-    </div>
-  </div>
+    
   
     
   </div>
@@ -196,37 +226,97 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="remember-spiral-notebooks" class="level3">
-<h3 class="anchored" data-anchor-id="remember-spiral-notebooks">Remember spiral notebooks?</h3>
-<p>I’ve used spiral notebooks throughout my whole school career but it took me an embarrassingly long period of time to realize something about them: only the right-hand side is worth a damn. In terms of legibility, that is. I’m a righty, so writing down notes on the left-hand side meant that my hand rested on the spiral itself for roughly half of each class period. I. HATED. IT.</p>
-<p>So, I ended up only writing notes on the right-hand side of my spirals. This worked, but then I had a whole blank page to deal with. What did I do with this unexpected windfall of college-ruled wonderland of possibilities? Doodled. Mostly. I also wrote down interesting thoughts, not always related to the lecture I was listening to—interesting to me at least. Thus, the left-hand side of the spiral took on a new life. It became where all of the interesting things went. Or perhaps just ideas that I wanted to evict from my brain (where they had been living rent-free). Either way, the “left-hand thoughts” turned out to be the most interesting parts of those spirals.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="spiral2.png" class="img-fluid figure-img"></p>
-<figcaption>Spiral notebook from… doctorate? Notice the LHT, something about the ocean as a metaphor for the multiverse and fate. I have no idea where I was going with that…</figcaption>
-</figure>
+<div class="belt-bar--sm belt-bar--center">
+
 </div>
-</section>
-<section id="fast-forward-to-today" class="level3">
-<h3 class="anchored" data-anchor-id="fast-forward-to-today">Fast forward to today…</h3>
-<p>Not being in school anymore, I don’t use spirals hardly at all. My hope for this blog is that I’ll be able to capture the spirit of these left-hand thoughts (LHTs) in a more fully explored format. These will probably focus more on coding and statistics (the very lame topics that occupy my mental left-hand side of my mental spiral nowadays). But there may be some other topics of interest in the future as well. We’ll just need to see how things go…</p>
-<p>That’s it for now! Cheers, everybody.</p>
-<p>P</p>
+<div class="ach-intro">
+<p>Every so often the citation counts get refreshed, and when a number crosses a line the system says so, in the register of a certain dungeon. Per-paper feats earn a themed box: a Flask for the biosocial work, Handcuffs for criminology, a Challenge Coin for first responders. Routine progress earns mockery. Each paper’s tally sits on its hex in the <a href="skilltree.html">skill tree</a> as a roman numeral, lower left, across from the impact pips.</p>
+</div>
+<div id="listing-ach-all" class="quarto-listing quarto-listing-container-custom">
+<div class="achlist">
+<h2 class="ach-day anchored">
+<span class="ach-day-label">Snapshot</span> Sep 20, 2026
+</h2>
+<article class="ach" id="paper-percentile-raffington_2023_associations-2026-09-20" data-tier="Gold">
+<div class="ach-head">
+New achievement!
+</div>
+<h3 class="ach-title anchored">
+Top 2% of 2023.
+</h3>
+<p class="ach-paper">
+Associations of DNA-methylation measures of biological aging with social disparities in child and adolescent mental health
+</p>
+<p class="ach-body">
+OpenAlex ranks your 2023 paper in Clinical Psychological Science in the top 2% of everything published that year. The comparison set includes conference abstracts, corrections, and a great many things nobody has opened. Still. Top 2%.
+</p>
+<p class="ach-reward">
+Reward: You've received a Gold Flask Box!
+</p>
+<a class="ach-hex" href="skilltree.html#raffington_2023_associations">Find the hex →</a>
+</article>
+<article class="ach" id="paper-lineage-tanksley_2025_mortality-2026-09-20" data-tier="Silver">
+<div class="ach-head">
+New achievement!
+</div>
+<h3 class="ach-title anchored">
+Root System.
+</h3>
+<p class="ach-paper">
+Mortality among law enforcement officers in the United States: A population-wide analysis of the National Occupational Mortality Surveillance data, 2020-2023
+</p>
+<p class="ach-body">
+2 of your later papers trace back to your 2025 paper in The Lancet Regional Health - Americas, which itself traces back to nothing of yours. That makes it a root. Roots get no light and all of the blame.
+</p>
+<p class="ach-reward">
+Reward: You've received a Silver Heirloom Box!
+</p>
+<a class="ach-hex" href="skilltree.html#tanksley_2025_mortality">Find the hex →</a>
+</article>
+<article class="ach" id="paper-lineage-gonzalez_2025_relationships-2026-09-20" data-tier="Silver">
+<div class="ach-head">
+New achievement!
+</div>
+<h3 class="ach-title anchored">
+Root System.
+</h3>
+<p class="ach-paper">
+Relationships between physiological stress biomarkers and cardiovascular disease risk factors among career firefighters
+</p>
+<p class="ach-body">
+2 of your later papers trace back to your 2025 paper in Journal of Occupational and Environmental Medicine, which itself traces back to nothing of yours. That makes it a root. Roots get no light and all of the blame.
+</p>
+<p class="ach-reward">
+Reward: You've received a Silver Heirloom Box!
+</p>
+<a class="ach-hex" href="skilltree.html#gonzalez_2025_relationships">Find the hex →</a>
+</article>
+<article class="ach" id="paper-lineage-raffington_2022_socially-2026-09-20" data-tier="Silver">
+<div class="ach-head">
+New achievement!
+</div>
+<h3 class="ach-title anchored">
+Founder.
+</h3>
+<p class="ach-paper">
+Socially stratified epigenetic profiles are associated with cognitive functioning in children and adolescents
+</p>
+<p class="ach-body">
+Your 2022 paper in Psychological Science builds on none of your earlier work, and 2 later papers of yours now build on it. You started something. Ending it is now someone else's problem.
+</p>
+<p class="ach-reward">
+Reward: You've received a Silver Heirloom Box!
+</p>
+<a class="ach-hex" href="skilltree.html#raffington_2022_socially">Find the hex →</a>
+</article>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div>
 
 
-</section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{t._tanksley2024,
-  author = {T. Tanksley, Peter},
-  title = {Left-Hand {Thoughts} {(LHT)} \#0},
-  date = {2024-07-07},
-  url = {https://petertanksley.github.io/3_posts/2024-07-07_lht_blog_init/},
-  langid = {en}
-}
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-t._tanksley2024" class="csl-entry quarto-appendix-citeas" role="listitem">
-T. Tanksley, Peter. 2024. <span>“Left-Hand Thoughts (LHT) #0.”</span>
-July 7. <a href="https://petertanksley.github.io/3_posts/2024-07-07_lht_blog_init/">https://petertanksley.github.io/3_posts/2024-07-07_lht_blog_init/</a>.
-</div></div></section></div></main> <!-- /main -->
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

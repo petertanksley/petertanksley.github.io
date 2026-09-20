@@ -44,7 +44,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-73b0ff3878a4e6fc3716dc69a6aaefa3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e0432340716ca4f70cb41d964dbe19e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-37e9b28b564c4412981193720a460279.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -79,6 +79,34 @@ ul.task-list li input[type="checkbox"] {
 
     window['quarto-listings'] = window['quarto-listings'] || {};
     window['quarto-listings']['listing-news-home'] = new List('listing-news-home', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-ach-home .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-key','listing-id','listing-date','listing-since','listing-metric','listing-old','listing-new','listing-title','listing-body','listing-reward','listing-article','listing-paper','listing-tier','listing-box','listing-rank','listing-featured',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
+      
+      searchColumns: ["listing-key","listing-id","listing-date","listing-since","listing-metric","listing-old","listing-new","listing-title","listing-body","listing-reward","listing-article","listing-paper","listing-tier","listing-box","listing-rank","listing-featured"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-ach-home'] = new List('listing-ach-home', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -153,6 +181,10 @@ window.Quarto = {
         <li>
     <a class="dropdown-item" href="./skilltree.html">
  <span class="dropdown-text">Skill tree</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./achievements.html">
+ <span class="dropdown-text">Achievements</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./projects.html">
@@ -248,6 +280,10 @@ News
 <p class="mono newslist-more">
 <a href="./news.html">All news →</a>
 </p>
+<div id="listing-ach-home" class="quarto-listing quarto-listing-container-custom">
+<p><a class="ach-card" href="achievements.html#paper-percentile-raffington_2023_associations-2026-09-20" data-tier="Gold"> <span class="ach-card-mark" aria-hidden="true"><span class="ach-card-num">IV</span><span class="ach-card-lab">earned</span></span> <span class="ach-card-text"> <span class="eyebrow">System message · Sep 20, 2026</span> <span class="ach-card-head">New achievement!</span> <span class="ach-card-title">Top 2% of 2023.</span> <span class="ach-card-paper">Associations of DNA-methylation measures of biological aging with social disparities in child and adolescent mental health</span> <span class="ach-card-body">OpenAlex ranks your 2023 paper in Clinical Psychological Science in the top 2% of everything published that year. The comparison set includes conference abstracts, corrections, and a great many things nobody has opened. Still. Top 2%.</span> <span class="ach-card-reward">Reward: You've received a Gold Flask Box!</span> <span class="ach-card-more">All achievements →</span> </span> </a></p>
+<div class="listing-no-matching d-none">No matching items</div>
+</div>
 </div>
 <div class="column-screen band">
 <div class="band-inner">
