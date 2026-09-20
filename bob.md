@@ -25,9 +25,9 @@ sync: github
 
 ## Start Here Next Session
 
-- **Achievements are live on the site, committed, NOT pushed** (2026-09-20): page, homepage card, numerals on the
-  tree, panel and sheet sections. Peter still owes a real-browser look and a wording review of the drafted lines
-  in `5_skilltree/data/achievements.yml` (edit → `check_achievements.R --replay` → `build_tree.R` → commit), then push.
+- **Achievements shipped 2026-09-20** (pushed `10419c8`, CI publishes): page, homepage card, numerals on the tree,
+  panel and sheet sections; six rules with three text variants each, reviewed by Peter in the browser. Wording edits:
+  `5_skilltree/data/achievements.yml` → `check_achievements.R --replay` → `build_tree.R` → commit.
   See `logs/skilltree/2026-09-20_achievements-surfaces.md`.
 - Open from the 2026-09-19 list, not blocking: total-citation ladder stretch, h/i10 milestone ladders, manual
   achievements (talks, grants, awards). Proposals in `logs/skilltree/2026-09-19_achievements-rules.md`.
@@ -55,7 +55,8 @@ sync: github
 - DONE 2026-09-20: achievements on the site (Peter: gold numeral, career on the origin, separate from news, single
   latest on the homepage). First real refresh fired 12 percentile achievements; ledger logged on purpose.
   Committed locally; see `logs/skilltree/2026-09-20_achievements-surfaces.md`.
-- [ ] Peter: real-browser check of the numerals and the achievements page; review the drafted wording; push.
+- DONE 2026-09-20: Peter reviewed in the browser (percentile rule tightened, numerals upright, lead-only Bronze,
+  Founder rule, text variants); pushed as `10419c8`.
 - [ ] Refresh the stats now and then: `Rscript 5_skilltree/R/refresh.R` (fetch → log → tree), then commit the
   snapshot, `www/scholar.json`, `5_skilltree/data/achievements_log.yml`, `www/tree.json`.
 - [ ] Each June/July when Clarivate releases the new JCR year: export all 22 journals for that year from JCR
