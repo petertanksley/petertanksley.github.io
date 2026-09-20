@@ -60,8 +60,8 @@
   every: 100
   title: "{new} Citations. Somebody Read the Appendix."
   body: >-
-    Your work has now been cited {new} times. That is {new} people who needed a reference and found
-    yours before they found a better one. Statistically, at least one of them read past the abstract.
+    Your work has now been cited {new} times. Not by {new} people: a handful of regulars are doing most
+    of the lifting, and one of the regulars is you. Statistically, at least one of them read past the abstract.
   reward:
     type: Appendix Box
     tier:
@@ -110,8 +110,7 @@
   title: "Founder."
   body: >-
     Your {year} paper in {venue} builds on none of your earlier work, and {new} later paper{s} of yours now
-    build on it. You started something. Whether it should have been started is a question for the
-    reviewers downstream.
+    build on it. You started something. Ending it is now someone else's problem.
   reward:
     type: Heirloom Box
     tier:
