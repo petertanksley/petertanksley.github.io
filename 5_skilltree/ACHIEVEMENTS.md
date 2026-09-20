@@ -131,6 +131,12 @@ the news stream). Four surfaces, all reading the ledger:
 Titles carry the feat only ("Top 2% of 2023."); the paper is named by the `paper` field, printed as a byline
 on the page and card but not in the panel, which is already the paper.
 
+**Variation** (Peter, 2026-09-20: "vary the language up so the same achievement doesn't have identical text").
+`title`, `body` and a joke `reward` may each be a list of variants; the checker picks one per firing with a
+hash of the achievement key (rule + paper + snapshot date), so the same feat reads differently across papers and
+dates while `--replay` reproduces the ledger exactly. Peter asked for the clock as the seed; refused, because a
+clock seed would rewrite every past achievement on replay. Three variants each at present; add more freely.
+
 **Voice guard.** The books swear and go crude; this site is dry, not zany (CLAUDE.md). Keep the fact-then-
 mock rhythm, drop the profanity. Never sass about responders dying; sass about the job, the appendix,
 peer review, and Peter.

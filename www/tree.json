@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-09-20 15:37",
+    "generated": "2026-09-20 15:45",
     "hex_w": 100,
     "hex_h": 115.47,
     "width": 2781,
@@ -612,7 +612,7 @@
           {
             "key": "paper-lineage-tanksley_2025_mortality-2026-09-20",
             "date": "2026-09-20",
-            "title": "Founder.",
+            "title": "Root System.",
             "tier": "Silver",
             "box": "Heirloom Box",
             "reward": "Reward: You've received a Silver Heirloom Box!"
@@ -857,7 +857,7 @@
           {
             "key": "paper-lineage-gonzalez_2025_relationships-2026-09-20",
             "date": "2026-09-20",
-            "title": "Founder.",
+            "title": "Root System.",
             "tier": "Silver",
             "box": "Heirloom Box",
             "reward": "Reward: You've received a Silver Heirloom Box!"

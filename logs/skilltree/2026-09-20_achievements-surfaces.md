@@ -76,3 +76,12 @@ papers that are the start of a lineage."
   `builds_on`), 0 otherwise. Rule `paper-lineage`, ladder 1 / 3 / 5 / 10, Heirloom Box. Added `{s}` plural
   placeholder. The 2026-09-20 snapshot was backfilled with the same computation so the three existing roots fired
   on replay rather than waiting for a fourth paper. Ledger: 4 entries.
+
+## Third pass: variation
+
+Peter asked for varied text per firing and suggested the system clock as a seed. Clock rejected: the ledger is
+rebuilt by `--replay`, and a clock seed would rewrite every past achievement each time. Seed is a 31-bit rolling
+hash of the achievement key with a salt per field, so title, body and reward vary independently and a replay is
+byte-identical (verified). Three variants written for every title, body and joke reward; two bodies rewritten
+first (citations-century no longer counts one citation per person; Founder got a punchline). Rules file grew to
+six rules, ~190 lines.

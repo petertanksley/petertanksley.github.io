@@ -133,7 +133,8 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   percentile rule now takes `min_age: 2` (calendar years from the snapshot date) and starts at the top 3%. Same day:
   first-citation Bronze is for lead-author papers only (a rung may carry `role:`), and a **Founder** rule fires when a
   paper with no `builds_on` gains descendants (`articles.<id>.lineage`, which the fetcher computes from `articles.yml`
-  into each snapshot). Ledger after replay: three Founder Silvers and one percentile Gold.
+  into each snapshot). Ledger after replay: three Founder Silvers and one percentile Gold. Title, body and joke
+  reward may be lists of variants; one is picked per firing by a hash of the key, never the clock, so replay is exact.
 - **Impact-factor pips** (2026-09-19): 1-3 gold dots inside a hex's top vertex mark the venue's Clarivate JIF in
   the JCR year **before** the article's year (`JIF_LAG`), at `IMPACT_TIERS` 5 / 10 / 25 in `build_tree.R`; the panel
   prints the number, the JCR year and the band definition for every node with a JIF, the tooltip a terse suffix.

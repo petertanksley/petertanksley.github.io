@@ -9,10 +9,10 @@
   metric: articles.tanksley_2025_mortality.lineage
   old: 0
   new: 2
-  title: Founder.
-  body: Your 2025 paper in The Lancet Regional Health - Americas builds on none of
-    your earlier work, and 2 later papers of yours now build on it. You started something.
-    Ending it is now someone else's problem.
+  title: Root System.
+  body: 2 of your later papers trace back to your 2025 paper in The Lancet Regional
+    Health - Americas, which itself traces back to nothing of yours. That makes it
+    a root. Roots get no light and all of the blame.
   reward: 'Reward: You''ve received a Silver Heirloom Box!'
   article: tanksley_2025_mortality
   paper: 'Mortality among law enforcement officers in the United States: A population-wide
@@ -28,10 +28,10 @@
   metric: articles.gonzalez_2025_relationships.lineage
   old: 0
   new: 2
-  title: Founder.
-  body: Your 2025 paper in Journal of Occupational and Environmental Medicine builds
-    on none of your earlier work, and 2 later papers of yours now build on it. You
-    started something. Ending it is now someone else's problem.
+  title: Root System.
+  body: 2 of your later papers trace back to your 2025 paper in Journal of Occupational
+    and Environmental Medicine, which itself traces back to nothing of yours. That
+    makes it a root. Roots get no light and all of the blame.
   reward: 'Reward: You''ve received a Silver Heirloom Box!'
   article: gonzalez_2025_relationships
   paper: Relationships between physiological stress biomarkers and cardiovascular
@@ -67,9 +67,9 @@
   old: 0
   new: 98
   title: Top 2% of 2023.
-  body: Among everything published in 2023 that OpenAlex has heard of, your paper
-    in Clinical Psychological Science now sits in the top 2% by citations. Most of
-    the rest was never cited at all, which is either comforting or the whole problem.
+  body: OpenAlex ranks your 2023 paper in Clinical Psychological Science in the top
+    2% of everything published that year. The comparison set includes conference abstracts,
+    corrections, and a great many things nobody has opened. Still. Top 2%.
   reward: 'Reward: You''ve received a Gold Flask Box!'
   article: raffington_2023_associations
   paper: Associations of DNA-methylation measures of biological aging with social

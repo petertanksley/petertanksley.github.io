@@ -51,6 +51,10 @@ fill <- function(tpl, o, n, a = NULL) {
   if (!is.null(a)) vals <- c(vals, "{paper}" = a$title, "{venue}" = a$venue %||% "", "{year}" = format(a$year))
   str_replace_all(str_squish(tpl), fixed(vals))
 }
+# variants: title / body / joke reward may be a vector of alternatives; one is picked per firing, seeded from the
+# achievement key so the same paper on the same date always reads the same and --replay is exact. Never the clock.
+hash32 <- function(s) { h <- 0; for (c in utf8ToInt(s)) h <- (h * 31 + c) %% 2147483647; h }
+pick   <- function(x, key, salt) if (length(x) <= 1) x else x[[hash32(paste(key, salt)) %% length(x) + 1]]
 # log10 rungs: 1, 10, 100, 1000 ...; zero sits below the first rung
 rung <- function(x) if (x < 1) -1 else floor(log10(x))
 
@@ -58,9 +62,9 @@ rung <- function(x) if (x < 1) -1 else floor(log10(x))
 rungs_of <- function(r) { rw <- r$reward$tier; if (is.character(rw)) return(list())
   keep(rw, ~ is.null(.x$role) || (!is.null(r$paper) && identical(r$paper$role, .x$role))) }
 # the Reward line: a joke string, or a box whose tier is fixed or read off a ladder against the new value
-reward_of <- function(r, o, n) {
+reward_of <- function(r, o, n, key) {
   rw <- r$reward
-  if (is.character(rw)) { txt <- fill(rw, o, n, r$paper); return(list(text = if (str_starts(txt, "Reward:")) txt else paste("Reward:", txt), tier = NA, box = NA)) }
+  if (is.character(rw)) { txt <- fill(pick(rw, key, "reward"), o, n, r$paper); return(list(text = if (str_starts(txt, "Reward:")) txt else paste("Reward:", txt), tier = NA, box = NA)) }
   if (is.null(rw$type)) stop("rule ", r$id, ": reward must be text or {type, tier}")
   type <- if (is.character(rw$type)) rw$type else {                       # a map by dominant area, with a `mixed` fallback
     d <- if (is.null(r$paper)) "mixed" else dominant(r$paper); rw$type[[d]] %||% rw$type[["mixed"]] %||% stop("rule ", r$id, ": no box type for area ", d) }
@@ -92,11 +96,13 @@ fire <- function(old_file, new_file, quiet = FALSE) {
       ladder    = { at <- map_dbl(rungs_of(r), "at"); length(at) > 0 && any(n >= at & o < at) },
       stop("unknown trigger '", r$trigger, "' in rule ", r$id))
     if (!hit) next
-    rw <- reward_of(r, o, n)
+    key <- paste(r$id, new_date, sep = "-")
+    rw <- reward_of(r, o, n, key)
     num <- function(x) if (x == round(x)) as.integer(x) else x          # whole counts print as 12, not 12.0
-    a <- list(key = paste(r$id, new_date, sep = "-"), id = r$id, date = new_date, since = old_date, metric = r$metric,
+    a <- list(key = key, id = r$id, date = new_date, since = old_date, metric = r$metric,
               old = num(o), new = num(n),
-              title = fill(r$title, o, n, r$paper), body = fill(r$body %||% "", o, n, r$paper), reward = rw$text)
+              title = fill(pick(r$title, key, "title"), o, n, r$paper), body = fill(pick(r$body %||% "", key, "body"), o, n, r$paper),
+              reward = rw$text)
     if (!is.null(r$paper)) { a$article <- r$paper$id; a$paper <- r$paper$title }   # id for the hex link, title for the byline
     if (!is.na(rw$tier)) a$tier <- rw$tier
     if (!is.na(rw$box))  a$box  <- rw$box
