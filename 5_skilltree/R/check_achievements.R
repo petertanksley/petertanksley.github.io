@@ -73,10 +73,14 @@ fire <- function(old_file, new_file, quiet = FALSE) {
   old <- read_json(old_file); new <- read_json(new_file)
   old_date <- date_of(old_file); new_date <- date_of(new_file)
   fired <- list()
+  # min_age: a per-paper rule ignores papers younger than this many calendar years at the snapshot date. A paper
+  # that was too young at the OLD snapshot counts as 0 there, so its first eligible snapshot fires the rung it sits on.
+  age_ok <- function(r, date) is.null(r$min_age) || is.null(r$paper) || (as.integer(substr(date, 1, 4)) - r$paper$year) >= r$min_age
   for (r in rules) {
+    if (!age_ok(r, new_date)) next
     o <- dig(old, r$metric); n <- dig(new, r$metric)
     if (is.na(n)) next
-    if (is.na(o)) o <- 0                                       # a metric that did not exist yet (e.g. an uncited paper) counts as 0
+    if (is.na(o) || !age_ok(r, old_date)) o <- 0               # a metric that did not exist yet (e.g. an uncited paper) counts as 0
     hit <- switch(r$trigger,
       step      = n > o,
       round     = (n %/% r$every) > (o %/% r$every),

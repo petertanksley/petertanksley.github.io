@@ -51,3 +51,15 @@ check owed by Peter, per the standing rule.
 
 Total-citation ladder stretch (2), h/i10 milestone ladders (3), manual achievements for talks/grants/awards (4).
 Peter has not reviewed the drafted wording; the ledger is regenerable with `--replay` after he does.
+
+## Review pass (same day)
+
+Peter, from the browser: the percentile achievement was "way too plentiful", and the rotated numerals looked odd.
+
+- **Percentile rule** now `min_age: 2` (a paper must be two calendar years old at the snapshot date; implemented
+  in the checker so eligibility is judged per snapshot, and an under-age paper counts as 0 at the old snapshot
+  so the first eligible snapshot fires the rung it already sits on) and a top-3% ladder, 97 / 98 / 99 / 100 =
+  Silver / Gold / Platinum / Legendary. Replayed: 12 entries became 1 (raffington_2023, Gold). `--replay` did
+  exactly what it was built for on its first day.
+- **Numeral** is upright, centred on the bottom vertex, 0.17 w up at 0.14 w. At that height the two lower edges
+  are ~0.59 w apart, so VIII and XIII (checked with a synthetic tree) clear the border. `?v=2026-09-20b`.

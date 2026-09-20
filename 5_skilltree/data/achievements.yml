@@ -24,6 +24,9 @@
 #   <rule>-<article id>); {paper} {venue} {year} fill from the paper, {times} is "once" or "{new} times".
 #   articles.<id>.percentile is the paper's OpenAlex citation percentile among all works of its year (the
 #   conservative end of the band; null in the publication year). {top} = 100 - {new}, read as "top N%".
+#   min_age  (per-paper rules) years a paper must have behind it, counted in calendar years from the snapshot
+#            date, before the rule looks at it. Below that age the paper's value counts as 0, so the first
+#            eligible snapshot can still fire the rung it already sits on.
 #   title    headline: the feat only, short. The paper is named by the `paper` field the ledger carries (the page and
 #            the homepage card print it as a byline; the tree panel, which is already the paper, does not). {old} {new}
 #            {delta} are filled in everywhere below too
@@ -94,9 +97,13 @@
       - {at: 50, tier: Platinum}
       - {at: 100, tier: Legendary}
 
+# Peter, 2026-09-20: the first refresh fired twelve of these at once and it read as noise. Now only papers two full
+# calendar years old, and only the top 3%: a percentile that runs as high as this one has to be near the ceiling
+# before it means anything.
 - id: paper-percentile
   metric: articles.*.percentile
   trigger: ladder
+  min_age: 2
   title: "Top {top}% of {year}."
   body: >-
     Among everything published in {year} that OpenAlex has heard of, your paper in {venue} now sits in the
@@ -109,8 +116,7 @@
       responders: Challenge Coin Box
       mixed: Adventurer Box
     tier:
-      - {at: 90, tier: Bronze}
-      - {at: 95, tier: Silver}
+      - {at: 97, tier: Silver}
       - {at: 98, tier: Gold}
       - {at: 99, tier: Platinum}
       - {at: 100, tier: Legendary}

@@ -72,7 +72,7 @@ metric, old and new values, snapshot date, `key` (id + date, the page anchor), `
 |---|---|---|
 | `step` on h-index or i10 | levelling up, "your job" | none: a joke reward |
 | `ladder` on any single paper's citations, quarters 1 / 10 / 25 / 50 / 100 | first kill, then crossing counts | Bronze, Silver, Gold, Platinum, Legendary |
-| `ladder` on a paper's OpenAlex year percentile, 90 / 95 / 98 / 99 / 100 | "first crawler to": relative standing | Bronze, Silver, Gold, Platinum, Legendary |
+| `ladder` on a paper's OpenAlex year percentile, 97 / 98 / 99 / 100, papers two calendar years old (`min_age`) | "first crawler to": relative standing | Silver, Gold, Platinum, Legendary |
 | `round every: 100` on total citations | crossing a count | Silver at 100s, Gold at 500, Platinum at 1000 |
 | Celestial | never | tenure, if it comes; nothing else |
 
@@ -90,7 +90,11 @@ year, most of which are never cited, so it runs high: a 4-citation 2021 paper si
 paper at 93 (conservative end of the band). Hence rungs in the nineties, and `fetch_scholar.R` records the
 percentile only once the paper has a full calendar year behind it, because in the publication year the cohort
 is mostly empty and the band is inflated. Achievements only fire upward; a percentile that later slips does
-not un-earn anything.
+not un-earn anything. Peter, 2026-09-20, after the first refresh fired twelve of these: too plentiful. The rule
+now waits until a paper is two calendar years old (`min_age: 2`, judged at the snapshot date; a paper too young
+at the old snapshot counts as 0 there, so its first eligible snapshot fires the rung it sits on) and starts at
+the top 3% (97 Silver, 98 Gold, 99 Platinum, 100 Legendary; no Bronze, because top 3% is not a Bronze feat).
+Against the 2026-09-20 data that leaves one: the 2023 Clinical Psychological Science paper at 98, Gold.
 
 **Box types**, themed to the feat as the books do. In use: Appendix Box (total citations), Flask Box /
 Handcuff Box / Challenge Coin Box (per-paper, by domain, matching the phase stickers), Adventurer Box (tied
@@ -107,7 +111,7 @@ the news stream). Four surfaces, all reading the ledger:
   biomarker papers are `featured: false` and never headline) and the total as a roman numeral. `news.yml` is
   untouched; a big achievement can also get a hand-written news line.
 - The tree (`build_tree.R` → `tree.json` → `skilltree.js`): per paper `achievements {n, best, items}` drawn as a
-  gold roman numeral on the hex's lower-left edge, mirroring the pips on the upper-right; an Achievements
+  gold roman numeral upright in the hex's bottom corner, opposite the pips; an Achievements
   section in the panel (tier chip + title, linking to the page); the legend and a fourth stats-card figure.
 - Career-level entries (no `article`: h-index, i10, total citations) ride on `meta.origin.achievements`:
   numeral on Peter's hex, Achievements section on the character sheet.

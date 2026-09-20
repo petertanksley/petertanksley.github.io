@@ -123,13 +123,14 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   the achievements page (`achievements.qmd` + `achievements-listing.ejs`, dark like the tree, grouped by snapshot
   date, anchors on `key`), the homepage card (`achievement-home.ejs`: the newest *featured* entry, so the two
   biomarker papers never headline; total as a roman numeral), and via `build_tree.R` the tree: a gold roman
-  numeral on each hex's lower-left edge (the pips' mirror) counting that paper's achievements, an Achievements
+  numeral upright in each hex's bottom corner (opposite the pips) counting that paper's achievements, an Achievements
   section in the panel, career-level entries (no `article`) on the origin hex and its character sheet, a fourth
   figure on the stats card. **Achievements are a separate stream from `news.yml`** (Peter, 2026-09-20); a big one
   can also get a hand-written news line. The ledger is derived state: after editing a rule's wording run
   `check_achievements.R --replay` to rebuild it from every snapshot pair. **Refresh = `Rscript 5_skilltree/R/refresh.R`**
   (fetch, log, build tree, in that order), then commit the snapshot, `scholar.json`, the ledger and `tree.json`.
-  The first real refresh (2026-09-20) fired 12 percentile achievements at once; logged on purpose (tutorial floor).
+  The first real refresh (2026-09-20) fired 12 percentile achievements at once and Peter called it noise: the
+  percentile rule now takes `min_age: 2` (calendar years from the snapshot date) and starts at the top 3%. One fired.
 - **Impact-factor pips** (2026-09-19): 1-3 gold dots inside a hex's top vertex mark the venue's Clarivate JIF in
   the JCR year **before** the article's year (`JIF_LAG`), at `IMPACT_TIERS` 5 / 10 / 25 in `build_tree.R`; the panel
   prints the number, the JCR year and the band definition for every node with a JIF, the tooltip a terse suffix.

@@ -549,8 +549,8 @@ $tiers: ("Bronze": #B87A4B, "Silver": #B9BCC6, "Gold": #D9A441, "Platinum": #C9E
     &.flipping { animation: st-flip 560ms ease-in-out 1 both; }
     &.unflipping { animation: st-unflip 560ms ease-in-out 1 both; }   // same return trip as the article hexes
   }
-  // achievements numeral (2026-09-20): roman count on the lower-left edge, the pips' mirror. Gold on an ink
-  // halo (paint-order) so it survives any sticker; rotated 30 degrees by the JS to run along the edge
+  // achievements numeral (2026-09-20): roman count upright in the bottom corner, opposite the pips. Gold on an ink
+  // halo (paint-order) so it survives any sticker; position and size are set by drawNumeral() in the JS
   .hex-num { font-family: $font-family-monospace; font-weight: 500; fill: var(--st-gold); stroke: var(--st-bg); stroke-width: 3px;
              stroke-linejoin: round; paint-order: stroke; text-anchor: middle; dominant-baseline: middle; letter-spacing: 0.04em;
              pointer-events: none; }

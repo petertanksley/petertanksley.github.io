@@ -330,16 +330,12 @@
     IMPACT = m.impact || null;
     ACH = m.achievements || null;
     ORIGIN_ACH = (m.origin && m.origin.achievements) || null;
-    // roman numeral on the lower-left edge, the mirror of the pips' place on the upper-right: how many
-    // achievements this hex has earned. Point-up hex: that edge runs from the bottom vertex up-left at 30
-    // degrees; the numeral sits inside it, rotated to read along the edge. Gold with an ink stroke like the pips.
+    // roman numeral in the bottom corner, upright and centred on the bottom vertex (Peter, 2026-09-20: not rotated):
+    // how many achievements this hex has earned. It sits 0.17 w above the vertex, where the two lower edges are
+    // ~0.59 w apart, so three or four characters at 0.14 w clear the border. Gold with an ink stroke like the pips.
     const drawNumeral = (parent, cx, cy, w, h, k) => {
       if (!k) return;
-      const ex = -Math.cos(Math.PI / 6), ey = -Math.sin(Math.PI / 6);      // along the edge, bottom vertex -> lower-left vertex
-      const nx = -ey, ny = ex;                                             // inward normal of that edge (up-right)
-      const side = h / 2;                                                  // edge length of a point-up hex = h/2
-      const tx = cx + ex * side * 0.5 + nx * w * 0.13, ty = cy + h / 2 + ey * side * 0.5 + ny * w * 0.13;
-      const t = svgEl('text', { class: 'hex-num', x: tx, y: ty, 'font-size': w * 0.15, transform: `rotate(30 ${tx} ${ty})`, 'aria-hidden': 'true' }, parent);
+      const t = svgEl('text', { class: 'hex-num', x: cx, y: cy + h / 2 - w * 0.17, 'font-size': w * 0.14, 'aria-hidden': 'true' }, parent);
       t.textContent = roman(k);
     };
     const svg = svgEl('svg', {
