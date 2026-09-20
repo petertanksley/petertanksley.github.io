@@ -90,3 +90,13 @@ six rules, ~190 lines.
 
 Peter: titles "need to be funny too... vaguely related to the content... but very funny." All eighteen rewritten as
 DCC-shaped jokes (label / deadpan statement / exclamation); the fact moved entirely into the body.
+
+## Sign-out
+
+Pushed through `975d795`; CI and Pages deployment succeeded; live page checked (four entries, new titles). Peter
+asked whether an OpenAlex API key was exposed: there is none in use (polite pool with the public work email only),
+none in tracked files, history or published JSON; the machine's Census and Gemini keys live in the home `.Renviron`
+outside the repo. Local preview server stopped. Seven commits today, all pushed.
+
+Next session: nothing owed on achievements. The 09-19 proposals (ladder stretch, h/i10 milestones, manual
+achievements) remain optional. Next citation refresh: `Rscript 5_skilltree/R/refresh.R`, commit the four outputs.

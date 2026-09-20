@@ -25,10 +25,12 @@ sync: github
 
 ## Start Here Next Session
 
-- **Achievements shipped 2026-09-20** (pushed `10419c8`, CI publishes): page, homepage card, numerals on the tree,
-  panel and sheet sections; six rules with three text variants each, reviewed by Peter in the browser. Wording edits:
-  `5_skilltree/data/achievements.yml` → `check_achievements.R --replay` → `build_tree.R` → commit.
-  See `logs/skilltree/2026-09-20_achievements-surfaces.md`.
+- **Achievements shipped 2026-09-20** (last push `975d795`, live and verified): page, homepage card, numerals on the
+  tree, panel and sheet sections; six rules, three joke titles / bodies / rewards each, picked per firing by key hash.
+  Reviewed by Peter in the browser through four passes. Wording edits: `5_skilltree/data/achievements.yml` →
+  `check_achievements.R --replay` → `build_tree.R` → commit. See `logs/skilltree/2026-09-20_achievements-surfaces.md`.
+- Nothing pending on achievements. Optional backlog: total-citation ladder stretch, h/i10 milestone ladders, manual
+  achievements (talks, grants, awards), box-reward line variants.
 - Open from the 2026-09-19 list, not blocking: total-citation ladder stretch, h/i10 milestone ladders, manual
   achievements (talks, grants, awards). Proposals in `logs/skilltree/2026-09-19_achievements-rules.md`.
 - Nothing else urgent. Skill tree, impact pips, phase stickers and the skill-tree news item are all live.
@@ -56,7 +58,7 @@ sync: github
   latest on the homepage). First real refresh fired 12 percentile achievements; ledger logged on purpose.
   Committed locally; see `logs/skilltree/2026-09-20_achievements-surfaces.md`.
 - DONE 2026-09-20: Peter reviewed in the browser (percentile rule tightened, numerals upright, lead-only Bronze,
-  Founder rule, text variants); pushed as `10419c8`.
+  Founder rule, text variants, joke titles); pushed through `975d795`, deployment verified live.
 - [ ] Refresh the stats now and then: `Rscript 5_skilltree/R/refresh.R` (fetch → log → tree), then commit the
   snapshot, `www/scholar.json`, `5_skilltree/data/achievements_log.yml`, `www/tree.json`.
 - [ ] Each June/July when Clarivate releases the new JCR year: export all 22 journals for that year from JCR
