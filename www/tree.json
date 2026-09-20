@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-09-20 15:45",
+    "generated": "2026-09-20 15:59",
     "hex_w": 100,
     "hex_h": 115.47,
     "width": 2781,
@@ -612,7 +612,7 @@
           {
             "key": "paper-lineage-tanksley_2025_mortality-2026-09-20",
             "date": "2026-09-20",
-            "title": "Root System.",
+            "title": "It Grew Legs.",
             "tier": "Silver",
             "box": "Heirloom Box",
             "reward": "Reward: You've received a Silver Heirloom Box!"
@@ -857,7 +857,7 @@
           {
             "key": "paper-lineage-gonzalez_2025_relationships-2026-09-20",
             "date": "2026-09-20",
-            "title": "Root System.",
+            "title": "It Grew Legs.",
             "tier": "Silver",
             "box": "Heirloom Box",
             "reward": "Reward: You've received a Silver Heirloom Box!"
@@ -1276,7 +1276,7 @@
           {
             "key": "paper-percentile-raffington_2023_associations-2026-09-20",
             "date": "2026-09-20",
-            "title": "Top 2% of 2023.",
+            "title": "Better Than Most Things Nobody Read.",
             "tier": "Gold",
             "box": "Flask Box",
             "reward": "Reward: You've received a Gold Flask Box!"
@@ -1463,7 +1463,7 @@
           {
             "key": "paper-lineage-raffington_2022_socially-2026-09-20",
             "date": "2026-09-20",
-            "title": "Founder.",
+            "title": "Patient Zero.",
             "tier": "Silver",
             "box": "Heirloom Box",
             "reward": "Reward: You've received a Silver Heirloom Box!"
