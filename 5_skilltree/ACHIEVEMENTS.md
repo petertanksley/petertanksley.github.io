@@ -71,7 +71,8 @@ metric, old and new values, snapshot date, `key` (id + date, the page anchor), `
 | Trigger here | Books analogue | Tier |
 |---|---|---|
 | `step` on h-index or i10 | levelling up, "your job" | none: a joke reward |
-| `ladder` on any single paper's citations, quarters 1 / 10 / 25 / 50 / 100 | first kill, then crossing counts | Bronze, Silver, Gold, Platinum, Legendary |
+| `ladder` on any single paper's citations, quarters 1 / 10 / 25 / 50 / 100 | first kill, then crossing counts | Bronze (lead-author papers only), Silver, Gold, Platinum, Legendary |
+| `ladder` on a root paper's descendants (`lineage`, from `builds_on`), 1 / 3 / 5 / 10 | founding a guild | Silver, Gold, Platinum, Legendary; Heirloom Box |
 | `ladder` on a paper's OpenAlex year percentile, 97 / 98 / 99 / 100, papers two calendar years old (`min_age`) | "first crawler to": relative standing | Silver, Gold, Platinum, Legendary |
 | `round every: 100` on total citations | crossing a count | Silver at 100s, Gold at 500, Platinum at 1000 |
 | Celestial | never | tenure, if it comes; nothing else |
@@ -96,9 +97,20 @@ at the old snapshot counts as 0 there, so its first eligible snapshot fires the 
 the top 3% (97 Silver, 98 Gold, 99 Platinum, 100 Legendary; no Bronze, because top 3% is not a Bronze feat).
 Against the 2026-09-20 data that leaves one: the 2023 Clinical Psychological Science paper at 98, Gold.
 
+**First-citation Bronze is lead-author only** (Peter, 2026-09-20): a rung may carry `role:` and then exists only
+for papers of that role, so a contributing-author paper's ladder starts at Silver, ten citations in. Seven papers
+sat one citation from Bronze; that would have been the next flood.
+
+**Founder** (Peter, 2026-09-20: "achievements for papers that are the start of a lineage"). `fetch_scholar.R`
+writes `articles.<id>.lineage` into every snapshot: for a paper with no `builds_on` of its own, the number of
+papers downstream of it (children, grandchildren ...); 0 for anything mid-lineage. The rule ladders it 1 / 3 / 5 /
+10 = Silver / Gold / Platinum / Legendary, Heirloom Box. Lineage is static data, so this fires when a new paper
+is added with a `builds_on`, i.e. on the refresh after `add_article.R`. The 2026-09-20 snapshot was backfilled
+so the three existing roots (LEO mortality 2025, Gonzalez 2025, Raffington 2022; two descendants each) fired then.
+
 **Box types**, themed to the feat as the books do. In use: Appendix Box (total citations), Flask Box /
 Handcuff Box / Challenge Coin Box (per-paper, by domain, matching the phase stickers), Adventurer Box (tied
-domains). Not yet used: Coauthor Box, Reviewer 2 Box, Postdoc Box (junk tier by definition), Grant Box
+domains), Heirloom Box (starting a lineage). Not yet used: Coauthor Box, Reviewer 2 Box, Postdoc Box (junk tier by definition), Grant Box
 (Benefactor analogue: someone else paid).
 
 **Rendering** (2026-09-20; Peter: gold numeral, career achievements on the origin, achievements separate from

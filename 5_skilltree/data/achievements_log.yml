@@ -2,6 +2,64 @@
 # Written by 5_skilltree/R/check_achievements.R --log (append) or --replay (rebuild from all snapshots).
 # Do not edit by hand: fix the wording in achievements.yml and run --replay. `key` is the anchor on achievements.html.
 
+- key: paper-lineage-tanksley_2025_mortality-2026-09-20
+  id: paper-lineage-tanksley_2025_mortality
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.tanksley_2025_mortality.lineage
+  old: 0
+  new: 2
+  title: Founder.
+  body: Your 2025 paper in The Lancet Regional Health - Americas builds on none of
+    your earlier work, and 2 later papers of yours now build on it. You started something.
+    Whether it should have been started is a question for the reviewers downstream.
+  reward: 'Reward: You''ve received a Silver Heirloom Box!'
+  article: tanksley_2025_mortality
+  paper: 'Mortality among law enforcement officers in the United States: A population-wide
+    analysis of the National Occupational Mortality Surveillance data, 2020-2023'
+  tier: Silver
+  box: Heirloom Box
+  rank: 2
+  featured: true
+- key: paper-lineage-gonzalez_2025_relationships-2026-09-20
+  id: paper-lineage-gonzalez_2025_relationships
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.gonzalez_2025_relationships.lineage
+  old: 0
+  new: 2
+  title: Founder.
+  body: Your 2025 paper in Journal of Occupational and Environmental Medicine builds
+    on none of your earlier work, and 2 later papers of yours now build on it. You
+    started something. Whether it should have been started is a question for the reviewers
+    downstream.
+  reward: 'Reward: You''ve received a Silver Heirloom Box!'
+  article: gonzalez_2025_relationships
+  paper: Relationships between physiological stress biomarkers and cardiovascular
+    disease risk factors among career firefighters
+  tier: Silver
+  box: Heirloom Box
+  rank: 2
+  featured: false
+- key: paper-lineage-raffington_2022_socially-2026-09-20
+  id: paper-lineage-raffington_2022_socially
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.raffington_2022_socially.lineage
+  old: 0
+  new: 2
+  title: Founder.
+  body: Your 2022 paper in Psychological Science builds on none of your earlier work,
+    and 2 later papers of yours now build on it. You started something. Whether it
+    should have been started is a question for the reviewers downstream.
+  reward: 'Reward: You''ve received a Silver Heirloom Box!'
+  article: raffington_2022_socially
+  paper: Socially stratified epigenetic profiles are associated with cognitive functioning
+    in children and adolescents
+  tier: Silver
+  box: Heirloom Box
+  rank: 2
+  featured: true
 - key: paper-percentile-raffington_2023_associations-2026-09-20
   id: paper-percentile-raffington_2023_associations
   date: '2026-09-20'

@@ -47,13 +47,16 @@ date_of <- function(f) str_remove(basename(f), "\\.json$")
 dig  <- function(x, path) { for (k in str_split_1(path, fixed("."))) { x <- x[[k]]; if (is.null(x)) return(NA) }; if (is.null(x)) NA else as.numeric(x) }
 fill <- function(tpl, o, n, a = NULL) {
   vals <- c("{old}" = format(o), "{new}" = format(n), "{delta}" = format(n - o), "{times}" = if (n == 1) "once" else paste(format(n), "times"),
-            "{top}" = format(100 - n))                                       # a percentile read as "top N%"
+            "{top}" = format(100 - n), "{s}" = if (n == 1) "" else "s")      # a percentile read as "top N%"; a plural
   if (!is.null(a)) vals <- c(vals, "{paper}" = a$title, "{venue}" = a$venue %||% "", "{year}" = format(a$year))
   str_replace_all(str_squish(tpl), fixed(vals))
 }
 # log10 rungs: 1, 10, 100, 1000 ...; zero sits below the first rung
 rung <- function(x) if (x < 1) -1 else floor(log10(x))
 
+# the rungs of a rule's ladder that apply to this paper: a rung with `role:` exists only for papers of that role
+rungs_of <- function(r) { rw <- r$reward$tier; if (is.character(rw)) return(list())
+  keep(rw, ~ is.null(.x$role) || (!is.null(r$paper) && identical(r$paper$role, .x$role))) }
 # the Reward line: a joke string, or a box whose tier is fixed or read off a ladder against the new value
 reward_of <- function(r, o, n) {
   rw <- r$reward
@@ -62,7 +65,7 @@ reward_of <- function(r, o, n) {
   type <- if (is.character(rw$type)) rw$type else {                       # a map by dominant area, with a `mixed` fallback
     d <- if (is.null(r$paper)) "mixed" else dominant(r$paper); rw$type[[d]] %||% rw$type[["mixed"]] %||% stop("rule ", r$id, ": no box type for area ", d) }
   tier <- if (is.character(rw$tier)) rw$tier else {
-    ladder <- keep(rw$tier, ~ n >= .x$at); if (!length(ladder)) stop("rule ", r$id, ": no ladder rung at or below ", n)
+    ladder <- keep(rungs_of(r), ~ n >= .x$at); if (!length(ladder)) stop("rule ", r$id, ": no ladder rung at or below ", n)
     ladder[[which.max(map_dbl(ladder, "at"))]]$tier }
   if (!tier %in% TIERS) stop("rule ", r$id, ": unknown tier '", tier, "'")
   list(text = sprintf("Reward: You've received %s %s %s!", if (grepl("^[AEIOU]", tier)) "an" else "a", tier, type), tier = tier, box = type)
@@ -86,7 +89,7 @@ fire <- function(old_file, new_file, quiet = FALSE) {
       round     = (n %/% r$every) > (o %/% r$every),
       threshold = n >= r$at && o < r$at,
       log10     = rung(n) > rung(o),
-      ladder    = { at <- map_dbl(r$reward$tier, "at"); any(n >= at & o < at) },
+      ladder    = { at <- map_dbl(rungs_of(r), "at"); length(at) > 0 && any(n >= at & o < at) },
       stop("unknown trigger '", r$trigger, "' in rule ", r$id))
     if (!hit) next
     rw <- reward_of(r, o, n)

@@ -24,6 +24,7 @@
 #   <rule>-<article id>); {paper} {venue} {year} fill from the paper, {times} is "once" or "{new} times".
 #   articles.<id>.percentile is the paper's OpenAlex citation percentile among all works of its year (the
 #   conservative end of the band; null in the publication year). {top} = 100 - {new}, read as "top N%".
+#   {s}      "" when {new} is 1, else "s"
 #   min_age  (per-paper rules) years a paper must have behind it, counted in calendar years from the snapshot
 #            date, before the rule looks at it. Below that age the paper's value counts as 0, so the first
 #            eligible snapshot can still fire the rung it already sits on.
@@ -34,6 +35,7 @@
 #            the appendix, peer review and Peter, never about responders dying (CLAUDE.md)
 #   reward   EITHER a joke line (text; "Reward:" is prefixed if missing)
 #            OR a box: {type: <Box name>, tier: <Tier>} or tier as a ladder [{at: 100, tier: Silver}, ...]
+#            A rung may carry `role: lead` (or contributing): it then exists only for papers with that role.
 #            `type` may also be a map by the paper's dominant area {biosocial:, criminology:, responders:, mixed:}
 #            picking the highest `at` <= new. Tiers ascend Bronze, Silver, Gold, Platinum, Legendary,
 #            Celestial. Celestial is reserved (tenure, nothing else).
@@ -77,6 +79,8 @@
   reward: >-
     None. Ten is the minimum. You do not get a box for meeting the minimum.
 
+# Peter, 2026-09-20: Bronze for the first citation only where Peter led the paper; a contributing-author paper
+# starts at Silver, ten citations in.
 - id: paper-cited
   metric: articles.*.scholar
   trigger: ladder
@@ -91,11 +95,30 @@
       responders: Challenge Coin Box
       mixed: Adventurer Box
     tier:
-      - {at: 1, tier: Bronze}
+      - {at: 1, tier: Bronze, role: lead}
       - {at: 10, tier: Silver}
       - {at: 25, tier: Gold}
       - {at: 50, tier: Platinum}
       - {at: 100, tier: Legendary}
+
+# Peter, 2026-09-20: an achievement for starting a lineage. articles.<id>.lineage (written by fetch_scholar.R from
+# articles.yml) is the number of papers downstream of a paper that itself builds on none of Peter's earlier work;
+# 0 for anything mid-lineage. Fires when a root gains descendants.
+- id: paper-lineage
+  metric: articles.*.lineage
+  trigger: ladder
+  title: "Founder."
+  body: >-
+    Your {year} paper in {venue} builds on none of your earlier work, and {new} later paper{s} of yours now
+    build on it. You started something. Whether it should have been started is a question for the
+    reviewers downstream.
+  reward:
+    type: Heirloom Box
+    tier:
+      - {at: 1, tier: Silver}
+      - {at: 3, tier: Gold}
+      - {at: 5, tier: Platinum}
+      - {at: 10, tier: Legendary}
 
 # Peter, 2026-09-20: the first refresh fired twelve of these at once and it read as noise. Now only papers two full
 # calendar years old, and only the top 3%: a percentile that runs as high as this one has to be near the ceiling

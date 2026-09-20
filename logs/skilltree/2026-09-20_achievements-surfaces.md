@@ -63,3 +63,16 @@ Peter, from the browser: the percentile achievement was "way too plentiful", and
   exactly what it was built for on its first day.
 - **Numeral** is upright, centred on the bottom vertex, 0.17 w up at 0.14 w. At that height the two lower edges
   are ~0.59 w apart, so VIII and XIII (checked with a synthetic tree) clear the border. `?v=2026-09-20b`.
+
+## Second review pass
+
+Peter: "bronze for first author papers only, otherwise, start at 10 for silver. Also, let's add achievements for
+papers that are the start of a lineage."
+
+- **Role-gated rungs.** A ladder rung may carry `role: lead`; `rungs_of()` in the checker drops rungs whose role
+  the paper does not have, in both the trigger and the reward. Tested on a scratch pair: lead 0→1 fires Bronze,
+  contributing 0→1 fires nothing, contributing 0→10 fires Silver.
+- **Founder.** New metric `articles.<id>.lineage` written by `fetch_scholar.R`: descendants of a root paper (no
+  `builds_on`), 0 otherwise. Rule `paper-lineage`, ladder 1 / 3 / 5 / 10, Heirloom Box. Added `{s}` plural
+  placeholder. The 2026-09-20 snapshot was backfilled with the same computation so the three existing roots fired
+  on replay rather than waiting for a fourth paper. Ledger: 4 entries.

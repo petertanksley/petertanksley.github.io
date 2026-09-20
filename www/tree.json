@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-09-20 14:44",
+    "generated": "2026-09-20 15:21",
     "hex_w": 100,
     "hex_h": 115.47,
     "width": 2781,
@@ -147,7 +147,7 @@
     "achievements": {
       "label": "Achievements earned",
       "page": "achievements.html",
-      "total": 1,
+      "total": 4,
       "latest": "2026-09-20"
     }
   },
@@ -605,7 +605,20 @@
         "tier": 1,
         "quartile": "Q1"
       },
-      "achievements": null,
+      "achievements": {
+        "n": 1,
+        "best": "Silver",
+        "items": [
+          {
+            "key": "paper-lineage-tanksley_2025_mortality-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Founder.",
+            "tier": "Silver",
+            "box": "Heirloom Box",
+            "reward": "Reward: You've received a Silver Heirloom Box!"
+          }
+        ]
+      },
       "sticker_src": "www/hex/sm/tanksley_2025_mortality.png",
       "x": 2082.4,
       "y": 1232.5,
@@ -837,7 +850,20 @@
         "tier": 0,
         "quartile": "Q3"
       },
-      "achievements": null,
+      "achievements": {
+        "n": 1,
+        "best": "Silver",
+        "items": [
+          {
+            "key": "paper-lineage-gonzalez_2025_relationships-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Founder.",
+            "tier": "Silver",
+            "box": "Heirloom Box",
+            "reward": "Reward: You've received a Silver Heirloom Box!"
+          }
+        ]
+      },
       "sticker_src": "www/hex/sm/gonzalez_2025_relationships.png",
       "x": 2030.4,
       "y": 962.3,
@@ -1430,7 +1456,20 @@
         "tier": 2,
         "quartile": "Q1"
       },
-      "achievements": null,
+      "achievements": {
+        "n": 1,
+        "best": "Silver",
+        "items": [
+          {
+            "key": "paper-lineage-raffington_2022_socially-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Founder.",
+            "tier": "Silver",
+            "box": "Heirloom Box",
+            "reward": "Reward: You've received a Silver Heirloom Box!"
+          }
+        ]
+      },
       "sticker_src": "www/hex/sm/raffington_2022_socially.png",
       "x": 1042.4,
       "y": 692.1,

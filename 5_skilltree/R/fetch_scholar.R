@@ -122,6 +122,13 @@ oa <- if (no_oa) NULL else tryCatch(fetch_openalex(map_chr(arts, ~ .x$doi %||% N
                                     error = function(e) { warning("OpenAlex fetch failed: ", conditionMessage(e), call. = FALSE); NULL })
 
 m <- if (!is.null(sch)) match_articles(arts, sch$pubs) else NULL
+# lineage (2026-09-20): for a paper that builds on none of Peter's earlier work, the number of papers downstream of it
+# (children, grandchildren ...); 0 for anything that itself has a builds_on. Static data from articles.yml, carried
+# in the snapshot so check_achievements.R can diff it like any other metric (the "Founder" rule).
+kids <- map(set_names(ids), function(id) ids[map_lgl(arts, ~ id %in% (.x$builds_on %||% character()))])
+descendants <- function(id, seen = character()) { k <- setdiff(kids[[id]], seen); if (!length(k)) return(character())
+  unique(c(k, unlist(lapply(k, descendants, seen = c(seen, k))))) }
+lineage <- map_int(set_names(ids), ~ if (length(arts[[match(.x, ids)]]$builds_on)) 0L else length(descendants(.x)))
 articles <- set_names(map(arts, function(a) {
   s  <- if (!is.null(m)) m$cites[[a$id]] else if (!is.null(prev)) prev$articles[[a$id]]$scholar else NULL
   rec <- if (!is.null(oa) && !is.null(a$doi)) oa$per_doi[[tolower(a$doi)]] else NULL
@@ -130,7 +137,7 @@ articles <- set_names(map(arts, function(a) {
   # mostly uncited and the band is inflated, and achievements only ever fire upward
   pct <- if (!is.null(rec) && !is.null(rec$pct) && isTRUE(a$year < as.integer(format(Sys.Date(), "%Y")))) rec$pct
          else if (is.null(rec) && !is.null(prev)) prev$articles[[a$id]]$percentile else NULL
-  list(scholar = s, openalex = o, percentile = pct)
+  list(scholar = s, openalex = o, percentile = pct, lineage = lineage[[a$id]])
 }), ids)
 
 out <- list(
