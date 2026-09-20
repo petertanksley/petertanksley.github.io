@@ -195,6 +195,27 @@ impact_of <- function(a) {
 impact_note <- sprintf("Pips mark the journal's Clarivate impact factor in the JCR year before the article appeared: %s.",
                        paste(sprintf("%d pip%s at %g", seq_along(IMPACT_TIERS), ifelse(seq_along(IMPACT_TIERS) > 1, "s", ""), IMPACT_TIERS), collapse = ", "))
 
+# ---- achievements ---------------------------------------------------------------------------
+# (2026-09-20) The ledger check_achievements.R writes (data/achievements_log.yml) is the only source. Per paper, the
+# count becomes the roman numeral on the hex's lower-left edge and the items fill the panel's Achievements section,
+# each linking to achievements.html#<key>. Entries with no `article` are career-level (h-index, total citations)
+# and sit on the origin: numeral on Peter's hex, list on the character sheet.
+ledger_file <- here("5_skilltree", "data", "achievements_log.yml")
+ledger <- if (file.exists(ledger_file)) (read_yaml(ledger_file) %||% list()) else { message("no achievements_log.yml yet (run check_achievements.R --log); no numerals"); list() }
+TIER_ORDER <- c("Bronze", "Silver", "Gold", "Platinum", "Legendary", "Celestial")
+ACH_LABEL  <- "Achievements earned"
+ACH_PAGE   <- "achievements.html"
+ach_pack <- function(entries) {
+  if (!length(entries)) return(NULL)
+  entries <- entries[order(map_chr(entries, "date"), decreasing = TRUE)]          # newest first, as the page lists them
+  tiers <- map_chr(entries, ~ .x$tier %||% NA_character_)
+  best  <- if (any(!is.na(tiers))) TIER_ORDER[max(match(tiers[!is.na(tiers)], TIER_ORDER))] else NA
+  list(n = length(entries), best = best,
+       items = map(entries, ~ list(key = .x$key, date = .x$date, title = .x$title, tier = na_if_null(.x$tier),
+                                   box = na_if_null(.x$box), reward = .x$reward)))
+}
+ach_by_article <- split(ledger, map_chr(ledger, ~ .x$article %||% ""))          # "" = career-level, no paper
+
 # ---- assemble JSON --------------------------------------------------------------------------
 nodes <- map2(arts, seq_along(arts), function(a, i) {
   r <- placed[[i]]
@@ -211,6 +232,7 @@ nodes <- map2(arts, seq_along(arts), function(a, i) {
     scored = !any(map_lgl(a$contribution[CREDIT], is.null)),
     effort = na_if_null(a$effort), effort_note = na_if_null(a$effort_note), blurb = na_if_null(a$blurb),
     impact = impact_of(a),
+    achievements = ach_pack(ach_by_article[[a$id]]),
     sticker_src = paste0("www/hex/sm/", sticker_name[i], ".png"),
     x = round(r$x, 1), y = round(r$y, 1), ring = r$ring, q = r$q, r = r$r,
     angle = round(r$target_deg, 1), angle_error = round(r$angle_error, 1), purity = round(r$purity, 3)
@@ -236,7 +258,8 @@ tree <- list(
   meta = list(
     generated = format(Sys.time(), "%Y-%m-%d %H:%M"),
     hex_w = W, hex_h = round(H, 2), width = round(canvas_w), height = round(canvas_h),
-    origin = list(x = cx0, y = cy0, scale = 1.45, sticker_src = paste0("www/hex/sm/", origin_sticker, ".png")),
+    origin = list(x = cx0, y = cy0, scale = 1.45, sticker_src = paste0("www/hex/sm/", origin_sticker, ".png"),
+                  achievements = ach_pack(ach_by_article[[""]])),
     axes = map(names(AREAS), function(k) {
       u <- unit(AXIS_DEG[[k]]); tip <- c(cx0, cy0) + R_out * u; lab <- c(cx0, cy0) + (R_out + 46) * u
       list(key = k, label = unname(AREAS[k]), colour = unname(AREA_COL[k]), deg = AXIS_DEG[[k]],
@@ -249,7 +272,9 @@ tree <- list(
            label_x = round(unname(yl["x"]), 1), label_y = round(unname(yl["y"]), 1), label_over_hex = as.logical(yl["over_hex"])) }),
     areas = names(AREAS), credit = CREDIT,
     impact = list(tiers = IMPACT_TIERS, lag = JIF_LAG, label = IMPACT_LABEL, note = impact_note,
-                  source = if (length(journals)) "Journal Citation Reports (Clarivate)" else NA)
+                  source = if (length(journals)) "Journal Citation Reports (Clarivate)" else NA),
+    achievements = list(label = ACH_LABEL, page = ACH_PAGE, total = length(ledger),
+                        latest = if (length(ledger)) max(map_chr(ledger, "date")) else NA)
   ),
   nodes = nodes, edges = edges
 )
@@ -264,6 +289,9 @@ imp <- map(nodes, "impact"); tiers <- map_int(imp, ~ if (is.null(.x)) 0L else as
 cat(sprintf("impact: %d of %d nodes with a JIF; pips %s; nearest-year fallback: %s\n", sum(!map_lgl(imp, is.null)), length(nodes),
             paste(sprintf("%d=%d", seq_along(IMPACT_TIERS), tabulate(tiers, length(IMPACT_TIERS))), collapse = ", "),
             paste(map_chr(nodes[map_lgl(imp, ~ isTRUE(.x$nearest))], "id"), collapse = ", ") %||% "none"))
+ach_n <- map_int(nodes, ~ if (is.null(.x$achievements)) 0L else .x$achievements$n)
+cat(sprintf("achievements: %d in the ledger; %d papers carry a numeral (max %d); %d career-level on the origin\n",
+            length(ledger), sum(ach_n > 0), if (length(ach_n)) max(ach_n) else 0L, length(ach_by_article[[""]])))
 cat(sprintf("stickers: %d unique in www/hex/sm/ (%s); %d of %d nodes scored\n",
             length(unique(sticker_name)), paste(unique(sticker_name), collapse = ", "),
             sum(map_lgl(nodes, "scored")), length(nodes)))

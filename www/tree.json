@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-09-19 15:46",
+    "generated": "2026-09-20 14:31",
     "hex_w": 100,
     "hex_h": 115.47,
     "width": 2781,
@@ -9,7 +9,8 @@
       "x": 1302.4,
       "y": 1142.4,
       "scale": 1.45,
-      "sticker_src": "www/hex/sm/puzzled.png"
+      "sticker_src": "www/hex/sm/puzzled.png",
+      "achievements": null
     },
     "axes": [
       {
@@ -142,6 +143,12 @@
       "label": "High-impact venue",
       "note": "Pips mark the journal's Clarivate impact factor in the JCR year before the article appeared: 1 pip at 5, 2 pips at 10, 3 pips at 25.",
       "source": "Journal Citation Reports (Clarivate)"
+    },
+    "achievements": {
+      "label": "Achievements earned",
+      "page": "achievements.html",
+      "total": 12,
+      "latest": "2026-09-20"
     }
   },
   "nodes": [
@@ -192,6 +199,7 @@
         "tier": 1,
         "quartile": "Q1"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/tanksley_2026_correctional.png",
       "x": 2082.4,
       "y": 1412.6,
@@ -249,6 +257,7 @@
         "tier": 3,
         "quartile": "Q1"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/schwaba_2026_robust.png",
       "x": 834.4,
       "y": 331.8,
@@ -306,6 +315,7 @@
         "tier": 0,
         "quartile": "Q4"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/mcallister_2026_inflammation.png",
       "x": 2082.4,
       "y": 872.2,
@@ -363,6 +373,7 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/eleuterio-da-rocha_2026_striking.png",
       "x": 2186.4,
       "y": 1052.3,
@@ -420,6 +431,7 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/wooldredge_2026_upstream.png",
       "x": 834.4,
       "y": 1953,
@@ -477,6 +489,7 @@
         "tier": 1,
         "quartile": "Q1"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/tanksley_2026_clarifying.png",
       "x": 2186.4,
       "y": 1232.5,
@@ -534,6 +547,7 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/martaindale_2026_public.png",
       "x": 2238.4,
       "y": 1142.4,
@@ -590,6 +604,20 @@
         "nearest": false,
         "tier": 1,
         "quartile": "Q1"
+      },
+      "achievements": {
+        "n": 1,
+        "best": "Silver",
+        "items": [
+          {
+            "key": "paper-percentile-tanksley_2025_mortality-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Top 4% of 2025.",
+            "tier": "Silver",
+            "box": "Challenge Coin Box",
+            "reward": "Reward: You've received a Silver Challenge Coin Box!"
+          }
+        ]
       },
       "sticker_src": "www/hex/sm/tanksley_2025_mortality.png",
       "x": 2082.4,
@@ -648,6 +676,20 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "achievements": {
+        "n": 1,
+        "best": "Silver",
+        "items": [
+          {
+            "key": "paper-percentile-blair_2025_we-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Top 4% of 2025.",
+            "tier": "Silver",
+            "box": "Handcuff Box",
+            "reward": "Reward: You've received a Silver Handcuff Box!"
+          }
+        ]
+      },
       "sticker_src": "www/hex/sm/blair_2025_we.png",
       "x": 886.4,
       "y": 1862.9,
@@ -705,6 +747,7 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/blair_2025_active.png",
       "x": 2134.4,
       "y": 1142.4,
@@ -761,6 +804,20 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q1"
+      },
+      "achievements": {
+        "n": 1,
+        "best": "Bronze",
+        "items": [
+          {
+            "key": "paper-percentile-desteiguer_2025_stability-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Top 6% of 2025.",
+            "tier": "Bronze",
+            "box": "Flask Box",
+            "reward": "Reward: You've received a Bronze Flask Box!"
+          }
+        ]
       },
       "sticker_src": "www/hex/sm/desteiguer_2025_stability.png",
       "x": 886.4,
@@ -819,6 +876,20 @@
         "tier": 0,
         "quartile": "Q3"
       },
+      "achievements": {
+        "n": 1,
+        "best": "Bronze",
+        "items": [
+          {
+            "key": "paper-percentile-gonzalez_2025_relationships-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Top 9% of 2025.",
+            "tier": "Bronze",
+            "box": "Challenge Coin Box",
+            "reward": "Reward: You've received a Bronze Challenge Coin Box!"
+          }
+        ]
+      },
       "sticker_src": "www/hex/sm/gonzalez_2025_relationships.png",
       "x": 2030.4,
       "y": 962.3,
@@ -875,6 +946,20 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q3"
+      },
+      "achievements": {
+        "n": 1,
+        "best": "Silver",
+        "items": [
+          {
+            "key": "paper-percentile-mcallister_2025_markers-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Top 4% of 2025.",
+            "tier": "Silver",
+            "box": "Challenge Coin Box",
+            "reward": "Reward: You've received a Silver Challenge Coin Box!"
+          }
+        ]
       },
       "sticker_src": "www/hex/sm/mcallister_2025_markers.png",
       "x": 1978.4,
@@ -933,6 +1018,20 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "achievements": {
+        "n": 1,
+        "best": "Silver",
+        "items": [
+          {
+            "key": "paper-percentile-tanksley_2024_polygenic-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Top 4% of 2024.",
+            "tier": "Silver",
+            "box": "Flask Box",
+            "reward": "Reward: You've received a Silver Flask Box!"
+          }
+        ]
+      },
       "sticker_src": "www/hex/sm/tanksley_2024_polygenic.png",
       "x": 834.4,
       "y": 692.1,
@@ -990,6 +1089,7 @@
         "tier": 1,
         "quartile": "Q1"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/barnes_2024_risk.png",
       "x": 938.4,
       "y": 1772.9,
@@ -1047,6 +1147,7 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/willems_2024_self.png",
       "x": 938.4,
       "y": 511.9,
@@ -1103,6 +1204,20 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q2"
+      },
+      "achievements": {
+        "n": 1,
+        "best": "Silver",
+        "items": [
+          {
+            "key": "paper-percentile-tanksley_2023_history-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Top 4% of 2023.",
+            "tier": "Silver",
+            "box": "Adventurer Box",
+            "reward": "Reward: You've received a Silver Adventurer Box!"
+          }
+        ]
       },
       "sticker_src": "www/hex/sm/tanksley_2023_history.png",
       "x": 678.4,
@@ -1161,6 +1276,20 @@
         "tier": 0,
         "quartile": "Q2"
       },
+      "achievements": {
+        "n": 1,
+        "best": "Bronze",
+        "items": [
+          {
+            "key": "paper-percentile-williams_2023_guidelines-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Top 7% of 2023.",
+            "tier": "Bronze",
+            "box": "Flask Box",
+            "reward": "Reward: You've received a Bronze Flask Box!"
+          }
+        ]
+      },
       "sticker_src": "www/hex/sm/williams_2023_guidelines.png",
       "x": 1094.4,
       "y": 602,
@@ -1217,6 +1346,20 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q1"
+      },
+      "achievements": {
+        "n": 1,
+        "best": "Gold",
+        "items": [
+          {
+            "key": "paper-percentile-raffington_2023_associations-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Top 2% of 2023.",
+            "tier": "Gold",
+            "box": "Flask Box",
+            "reward": "Reward: You've received a Gold Flask Box!"
+          }
+        ]
       },
       "sticker_src": "www/hex/sm/raffington_2023_associations.png",
       "x": 938.4,
@@ -1275,6 +1418,7 @@
         "tier": 3,
         "quartile": "Q1"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/wertz_2023_genetic.png",
       "x": 990.4,
       "y": 602,
@@ -1331,6 +1475,20 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q1"
+      },
+      "achievements": {
+        "n": 1,
+        "best": "Silver",
+        "items": [
+          {
+            "key": "paper-percentile-langevin_2022_life-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Top 5% of 2022.",
+            "tier": "Silver",
+            "box": "Adventurer Box",
+            "reward": "Reward: You've received a Silver Adventurer Box!"
+          }
+        ]
       },
       "sticker_src": "www/hex/sm/langevin_2022_life.png",
       "x": 834.4,
@@ -1389,6 +1547,20 @@
         "tier": 2,
         "quartile": "Q1"
       },
+      "achievements": {
+        "n": 1,
+        "best": "Bronze",
+        "items": [
+          {
+            "key": "paper-percentile-raffington_2022_socially-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Top 7% of 2022.",
+            "tier": "Bronze",
+            "box": "Flask Box",
+            "reward": "Reward: You've received a Bronze Flask Box!"
+          }
+        ]
+      },
       "sticker_src": "www/hex/sm/raffington_2022_socially.png",
       "x": 1042.4,
       "y": 692.1,
@@ -1446,6 +1618,7 @@
         "tier": 0,
         "quartile": "Q2"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/liu_2022_incarceration.png",
       "x": 782.4,
       "y": 1142.4,
@@ -1503,6 +1676,7 @@
         "tier": 0,
         "quartile": "Q2"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/liu_2021_adolescent.png",
       "x": 886.4,
       "y": 1142.4,
@@ -1559,6 +1733,20 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q1"
+      },
+      "achievements": {
+        "n": 1,
+        "best": "Bronze",
+        "items": [
+          {
+            "key": "paper-percentile-tanksley_2020_identifying-2026-09-20",
+            "date": "2026-09-20",
+            "title": "Top 9% of 2020.",
+            "tier": "Bronze",
+            "box": "Handcuff Box",
+            "reward": "Reward: You've received a Bronze Handcuff Box!"
+          }
+        ]
       },
       "sticker_src": "www/hex/sm/tanksley_2020_identifying.png",
       "x": 1094.4,
@@ -1617,6 +1805,7 @@
         "tier": 0,
         "quartile": "Q2"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/barnes_2019_propensity.png",
       "x": 1146.4,
       "y": 1232.5,
@@ -1674,6 +1863,7 @@
         "tier": 0,
         "quartile": null
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/tanksley_2019_genome.png",
       "x": 1094.4,
       "y": 1142.4,
@@ -1731,6 +1921,7 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "achievements": null,
       "sticker_src": "www/hex/sm/motz_2019_every.png",
       "x": 1146.4,
       "y": 1052.3,
@@ -1781,6 +1972,7 @@
       "effort_note": null,
       "blurb": null,
       "impact": null,
+      "achievements": null,
       "sticker_src": "www/hex/sm/fraemke_2026_developmental.png",
       "x": 782.4,
       "y": 421.9,
@@ -1831,6 +2023,7 @@
       "effort_note": null,
       "blurb": null,
       "impact": null,
+      "achievements": null,
       "sticker_src": "www/hex/sm/williams_2026_genomic.png",
       "x": 938.4,
       "y": 331.8,

@@ -1,0 +1,22 @@
+---
+title: "Achievements"
+subtitle: "System messages from the citation record. The dungeon is always listening."
+listing:
+  id: ach-all
+  contents: 5_skilltree/data/achievements_log.yml
+  template: achievements-listing.ejs
+  sort: ["date desc", "rank desc"]
+  date-format: "MMM D, YYYY"
+# Dark end to end, the same way skilltree.qmd does it: the class goes on <html> before first paint.
+include-in-header:
+  - text: "<script>document.documentElement.classList.add('page-dark');</script>"
+---
+
+<div class="belt-bar--sm belt-bar--center"></div>
+
+::: {.ach-intro}
+Every so often the citation counts get refreshed, and when a number crosses a line the system says so, in the register of a certain dungeon. Per-paper feats earn a themed box: a Flask for the biosocial work, Handcuffs for criminology, a Challenge Coin for first responders. Routine progress earns mockery. Each paper's tally sits on its hex in the [skill tree](skilltree.html) as a roman numeral, lower left, across from the impact pips.
+:::
+
+::: {#ach-all}
+:::

@@ -61,7 +61,8 @@
   }
   function tooltipHTML(n, credit, areas) {
     const jif = n.impact && n.impact.jif != null ? `${pipsHTML(n.impact.tier)}${n.impact.tier ? ' ' : ''}JIF ${fmtJIF(n.impact.jif)}` : '';
-    const meta = [n.year, n.venue, STATUS_LABELS[n.status]].filter(Boolean).join(' · ') + (jif ? ` · ${jif}` : '');
+    const ach = n.achievements && n.achievements.n ? `<span class="num" title="${esc(achPlural(n.achievements.n))}">${roman(n.achievements.n)}</span>` : '';
+    const meta = [n.year, n.venue, STATUS_LABELS[n.status]].filter(Boolean).join(' · ') + (jif ? ` · ${jif}` : '') + (ach ? ` · ${ach}` : '');
     const pos = (n.author_position && n.authors_n)
       ? `author ${n.author_position} of ${n.authors_n}`
       : (n.author_position ? `author ${n.author_position}` : '');
@@ -148,6 +149,25 @@
   let IMPACT = null;   // tree.meta.impact: tier cutoffs, label and the one-line definition the panel prints
   const fmtJIF = v => (v == null ? '' : Number(v).toFixed(1));
   const pipsHTML = k => k > 0 ? `<span class="pips" aria-hidden="true">${'\u25CF'.repeat(k)}</span>` : '';
+  // achievements (2026-09-20): tree.meta.achievements {label, page, total}; per node n.achievements {n, best, items};
+  // career-level ones ride on tree.meta.origin.achievements. All of it comes from data/achievements_log.yml via R.
+  let ACH = null, ORIGIN_ACH = null;
+  const roman = k => { const t = [[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
+    let out = ''; for (const [v, r] of t) while (k >= v) { out += r; k -= v; } return out || ''; };
+  const achPlural = k => `${k} achievement${k === 1 ? '' : 's'}`;
+  // the Achievements section of the panel (article) or sheet (origin): one row per entry, tier chip then title,
+  // each a link to its system message on the achievements page
+  function achRows(a) {
+    if (!a || !a.items || !a.items.length) return '';
+    const page = (ACH && ACH.page) || 'achievements.html';
+    return a.items.map(it =>
+      `<a class="sp-ach" href="${esc(page)}#${encodeURIComponent(it.key)}"${it.tier ? ` data-tier="${esc(it.tier)}"` : ''}>` +
+      `<span class="sp-ach-tier">${esc(it.tier || 'none')}</span><span class="sp-ach-title">${esc(it.title)}</span></a>`).join('');
+  }
+  function achHTML(a, heading) {
+    if (!a || !a.n) return '';
+    return `<div class="sp-h">${esc(heading || 'Achievements')} <span class="sp-h-n">${esc(roman(a.n))}</span></div>` + achRows(a);
+  }
   // Venue block: the impact factor the venue carried in the JCR year before the article appeared, plus
   // the pips it earns and, once per panel, what the pips mean. Shown for every node that has a JIF.
   function venueHTML(n) {
@@ -200,7 +220,7 @@
            `<div class="sp-meta">${esc(meta)}</div>` +
            venueHTML(n) +
            (authors ? `<div class="sp-authors">${esc(authors)}</div>` : '') +
-           blurb + areaDots + kinHTML(n) +
+           blurb + areaDots + kinHTML(n) + achHTML(n.achievements) +
            `<div class="sp-h">What I did</div>` + contrib +
            `<div class="sp-h">Effort</div>` + effort + link;
   }
@@ -236,6 +256,7 @@
            `<div class="sp-meta">Research Scientist · Level 2</div>` +
            `<div class="sp-h">Vitals</div>` + vitals +
            `<div class="sp-h">Abilities</div>` + stats +
+           achHTML(ORIGIN_ACH) +
            `<p class="sp-note sp-xp">${esc(SHEET.xp)}</p>` +
            `<a class="sp-link" href="1_about/about.html">Full backstory &rarr;</a>`;
   }
@@ -307,6 +328,20 @@
     const credit = m.credit || Object.keys(CREDIT_LABELS);
     if (m.areas) AREAS_ORDER = m.areas;
     IMPACT = m.impact || null;
+    ACH = m.achievements || null;
+    ORIGIN_ACH = (m.origin && m.origin.achievements) || null;
+    // roman numeral on the lower-left edge, the mirror of the pips' place on the upper-right: how many
+    // achievements this hex has earned. Point-up hex: that edge runs from the bottom vertex up-left at 30
+    // degrees; the numeral sits inside it, rotated to read along the edge. Gold with an ink stroke like the pips.
+    const drawNumeral = (parent, cx, cy, w, h, k) => {
+      if (!k) return;
+      const ex = -Math.cos(Math.PI / 6), ey = -Math.sin(Math.PI / 6);      // along the edge, bottom vertex -> lower-left vertex
+      const nx = -ey, ny = ex;                                             // inward normal of that edge (up-right)
+      const side = h / 2;                                                  // edge length of a point-up hex = h/2
+      const tx = cx + ex * side * 0.5 + nx * w * 0.13, ty = cy + h / 2 + ey * side * 0.5 + ny * w * 0.13;
+      const t = svgEl('text', { class: 'hex-num', x: tx, y: ty, 'font-size': w * 0.15, transform: `rotate(30 ${tx} ${ty})`, 'aria-hidden': 'true' }, parent);
+      t.textContent = roman(k);
+    };
     const svg = svgEl('svg', {
       viewBox: `0 0 ${m.width} ${m.height}`, role: 'group',
       'aria-label': 'Publications on concentric rings by year, placed by direction between three research areas: biosocial, criminology and first-responder occupational'
@@ -348,13 +383,14 @@
     if (m.origin) {
       const k = m.origin.scale || 1, ow = m.hex_w * k, oh = m.hex_h * k;
       originG = svgEl('g', { class: 'origin-node', tabindex: '0', role: 'button',
-        'aria-label': 'Peter Tanksley, at the origin. Opens a character sheet.' }, gT);
+        'aria-label': 'Peter Tanksley, at the origin. Opens a character sheet.' + (ORIGIN_ACH && ORIGIN_ACH.n ? ` ${achPlural(ORIGIN_ACH.n)}.` : '') }, gT);
       originHome = gT;
       svgEl('image', {
         class: 'origin', href: m.origin.sticker_src, x: m.origin.x - ow / 2, y: m.origin.y - oh / 2,
         width: ow, height: oh, preserveAspectRatio: 'xMidYMid meet', 'aria-hidden': 'true'
       }, originG);
       svgEl('path', { class: 'origin-ring', d: hexPath(m.origin.x, m.origin.y, ow * 1.02, oh * 1.02) }, originG);
+      drawNumeral(originG, m.origin.x, m.origin.y, ow, oh, ORIGIN_ACH ? ORIGIN_ACH.n : 0);   // career-level achievements
       const originTip = () => {
         tip.innerHTML = '<div class="tt-title">Peter T. Tanksley</div><div class="tt-meta">Research Scientist · Level 2 · click to inspect</div>';
         tip.style.setProperty('--node', '#D9A441'); tip.hidden = false;   // gold, matching .origin-ring
@@ -424,7 +460,8 @@
       const label = [n.title, n.year, n.venue].filter(Boolean).join(', ') +
                     `. ${ROLE_LABELS[n.role] || n.role}. ${areasText(n, m.areas)}.` +
                     (n.scored ? '' : ' Contribution not yet scored.') +
-                    (n.impact && n.impact.tier > 0 && IMPACT ? ` ${IMPACT.label}, impact factor ${fmtJIF(n.impact.jif)}.` : '');
+                    (n.impact && n.impact.tier > 0 && IMPACT ? ` ${IMPACT.label}, impact factor ${fmtJIF(n.impact.jif)}.` : '') +
+                    (n.achievements && n.achievements.n ? ` ${achPlural(n.achievements.n)}.` : '');
       const g = svgEl('g', {
         class: cls, tabindex: 0, role: 'button', 'data-id': n.id,
         'aria-label': label, style: `--node: ${n.colour}`
@@ -446,6 +483,7 @@
         const gp = svgEl('g', { class: 'hex-pips', 'data-tier': k }, g);
         for (let i = 0; i < k; i++) svgEl('circle', { cx: sx + ex * pitch * i, cy: sy + ey * pitch * i, r }, gp);
       }
+      drawNumeral(g, n.x, n.y, m.hex_w, m.hex_h, n.achievements ? n.achievements.n : 0);
 
       // hover / focus: tooltip only. Nothing moves, so the pointer target never shifts underneath.
       g.addEventListener('mouseenter', e => { showTip(n, g, credit); placeTipAt(e.clientX, e.clientY); setLineage(n.id, true); });
@@ -498,6 +536,8 @@
         `${item(icon({ sw: 1.5, dash: true }), 'In press or preprint')}` +
         // one gold pip at legend size (pips drawn inside a legend hex are too small to read)
         (IMPACT ? item(`<svg class="lg-hex lg-pips" viewBox="0 0 20 23" aria-hidden="true"><circle cx="10" cy="11.5" r="4.2"/></svg>`, IMPACT.label) : '') +
+        // the numeral at legend size, linking to the page that explains it
+        (ACH && ACH.total ? `<a class="lg-item lg-ach" href="${esc(ACH.page || 'achievements.html')}"><span class="lg-num" aria-hidden="true">III</span>${esc(ACH.label || 'Achievements earned')}</a>` : '') +
         `${item('<svg class="lg-hex" viewBox="0 0 20 23" aria-hidden="true"><path d="M2,19 Q6,9 18,4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="18" cy="4" r="2.4" fill="currentColor"/></svg>', 'Builds on an earlier article')}</div>`;
     }
 
@@ -526,6 +566,8 @@
   const statsSrc = root.dataset.stats || 'www/scholar.json';
   const fmtN = n => (n == null ? '\u2013' : Number(n).toLocaleString('en-US'));
   const fmtDate = s => { const d = new Date(String(s).replace(' ', 'T')); return isNaN(d) ? String(s) : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); };
+  let STATS_JSON = null, TREE_DRAWN = false;
+  const maybeStats = () => { if (STATS_JSON && TREE_DRAWN) { drawStats(STATS_JSON); STATS_JSON = null; } };
   function drawStats(j) {
     const sc = j && j.scholar; if (!sc) return;
     const oa = j.openalex || {};
@@ -538,17 +580,18 @@
         `<div class="ss-stat" title="${esc(tip(sc.citations_5y, oa.citations))}"><span class="ss-n">${fmtN(sc.citations)}</span><span class="ss-l">citations</span></div>` +
         `<div class="ss-stat" title="${esc(tip(sc.h_index_5y, oa.h_index))}"><span class="ss-n">${fmtN(sc.h_index)}</span><span class="ss-l">h-index</span></div>` +
         `<div class="ss-stat" title="${esc(tip(sc.i10_5y, oa.i10))}"><span class="ss-n">${fmtN(sc.i10)}</span><span class="ss-l">i10</span></div>` +
+        (ACH && ACH.total ? `<a class="ss-stat ss-ach" href="${esc(ACH.page || 'achievements.html')}" title="${esc(achPlural(ACH.total))}${ACH.latest ? ', latest ' + esc(fmtDate(ACH.latest)) : ''}"><span class="ss-n">${esc(roman(ACH.total))}</span><span class="ss-l">achievements</span></a>` : '') +
       `</div>` +
       `<div class="ss-foot">as of ${esc(fmtDate(j.meta && j.meta.fetched))} \u00b7 <a href="${url}" target="_blank" rel="noopener">profile \u2192</a></div>`;
     root.appendChild(card);
   }
-  fetch(statsSrc, { cache: 'no-store' }).then(r => (r.ok ? r.json() : null)).then(j => { if (j) drawStats(j); })
+  fetch(statsSrc, { cache: 'no-store' }).then(r => (r.ok ? r.json() : null)).then(j => { if (j) { STATS_JSON = j; maybeStats(); } })
     .catch(err => console.info('skilltree: no citation stats (' + err.message + ')'));
 
   const src = root.dataset.src || 'www/tree.json';
   fetch(src, { cache: 'no-store' })
     .then(r => { if (!r.ok) throw new Error(`${src}: HTTP ${r.status}`); return r.json(); })
-    .then(draw)
+    .then(t => { draw(t); TREE_DRAWN = true; maybeStats(); })
     .catch(err => {
       root.textContent = 'Could not load the tree data (run R/build_tree.R, then reload).';
       console.error('skilltree:', err);

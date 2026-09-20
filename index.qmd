@@ -2,12 +2,19 @@
 title: ""
 pagetitle: "Peter T. Tanksley"
 listing:
-  id: news-home
-  contents: news.yml
-  template: news-listing-home.ejs
-  sort: "date desc"
-  max-items: 3
-  date-format: "MMM D, YYYY"
+  - id: news-home
+    contents: news.yml
+    template: news-listing-home.ejs
+    sort: "date desc"
+    max-items: 3
+    date-format: "MMM D, YYYY"
+  # the latest achievement (2026-09-20): a separate stream from the news, one card, read from the ledger the
+  # skill tree's checker writes. The template picks the newest featured entry and shows the total.
+  - id: ach-home
+    contents: 5_skilltree/data/achievements_log.yml
+    template: achievement-home.ejs
+    sort: ["date desc", "rank desc"]
+    date-format: "MMM D, YYYY"
 ---
 
 ::: {.masthead}
@@ -46,6 +53,9 @@ I study the people who run toward emergencies, and what all that running does to
 :::
 
 <p class="mono newslist-more"><a href="news.qmd">All news →</a></p>
+
+::: {#ach-home}
+:::
 :::
 
 :::: {.column-screen .band}

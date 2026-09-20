@@ -1,0 +1,237 @@
+# achievements_log.yml — GENERATED ledger of every achievement that has fired; the site renders from this file.
+# Written by 5_skilltree/R/check_achievements.R --log (append) or --replay (rebuild from all snapshots).
+# Do not edit by hand: fix the wording in achievements.yml and run --replay. `key` is the anchor on achievements.html.
+
+- key: paper-percentile-tanksley_2025_mortality-2026-09-20
+  id: paper-percentile-tanksley_2025_mortality
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.tanksley_2025_mortality.percentile
+  old: 0
+  new: 96
+  title: Top 4% of 2025.
+  body: Among everything published in 2025 that OpenAlex has heard of, your paper
+    in The Lancet Regional Health - Americas now sits in the top 4% by citations.
+    Most of the rest was never cited at all, which is either comforting or the whole
+    problem.
+  reward: 'Reward: You''ve received a Silver Challenge Coin Box!'
+  article: tanksley_2025_mortality
+  paper: 'Mortality among law enforcement officers in the United States: A population-wide
+    analysis of the National Occupational Mortality Surveillance data, 2020-2023'
+  tier: Silver
+  box: Challenge Coin Box
+  rank: 2
+  featured: true
+- key: paper-percentile-blair_2025_we-2026-09-20
+  id: paper-percentile-blair_2025_we
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.blair_2025_we.percentile
+  old: 0
+  new: 96
+  title: Top 4% of 2025.
+  body: Among everything published in 2025 that OpenAlex has heard of, your paper
+    in American Journal of Criminal Justice now sits in the top 4% by citations. Most
+    of the rest was never cited at all, which is either comforting or the whole problem.
+  reward: 'Reward: You''ve received a Silver Handcuff Box!'
+  article: blair_2025_we
+  paper: To what are we inferring? The widespread misuse of inferential testing in
+    the most cited criminology and criminal justice journals
+  tier: Silver
+  box: Handcuff Box
+  rank: 2
+  featured: true
+- key: paper-percentile-desteiguer_2025_stability-2026-09-20
+  id: paper-percentile-desteiguer_2025_stability
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.desteiguer_2025_stability.percentile
+  old: 0
+  new: 94
+  title: Top 6% of 2025.
+  body: Among everything published in 2025 that OpenAlex has heard of, your paper
+    in Child Development now sits in the top 6% by citations. Most of the rest was
+    never cited at all, which is either comforting or the whole problem.
+  reward: 'Reward: You''ve received a Bronze Flask Box!'
+  article: desteiguer_2025_stability
+  paper: Stability of aging- and cognition-related methylation profile scores across
+    two waves in Children and Adolescents
+  tier: Bronze
+  box: Flask Box
+  rank: 1
+  featured: true
+- key: paper-percentile-gonzalez_2025_relationships-2026-09-20
+  id: paper-percentile-gonzalez_2025_relationships
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.gonzalez_2025_relationships.percentile
+  old: 0
+  new: 91
+  title: Top 9% of 2025.
+  body: Among everything published in 2025 that OpenAlex has heard of, your paper
+    in Journal of Occupational and Environmental Medicine now sits in the top 9% by
+    citations. Most of the rest was never cited at all, which is either comforting
+    or the whole problem.
+  reward: 'Reward: You''ve received a Bronze Challenge Coin Box!'
+  article: gonzalez_2025_relationships
+  paper: Relationships between physiological stress biomarkers and cardiovascular
+    disease risk factors among career firefighters
+  tier: Bronze
+  box: Challenge Coin Box
+  rank: 1
+  featured: false
+- key: paper-percentile-mcallister_2025_markers-2026-09-20
+  id: paper-percentile-mcallister_2025_markers
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.mcallister_2025_markers.percentile
+  old: 0
+  new: 96
+  title: Top 4% of 2025.
+  body: Among everything published in 2025 that OpenAlex has heard of, your paper
+    in Journal of Occupational and Environmental Medicine now sits in the top 4% by
+    citations. Most of the rest was never cited at all, which is either comforting
+    or the whole problem.
+  reward: 'Reward: You''ve received a Silver Challenge Coin Box!'
+  article: mcallister_2025_markers
+  paper: Markers of fitness, stress, and cardiometabolic disease risk among law enforcement
+    officers
+  tier: Silver
+  box: Challenge Coin Box
+  rank: 2
+  featured: false
+- key: paper-percentile-tanksley_2024_polygenic-2026-09-20
+  id: paper-percentile-tanksley_2024_polygenic
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.tanksley_2024_polygenic.percentile
+  old: 0
+  new: 96
+  title: Top 4% of 2024.
+  body: Among everything published in 2024 that OpenAlex has heard of, your paper
+    in Clinical Psychological Science now sits in the top 4% by citations. Most of
+    the rest was never cited at all, which is either comforting or the whole problem.
+  reward: 'Reward: You''ve received a Silver Flask Box!'
+  article: tanksley_2024_polygenic
+  paper: Do polygenic indices capture ‘direct’ effects on child externalizing behavior?
+    Within-family analyses in two longitudinal birth cohorts
+  tier: Silver
+  box: Flask Box
+  rank: 2
+  featured: true
+- key: paper-percentile-tanksley_2023_history-2026-09-20
+  id: paper-percentile-tanksley_2023_history
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.tanksley_2023_history.percentile
+  old: 0
+  new: 96
+  title: Top 4% of 2023.
+  body: Among everything published in 2023 that OpenAlex has heard of, your paper
+    in PLoS ONE now sits in the top 4% by citations. Most of the rest was never cited
+    at all, which is either comforting or the whole problem.
+  reward: 'Reward: You''ve received a Silver Adventurer Box!'
+  article: tanksley_2023_history
+  paper: 'History of incarceration and age-related neurodegeneration: Testing models
+    of genetic and environmental risks in a longitudinal panel study of older adults'
+  tier: Silver
+  box: Adventurer Box
+  rank: 2
+  featured: true
+- key: paper-percentile-williams_2023_guidelines-2026-09-20
+  id: paper-percentile-williams_2023_guidelines
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.williams_2023_guidelines.percentile
+  old: 0
+  new: 93
+  title: Top 7% of 2023.
+  body: Among everything published in 2023 that OpenAlex has heard of, your paper
+    in Behavior Genetics now sits in the top 7% by citations. Most of the rest was
+    never cited at all, which is either comforting or the whole problem.
+  reward: 'Reward: You''ve received a Bronze Flask Box!'
+  article: williams_2023_guidelines
+  paper: Guidelines for evaluating the comparability of down-sampled GWAS summary
+    statistics
+  tier: Bronze
+  box: Flask Box
+  rank: 1
+  featured: true
+- key: paper-percentile-raffington_2023_associations-2026-09-20
+  id: paper-percentile-raffington_2023_associations
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.raffington_2023_associations.percentile
+  old: 0
+  new: 98
+  title: Top 2% of 2023.
+  body: Among everything published in 2023 that OpenAlex has heard of, your paper
+    in Clinical Psychological Science now sits in the top 2% by citations. Most of
+    the rest was never cited at all, which is either comforting or the whole problem.
+  reward: 'Reward: You''ve received a Gold Flask Box!'
+  article: raffington_2023_associations
+  paper: Associations of DNA-methylation measures of biological aging with social
+    disparities in child and adolescent mental health
+  tier: Gold
+  box: Flask Box
+  rank: 3
+  featured: true
+- key: paper-percentile-langevin_2022_life-2026-09-20
+  id: paper-percentile-langevin_2022_life
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.langevin_2022_life.percentile
+  old: 0
+  new: 95
+  title: Top 5% of 2022.
+  body: Among everything published in 2022 that OpenAlex has heard of, your paper
+    in The International Journal of Environmental Research and Public Health now sits
+    in the top 5% by citations. Most of the rest was never cited at all, which is
+    either comforting or the whole problem.
+  reward: 'Reward: You''ve received a Silver Adventurer Box!'
+  article: langevin_2022_life
+  paper: Life-course persistent antisocial behavior and accelerated biological aging
+    in a longitudinal birth cohort
+  tier: Silver
+  box: Adventurer Box
+  rank: 2
+  featured: true
+- key: paper-percentile-raffington_2022_socially-2026-09-20
+  id: paper-percentile-raffington_2022_socially
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.raffington_2022_socially.percentile
+  old: 0
+  new: 93
+  title: Top 7% of 2022.
+  body: Among everything published in 2022 that OpenAlex has heard of, your paper
+    in Psychological Science now sits in the top 7% by citations. Most of the rest
+    was never cited at all, which is either comforting or the whole problem.
+  reward: 'Reward: You''ve received a Bronze Flask Box!'
+  article: raffington_2022_socially
+  paper: Socially stratified epigenetic profiles are associated with cognitive functioning
+    in children and adolescents
+  tier: Bronze
+  box: Flask Box
+  rank: 1
+  featured: true
+- key: paper-percentile-tanksley_2020_identifying-2026-09-20
+  id: paper-percentile-tanksley_2020_identifying
+  date: '2026-09-20'
+  since: '2026-09-18'
+  metric: articles.tanksley_2020_identifying.percentile
+  old: 0
+  new: 91
+  title: Top 9% of 2020.
+  body: Among everything published in 2020 that OpenAlex has heard of, your paper
+    in Journal of Experimental Criminology now sits in the top 9% by citations. Most
+    of the rest was never cited at all, which is either comforting or the whole problem.
+  reward: 'Reward: You''ve received a Bronze Handcuff Box!'
+  article: tanksley_2020_identifying
+  paper: 'Identifying pathways to polyvictimization: Evidence from a longitudinal
+    cohort study of twins from the United Kingdom'
+  tier: Bronze
+  box: Handcuff Box
+  rank: 1
+  featured: true
+

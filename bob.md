@@ -8,7 +8,7 @@ deadline: null
 target: Personal academic website with CV, about page, and blog
 effort_remaining: monitoring (annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-09-19
+last_updated: 2026-09-20
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -25,11 +25,16 @@ sync: github
 
 ## Start Here Next Session
 
-- Nothing urgent. Skill tree (Research ▸ Skill tree) and the YAML-generated CV publication list are
-  live as of 2026-09-09; add news items to `news.yml` as they happen.
-- Publications now change in `5_skilltree/data/articles.yml`, never in the CV directly: edit → rate
-  in the Shiny app if new → `Rscript 5_skilltree/R/build_tree.R` + `render_cv_pubs.R` → commit. A paper in a
-  new venue also needs its JCR year exported into `5_skilltree/data/jcr/` and `build_journals.R` rerun.
+- **Achievements are live on the site, committed, NOT pushed** (2026-09-20): page, homepage card, numerals on the
+  tree, panel and sheet sections. Peter still owes a real-browser look and a wording review of the drafted lines
+  in `5_skilltree/data/achievements.yml` (edit → `check_achievements.R --replay` → `build_tree.R` → commit), then push.
+  See `logs/skilltree/2026-09-20_achievements-surfaces.md`.
+- Open from the 2026-09-19 list, not blocking: total-citation ladder stretch, h/i10 milestone ladders, manual
+  achievements (talks, grants, awards). Proposals in `logs/skilltree/2026-09-19_achievements-rules.md`.
+- Nothing else urgent. Skill tree, impact pips, phase stickers and the skill-tree news item are all live.
+- Publications change in `5_skilltree/data/articles.yml`, never in the CV directly: edit → rate in the Shiny app
+  if new → `build_tree.R` + `render_cv_pubs.R` → commit. A paper in a new venue also needs its JCR year
+  exported into `5_skilltree/data/jcr/` and `build_journals.R` rerun.
 - Check Crossref for volume/pages on the Nature paper (entry 27) before touching the YAML.
 
 ## This Week
@@ -47,9 +52,12 @@ sync: github
 - DONE 2026-09-19: impact-factor pips on the skill tree (bands 5/10/25 on the JCR year before publication;
   data from Peter's JCR exports in `5_skilltree/data/jcr/`) — see `logs/skilltree/2026-09-19_impact-factor-pips.md`.
   Checked in the browser by Peter; committed and pushed as `06c971c`, CI publishes.
-- [ ] Peter writes the reward lines in `5_skilltree/data/achievements.yml` (three PLACEHOLDERs); then
-  wire `check_achievements.R --post` to append DCC-voice entries to `news.yml`.
-- [ ] Refresh the stats now and then: `Rscript 5_skilltree/R/fetch_scholar.R` → commit.
+- DONE 2026-09-20: achievements on the site (Peter: gold numeral, career on the origin, separate from news, single
+  latest on the homepage). First real refresh fired 12 percentile achievements; ledger logged on purpose.
+  Committed locally; see `logs/skilltree/2026-09-20_achievements-surfaces.md`.
+- [ ] Peter: real-browser check of the numerals and the achievements page; review the drafted wording; push.
+- [ ] Refresh the stats now and then: `Rscript 5_skilltree/R/refresh.R` (fetch → log → tree), then commit the
+  snapshot, `www/scholar.json`, `5_skilltree/data/achievements_log.yml`, `www/tree.json`.
 - [ ] Each June/July when Clarivate releases the new JCR year: export all 22 journals for that year from JCR
   into `5_skilltree/data/jcr/jcr_<year>.csv`, run `build_journals.R` then `build_tree.R`, commit. Clears the
   nearest-year flags on papers published earlier that year. New venue: same, one journal, one year.

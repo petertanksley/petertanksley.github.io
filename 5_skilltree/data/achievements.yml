@@ -1,46 +1,116 @@
-# achievements.yml — rules for Dungeon Crawler Carl-style announcements when a citation metric moves.
+# achievements.yml — rules for Dungeon Crawler Carl-style system messages when a citation metric moves.
 #
 # check_achievements.R diffs the two newest snapshots in data/scholar/ against these rules and prints
-# what would fire. Posting to news.yml is NOT wired yet (next pass, once the reward lines are written).
+# what fires; with --log it writes each fired achievement, fully rendered, to data/achievements_log.yml
+# (committed). The site renders from that ledger, never from here: achievements.qmd, the homepage card, and via
+# build_tree.R the numeral on each hex and the panel's Achievements section. After editing wording here, run
+# check_achievements.R --replay to rebuild the ledger from every snapshot pair. Register: ../ACHIEVEMENTS.md.
+#
+# Shape of a rendered achievement, as in the books:
+#   New achievement! <title>
+#   <body>                      one or two sentences, second person: the fact, then the mock
+#   Reward: <reward line>       a box ("You've received a Silver Appendix Box!") or a joke standing in for one
 #
 # Fields:
-#   id       slug, becomes the news entry id (with the date appended)
+#   id       slug; becomes the ledger key and, later, the news anchor
 #   metric   dotted path into a snapshot: scholar.citations | scholar.h_index | scholar.i10 |
 #            openalex.citations | articles.<article_id>.scholar
 #   trigger  step      fires on any increase (old < new)
 #            round     fires when new crosses a multiple of `every` that old had not reached
 #            threshold fires once, when new >= `at` and old < `at`
-#   title    headline in the DCC system-message register; {old} {new} {delta} are filled in
-#   reward   the punchline; same placeholders. Peter's voice, sass about the job never about people.
-# House rules from CLAUDE.md apply: one-sentence blurb on the homepage, no sass about responders dying.
+#            log10     fires when new reaches a new power of ten (1, 10, 100, 1000 ...) that old had not
+#            ladder    fires when new reaches a rung `at` of the reward tier ladder that old had not
+#   A metric of the form articles.*.scholar expands to one rule per paper in articles.yml (ledger id
+#   <rule>-<article id>); {paper} {venue} {year} fill from the paper, {times} is "once" or "{new} times".
+#   articles.<id>.percentile is the paper's OpenAlex citation percentile among all works of its year (the
+#   conservative end of the band; null in the publication year). {top} = 100 - {new}, read as "top N%".
+#   title    headline: the feat only, short. The paper is named by the `paper` field the ledger carries (the page and
+#            the homepage card print it as a byline; the tree panel, which is already the paper, does not). {old} {new}
+#            {delta} are filled in everywhere below too
+#   body     the fact, then the mock. Second person. Dry, not zany; no profanity; sass about the job,
+#            the appendix, peer review and Peter, never about responders dying (CLAUDE.md)
+#   reward   EITHER a joke line (text; "Reward:" is prefixed if missing)
+#            OR a box: {type: <Box name>, tier: <Tier>} or tier as a ladder [{at: 100, tier: Silver}, ...]
+#            `type` may also be a map by the paper's dominant area {biosocial:, criminology:, responders:, mixed:}
+#            picking the highest `at` <= new. Tiers ascend Bronze, Silver, Gold, Platinum, Legendary,
+#            Celestial. Celestial is reserved (tenure, nothing else).
+# Tier logic (ACHIEVEMENTS.md): routine steps get no box, just the mock; per-paper citations climb the
+# quarters ladder 1 / 10 / 25 / 50 / 100 = Bronze / Silver / Gold / Platinum / Legendary (Peter, 2026-09-19:
+# attainable, not rock-star; log10 left nothing above Gold reachable). Celestial is never on a ladder.
 
 - id: h-index-up
   metric: scholar.h_index
   trigger: step
-  title: "Level up! h-index is now {new}."
+  title: "Level Up. h-index is now {new}."
+  body: >-
+    One more of your papers has been cited at least {new} times, so the number every hiring committee
+    pretends not to look at just ticked over. Took you long enough.
   reward: >-
-    Reward? Nothing. You went into academia because you thought it was fun, you sick, sick man.
-    Not for the money. You get nothing.
+    Nothing. You went into academia because you thought it was fun, you sick, sick man. Not for the
+    money. You get nothing.
 
 - id: citations-century
   metric: scholar.citations
   trigger: round
   every: 100
-  title: "Achievement unlocked: {new} citations. Somebody read the appendix."
-  reward: >-
-    PLACEHOLDER — Peter writes this one. Rewards so far: zero. Loot table: empty.
+  title: "{new} Citations. Somebody Read the Appendix."
+  body: >-
+    Your work has now been cited {new} times. That is {new} people who needed a reference and found
+    yours before they found a better one. Statistically, at least one of them read past the abstract.
+  reward:
+    type: Appendix Box
+    tier:
+      - {at: 100, tier: Silver}
+      - {at: 500, tier: Gold}
+      - {at: 1000, tier: Platinum}
 
 - id: i10-up
   metric: scholar.i10
   trigger: step
-  title: "New skill acquired: {new} papers with ten or more citations."
+  title: "New Skill Acquired: {new} Papers with Ten or More Citations."
+  body: >-
+    Another paper has crossed ten citations, which is the number a paper needs before a metric will
+    admit it exists. It will now be counted. Counted is not the same as read.
   reward: >-
-    PLACEHOLDER — Peter writes this one.
+    None. Ten is the minimum. You do not get a box for meeting the minimum.
 
-- id: first-blood-correctional
-  metric: articles.tanksley_2026_correctional.scholar
-  trigger: threshold
-  at: 1
-  title: "First blood: the correctional officer mortality paper has been cited."
-  reward: >-
-    PLACEHOLDER — Peter writes this one.
+- id: paper-cited
+  metric: articles.*.scholar
+  trigger: ladder
+  title: "Cited {times}."
+  body: >-
+    Your {year} paper in {venue} has now been cited {times}. Someone needed exactly what you wrote, or
+    needed something to disagree with in print. The record does not say which, and you should not ask.
+  reward:
+    type:
+      biosocial: Flask Box
+      criminology: Handcuff Box
+      responders: Challenge Coin Box
+      mixed: Adventurer Box
+    tier:
+      - {at: 1, tier: Bronze}
+      - {at: 10, tier: Silver}
+      - {at: 25, tier: Gold}
+      - {at: 50, tier: Platinum}
+      - {at: 100, tier: Legendary}
+
+- id: paper-percentile
+  metric: articles.*.percentile
+  trigger: ladder
+  title: "Top {top}% of {year}."
+  body: >-
+    Among everything published in {year} that OpenAlex has heard of, your paper in {venue} now sits in the
+    top {top}% by citations. Most of the rest was never cited at all, which is either comforting or the
+    whole problem.
+  reward:
+    type:
+      biosocial: Flask Box
+      criminology: Handcuff Box
+      responders: Challenge Coin Box
+      mixed: Adventurer Box
+    tier:
+      - {at: 90, tier: Bronze}
+      - {at: 95, tier: Silver}
+      - {at: 98, tier: Gold}
+      - {at: 99, tier: Platinum}
+      - {at: 100, tier: Legendary}

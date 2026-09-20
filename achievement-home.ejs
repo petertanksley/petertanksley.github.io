@@ -1,0 +1,14 @@
+<% const roman = k => { const t = [[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']]; let o = ''; for (const [v, r] of t) while (k >= v) { o += r; k -= v; } return o; }; const pick = items.find(it => it.featured !== false && String(it.featured) !== 'false'); if (pick) { const key = pick.key ? String(pick.key) : ''; const tier = pick.tier ? String(pick.tier) : ''; %>
+<a class="ach-card" href="achievements.html<%- key ? '#' + key : '' %>"<% if (tier) { %> data-tier="<%- tier %>"<% } %>>
+<span class="ach-card-mark" aria-hidden="true"><span class="ach-card-num"><%- roman(items.length) %></span><span class="ach-card-lab">earned</span></span>
+<span class="ach-card-text">
+<span class="eyebrow">System message · <%= pick.date %></span>
+<span class="ach-card-head">New achievement!</span>
+<span class="ach-card-title"><%- pick.title %></span>
+<% if (pick.paper) { %><span class="ach-card-paper"><%- pick.paper %></span><% } %>
+<span class="ach-card-body"><%- pick.body %></span>
+<span class="ach-card-reward"><%- pick.reward %></span>
+<span class="ach-card-more">All achievements &rarr;</span>
+</span>
+</a>
+<% } %>

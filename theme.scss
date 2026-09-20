@@ -501,6 +501,14 @@ html.page-dark {
   @media (prefers-reduced-motion: reduce) { .skilltree-wrap { transition: none; } }
 }
 
+// Achievement tiers (2026-09-20), the DCC loot-box ladder. Used by the tree panel, the achievements page and
+// the homepage card via [data-tier]. Gold is --st-gold; the rest are chosen to read on ink, not to be pretty.
+$tiers: ("Bronze": #B87A4B, "Silver": #B9BCC6, "Gold": #D9A441, "Platinum": #C9E4EC, "Legendary": #E0A0FF, "Celestial": #FBFAF7);
+@mixin tier-colour($prop: color) {
+  @each $name, $col in $tiers { &[data-tier="#{$name}"] { --tier: #{$col}; } }
+  #{$prop}: var(--tier, #A9A6B3);
+}
+
 // ---------------------------------------------------------------------------
 // Skill tree (skilltree.qmd, www/skilltree.js, www/tree.json). Generator: 5_skilltree/.
 // Self-contained dark panel: every colour comes from the --st-* tokens on .skilltree-wrap, so it
@@ -541,6 +549,11 @@ html.page-dark {
     &.flipping { animation: st-flip 560ms ease-in-out 1 both; }
     &.unflipping { animation: st-unflip 560ms ease-in-out 1 both; }   // same return trip as the article hexes
   }
+  // achievements numeral (2026-09-20): roman count on the lower-left edge, the pips' mirror. Gold on an ink
+  // halo (paint-order) so it survives any sticker; rotated 30 degrees by the JS to run along the edge
+  .hex-num { font-family: $font-family-monospace; font-weight: 500; fill: var(--st-gold); stroke: var(--st-bg); stroke-width: 3px;
+             stroke-linejoin: round; paint-order: stroke; text-anchor: middle; dominant-baseline: middle; letter-spacing: 0.04em;
+             pointer-events: none; }
   .axis-label  { font-family: $font-display; font-size: 46px; font-weight: 600; dominant-baseline: middle; letter-spacing: 0.01em; }
   .year-label {
     font-family: $font-family-monospace; font-size: 26px; fill: var(--st-soft); text-anchor: middle; dominant-baseline: middle;
@@ -575,7 +588,7 @@ html.page-dark {
     // impact pips (2026-09-19): gold, inked outline so they sit on any sticker; drawn above the shade
     .hex-pips { pointer-events: none; circle { fill: var(--st-gold); stroke: var(--st-bg); stroke-width: 1.5; } }
     // muted tier: deeper shade, quieter ring. Visual only; still focusable and clickable.
-    &.muted { --shade: 0.9; .hex-ring { opacity: 0.6; } .hex-pips { opacity: 0.6; } }
+    &.muted { --shade: 0.9; .hex-ring { opacity: 0.6; } .hex-pips { opacity: 0.6; } .hex-num { opacity: 0.6; } }
     // highlight (hover / keyboard focus): ring up, shade eases, nothing moves
     &:hover, &:focus-visible { .hex-ring { stroke-width: 8; opacity: 1; } .hex-shade { opacity: 0.45; } }
     // revealed (clicked): face-up, lit, lifted a little, ring pulsing
@@ -615,6 +628,7 @@ html.page-dark {
 
 .skilltree-tooltip {
   .pips { color: #D9A441; letter-spacing: 0.1em; }   // impact pips in the meta line (2026-09-19)
+  .num  { color: #D9A441; font-family: $font-family-monospace; letter-spacing: 0.06em; }   // achievements numeral (2026-09-20)
   position: fixed; z-index: 1090 !important; pointer-events: none;
   max-width: 320px; padding: 0.7rem 0.85rem;
   background: #26242E; color: #FBFAF7; border: 1px solid #3A3845; border-left: 4px solid var(--node, #FBFAF7);
@@ -696,6 +710,16 @@ aside.skilltree-panel {
     .yr { font-family: $font-family-monospace; font-size: 0.74rem; color: var(--sp-soft); margin-right: 0.5rem; }
     &:hover, &:focus-visible { background: var(--sp-rule); outline: none; }
   }
+  // achievements (2026-09-20): one row per system message, tier chip in the tier's colour, linking to the page
+  .sp-h-n { color: var(--sp-gold); letter-spacing: 0.06em; text-transform: none; margin-left: 0.3rem; }
+  .sp-ach {
+    display: grid; grid-template-columns: 5.2em 1fr; gap: 0.6rem; align-items: baseline; margin: 0.25rem 0; padding: 0.4rem 0.6rem;
+    color: var(--sp-fg); border: 1px solid var(--sp-rule); border-radius: 3px; font-size: 0.84rem; line-height: 1.35; text-decoration: none;
+    @include tier-colour(border-left-color); border-left-width: 3px;
+    .sp-ach-tier { font-family: $font-family-monospace; font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--tier, var(--sp-soft)); }
+    .sp-ach-title { color: var(--sp-fg); }
+    &:hover, &:focus-visible { background: var(--sp-rule); color: var(--sp-fg); outline: none; }
+  }
   // character sheet (origin easter egg): label / value rows, an aside under a value where the joke needs a beat
   .sp-sheet { display: grid; grid-template-columns: 9.5em 1fr; gap: 0.35rem 0.8rem; font-size: 0.86rem; margin: 0;
     dt { color: var(--sp-soft); font-weight: 400; margin: 0; } dd { margin: 0; }
@@ -725,6 +749,8 @@ aside.skilltree-panel {
   .lg-item { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--st-fg); white-space: nowrap; }
   .lg-hex { width: 1.1em; height: 1.25em; flex: none; }
   .lg-pips circle { fill: var(--st-gold); }
+  .lg-num { font-family: $font-family-monospace; font-size: 0.8em; color: var(--st-gold); letter-spacing: 0.06em; width: 1.6em; text-align: center; }
+  a.lg-ach { text-decoration: none; &:hover, &:focus-visible { color: var(--st-gold); } }
   .lg-note { flex: 1 1 18rem; color: var(--st-soft); }
 }
 
@@ -742,6 +768,8 @@ aside.skilltree-panel {
   .ss-stat { display: flex; flex-direction: column; align-items: flex-start; pointer-events: auto; }
   .ss-n    { font-family: $font-family-monospace; font-size: 1.35rem; line-height: 1.1; color: var(--st-fg); font-variant-numeric: tabular-nums; }
   .ss-l    { font-size: 0.68rem; color: var(--st-soft); }
+  a.ss-ach { text-decoration: none; .ss-n { color: var(--st-gold); letter-spacing: 0.04em; }
+             &:hover .ss-l, &:focus-visible .ss-l { color: var(--st-fg); } }
   .ss-foot { margin-top: 0.35rem; font-size: 0.66rem; color: var(--st-soft);
     a { color: var(--st-soft); text-decoration: underline; pointer-events: auto; &:hover { color: var(--st-fg); } } }
 }
@@ -749,3 +777,52 @@ aside.skilltree-panel {
   .skilltree { display: flex; flex-direction: column; }
   .skilltree .st-stats { position: static; order: -1; align-self: flex-start; margin: 0 0 0.6rem; }
 }
+
+// ---------------------------------------------------------------------------
+// Achievements (2026-09-20). Source: 5_skilltree/data/achievements_log.yml, the ledger check_achievements.R
+// writes. achievements.qmd lists everything as system messages on the dark page (achievements-listing.ejs);
+// index.qmd shows the single latest as a dark card under News (achievement-home.ejs). Register: 5_skilltree/ACHIEVEMENTS.md.
+// ---------------------------------------------------------------------------
+html.page-dark {
+  .ach-intro { max-width: 44em; margin: 1.5rem auto 0; color: $dark-soft; font-size: 0.98rem; text-align: center; a { color: $teal; } }
+  .achlist { max-width: 44em; margin: 1.5rem auto 3rem; }
+  .ach-day { font-family: $font-family-monospace; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase;
+             color: $dark-soft; border: 0; margin: 2.4rem 0 0.9rem; padding: 0; text-align: left;
+             .ach-day-label { color: #D9A441; margin-right: 0.4rem; } }
+  .ach-day:first-child { margin-top: 1rem; }
+  .ach {
+    position: relative; margin: 0 0 1rem; padding: 1.1rem 1.3rem 1rem; border-radius: 4px; scroll-margin-top: 5.5rem;
+    background: #26242E; border: 1px solid $dark-rule; @include tier-colour(border-left-color); border-left-width: 4px;
+    &:target { box-shadow: 0 0 0 2px var(--tier, #D9A441); }
+    .ach-head   { font-family: $font-family-monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tier, #D9A441); }
+    .ach-title  { font-family: $font-display; font-size: 1.35rem; font-weight: 600; line-height: 1.2; color: $dark-fg; margin: 0.3rem 0 0.6rem; border: 0; padding: 0; }
+    .ach-paper  { color: $dark-soft; font-size: 0.86rem; font-style: italic; margin: -0.3rem 0 0.6rem; line-height: 1.4; }
+    .ach-body   { color: $dark-fg; margin: 0 0 0.6rem; font-size: 0.95rem; line-height: 1.5; }
+    .ach-reward { font-family: $font-family-monospace; font-size: 0.82rem; color: var(--tier, $dark-soft); margin: 0; }
+    .ach-hex    { position: absolute; right: 1.3rem; bottom: 1rem; font-family: $font-family-monospace; font-size: 0.76rem; color: $dark-soft;
+                  &:hover, &:focus-visible { color: $teal; } }
+  }
+  @media (max-width: 640px) { .ach .ach-hex { position: static; display: block; margin-top: 0.6rem; } }
+}
+
+// the homepage card: the same dark object as .tree-card on the research page, with the tier colour on its rule
+.ach-card {
+  display: grid; grid-template-columns: 96px 1fr; gap: 1.6rem; align-items: center;
+  margin: 2rem 0 0; padding: 1.3rem 1.6rem; border-radius: 6px;
+  background: $ink; color: $paper; text-decoration: none; @include tier-colour(border-left-color); border-left: 5px solid var(--tier, #D9A441);
+  transition: background 160ms ease;
+  &:hover, &:focus-visible { text-decoration: none; color: $paper; background: #26242E; .ach-card-more { color: lighten($teal, 18%); } }
+  .ach-card-mark { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 96px; height: 96px;
+                   border: 2px solid var(--tier, #D9A441); border-radius: 50%; color: var(--tier, #D9A441); }
+  .ach-card-num  { font-family: $font-family-monospace; font-size: 1.7rem; line-height: 1; letter-spacing: 0.06em; }
+  .ach-card-lab  { font-family: $font-family-monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.25rem; opacity: 0.85; }
+  .ach-card-text { display: block; min-width: 0; }
+  .eyebrow { display: block; color: $teal; }
+  .ach-card-head   { display: block; font-family: $font-family-monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tier, #D9A441); margin-top: 0.3rem; }
+  .ach-card-title  { display: block; font-family: $font-display; font-size: 1.35rem; font-weight: 600; line-height: 1.15; margin: 0.25rem 0 0.45rem; }
+  .ach-card-paper  { display: block; color: #A9A6B3; font-size: 0.86rem; font-style: italic; line-height: 1.4; margin: -0.2rem 0 0.5rem; }
+  .ach-card-body   { display: block; color: #A9A6B3; font-size: 0.92rem; line-height: 1.5; margin-bottom: 0.5rem; }
+  .ach-card-reward { display: block; font-family: $font-family-monospace; font-size: 0.8rem; color: var(--tier, #D9A441); margin-bottom: 0.7rem; }
+  .ach-card-more   { display: block; font-family: $font-family-monospace; font-size: 0.8rem; color: $teal; }
+}
+@media (max-width: 640px) { .ach-card { grid-template-columns: 1fr; gap: 1rem; .ach-card-mark { width: 80px; height: 80px; } } }

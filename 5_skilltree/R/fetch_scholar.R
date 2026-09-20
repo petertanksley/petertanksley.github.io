@@ -77,8 +77,11 @@ fetch_openalex <- function(dois) {
   per_doi <- list()
   dois <- tolower(dois[!is.na(dois) & nzchar(dois)])
   for (chunk in split(dois, ceiling(seq_along(dois) / 40))) {
-    w <- oa_get(paste0("https://api.openalex.org/works?per-page=50&select=doi,cited_by_count&filter=doi:", paste(chunk, collapse = "|")))
-    for (r in w$results) per_doi[[str_remove(tolower(r$doi), "^https://doi.org/")]] <- r$cited_by_count
+    w <- oa_get(paste0("https://api.openalex.org/works?per-page=50&select=doi,cited_by_count,cited_by_percentile_year&filter=doi:", paste(chunk, collapse = "|")))
+    # cited_by_percentile_year is a {min, max} band among ALL OpenAlex works of the same year; keep the
+    # conservative end. It runs high (most works are never cited): a 4-citation 2021 paper sits at 89.
+    for (r in w$results) per_doi[[str_remove(tolower(r$doi), "^https://doi.org/")]] <-
+      list(cites = r$cited_by_count, pct = r$cited_by_percentile_year$min)
   }
   list(summary = list(id = a$id, works = a$works_count, citations = a$cited_by_count,
                       h_index = a$summary_stats$h_index, i10 = a$summary_stats$i10_index, by_year = by_year),
@@ -121,8 +124,13 @@ oa <- if (no_oa) NULL else tryCatch(fetch_openalex(map_chr(arts, ~ .x$doi %||% N
 m <- if (!is.null(sch)) match_articles(arts, sch$pubs) else NULL
 articles <- set_names(map(arts, function(a) {
   s  <- if (!is.null(m)) m$cites[[a$id]] else if (!is.null(prev)) prev$articles[[a$id]]$scholar else NULL
-  o  <- if (!is.null(oa) && !is.null(a$doi)) oa$per_doi[[tolower(a$doi)]] else NULL
-  list(scholar = s, openalex = o)
+  rec <- if (!is.null(oa) && !is.null(a$doi)) oa$per_doi[[tolower(a$doi)]] else NULL
+  o   <- if (!is.null(rec)) rec$cites else if (!is.null(prev)) prev$articles[[a$id]]$openalex else NULL
+  # percentile only once the paper has a full calendar year behind it: in its publication year the cohort is
+  # mostly uncited and the band is inflated, and achievements only ever fire upward
+  pct <- if (!is.null(rec) && !is.null(rec$pct) && isTRUE(a$year < as.integer(format(Sys.Date(), "%Y")))) rec$pct
+         else if (is.null(rec) && !is.null(prev)) prev$articles[[a$id]]$percentile else NULL
+  list(scholar = s, openalex = o, percentile = pct)
 }), ids)
 
 out <- list(
@@ -145,8 +153,8 @@ if (!is.null(m)) {
   if (length(m$unmatched_articles)) cat("  articles with no Scholar row:", paste(m$unmatched_articles, collapse = ", "), "\n")
   if (length(m$unmatched_scholar))  cat("  Scholar rows not in articles.yml:\n", paste0("   - ", substr(m$unmatched_scholar, 1, 90), "\n"), sep = "")
 }
-cat(sprintf("%-34s %8s %8s\n", "id", "scholar", "openalex"))
-for (id in ids) cat(sprintf("%-34s %8s %8s\n", id, fmt(articles[[id]]$scholar), fmt(articles[[id]]$openalex)))
+cat(sprintf("%-34s %8s %8s %6s\n", "id", "scholar", "openalex", "pct"))
+for (id in ids) cat(sprintf("%-34s %8s %8s %6s\n", id, fmt(articles[[id]]$scholar), fmt(articles[[id]]$openalex), fmt(articles[[id]]$percentile)))
 
 if (dry_run) { cat("\n--dry-run: nothing written\n"); quit(save = "no") }
 if (is.null(out$scholar) && is.null(out$openalex)) stop("nothing fetched and no snapshot to fall back on; not writing")

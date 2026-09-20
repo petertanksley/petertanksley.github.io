@@ -1,0 +1,15 @@
+<div class="achlist">
+<% let lastDate = null; for (const item of items) { const day = String(item.date); const tier = item.tier ? String(item.tier) : ''; const key = item.key ? String(item.key) : ''; const art = item.article ? String(item.article) : ''; %>
+<% if (day !== lastDate) { lastDate = day; %>
+<h2 class="ach-day"><span class="ach-day-label">Snapshot</span> <%= day %></h2>
+<% } %>
+<article class="ach"<% if (key) { %> id="<%- key %>"<% } %><% if (tier) { %> data-tier="<%- tier %>"<% } %>>
+<div class="ach-head">New achievement!</div>
+<h3 class="ach-title"><%- item.title %></h3>
+<% if (item.paper) { %><p class="ach-paper"><%- item.paper %></p><% } %>
+<p class="ach-body"><%- item.body %></p>
+<p class="ach-reward"><%- item.reward %></p>
+<% if (art) { %><a class="ach-hex" href="skilltree.html#<%- art %>">Find the hex &rarr;</a><% } %>
+</article>
+<% } %>
+</div>
