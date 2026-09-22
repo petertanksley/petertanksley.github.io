@@ -282,8 +282,9 @@ h2 { clear: both; }
 @media (max-width: 960px) { .hexband { display: none; } }
 @media print { .hexband { display: none; } }
 
-// Hearth scene on the about page: full-width figure below the grid
-.hearth-figure {
+// Wide pixel-art scenes: the hearth below the About grid, the trapdoor at the
+// foot of the landing page. Same figure treatment for both.
+.hearth-figure, .scene-figure {
   clear: both;
   margin: 2.5rem 0 0;
   figure { margin: 0; }

@@ -260,3 +260,156 @@ images:
       old iron key rests on the table beside them. A lit candle stands on the
       table just behind them, its light falling fully on the cuffs so they
       stand out crisp against the warmly lit wood. Nothing else in the picture.
+
+  # Round 4 (2026-09-22): second wide scene for the About page, companion to `hearth`.
+  # Composition borrowed from the *Holes* poster: camera on the floor looking straight up
+  # through a hole, a ring of faces peering down. Here the hole is the trapdoor from the
+  # basement apartment down into the sub-basement lab, and the faces are Peter, Josie,
+  # Winnie and the skull. The poster is NOT attached (a reference image eats the scene;
+  # see CLAUDE.md); the composition is written out instead. Palette anchored on the
+  # hearth output itself ([refs/hearth_scene], gitignored like the other refs). One
+  # deliberate cool accent: whatever they are looking at, down here with the camera,
+  # throws a faint pale glow up onto their faces.
+  - name: trapdoor
+    aspect-ratio: "16:9"
+    description: >
+      Lit and coloured exactly like the scene in [refs/hearth_scene]: the same
+      chunky 16-bit pixel art, the same warm sepia palette, the same firelit
+      basement apartment. The camera lies flat on the floor of a dark
+      sub-basement laboratory and looks straight up at the ceiling. Almost all
+      of the picture is that ceiling seen from directly below: heavy rough
+      wooden joists and planks in deep shadow, with a few bundles of dried
+      herbs and a coil of rope hanging down toward the viewer, and cobwebs in
+      the corners. In the middle of the ceiling, filling most of the height of
+      the picture and roughly square, is an open trapdoor: a rectangular hole
+      cut through the planks, its thick hinged lid thrown back and standing
+      open on one side. Through the hole we see up into the warm, firelit
+      basement apartment above: the edge of a worn patterned rug at the rim,
+      a glimpse of exposed brick wall, a ceiling beam, a soft orange glow from
+      an unseen fire. A plain wooden ladder rises through one corner of the
+      hole and comes down toward the camera at a steep angle, its rungs
+      strongly foreshortened, its top hooked over the rim; it stays at the
+      edge of the hole and blocks none of the faces.
+      Leaning over the rim of the hole from every side, ringed around it and
+      all looking straight down at the camera, are four heads seen from
+      directly below and foreshortened, so their faces fill the opening.
+      A very tall man with the face of [refs/peter], medium-brown hair and a
+      short brown beard, not red, not strawberry blonde, in a black henley,
+      both hands braced flat on the rim of the trapdoor, leaning far over the
+      edge and staring down: one eyebrow raised, brow furrowed, mouth slightly
+      open, puzzled and a little worried. A yellow Labrador mix with the face
+      and coloring of [refs/josie], head hanging over the edge, ears falling
+      forward toward the camera, head tilted to one side in confusion. A
+      brindle mix with the face and coloring of [refs/winnie], head over the
+      opposite edge, ears pricked, brows drawn together, worried. And resting
+      right on the rim between them, nothing holding it, a bare human skull,
+      only the skull, no other bones anywhere, no hands, no ribcage, no spine,
+      no skeleton, tipped forward to look straight down, its eye sockets
+      glowing orange and its jaw slightly ajar, as if it too is at a loss.
+      Their faces are lit from two directions: warm firelight from the room
+      behind and above them, and a faint, pale, cool glow rising from below,
+      from the thing on the sub-basement floor that they are all staring at
+      and that the viewer never sees. The cool glow is subtle; the picture
+      stays warm overall. No one is smiling. Nothing else in the picture.
+
+  # Round 4b (2026-09-22): round 4 put a rug on the apartment ceiling because the prompt asked for
+  # "a rug at the rim", which a camera on the floor below cannot see. The view through the hatch
+  # is now written as what is actually overhead: the apartment's ceiling. Ladder wording kept from
+  # the winner of round 4 (trapdoor-3). Cool glow from below dropped; the model ignored it anyway.
+  - name: trapdoor2
+    aspect-ratio: "16:9"
+    description: >
+      Lit and coloured exactly like the scene in [refs/hearth_scene]: the same
+      chunky 16-bit pixel art, the same warm sepia palette, the same firelit
+      basement apartment. The camera lies flat on the floor of a dark
+      sub-basement laboratory and looks straight up at the ceiling. Almost all
+      of the picture is that ceiling seen from directly below: heavy rough
+      wooden joists and planks in deep shadow, with a few bundles of dried
+      herbs and a coil of rope hanging down toward the viewer, and cobwebs in
+      the corners. In the middle of the ceiling, filling most of the height of
+      the picture and roughly square, is an open trapdoor: a rectangular hole
+      cut through the planks, its thick hinged lid thrown back and standing
+      open on one side. Through the hole we look straight up into the room
+      above, and because we are looking up, all we can see of that room is its
+      ceiling: old dark wooden ceiling beams and cracked plaster between them,
+      high overhead, with warm orange firelight from an unseen fireplace
+      flickering across it. No floor, no rug, no furniture and no flame is
+      visible through the hole, only that firelit ceiling and, at the very
+      edges of the opening, the tops of rough brick walls. A plain wooden
+      ladder rises through the right-hand side of the hole and comes down
+      toward the camera at a steep angle, its rungs strongly foreshortened,
+      its top hooked over the rim; it stays at the edge of the hole and blocks
+      none of the faces.
+      Leaning over the rim of the hole and all looking straight down at the
+      camera are four heads seen from directly below and foreshortened, so
+      their faces fill the opening. A very tall man with the face of
+      [refs/peter], medium-brown hair and a short brown beard, not red, not
+      strawberry blonde, in a black henley, one hand braced on the rim of the
+      trapdoor, leaning far over the edge and staring down: one eyebrow
+      raised, brow furrowed, mouth slightly open, puzzled and a little
+      worried. Exactly one yellow Labrador mix with the face and coloring of
+      [refs/josie], head hanging over the edge, ears falling forward toward
+      the camera, head tilted to one side in confusion. Exactly one brindle
+      mix with the face and coloring of [refs/winnie], head over the edge,
+      ears pricked, brows drawn together, worried. Two dogs in total, no more.
+      And resting right on the rim between them, nothing holding it, a bare
+      human skull, only the skull, no other bones anywhere, no hands, no
+      ribcage, no spine, no skeleton, tipped forward to look straight down,
+      its eye sockets glowing orange and its jaw slightly ajar, as if it too
+      is at a loss. Their faces are lit by the warm firelight from the room
+      behind and above them, their undersides in soft shadow. No one is
+      smiling. Nothing else in the picture.
+
+  # Round 4c (2026-09-22): round 4b fixed the ceiling but drew an open fire directly behind the
+  # skull at the rim, turned the beard red again, and hung the trapdoor lid DOWN into the lab
+  # (real ones swing up). Fire is now an orange wash on the ceiling only, beard correction moved
+  # to the front, lid swung up and away, out of the hole.
+  - name: trapdoor3
+    aspect-ratio: "16:9"
+    description: >
+      Lit and coloured exactly like the scene in [refs/hearth_scene]: the same
+      chunky 16-bit pixel art, the same warm sepia palette, the same firelit
+      basement apartment. There are no flames anywhere in this picture; the
+      only fire is off-screen and shows as an orange glow on surfaces. The
+      camera lies flat on the floor of a dark sub-basement laboratory and
+      looks straight up at the ceiling. Almost all of the picture is that
+      ceiling seen from directly below: heavy rough wooden joists and planks in
+      deep shadow, with a few bundles of dried herbs and a coil of rope hanging
+      down toward the viewer, and cobwebs in the corners. In the middle of the
+      ceiling, filling most of the height of the picture and roughly square,
+      is an open trapdoor: a rectangular hole cut through the planks. Its
+      thick wooden lid has been swung UP and away, out of the hole, and lies
+      flat on the floor of the room above, so it is not visible; nothing hangs
+      down below the ceiling through the hole except the ladder. Through the
+      hole we look straight up into the room above, and because we are
+      looking up, all we can see of that room is its ceiling: old dark wooden
+      ceiling beams and cracked plaster between them, high overhead, washed in
+      flickering warm orange light from a fireplace that is out of view. No
+      floor, no rug, no furniture, no fireplace and no flames are visible
+      through the hole, only that firelit ceiling and, at the very edges of
+      the opening, the tops of rough brick walls. A plain wooden ladder rises
+      through the right-hand side of the hole and comes down toward the camera
+      at a steep angle, its rungs strongly foreshortened, its top hooked over
+      the rim; it stays at the edge of the hole and blocks none of the faces.
+      Leaning over the rim of the hole and all looking straight down at the
+      camera are four heads seen from directly below and foreshortened, so
+      their faces fill the opening. A very tall man with the face of
+      [refs/peter]; his hair and his short beard are both plain medium brown,
+      the same brown as a walnut shell, with no red, no orange, no ginger and
+      no copper in them at all, even in the firelight. He wears a black
+      henley, one hand braced on the rim of the trapdoor, leaning far over the
+      edge and staring down: one eyebrow raised, brow furrowed, mouth slightly
+      open, puzzled and a little worried. Exactly one yellow Labrador mix with
+      the face and coloring of [refs/josie], head hanging over the edge, ears
+      falling forward toward the camera, head tilted to one side in confusion.
+      Exactly one brindle mix with the face and coloring of [refs/winnie], head
+      over the edge, ears pricked, brows drawn together, worried. Two dogs in
+      total, no more. And resting right on the rim between the two dogs,
+      nothing holding it, a bare human skull, only the skull, no other bones
+      anywhere, no hands, no ribcage, no spine, no skeleton, tipped forward to
+      look straight down, its eye sockets glowing orange and its jaw slightly
+      ajar, as if it too is at a loss. Directly behind the skull is only the
+      dark firelit plaster ceiling of the room above; nothing burns behind it.
+      Their faces are lit by the warm firelight from the room behind and above
+      them, their undersides in soft shadow. No one is smiling. Nothing else
+      in the picture.

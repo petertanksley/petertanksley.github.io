@@ -36,6 +36,10 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
 - Do not feature the McAllister/Gonzalez firefighter biomarker papers.
 - Harden Lab link is https://www.kpharden.com/.
 - Real headshot appears on the About page only; the landing page uses the sticker collage.
+- Wide pixel-art scenes: `www/hearth.jpg` closes About, `www/trapdoor.jpg` closes the landing page
+  (2026-09-22; camera on the lab floor, so the visitor is the thing everyone is staring at). Both use
+  `.scene-figure`/`.hearth-figure`. Prompts are the `hearth` and `trapdoor*` entries in `bananarama.yaml`;
+  lessons in `logs/2026-09-22_trapdoor-scene.md`. No third scene on About; Projects is the next candidate slot.
 
 ## News feed
 

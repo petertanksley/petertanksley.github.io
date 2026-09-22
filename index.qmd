@@ -93,3 +93,7 @@ How officers are trained to make the worst decision of their week in under two s
 
 <p class="mono" style="margin-top:1rem"><a href="2_cv/tanksley_cv.qmd">Full CV →</a></p>
 :::
+
+::: {.landing-section .scene-figure}
+![You've reached the bottom of the page. So has everyone else.](www/trapdoor.jpg){fig-alt="16-bit pixel-art scene seen from the floor of a dark sub-basement lab, looking up through an open trapdoor: a tall bearded man, a yellow Labrador, a brindle dog, and a skull with glowing eyes all peer down at the viewer, puzzled, while a wooden ladder descends from the hatch."}
+:::

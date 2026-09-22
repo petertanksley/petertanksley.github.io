@@ -8,7 +8,7 @@ deadline: null
 target: Personal academic website with CV, about page, and blog
 effort_remaining: monitoring (annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-09-20
+last_updated: 2026-09-22
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -25,80 +25,46 @@ sync: github
 
 ## Start Here Next Session
 
-- **Achievements shipped 2026-09-20** (last push `975d795`, live and verified): page, homepage card, numerals on the
-  tree, panel and sheet sections; six rules, three joke titles / bodies / rewards each, picked per firing by key hash.
-  Reviewed by Peter in the browser through four passes. Wording edits: `5_skilltree/data/achievements.yml` →
-  `check_achievements.R --replay` → `build_tree.R` → commit. See `logs/skilltree/2026-09-20_achievements-surfaces.md`.
-- Nothing pending on achievements. Optional backlog: total-citation ladder stretch, h/i10 milestone ladders, manual
-  achievements (talks, grants, awards), box-reward line variants.
-- Open from the 2026-09-19 list, not blocking: total-citation ladder stretch, h/i10 milestone ladders, manual
-  achievements (talks, grants, awards). Proposals in `logs/skilltree/2026-09-19_achievements-rules.md`.
-- Nothing else urgent. Skill tree, impact pips, phase stickers and the skill-tree news item are all live.
-- Publications change in `5_skilltree/data/articles.yml`, never in the CV directly: edit → rate in the Shiny app
-  if new → `build_tree.R` + `render_cv_pubs.R` → commit. A paper in a new venue also needs its JCR year
-  exported into `5_skilltree/data/jcr/` and `build_journals.R` rerun.
-- Check Crossref for volume/pages on the Nature paper (entry 27) before touching the YAML.
+- Nothing in flight. Last content push `975d795` (achievements) is live; working tree clean as of 2026-09-22.
+- If a few weeks have passed: `Rscript 5_skilltree/R/refresh.R`, then commit the snapshot, `www/scholar.json`,
+  `5_skilltree/data/achievements_log.yml` and `www/tree.json`.
+- Check Crossref for entry 27 (Nature) volume/pages and entry 28 (AJPH) DOI before touching `articles.yml`.
+- Publications change in `5_skilltree/data/articles.yml`, never in the CV: edit → rate in the Shiny app if new →
+  `build_tree.R` + `render_cv_pubs.R` → commit. A new venue also needs its JCR year in `5_skilltree/data/jcr/`
+  and `build_journals.R` rerun.
+- Backlog is listed under Upcoming Milestones; none of it is scheduled.
 
 ## This Week
+- DONE 2026-09-22: trapdoor scene (Holes homage, three rolls, $0.61) at the foot of the landing page; see `logs/2026-09-22_trapdoor-scene.md`. Uncommitted.
 
-- DONE 2026-09-18: per-article sticker pipeline built; all 30 articles stickered twice (v1 uniform,
-  v2 with tailored per-article motifs + per-article seeds, responders re-rolled with placement
-  guardrails); selected hexes 3.4x with reverse flip, gold origin ring — see
-  `logs/skilltree/2026-09-18_article-stickers.md`. Committed and pushed as `d0a5596`; CI publishes.
-- DONE 2026-09-19: fresh phase stickers for first responders (coin) and criminology (handcuffs), $1.42 over four rolls;
-  Research page, homepage collage and CV band updated; helmet and magnifying glass archived beside them.
-  See `logs/2026-09-19_phase-stickers.md`.
-- DONE 2026-09-18 (evening): Google Scholar stats card on the tree (`fetch_scholar.R`, local, commit the
-  JSON) + achievements data layer (`achievements.yml`, `check_achievements.R`, dry-run only) — see
-  `logs/skilltree/2026-09-18_scholar-stats.md`. Committed as `dcb8cd1`.
-- DONE 2026-09-19: impact-factor pips on the skill tree (bands 5/10/25 on the JCR year before publication;
-  data from Peter's JCR exports in `5_skilltree/data/jcr/`) — see `logs/skilltree/2026-09-19_impact-factor-pips.md`.
-  Checked in the browser by Peter; committed and pushed as `06c971c`, CI publishes.
-- DONE 2026-09-20: achievements on the site (Peter: gold numeral, career on the origin, separate from news, single
-  latest on the homepage). First real refresh fired 12 percentile achievements; ledger logged on purpose.
-  Committed locally; see `logs/skilltree/2026-09-20_achievements-surfaces.md`.
-- DONE 2026-09-20: Peter reviewed in the browser (percentile rule tightened, numerals upright, lead-only Bronze,
-  Founder rule, text variants, joke titles); pushed through `975d795`, deployment verified live.
-- [ ] Refresh the stats now and then: `Rscript 5_skilltree/R/refresh.R` (fetch → log → tree), then commit the
-  snapshot, `www/scholar.json`, `5_skilltree/data/achievements_log.yml`, `www/tree.json`.
-- [ ] Each June/July when Clarivate releases the new JCR year: export all 22 journals for that year from JCR
-  into `5_skilltree/data/jcr/jcr_<year>.csv`, run `build_journals.R` then `build_tree.R`, commit. Clears the
-  nearest-year flags on papers published earlier that year. New venue: same, one journal, one year.
-- [ ] Backlog (not scheduled): career-rank gold markers on the year rings — see "Future work" in
-  `logs/skilltree/2026-09-18_article-stickers.md`.
-- [ ] Optional: phase stickers beside the matching Research-page sections
-- DONE 2026-09-19: news item announcing the skill tree (`skill-tree-2026` in `news.yml`).
+- [ ] Periodic stats refresh (`Rscript 5_skilltree/R/refresh.R` → commit snapshot, `www/scholar.json`,
+  `5_skilltree/data/achievements_log.yml`, `www/tree.json`) — only if not run in the last few weeks
+- Otherwise monitoring only; nothing scheduled
 
 ## Upcoming Milestones
 
-- TBD: volume/issue/pages for entry 27 (Schwaba et al., Nature, doi:10.1038/s41586-026-10992-9)
-  when assigned — set `citation:` in `articles.yml` (currently "online first"), rerun `render_cv_pubs.R`;
-  none as of 2026-09-19 (still online first)
-- TBD: DOI (then volume/pages) for entry 28 (Tanksley, Logan, & Barnes, AJPH, in press) — set `doi:`,
-  `status: published`, `citation:` in `articles.yml`; the homepage and research-page `.worklist`
-  blocks are still hand-written and need the same edit; still in production, no DOI as of 2026-09-19
+- TBD: volume/issue/pages for entry 27 (Schwaba et al., Nature, doi:10.1038/s41586-026-10992-9) — set
+  `citation:` in `articles.yml` (currently "online first"), rerun `render_cv_pubs.R`. Still online first at
+  last check (2026-09-19).
+- TBD: DOI, then volume/pages, for entry 28 (Tanksley, Logan, & Barnes, AJPH, in press) — set `doi:`,
+  `status: published`, `citation:` in `articles.yml`; the homepage and research-page `.worklist` blocks are
+  hand-written and need the same edit. No DOI at last check (2026-09-19).
+- June/July 2027: new JCR year — export all 22 journals into `5_skilltree/data/jcr/jcr_<year>.csv`, run
+  `build_journals.R` then `build_tree.R`, commit. Clears nearest-year flags on papers published earlier that year.
+- Backlog, unscheduled: career-rank gold markers on the year rings ("Future work" in
+  `logs/skilltree/2026-09-18_article-stickers.md`); phase stickers beside the matching Research-page sections;
+  achievements extras (total-citation ladder, h/i10 ladders, manual talks/grants/awards, box-reward variants —
+  proposals in `logs/skilltree/2026-09-19_achievements-rules.md`).
 
 ## Notes
 
-- Live at https://petertanksley.github.io
-- CI: `.github/workflows/publish.yml` — uses the runner's preinstalled Chrome
-  (PUPPETEER_SKIP_DOWNLOAD / PUPPETEER_EXECUTABLE_PATH), install retries kept, 20-min job
-  cap, superseded runs auto-cancelled
-- CV source: `2_cv/tanksley_cv.qmd`; CSS: `2_cv/tanksley_cv.css`
-- Hex stickers: finals in `www/hex/` (7 art + blank) + anchor `www/hearth.jpg`; pipeline in
-  `4_stickers/`; style guide and prompt lessons in `logs/2026-09-01_sticker-generation.md`;
-  round-2 picks and the "one clean subject" rule in `logs/2026-09-05_round2-stickers-and-news-feed.md`
-- News feed: `news.yml` (add entries here; headline = what the thing is, blurb = one irreverent
-  sentence with markdown links) → `news-listing.ejs` (news page, links) + `news-listing-home.ejs`
-  (homepage, links stripped, headline → `news.html#id`); homepage shows latest 3; navbar entry between Projects and Left-hand Thoughts. Quarto's EJS rejects `<%# %>` comments.
-- Landing page masthead = 4-sticker hex collage (`.hexcollage`); real headshot lives on About only
-- CV hex band: `4_stickers/hexband.R` → `_hexband.qmd` (included by the CV). New stickers:
-  append to `stickers` in the script and rerun. Design notes in
-  `logs/2026-09-02_hex-band-and-cv-fixes.md`
-- CV publication block is generated (`2_cv/_publications.qmd`, never hand-edited); the fenced-div
-  rule it follows is documented in CLAUDE.md
-- Conventions (voice, content rules, feed, stickers, gotchas): `CLAUDE.md` (added 2026-09-05)
-- History: `logs/` (prune record: `logs/2026-09-02_bob-prune.md`)
-- Skill tree integrated 2026-09-09 (Research ▸ Skill tree; generator in `5_skilltree/`, PROJ_skill_tree repo archived) — see logs/skilltree/
-- CV publications generated from `5_skilltree/data/articles.yml` since 2026-09-09 (`render_cv_pubs.R` → `2_cv/_publications.qmd`); add papers with `add_article.R <DOI>` — see logs/skilltree/2026-09-09_cv-from-yaml.md
-- CV PDF: screen-only elements must be hidden with a `.pagedjs_page`-scoped rule in `tanksley_cv.css` (hex band fix 2026-09-09); `quarto render 2_cv/tanksley_cv.qmd --to pdf` to rebuild the PDF locally
+- Live at https://petertanksley.github.io; CI `.github/workflows/publish.yml` renders on push to `main`
+- CV source `2_cv/tanksley_cv.qmd`, CSS `2_cv/tanksley_cv.css`; publication block `2_cv/_publications.qmd` is
+  generated from `5_skilltree/data/articles.yml` by `render_cv_pubs.R`, never hand-edited (`add_article.R <DOI>`)
+- Skill tree, stats card, impact pips, achievements: generator in `5_skilltree/`; PROJ_skill_tree repo archived
+- Hex stickers: finals in `www/hex/` + `www/hearth.jpg`; pipeline `4_stickers/`; CV band via `4_stickers/hexband.R`
+- Phase marks: coin (first responders), handcuffs (criminology); helmet and magnifying glass archived beside them
+- News feed: `news.yml` → `news-listing.ejs` / `news-listing-home.ejs`; achievements are a separate stream
+- Landing masthead = 4-sticker hex collage; real headshot lives on About only
+- Conventions (voice, content rules, feed, stickers, JCR/pips, CI and pagedjs gotchas): `CLAUDE.md`
+- History: `logs/` and `logs/skilltree/`; prune records `logs/2026-09-02_bob-prune.md`, `logs/2026-09-22_bob-prune.md`
