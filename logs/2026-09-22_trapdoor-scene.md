@@ -42,3 +42,16 @@ hearth would lose. Projects page remains a candidate for a future scene. Caption
 "You've reached the bottom of the page. So has everyone else."
 
 Spend today: $0.61.
+
+## Shipped
+
+Committed as `c3f3d55` and pushed 2026-09-22 (late evening). Render workflow green; the Pages deploy
+lagged the render by about a minute, so the image 404'd briefly before going 200. Verified live:
+`www/trapdoor.jpg` and the caption in the homepage HTML. Same commit carried the morning's bob.md
+prune and its log.
+
+## Open
+
+- Beard colour still drifts ginger under the hearth lighting ref; try a neutral-light headshot as
+  the face ref on the next scene.
+- Projects page is the next candidate slot for a wide scene, if one is ever wanted.

@@ -35,7 +35,7 @@ sync: github
 - Backlog is listed under Upcoming Milestones; none of it is scheduled.
 
 ## This Week
-- DONE 2026-09-22: trapdoor scene (Holes homage, three rolls, $0.61) at the foot of the landing page; see `logs/2026-09-22_trapdoor-scene.md`. Uncommitted.
+- DONE 2026-09-22: trapdoor scene (Holes homage, three rolls, $0.61) at the foot of the landing page; live at `c3f3d55`; see `logs/2026-09-22_trapdoor-scene.md`
 
 - [ ] Periodic stats refresh (`Rscript 5_skilltree/R/refresh.R` → commit snapshot, `www/scholar.json`,
   `5_skilltree/data/achievements_log.yml`, `www/tree.json`) — only if not run in the last few weeks
