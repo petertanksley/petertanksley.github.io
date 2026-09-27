@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-09-27 17:35",
+    "generated": "2026-09-27 18:12",
     "hex_w": 100,
     "hex_h": 115.47,
     "width": 2781,
@@ -164,7 +164,7 @@
         "w": 38,
         "h": 43.88,
         "side": "right",
-        "sticker_src": "www/hex/sm/blank_dark.png",
+        "sticker_src": "www/hex/sm/rank_student.png",
         "from": null
       },
       {
@@ -182,11 +182,11 @@
         "w": 38,
         "h": 43.88,
         "side": "right",
-        "sticker_src": "www/hex/sm/blank_dark.png",
+        "sticker_src": "www/hex/sm/rank_postdoc.png",
         "from": {
           "id": "student",
           "title": "Doctoral Student",
-          "sticker_src": "www/hex/sm/blank_dark.png"
+          "sticker_src": "www/hex/sm/rank_student.png"
         }
       },
       {
@@ -204,11 +204,11 @@
         "w": 38,
         "h": 43.88,
         "side": "right",
-        "sticker_src": "www/hex/sm/blank_dark.png",
+        "sticker_src": "www/hex/sm/rank_scientist.png",
         "from": {
           "id": "postdoc",
           "title": "Postdoc",
-          "sticker_src": "www/hex/sm/blank_dark.png"
+          "sticker_src": "www/hex/sm/rank_postdoc.png"
         }
       }
     ],

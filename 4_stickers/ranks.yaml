@@ -54,34 +54,34 @@ images:
 
   # Tier 2 — uncomment AFTER rank_student has a final in www/hex/. No lab coat here: the coat is the
   # Research Scientist's (Hunter's monogrammed joke gift when Peter was hired).
-  # - name: rank_postdoc
-  #   description: >
-  #     This is the SAME man shown in [../www/hex/rank_student], drawn again by
-  #     the same hand in exactly the same pixel style, palette, candlelight and
-  #     viewing angle, with the face of [refs/peter], now advanced to a higher
-  #     rank. His hair and short beard are plain medium brown, the same brown as
-  #     a walnut shell, with no red, no orange, no ginger and no copper. The coat
-  #     and scarf are gone. He wears a plain black henley with the sleeves pushed
-  #     up, and holds up in one hand a single round glass flask in which a small
-  #     double helix glows softly. He looks alert and a little surprised at it.
-  #     Warm candlelight on his face. Plain dark stone wall behind him, softly
-  #     out of focus. Nothing else in the picture.
+  - name: rank_postdoc
+    description: >
+      This is the SAME man shown in [../www/hex/rank_student], drawn again by
+      the same hand in exactly the same pixel style, palette, candlelight and
+      viewing angle, with the face of [refs/peter], now advanced to a higher
+      rank. His hair and short beard are plain medium brown, the same brown as
+      a walnut shell, with no red, no orange, no ginger and no copper. The coat
+      and scarf are gone. He wears a plain black henley with the sleeves pushed
+      up, and holds up in one hand a single round glass flask in which a small
+      double helix glows softly. He looks alert and a little surprised at it.
+      Warm candlelight on his face. Plain dark stone wall behind him, softly
+      out of focus. Nothing else in the picture.
 
   # Tier 3 — uncomment AFTER rank_postdoc has a final. The lab coat appears here. The style prefix forbids
   # letters, so the monogram is "a stitched shape"; at 92 px it would not read anyway.
-  # - name: rank_scientist
-  #   description: >
-  #     This is the SAME man shown in [../www/hex/rank_postdoc], drawn again by
-  #     the same hand in exactly the same pixel style, palette, candlelight and
-  #     viewing angle, with the face of [refs/peter], now advanced to a higher
-  #     rank. His hair and short beard are plain medium brown, the same brown as
-  #     a walnut shell, with no red, no orange, no ginger and no copper. He now
-  #     wears a crisp white lab coat, open over the black henley, with a small
-  #     embroidered mark on the breast pocket, a stitched shape and not letters,
-  #     and holds up between thumb and forefinger a single heavy bronze
-  #     challenge coin, no taller than a quarter of the picture, its face exactly
-  #     the design shown in [motif_refs/coin]: three equal wedges divided by
-  #     raised ridges, a Maltese cross, a plain blank shield, a single staff with
-  #     one serpent; no stars of any kind. He looks steady and faintly amused.
-  #     Warm candlelight on his face. Plain dark stone wall behind him, softly
-  #     out of focus. Nothing else in the picture.
+  - name: rank_scientist
+    description: >
+      This is the SAME man shown in [../www/hex/rank_postdoc], drawn again by
+      the same hand in exactly the same pixel style, palette, candlelight and
+      viewing angle, with the face of [refs/peter], now advanced to a higher
+      rank. His hair and short beard are plain medium brown, the same brown as
+      a walnut shell, with no red, no orange, no ginger and no copper. He now
+      wears a crisp white lab coat, open over the black henley, with a small
+      embroidered mark on the breast pocket, a stitched shape and not letters,
+      and holds up between thumb and forefinger a single heavy bronze
+      challenge coin, no taller than a quarter of the picture, its face exactly
+      the design shown in [motif_refs/coin]: three equal wedges divided by
+      raised ridges, a Maltese cross, a plain blank shield, a single staff with
+      one serpent; no stars of any kind. He looks steady and faintly amused.
+      Warm candlelight on his face. Plain dark stone wall behind him, softly
+      out of focus. Nothing else in the picture.

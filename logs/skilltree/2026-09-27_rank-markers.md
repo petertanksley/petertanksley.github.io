@@ -42,10 +42,19 @@ Rebuilt and rendered; served `docs/` over HTTP (Chrome will not `fetch` tree.jso
 rejects an unknown id and a missing candidate; `preview_candidates.R` accepts `--dir ranks --parent puzzled` and
 still rejects an unknown article id in the default mode.
 
+## Art (same evening, after Peter raised the cap)
+
+Generated one tier at a time through `4_stickers/ranks.yaml`, n = 2 each, no re-rolls. Picks, all Peter's, each
+recommended by Bob and taken: `rank_student-1` (centred, manuscript squarely in both hands), `rank_postdoc-2`
+(candidate 1 lost its flask to the right-hand hex corner, the usual way to lose), `rank_scientist-1` (the one
+smile in the chain; coin clear of the edge). Likeness held across all three with the previous framed final as the
+anchor; beard stayed walnut-brown; the pocket monogram did not render in either scientist candidate and was not
+worth a re-roll at 92 px. Spend: $0.135 + $0.135 + $0.136 = **$0.41**. Squares archived to
+`finals_src/rank_*.jpg`; finals `www/hex/rank_*.png` (480x554); `sm/` copies 57-67 KB. Rebuilt and re-rendered;
+`#rank-2024` shows postdoc -> Research Scientist with the real art.
+
 ## Not done
 
-- Art. Spend cap (~$19 of $20 by the logs' sum) must be raised by Peter first. Then: generate `rank_student`
-  (~$0.14), `preview_candidates.R rank_student --dir ranks --parent puzzled`, Peter picks, `pick_rank.R`, uncomment
-  `rank_postdoc`, repeat with `--parent rank_student`, then `rank_scientist` with `--parent rank_postdoc`.
 - Debt: three near-identical unpin blocks (node, origin, rank) in `skilltree.js`. Refactor when a fourth appears.
-- Not tested in a real browser: hover, keyboard focus order, reduced motion. Headless only.
+- Not tested in a real browser: hover, keyboard focus order, reduced motion. Headless only. Peter viewed the
+  placeholder version over the local server before generation.

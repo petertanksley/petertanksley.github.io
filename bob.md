@@ -35,9 +35,8 @@ sync: github
 - Backlog is listed under Upcoming Milestones; none of it is scheduled.
 
 ## This Week
-- [ ] Career-rank markers: tree, panel and tooling shipped 09-27 with placeholder art. Next: Peter raises the Gemini
-  spend cap (~$19/$20 used), then generate one tier at a time — `rank_student` -> preview -> `pick_rank.R` -> uncomment
-  `rank_postdoc` in `4_stickers/ranks.yaml` -> repeat -> `rank_scientist`. Plan: `logs/skilltree/plans/2026-09-27_rank-markers.md`
+- DONE 2026-09-27: career-rank markers on the skill tree with three generated stickers ($0.41); see
+  `logs/skilltree/2026-09-27_rank-markers.md`. Not yet pushed at time of writing.
 - [ ] Periodic stats refresh (`Rscript 5_skilltree/R/refresh.R` → commit snapshot, `www/scholar.json`,
   `5_skilltree/data/achievements_log.yml`, `www/tree.json`) — only if not run in the last few weeks
 - Otherwise monitoring only; nothing scheduled
