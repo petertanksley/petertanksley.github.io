@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-09-27 15:54",
+    "generated": "2026-09-27 18:13",
     "hex_w": 100,
     "hex_h": 115.47,
     "width": 2781,
@@ -146,6 +146,70 @@
         "label_x": 1250.4,
         "label_y": 331.8,
         "label_over_hex": false
+      }
+    ],
+    "ranks": [
+      {
+        "key": "rank-2019",
+        "id": "student",
+        "year": 2019,
+        "ring": 2,
+        "title": "Doctoral Student",
+        "org": "School of Criminal Justice, University of Cincinnati",
+        "years": "to 2020",
+        "headline": "Starting class: Doctoral Student.",
+        "line": "Cincinnati. Real winter. The dissertation is the tutorial level, and nobody gets to skip it.",
+        "x": 1364.4,
+        "y": 962.3,
+        "w": 38,
+        "h": 43.88,
+        "side": "right",
+        "sticker_src": "www/hex/sm/rank_student.png",
+        "from": null
+      },
+      {
+        "key": "rank-2020",
+        "id": "postdoc",
+        "year": 2020,
+        "ring": 3,
+        "title": "Postdoc",
+        "org": "Population Research Center, University of Texas at Austin",
+        "years": "2020–2024",
+        "headline": "Class change: Postdoc.",
+        "line": "Home to Austin for genomics in the Harden Lab. Learned to say methylation without pausing. The Constitution stat on the character sheet was earned here.",
+        "x": 1312.4,
+        "y": 872.2,
+        "w": 38,
+        "h": 43.88,
+        "side": "right",
+        "sticker_src": "www/hex/sm/rank_postdoc.png",
+        "from": {
+          "id": "student",
+          "title": "Doctoral Student",
+          "sticker_src": "www/hex/sm/rank_student.png"
+        }
+      },
+      {
+        "key": "rank-2024",
+        "id": "scientist",
+        "year": 2024,
+        "ring": 7,
+        "title": "Research Scientist",
+        "org": "ALERRT Center, Texas State University",
+        "years": "2024–present",
+        "headline": "Class change: Research Scientist.",
+        "line": "One exit south on I-35. New subject: the people who run toward the trouble. A colleague bought him a monogrammed lab coat as a joke. He wears it.",
+        "x": 1312.4,
+        "y": 511.9,
+        "w": 38,
+        "h": 43.88,
+        "side": "right",
+        "sticker_src": "www/hex/sm/rank_scientist.png",
+        "from": {
+          "id": "postdoc",
+          "title": "Postdoc",
+          "sticker_src": "www/hex/sm/rank_postdoc.png"
+        }
       }
     ],
     "areas": ["biosocial", "criminology", "responders"],

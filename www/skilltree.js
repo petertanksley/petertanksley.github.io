@@ -104,6 +104,8 @@
   let originHome = null;   // the layer the origin is drawn in; it is lifted to the top layer while pinned
   let nodesLayer = null;   // the <g> the nodes live in; a pinned node is lifted out of it (see gTop) and returned here
   let keepPanel = false;   // set while walking a lineage link: unpin the node but leave the drawer open
+  // career-rank markers (2026-09-27): beads beside the year labels (tree.meta.ranks); pinned like the origin
+  let rankPinned = null, rankHome = null; const rankToggles = {};
   // drop a node back into the nodes layer, under the welds and labels
   const REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function settle(g) {
@@ -133,6 +135,18 @@
         o.classList.add('unflipping');
         let done = false; const finish = () => { if (!done) { done = true; home(); } };
         o.addEventListener('animationend', finish, { once: true });
+        setTimeout(finish, 700);
+      }
+    }
+    if (rankPinned) {   // same return trip for a rank marker; back into g.ranks once the shrink ends
+      const r = rankPinned; rankPinned = null;
+      r.classList.remove('pinned', 'lit', 'flipping');
+      const home = () => { r.classList.remove('unflipping'); if (rankHome && r.parentNode !== rankHome && !r.classList.contains('pinned')) rankHome.appendChild(r); };
+      if (REDUCED) home();
+      else {
+        r.classList.add('unflipping');
+        let done = false; const finish = () => { if (!done) { done = true; home(); } };
+        r.addEventListener('animationend', finish, { once: true });
         setTimeout(finish, 700);
       }
     }
@@ -269,6 +283,30 @@
     lastFocus = g;
     if (history.replaceState) history.replaceState(null, '', '#me');
   }
+  // class-change screen (2026-09-27): previous rank -> new rank, Pokemon-evolution style; the first rank shows one hex.
+  // Plain <img> of the 220px sm art (the 480px finals are not shipped). The "Character sheet" link rides #me.
+  function rankHTML(rk) {
+    const hex = (src, title, cls) => `<figure class="sp-evo-hex ${cls}"><img src="${esc(src)}" alt="${esc(title)}"><figcaption>${esc(title)}</figcaption></figure>`;
+    const meta = [rk.title, rk.org, rk.years].filter(Boolean).join(' · ');
+    return `<div class="sp-eyebrow">System message · ${esc(rk.year)}</div>` +
+           `<h2 class="sp-title">${esc(rk.headline)}</h2>` +
+           `<div class="sp-meta">${esc(meta)}</div>` +
+           `<div class="sp-evo${rk.from ? '' : ' single'}">` +
+             (rk.from ? hex(rk.from.sticker_src, rk.from.title, 'from') + '<span class="sp-evo-arrow" aria-hidden="true">&rarr;</span>' : '') +
+             hex(rk.sticker_src, rk.title, 'to') +
+           `</div>` +
+           `<p class="sp-blurb">${esc(rk.line)}</p>` +
+           `<a class="sp-link" href="#me">Character sheet &rarr;</a>`;
+  }
+  function openRank(rk, g) {
+    if (!panel) return;
+    panelBody.innerHTML = rankHTML(rk);
+    panel.style.setProperty('--node', '#D9A441');
+    panel.hidden = false;
+    fitAroundPanel(true);
+    lastFocus = g;
+    if (history.replaceState) history.replaceState(null, '', '#' + rk.key);
+  }
   // Make room for the drawer: pad the tree's container by exactly the overlap between its right edge
   // and the panel's left edge, so the SVG rescales to the space left and nothing sits under the panel.
   // No-op when the panel is a bottom sheet (narrow viewports) or already clear of the tree.
@@ -379,14 +417,15 @@
     if (m.origin) {
       const k = m.origin.scale || 1, ow = m.hex_w * k, oh = m.hex_h * k;
       originG = svgEl('g', { class: 'origin-node', tabindex: '0', role: 'button',
-        'aria-label': 'Peter Tanksley, at the origin. Opens a character sheet.' + (ORIGIN_ACH && ORIGIN_ACH.n ? ` ${achPlural(ORIGIN_ACH.n)}.` : '') }, gT);
+        'aria-label': 'Peter Tanksley, at the origin. Opens a character sheet.' }, gT);
       originHome = gT;
       svgEl('image', {
         class: 'origin', href: m.origin.sticker_src, x: m.origin.x - ow / 2, y: m.origin.y - oh / 2,
         width: ow, height: oh, preserveAspectRatio: 'xMidYMid meet', 'aria-hidden': 'true'
       }, originG);
       svgEl('path', { class: 'origin-ring', d: hexPath(m.origin.x, m.origin.y, ow * 1.02, oh * 1.02) }, originG);
-      drawNumeral(originG, m.origin.x, m.origin.y, ow, oh, ORIGIN_ACH ? ORIGIN_ACH.n : 0);   // career-level achievements
+      // no numeral on the origin (Peter, 2026-09-27: every achievement is his, so a count here marks nothing);
+      // career-level entries are listed on the character sheet instead
       const originTip = () => {
         tip.innerHTML = '<div class="tt-title">Peter T. Tanksley</div><div class="tt-meta">Research Scientist · Level 2 · click to inspect</div>';
         tip.style.setProperty('--node', '#D9A441'); tip.hidden = false;   // gold, matching .origin-ring
@@ -506,6 +545,42 @@
 
     svg.appendChild(gBridge);   // welds above the tiles
 
+    // career-rank markers (2026-09-27): a bead beside the year label on the ring where Peter's class changed.
+    // Geometry comes from build_tree.R (meta.ranks). Same idiom as a node: art under an ink shade, revealed by the
+    // flip; a transparent hit circle widens the tap target, since the bead is ~16px on desktop and ~10px on a phone.
+    const gR = svgEl('g', { class: 'ranks' }, svg);
+    rankHome = gR;
+    (m.ranks || []).forEach(rk => {
+      const label = `${rk.year}. ${rk.headline}${rk.from ? ` From ${rk.from.title}.` : ''} Opens the class-change screen.`;
+      const g = svgEl('g', { class: 'rank-node', tabindex: 0, role: 'button', 'data-id': rk.key, 'aria-label': label }, gR);
+      svgEl('image', { href: rk.sticker_src, x: rk.x - rk.w / 2, y: rk.y - rk.h / 2, width: rk.w, height: rk.h, preserveAspectRatio: 'xMidYMid meet', 'aria-hidden': 'true' }, g);
+      svgEl('path', { class: 'hex-shade', d: hexPath(rk.x, rk.y, rk.w * 0.99, rk.h * 0.99) }, g);
+      svgEl('path', { class: 'rank-ring', d: hexPath(rk.x, rk.y, rk.w * 0.96, rk.h * 0.96) }, g);
+      svgEl('circle', { class: 'rank-hit', cx: rk.x, cy: rk.y, r: m.hex_w * 0.42 }, g);
+      const rankTip = () => {
+        tip.innerHTML = `<div class="tt-title">${esc(rk.headline)}</div><div class="tt-meta">${esc(rk.year)} · ${rk.from ? esc(rk.from.title) + ' &rarr; ' : ''}${esc(rk.title)} · click to inspect</div>`;
+        tip.style.setProperty('--node', '#D9A441'); tip.hidden = false;
+      };
+      g.addEventListener('mouseenter', e => { rankTip(); placeTipAt(e.clientX, e.clientY); });
+      g.addEventListener('mousemove',  e => placeTipAt(e.clientX, e.clientY));
+      g.addEventListener('mouseleave', hideTip);
+      g.addEventListener('focus', () => { rankTip(); placeTipByNode(g); });
+      g.addEventListener('blur', hideTip);
+      const toggle = e => {
+        e.preventDefault(); e.stopPropagation();
+        if (rankPinned === g) { unpin(); return; }
+        unpin(); rankPinned = g;
+        g.classList.remove('unflipping');
+        gTop.appendChild(g);   // lift above rings, labels and neighbours while enlarged; unpin() returns it to gR
+        g.classList.add('pinned', 'flipping', 'lit');
+        tip.hidden = true;
+        openRank(rk, g);
+      };
+      rankToggles[rk.key] = toggle;
+      g.addEventListener('click', toggle);
+      g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') toggle(e); });
+    });
+
     // labels last, above everything: axis names past the outer ring, years on each ring's top edge
     const gL = svgEl('g', { class: 'labels' }, svg);
     // ...except the one pinned node, which is lifted into this top layer so its enlarged tile is not
@@ -534,11 +609,13 @@
         (IMPACT ? item(`<svg class="lg-hex lg-pips" viewBox="0 0 20 23" aria-hidden="true"><circle cx="10" cy="11.5" r="4.2"/></svg>`, IMPACT.label) : '') +
         // the numeral at legend size, linking to the page that explains it
         (ACH && ACH.total ? `<a class="lg-item lg-ach" href="${esc(ACH.page || 'achievements.html')}"><span class="lg-num" aria-hidden="true">III</span>${esc(ACH.label || 'Achievements earned')}</a>` : '') +
+        // career-rank bead: a smaller gold hex in the same box, echoing the marker's size (gold via CSS, .lg-rank)
+        ((m.ranks && m.ranks.length) ? item(`<svg class="lg-hex lg-rank" viewBox="0 0 20 23" aria-hidden="true"><path d="${hexPath(10, 11.5, 11, 12.7)}" fill="none" stroke-width="2.5" stroke-linejoin="round"/></svg>`, 'Class change') : '') +
         `${item('<svg class="lg-hex" viewBox="0 0 20 23" aria-hidden="true"><path d="M2,19 Q6,9 18,4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="18" cy="4" r="2.4" fill="currentColor"/></svg>', 'Builds on an earlier article')}</div>`;
     }
 
     document.addEventListener('keydown', e => { if (e.key === 'Escape') unpin(); });
-    document.addEventListener('click', e => { if (!e.target.closest('.node') && !e.target.closest('.origin-node') && !e.target.closest('.skilltree-panel')) unpin(); });
+    document.addEventListener('click', e => { if (!e.target.closest('.node') && !e.target.closest('.origin-node') && !e.target.closest('.rank-node') && !e.target.closest('.skilltree-panel')) unpin(); });
     if (panel) panel.querySelector('.sp-close').addEventListener('click', e => { e.stopPropagation(); unpin(); });
 
     // deep link: /skilltree.html#<id> opens that article, on load and whenever the hash changes
@@ -546,6 +623,13 @@
       const want = decodeURIComponent((location.hash || '').slice(1));
       if (want === 'me' && toggleOrigin) {
         if (!originG.classList.contains('pinned')) { toggleOrigin({ preventDefault() {}, stopPropagation() {} }); originG.scrollIntoView({ block: 'center' }); }
+        return;
+      }
+      if (rankToggles[want]) {   // #rank-<year>: a career-rank marker
+        const rg = gR.querySelector(`[data-id="${want}"]`);
+        if (rankPinned === rg) return;
+        rankToggles[want]({ preventDefault() {}, stopPropagation() {} });
+        if (rg) rg.scrollIntoView({ block: 'center' });
         return;
       }
       if (!want || !nodeToggles[want]) return;
