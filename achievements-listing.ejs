@@ -5,11 +5,9 @@
 <% } %>
 <article class="ach"<% if (key) { %> id="<%- key %>"<% } %><% if (tier) { %> data-tier="<%- tier %>"<% } %>>
 <div class="ach-head">New achievement!</div>
-<h3 class="ach-title"><%- item.title %></h3>
-<% if (item.paper) { %><p class="ach-paper"><%- item.paper %></p><% } %>
+<h3 class="ach-title"><%- item.title %></h3><% if (item.paper) { %><p class="ach-paper"><%- item.paper %></p><% } %>
 <p class="ach-body"><%- item.body %></p>
-<p class="ach-reward"><%- item.reward %></p>
-<% if (art) { %><a class="ach-hex" href="skilltree.html#<%- art %>">Find the hex &rarr;</a><% } %>
+<p class="ach-reward"><%- item.reward %></p><% if (art) { %><a class="ach-hex" href="skilltree.html#<%- art %>">Find the hex &rarr;</a><% } %>
 </article>
 <% } %>
 </div>

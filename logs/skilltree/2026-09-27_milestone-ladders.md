@@ -54,3 +54,13 @@ NULL since the feature shipped on 09-20 and no career-level entry had existed to
 sentinel now; tree.json carries the entry, the origin hex draws the numeral, the panel renders a null tier as
 "none". Verified over a local HTTP server (Chrome will not `fetch` tree.json from `file://`, which reads as
 "Could not load the tree data" and is not a data problem).
+
+## Addendum, same session: homepage card shattered by the first paper-less entry
+
+Peter, after the push: "The achievement got screwed up." The homepage card for `h-index-up` rendered as three
+separate blocks with the body squeezed into the mark column. `achievement-home.ejs` had the paper-byline
+conditional on its own line; with no paper it emitted a blank line, pandoc closed the raw-HTML block, and the rest
+of the card became paragraphs. Same trap as the news photo earlier today, latent since 09-20 because every featured
+entry until now had a paper. Inlined the conditional there and, pre-emptively, the two in `achievements-listing.ejs`
+(which survived only because `<p>`/`<a>` restart pandoc HTML blocks where `<span>` does not). Convention added to
+CLAUDE.md. Verified: zero `<p>` inside the card, achievements page 5 articles / 4 bylines / 4 hex links.

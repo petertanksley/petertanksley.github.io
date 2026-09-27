@@ -53,6 +53,11 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   1200 px wide is plenty); the homepage list stays text. First used 2026-09-27 for the Cincinnati trip.
 - Quarto's EJS: no `<%# %>` comments (bare SyntaxError), and the escaping convention is
   reversed from standard EJS (`<%= %>` is raw, `<%- %>` escapes).
+- **Never put an optional fragment alone on a template line.** `<% if (x) { %>...<% } %>` on its own line
+  renders as a blank line when false, and a blank line ends pandoc's raw-HTML block: everything after it is
+  `<p>`-wrapped and, inside a grid, collapses into the first column. Bit twice on 2026-09-27 (news photo, then the
+  homepage achievement card on the first paper-less entry). Keep optional fragments on the line of a fragment that
+  always renders, and re-render whenever an entry lacks a field the previous entries all had.
 
 ## Hex stickers
 
