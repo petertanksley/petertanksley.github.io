@@ -78,4 +78,19 @@
   box: Flask Box
   rank: 3
   featured: true
+- key: h-index-up-2026-09-27
+  id: h-index-up
+  date: '2026-09-27'
+  since: '2026-09-20'
+  metric: scholar.h_index
+  old: 12
+  new: 13
+  title: You've Become Marginally Harder to Ignore.
+  body: Your h-index is 13, meaning 13 of your papers have 13 or more citations each.
+    Nobody outside a search committee knows what that means. Everyone inside one knows
+    exactly.
+  reward: 'Reward: Leveling up is your job. You don''t get rewards for doing your
+    job.'
+  rank: 0
+  featured: true
 

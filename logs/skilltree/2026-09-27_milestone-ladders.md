@@ -44,3 +44,13 @@ renders keys it has never seen. `--replay --fresh` restores the old discard-and-
 Tests: real replay 4 kept / 0 added, ledger byte-identical; synthetic 30-entry ledger with one tampered title and one
 orphan key replayed to 31 entries with both intact; `--fresh` reverted the title and dropped the orphan. Register and
 rules-file header updated to match.
+
+## Addendum, same session: first refresh since the ladders; origin bucket bug
+
+`refresh.R` run 2026-09-27: 447 → 451 citations, h-index 12 → 13, i10 15. One achievement fired, `h-index-up`
+(joke reward, no box). `build_tree.R` then reported "0 career-level on the origin" with that entry in the ledger:
+`split()` keyed career-level entries by `""`, and R's `[[""]]` never matches a name, so the origin's bucket had been
+NULL since the feature shipped on 09-20 and no career-level entry had existed to show it. Keyed by a `CAREER`
+sentinel now; tree.json carries the entry, the origin hex draws the numeral, the panel renders a null tier as
+"none". Verified over a local HTTP server (Chrome will not `fetch` tree.json from `file://`, which reads as
+"Could not load the tree data" and is not a data problem).

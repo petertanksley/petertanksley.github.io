@@ -214,7 +214,10 @@ ach_pack <- function(entries) {
        items = map(entries, ~ list(key = .x$key, date = .x$date, title = .x$title, tier = na_if_null(.x$tier),
                                    box = na_if_null(.x$box), reward = .x$reward)))
 }
-ach_by_article <- split(ledger, map_chr(ledger, ~ .x$article %||% ""))          # "" = career-level, no paper
+# career-level entries (no `article`) are keyed by a sentinel, NOT "": R's `[[""]]` never matches a name, so the
+# origin's bucket came back NULL for the feature's first three months (caught 2026-09-27 by the first h-index entry)
+CAREER <- "__career__"
+ach_by_article <- split(ledger, map_chr(ledger, ~ .x$article %||% CAREER))
 
 # ---- assemble JSON --------------------------------------------------------------------------
 nodes <- map2(arts, seq_along(arts), function(a, i) {
@@ -259,7 +262,7 @@ tree <- list(
     generated = format(Sys.time(), "%Y-%m-%d %H:%M"),
     hex_w = W, hex_h = round(H, 2), width = round(canvas_w), height = round(canvas_h),
     origin = list(x = cx0, y = cy0, scale = 1.45, sticker_src = paste0("www/hex/sm/", origin_sticker, ".png"),
-                  achievements = ach_pack(ach_by_article[[""]])),
+                  achievements = ach_pack(ach_by_article[[CAREER]])),
     axes = map(names(AREAS), function(k) {
       u <- unit(AXIS_DEG[[k]]); tip <- c(cx0, cy0) + R_out * u; lab <- c(cx0, cy0) + (R_out + 46) * u
       list(key = k, label = unname(AREAS[k]), colour = unname(AREA_COL[k]), deg = AXIS_DEG[[k]],
@@ -291,7 +294,7 @@ cat(sprintf("impact: %d of %d nodes with a JIF; pips %s; nearest-year fallback: 
             paste(map_chr(nodes[map_lgl(imp, ~ isTRUE(.x$nearest))], "id"), collapse = ", ") %||% "none"))
 ach_n <- map_int(nodes, ~ if (is.null(.x$achievements)) 0L else .x$achievements$n)
 cat(sprintf("achievements: %d in the ledger; %d papers carry a numeral (max %d); %d career-level on the origin\n",
-            length(ledger), sum(ach_n > 0), if (length(ach_n)) max(ach_n) else 0L, length(ach_by_article[[""]])))
+            length(ledger), sum(ach_n > 0), if (length(ach_n)) max(ach_n) else 0L, length(ach_by_article[[CAREER]])))
 cat(sprintf("stickers: %d unique in www/hex/sm/ (%s); %d of %d nodes scored\n",
             length(unique(sticker_name)), paste(unique(sticker_name), collapse = ", "),
             sum(map_lgl(nodes, "scored")), length(nodes)))
