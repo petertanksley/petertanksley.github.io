@@ -4,8 +4,11 @@
 # Usage (from repo root):
 #   Rscript 5_skilltree/R/check_achievements.R                 dry run: print what would fire (newest two snapshots)
 #   Rscript 5_skilltree/R/check_achievements.R --log           also append to data/achievements_log.yml
-#   Rscript 5_skilltree/R/check_achievements.R --replay        REBUILD the ledger from every consecutive snapshot pair
-#                                                              (after editing a rule's wording; the ledger is derived state)
+#   Rscript 5_skilltree/R/check_achievements.R --replay        re-run every consecutive snapshot pair; entries already in the
+#                                                              ledger are PRESERVED verbatim (an achievement, once earned, is
+#                                                              archived), only keys never seen before are rendered and added
+#   ... --replay --fresh                                       the old behaviour: discard the ledger and re-render everything
+#                                                              from today's rules (deliberately rewrite history)
 #   Rscript 5_skilltree/R/check_achievements.R --dir <dir>     snapshots elsewhere (tests)
 #   ... --ledger <file>                                       ledger elsewhere (tests)
 # Triggers: step (any increase), round (crosses a multiple of `every`), threshold (reaches `at` once),
@@ -14,14 +17,17 @@
 # The ledger is committed: every fired achievement is written out in full (rendered text, metric, old and new
 # values, snapshot date) with a `key` (<id>-<date>) that the site uses as the anchor. The site renders from the
 # ledger, never from the rules (build_tree.R puts per-paper counts on the hexes; achievements.qmd lists it;
-# index.qmd shows the latest). Re-running --log for the same snapshot pair is idempotent. Because snapshots are
-# kept, the whole ledger can be regenerated with --replay, so a wording edit never strands old entries.
+# index.qmd shows the latest). Re-running --log for the same snapshot pair is idempotent. Entries are archival
+# (Peter, 2026-09-27): once in the ledger they are never re-rendered, so a wording edit, a new variant (which shifts the
+# hash pick) or a moved rung applies only to achievements earned afterwards. --replay backfills keys the ledger lacks
+# (e.g. a rule added after the snapshots) and keeps everything else as written; --fresh is the one way to rewrite.
 # Register and tier logic: 5_skilltree/ACHIEVEMENTS.md. Exit 0 always; with < 2 snapshots it says so.
 
 suppressPackageStartupMessages({ library(here); library(yaml); library(jsonlite); library(purrr); library(stringr) })
 args      <- commandArgs(trailingOnly = TRUE)
 do_log    <- "--log" %in% args
 do_replay <- "--replay" %in% args
+do_fresh  <- "--fresh" %in% args
 snap_dir  <- if (any(i <- args == "--dir")) args[which(i)[1] + 1] else here("5_skilltree", "data", "scholar")
 RULES     <- here("5_skilltree", "data", "achievements.yml")
 LEDGER    <- if (any(j <- args == "--ledger")) args[which(j)[1] + 1] else here("5_skilltree", "data", "achievements_log.yml")
@@ -123,15 +129,34 @@ write_ledger <- function(ledger) {
 }
 
 if (do_replay) {
-  # rebuild from scratch: every consecutive pair, oldest first, so the ledger reads in the order things happened
-  ledger <- list()
+  # every consecutive pair, oldest first, so the ledger reads in the order things happened. Existing entries are
+  # archival: an entry whose key is already in the ledger is kept exactly as written (its wording, tier and values
+  # were earned under the rules of the day), and one the rules no longer produce (a rung moved) is kept too. Only
+  # keys never seen before are rendered. --fresh discards the ledger and re-renders everything from today's rules.
+  old_ledger <- if (!do_fresh && file.exists(LEDGER)) read_yaml(LEDGER) else list()
+  if (is.null(old_ledger)) old_ledger <- list()
+  by_key <- set_names(old_ledger, map_chr(old_ledger, ~ .x$key %||% paste(.x$id, .x$date, sep = "-")))
+  ledger <- list(); kept <- 0L; added <- 0L; used <- character()
   for (k in 2:length(files)) {
+    d <- date_of(files[k])
     f <- fire(files[k - 1], files[k], quiet = TRUE)
-    cat(sprintf("%s -> %s: %d fired\n", date_of(files[k - 1]), date_of(files[k]), length(f)))
-    ledger <- c(ledger, f)
+    is_old <- map_lgl(f, ~ !is.null(by_key[[.x$key]]))
+    f <- map2(f, is_old, ~ if (.y) by_key[[.x$key]] else .x)               # earned already: keep as written
+    used <- c(used, map_chr(f, "key"))
+    # entries earned on this date that today's rules would not fire (e.g. a rung was raised): earned is earned
+    orphans <- keep(by_key, ~ identical(.x$date, d) && !(.x$key %||% "") %in% used)
+    used <- c(used, names(orphans))
+    kept <- kept + sum(is_old) + length(orphans); added <- added + sum(!is_old)
+    cat(sprintf("%s -> %s: %d fired (%d kept as written, %d new)%s\n", date_of(files[k - 1]), d, length(f), sum(is_old), sum(!is_old),
+                if (length(orphans)) sprintf(", %d earned under earlier rules kept", length(orphans)) else ""))
+    ledger <- c(ledger, f, unname(orphans))
   }
+  # anything left whose date matches no snapshot pair (a snapshot was removed): keep it at the end and say so
+  stray <- keep(by_key, ~ !(.x$key %||% "") %in% used)
+  if (length(stray)) { cat(sprintf("%d entr%s dated to no current snapshot pair, kept at the end\n", length(stray), if (length(stray) == 1) "y" else "ies")); ledger <- c(ledger, unname(stray)); kept <- kept + length(stray) }
   write_ledger(ledger)
-  cat(sprintf("replayed %d snapshot pair%s into %s: %d entries\n", length(files) - 1, if (length(files) == 2) "" else "s", basename(LEDGER), length(ledger)))
+  cat(sprintf("replayed %d snapshot pair%s into %s: %d entries (%d kept, %d added%s)\n", length(files) - 1, if (length(files) == 2) "" else "s",
+              basename(LEDGER), length(ledger), kept, added, if (do_fresh) ", --fresh: all re-rendered" else ""))
   quit(save = "no", status = 0)
 }
 

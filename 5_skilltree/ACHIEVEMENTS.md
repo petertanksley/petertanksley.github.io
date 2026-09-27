@@ -63,14 +63,19 @@ a ladder of `{at, tier}` rungs read against the new value. `check_achievements.R
 **Ledger** (implemented): `check_achievements.R --log` writes every fired achievement, fully rendered with
 metric, old and new values, snapshot date, `key` (id + date, the page anchor), `paper` (title, for the byline),
 `rank` (tier index; sorts within a date) and `featured` (from the paper), to `data/achievements_log.yml`
-(committed). The site renders from the ledger, never from the rules. The ledger is derived state:
-`--replay` rebuilds it from every consecutive snapshot pair, so a wording edit never strands old entries.
+(committed). The site renders from the ledger, never from the rules. **Entries are archival** (Peter,
+2026-09-27): once written they are never re-rendered, so a wording edit, a new variant (which shifts the hash pick)
+or a moved rung applies only to achievements earned afterwards, as in the books. `--replay` re-runs every
+consecutive snapshot pair but keeps every key already in the ledger verbatim, including entries today's rules would
+no longer fire; it only renders and adds keys the ledger lacks (a rule added after the snapshots). `--replay --fresh`
+is the one way to rewrite history from today's rules.
 
 **Tier logic** (as implemented for the four current rules; extend by adding rules):
 
 | Trigger here | Books analogue | Tier |
 |---|---|---|
 | `step` on h-index or i10 | levelling up, "your job" | none: a joke reward |
+| `ladder` on h-index 15 / 20 / 25 / 30, and on i10 20 / 30 / 50 / 100 (added 2026-09-27) | crossing a count the committee notices | Silver, Gold, Platinum, Legendary; Committee Box |
 | `ladder` on any single paper's citations, quarters 1 / 10 / 25 / 50 / 100 | first kill, then crossing counts | Bronze (lead-author papers only), Silver, Gold, Platinum, Legendary |
 | `ladder` on a root paper's descendants (`lineage`, from `builds_on`), 1 / 3 / 5 / 10 | founding a guild | Silver, Gold, Platinum, Legendary; Heirloom Box |
 | `ladder` on a paper's OpenAlex year percentile, 97 / 98 / 99 / 100, papers two calendar years old (`min_age`) | "first crawler to": relative standing | Silver, Gold, Platinum, Legendary |
@@ -110,8 +115,8 @@ so the three existing roots (LEO mortality 2025, Gonzalez 2025, Raffington 2022;
 
 **Box types**, themed to the feat as the books do. In use: Appendix Box (total citations), Flask Box /
 Handcuff Box / Challenge Coin Box (per-paper, by domain, matching the phase stickers), Adventurer Box (tied
-domains), Heirloom Box (starting a lineage). Not yet used: Coauthor Box, Reviewer 2 Box, Postdoc Box (junk tier by definition), Grant Box
-(Benefactor analogue: someone else paid).
+domains), Heirloom Box (starting a lineage), Committee Box (h-index and i10 milestones, 2026-09-27). Not yet used:
+Coauthor Box, Reviewer 2 Box, Postdoc Box (junk tier by definition), Grant Box (Benefactor analogue: someone else paid).
 
 **Rendering** (2026-09-20; Peter: gold numeral, career achievements on the origin, achievements separate from
 the news stream). Four surfaces, all reading the ledger:

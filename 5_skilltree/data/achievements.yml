@@ -3,8 +3,10 @@
 # check_achievements.R diffs the two newest snapshots in data/scholar/ against these rules and prints
 # what fires; with --log it writes each fired achievement, fully rendered, to data/achievements_log.yml
 # (committed). The site renders from that ledger, never from here: achievements.qmd, the homepage card, and via
-# build_tree.R the numeral on each hex and the panel's Achievements section. After editing wording here, run
-# check_achievements.R --replay to rebuild the ledger from every snapshot pair. Register: ../ACHIEVEMENTS.md.
+# build_tree.R the numeral on each hex and the panel's Achievements section. Ledger entries are archival: wording
+# edits, new variants and moved rungs here apply only to achievements earned from now on. check_achievements.R --replay
+# backfills keys the ledger lacks and keeps the rest as written; --replay --fresh re-renders everything (deliberate
+# rewrite of history). Register: ../ACHIEVEMENTS.md.
 #
 # Shape of a rendered achievement, as in the books:
 #   New achievement! <title>
@@ -118,6 +120,59 @@
     - "The knowledge that Google Scholar noticed. Google Scholar notices everything."
     - "None. Somewhere a bibliometrician is nodding, which is the most any of us get."
 
+# 2026-09-27: milestone ladders alongside the step jokes above. The step rules mock every tick; these hand out a
+# Committee Box at the round numbers a search committee would actually notice. Ladders, so a jump over two rungs fires
+# once at the higher rung. Values at adoption: h 12, i10 15, so nothing fires until the numbers earn it.
+- id: h-index-milestone
+  metric: scholar.h_index
+  trigger: ladder
+  title:
+    - "The Committee Will See You Now."
+    - "Hirsch Would Be Mildly Pleased."
+    - "Consistently Fine, {new} Times Over."
+  body:
+    - >-
+      Your h-index has reached {new}: {new} papers with at least {new} citations each. It is the one number a
+      search committee reads before deciding whether to read anything else. They still will not read anything else.
+    - >-
+      h-index {new}. Hirsch proposed it in 2005 as a rough shortcut for physicists, and the rest of academia adopted
+      it as scripture within the year. You are now {new} units of scripture.
+    - >-
+      {new} of your papers have been cited {new} or more times. A wildly cited paper does nothing for this number;
+      a moderately cited one does. It is a metric that rewards being consistently fine, and you have been.
+  reward:
+    type: Committee Box
+    tier:
+      - {at: 15, tier: Silver}
+      - {at: 20, tier: Gold}
+      - {at: 25, tier: Platinum}
+      - {at: 30, tier: Legendary}
+
+- id: i10-milestone
+  metric: scholar.i10
+  trigger: ladder
+  title:
+    - "Double Digits, in Bulk."
+    - "A Score Google Made Up, Collected in Quantity."
+    - "Officially a Body of Work."
+  body:
+    - >-
+      {new} of your papers now have ten or more citations. Google Scholar invented this index because the h-index
+      already existed and they wanted one of their own. You have collected {new} of theirs.
+    - >-
+      i10-index {new}. Ten citations is roughly where a paper stops being read by its coauthors and starts being read
+      by strangers. {new} of yours have made the crossing.
+    - >-
+      Your i10-index is {new}: {new} papers each cited by at least ten works, one of which was probably you.
+      Self-citation counts. Google does not judge. Google records.
+  reward:
+    type: Committee Box
+    tier:
+      - {at: 20, tier: Silver}
+      - {at: 30, tier: Gold}
+      - {at: 50, tier: Platinum}
+      - {at: 100, tier: Legendary}
+
 # Peter, 2026-09-20: Bronze for the first citation only where Peter led the paper; a contributing-author paper
 # starts at Silver, ten citations in.
 - id: paper-cited
@@ -127,6 +182,9 @@
     - "Someone Was Looking for a Reference."
     - "You've Been Cited. It Was Probably Fine."
     - "Easier to Cite Than to Re-Derive."
+    - "Et Al. Sends Their Regards."
+    - "Someone Scrolled Past the Abstract."
+    - "Reference {new}, Alphabetical by Surname."
   body:
     - >-
       Your {year} paper in {venue} has now been cited {times}. Someone needed exactly what you wrote, or
@@ -137,6 +195,15 @@
     - >-
       The {year} {venue} paper has been cited {times}. At least one of those authors read the title, skimmed
       the abstract, and cited it with total confidence. You have done the same. Everyone has.
+    - >-
+      Cited {times}: your {year} paper in {venue}. Somewhere a reference list grew by one line, and a copy editor
+      sighed. That line is you. It will be formatted wrong.
+    - >-
+      Your {year} paper in {venue} has been cited {times}. A reviewer somewhere wrote "the authors should engage
+      with the relevant literature," and you were the relevant literature. Congratulations on being a chore.
+    - >-
+      Your {year} {venue} paper now has {new} citation{s}, and Google Scholar found every one of them within days,
+      which is more attention than it received from the journal that published it.
   reward:
     type:
       biosocial: Flask Box

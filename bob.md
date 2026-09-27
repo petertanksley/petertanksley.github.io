@@ -53,7 +53,7 @@ sync: github
   `build_journals.R` then `build_tree.R`, commit. Clears nearest-year flags on papers published earlier that year.
 - Backlog, unscheduled: career-rank gold markers on the year rings ("Future work" in
   `logs/skilltree/2026-09-18_article-stickers.md`); phase stickers beside the matching Research-page sections;
-  achievements extras (total-citation ladder, h/i10 ladders, manual talks/grants/awards, box-reward variants —
+  achievements extras (total-citation ladder, manual talks/grants/awards, box-reward variants; h/i10 ladders done 09-27 —
   proposals in `logs/skilltree/2026-09-19_achievements-rules.md`).
 
 ## Notes
