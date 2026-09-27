@@ -50,6 +50,12 @@ STICKER_PX <- 220              # downscaled sticker width; finals in www/hex/ ar
 JIF_LAG      <- 1
 IMPACT_TIERS <- c(5, 10, 25)   # ascending; length = max pips
 IMPACT_LABEL <- "High-impact venue"
+# career-rank markers (2026-09-27): a small gold bead beside the year label on the ring where Peter's class changed
+# (data/ranks.yml). Geometry is decided here; skilltree.js only draws. RANK_W is echoed in theme.scss (.rank-node --lit).
+RANK_W            <- 0.38 * W          # 38 units: a bead on the ring, not a tile
+RANK_GAP          <- 8                 # between the year text's halo and the marker
+YEAR_LABEL_HALF_W <- 35                # four digits at 26px mono (~62 wide) plus the 8px halo, halved
+RANK_CLEAR        <- W / 2 + RANK_W / 2 + 4   # same-row centre distance below which a marker touches a placed hex
 
 # ---- read + validate ------------------------------------------------------------------------
 arts <- read_yaml(here("5_skilltree", "data", "articles.yml"))
@@ -110,6 +116,19 @@ rings <- lapply(seq_len(n_ring), ring_cells)
 ring_of <- function(year) year - FIRST_YEAR + FIRST_RING
 year_of <- function(k) k - FIRST_RING + FIRST_YEAR
 
+# ---- career ranks ---------------------------------------------------------------------------
+# ORDERED: entry i evolves from entry i-1 (the panel shows previous -> new). Missing file: no markers, tree still builds.
+ranks_file <- here("5_skilltree", "data", "ranks.yml")
+ranks <- if (file.exists(ranks_file)) (read_yaml(ranks_file) %||% list()) else { message("no ranks.yml; no career-rank markers"); list() }
+if (length(ranks)) {
+  rk_ids <- map_chr(ranks, "id"); rk_years <- map_int(ranks, "year")
+  if (anyDuplicated(rk_ids)) stop("ranks.yml: duplicate id(s): ", paste(rk_ids[duplicated(rk_ids)], collapse = ", "))
+  if (any(diff(rk_years) <= 0)) stop("ranks.yml: years must be strictly ascending (", paste(rk_years, collapse = ", "), ")")
+  if (any(rk_years < FIRST_YEAR | rk_years > year_of(n_ring))) stop("ranks.yml: every year must be within ", FIRST_YEAR, "-", year_of(n_ring))
+  for (rk in ranks) for (f in c("title", "sticker", "headline", "line")) if (is.null(rk[[f]])) stop("ranks.yml: '", rk$id, "' lacks '", f, "'")
+  if (rk_years[1] != FIRST_YEAR) warning("ranks.yml: first rank is ", rk_years[1], ", not ", FIRST_YEAR, "; no starting-class marker on the first ring")
+}
+
 weights_of <- function(a) {
   ar <- unlist(a$areas[names(AREAS)])
   if (length(ar) < 3 || sum(ar) == 0) return(setNames(rep(1 / 3, 3), names(AREAS)))
@@ -156,12 +175,26 @@ year_label_pos <- function(k) {
   x <- if (nrow(free)) free$x[which.min(abs(free$x - cx0))] else top$x[which.min(abs(top$x - cx0))]
   c(x = x, y = cy0 - k * DY, over_hex = nrow(free) == 0)
 }
+# a rank marker rides ring k's year label: right flank first, then left, else above the label (loud warning).
+# A flank is clear when no PLACED hex on the label's row comes within RANK_CLEAR of the candidate centre. Only the
+# same row can collide: the rows +-DY away reach 32 units toward the label row, the marker reaches 22. Uses `placed`.
+rank_pos <- function(k) {
+  yl <- year_label_pos(k); lx <- unname(yl["x"]); ly <- unname(yl["y"])
+  row_x <- map_dbl(keep(placed, ~ abs(.x$y - ly) < 1), "x")
+  clear <- function(cx) !as.logical(yl["over_hex"]) && all(abs(row_x - cx) >= RANK_CLEAR)
+  off <- YEAR_LABEL_HALF_W + RANK_GAP + RANK_W / 2
+  if (clear(lx + off)) return(list(x = lx + off, y = ly, side = "right"))
+  if (clear(lx - off)) return(list(x = lx - off, y = ly, side = "left"))
+  warning(sprintf("ring %d (%d): both flanks of the year label are taken; rank marker placed above it", k, year_of(k)))
+  list(x = lx, y = ly - 0.55 * H, side = "above")
+}
 canvas_w <- cx0 + R_out + 46 + RIGHT_LABEL_W
 canvas_h <- 2 * cy0
 
 # ---- stickers -------------------------------------------------------------------------------
 sticker_name <- map_chr(arts, ~ .x$sticker %||% "blank")
-for (s in unique(c(sticker_name, ORIGIN_STICKER))) {
+rank_stickers <- map_chr(ranks, "sticker")
+for (s in unique(c(sticker_name, ORIGIN_STICKER, rank_stickers))) {
   src <- file.path(hex_src, paste0(s, ".png")); dst <- file.path(hex_out, paste0(s, ".png"))
   if (!file.exists(src)) { warning("sticker '", s, "' not found in ", hex_src, "; using blank"); next }
   if (!file.exists(dst) || file.mtime(src) > file.mtime(dst)) {
@@ -178,6 +211,8 @@ if (file.exists(blank_src) && (!file.exists(blank_dark) || file.mtime(blank_src)
 }
 sticker_name[sticker_name == "blank" & file.exists(blank_dark)] <- "blank_dark"
 origin_sticker <- if (file.exists(file.path(hex_out, paste0(ORIGIN_STICKER, ".png")))) ORIGIN_STICKER else "blank"
+# rank art that has not been generated yet shows the dark placeholder, as unstickered articles do
+rank_src <- ifelse(file.exists(file.path(hex_out, paste0(rank_stickers, ".png"))), rank_stickers, "blank_dark")
 
 # ---- impact factor --------------------------------------------------------------------------
 na_if_null <- function(x) if (is.null(x)) NA else x
@@ -273,6 +308,15 @@ tree <- list(
     rings = map(seq(FIRST_RING, n_ring), function(k) { yl <- year_label_pos(k)
       list(k = k, year = year_of(k), path = ring_path(k), n_cells = 6 * k, n_used = sum(rings[[k]]$taken),
            label_x = round(unname(yl["x"]), 1), label_y = round(unname(yl["y"]), 1), label_over_hex = as.logical(yl["over_hex"])) }),
+    # career-rank markers: key = deep-link hash and data-id; `from` is the previous rank (null for the starting class)
+    ranks = imap(ranks, function(rk, i) {
+      k <- ring_of(rk$year); p <- rank_pos(k); prev <- if (i > 1) ranks[[i - 1]] else NULL
+      list(key = paste0("rank-", rk$year), id = rk$id, year = rk$year, ring = k, title = rk$title, org = na_if_null(rk$org),
+           years = na_if_null(rk$years), headline = rk$headline, line = rk$line,
+           x = round(p$x, 1), y = round(p$y, 1), w = RANK_W, h = round(RANK_W / 0.866, 2), side = p$side,
+           sticker_src = paste0("www/hex/sm/", rank_src[i], ".png"),
+           from = if (is.null(prev)) NULL else list(id = prev$id, title = prev$title, sticker_src = paste0("www/hex/sm/", rank_src[i - 1], ".png")))
+    }),
     areas = names(AREAS), credit = CREDIT,
     impact = list(tiers = IMPACT_TIERS, lag = JIF_LAG, label = IMPACT_LABEL, note = impact_note,
                   source = if (length(journals)) "Journal Citation Reports (Clarivate)" else NA),
@@ -295,6 +339,13 @@ cat(sprintf("impact: %d of %d nodes with a JIF; pips %s; nearest-year fallback: 
 ach_n <- map_int(nodes, ~ if (is.null(.x$achievements)) 0L else .x$achievements$n)
 cat(sprintf("achievements: %d in the ledger; %d papers carry a numeral (max %d); %d career-level on the origin\n",
             length(ledger), sum(ach_n > 0), if (length(ach_n)) max(ach_n) else 0L, length(ach_by_article[[CAREER]])))
+if (length(ranks)) {
+  rks <- tree$meta$ranks
+  cat(sprintf("ranks: %d markers  %s; art: %s%s\n", length(rks),
+              paste(sprintf("%d=%s (%.1f,%.1f)", map_int(rks, "year"), map_chr(rks, "side"), map_dbl(rks, "x"), map_dbl(rks, "y")), collapse = "  "),
+              paste(rank_stickers, collapse = ", "),
+              if (any(rank_src == "blank_dark")) paste0("; missing art -> blank_dark: ", paste(rank_stickers[rank_src == "blank_dark"], collapse = ", ")) else ""))
+}
 cat(sprintf("stickers: %d unique in www/hex/sm/ (%s); %d of %d nodes scored\n",
             length(unique(sticker_name)), paste(unique(sticker_name), collapse = ", "),
             sum(map_lgl(nodes, "scored")), length(nodes)))

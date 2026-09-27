@@ -23,3 +23,6 @@ toPdfViaTempFile*
 
 # Generated per-article sticker candidates and contact sheets (finals live in www/hex/)
 4_stickers/articles/
+
+# Career-rank sticker candidates (finals live in www/hex/; squares in 4_stickers/finals_src/)
+4_stickers/ranks/

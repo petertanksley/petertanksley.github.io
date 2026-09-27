@@ -35,8 +35,9 @@ sync: github
 - Backlog is listed under Upcoming Milestones; none of it is scheduled.
 
 ## This Week
-- DONE 2026-09-22: trapdoor scene (Holes homage, three rolls, $0.61) at the foot of the landing page; live at `c3f3d55`; see `logs/2026-09-22_trapdoor-scene.md`
-
+- [ ] Career-rank markers: tree, panel and tooling shipped 09-27 with placeholder art. Next: Peter raises the Gemini
+  spend cap (~$19/$20 used), then generate one tier at a time — `rank_student` -> preview -> `pick_rank.R` -> uncomment
+  `rank_postdoc` in `4_stickers/ranks.yaml` -> repeat -> `rank_scientist`. Plan: `logs/skilltree/plans/2026-09-27_rank-markers.md`
 - [ ] Periodic stats refresh (`Rscript 5_skilltree/R/refresh.R` → commit snapshot, `www/scholar.json`,
   `5_skilltree/data/achievements_log.yml`, `www/tree.json`) — only if not run in the last few weeks
 - Otherwise monitoring only; nothing scheduled
@@ -51,8 +52,7 @@ sync: github
   hand-written and need the same edit. No DOI at last check (2026-09-19).
 - June/July 2027: new JCR year — export all 22 journals into `5_skilltree/data/jcr/jcr_<year>.csv`, run
   `build_journals.R` then `build_tree.R`, commit. Clears nearest-year flags on papers published earlier that year.
-- Backlog, unscheduled: career-rank gold markers on the year rings ("Future work" in
-  `logs/skilltree/2026-09-18_article-stickers.md`); phase stickers beside the matching Research-page sections;
+- Backlog, unscheduled: phase stickers beside the matching Research-page sections;
   achievements extras (total-citation ladder, manual talks/grants/awards, box-reward variants; h/i10 ladders done 09-27 —
   proposals in `logs/skilltree/2026-09-19_achievements-rules.md`).
 

@@ -1,0 +1,87 @@
+# ranks.yaml — career-rank stickers for the skill tree (2026-09-27): Peter's pixel-art likeness geared up per
+# class, the same character as the origin sticker (www/hex/puzzled.png). Data: 5_skilltree/data/ranks.yml.
+#
+# Generate (from repo root):  Rscript -e 'bananarama::bananarama("4_stickers/ranks.yaml")'
+#   candidates -> 4_stickers/ranks/ (gitignored)
+# Preview:  Rscript 4_stickers/preview_candidates.R rank_student --dir ranks [--parent rank_student]
+# Pick:     Rscript 4_stickers/pick_rank.R rank_student <n>       (frames to www/hex/, archives the square, rebuilds)
+#
+# ONE TIER AT A TIME. Each later rank cites the previous FRAMED FINAL in www/hex/ so the face, palette and angle
+# carry forward (the evolution look), so it cannot be generated until that final exists. Entries below the first
+# are commented out; uncomment the next one after each pick. bananarama skips entries whose outputs already exist,
+# so re-running the file never re-bills a finished rank. Re-rolls: change that entry's `seed`.
+#
+# House rules applied (logs/skilltree/2026-09-18_article-stickers.md): scene first, the beard negation in sentence
+# one (it drifts ginger), at most four reference images, one prop per rank, head and shoulders with margin so nothing
+# clips at the hex corners. Judge framed and at 92 px. Cost ~ $0.07 per image; n: 2 -> ~ $0.14 per rank.
+#
+# Requires GEMINI_API_KEY in ~/.Renviron and headroom under the AI Studio spend cap (a 429 looks like a 10-minute
+# hang). Ping first:  Rscript -e 'ellmer::chat_google_gemini()$chat("pong")'
+
+defaults:
+  style: >
+    16-bit pixel art illustration, SNES-era aesthetic, chunky visible
+    pixels, soft dithered shading, limited palette in slightly sepia,
+    warm tones throughout, cozy firelit mood. No text, no words, no
+    letters anywhere. Full-bleed composition filling the entire frame
+    edge to edge, main subject centered with generous margin around it.
+    Never draw a frame, border, badge, or outline shape around the scene.
+    Wherever a mystical sigil, talisman, rune circle, or geometric motif
+    appears, it is the OUTLINE of a regular hexagon — a six-SIDED
+    polygon, like a honeycomb cell. Never a hexagram, never a
+    six-pointed star, never a five-pointed star, never a pentagram,
+    never any star shape.
+  aspect-ratio: "1:1"
+  "n": 2          # quoted: bare n is a YAML 1.1 boolean
+  seed: 5891
+
+output-dir: ranks/
+
+images:
+  # Tier 1 — starting class. Anchored to the origin sticker and the headshot.
+  - name: rank_student
+    description: >
+      Close-up portrait, head and shoulders only, of the SAME man shown in
+      [../www/hex/puzzled], drawn again by the same hand in exactly the same
+      pixel style, palette, candlelight and viewing angle, with the face of
+      [refs/peter]. His hair and short beard are plain medium brown, the same
+      brown as a walnut shell, with no red, no orange, no ginger and no copper.
+      He is a graduate student in a northern winter: a heavy grey wool coat
+      buttoned to the chin and a knitted scarf, and he clutches a thick stapled
+      manuscript to his chest with both hands, a corner of the pages curling.
+      He looks tired but game. Warm candlelight on his face. Plain dark stone
+      wall behind him, softly out of focus. Nothing else in the picture.
+
+  # Tier 2 — uncomment AFTER rank_student has a final in www/hex/. No lab coat here: the coat is the
+  # Research Scientist's (Hunter's monogrammed joke gift when Peter was hired).
+  # - name: rank_postdoc
+  #   description: >
+  #     This is the SAME man shown in [../www/hex/rank_student], drawn again by
+  #     the same hand in exactly the same pixel style, palette, candlelight and
+  #     viewing angle, with the face of [refs/peter], now advanced to a higher
+  #     rank. His hair and short beard are plain medium brown, the same brown as
+  #     a walnut shell, with no red, no orange, no ginger and no copper. The coat
+  #     and scarf are gone. He wears a plain black henley with the sleeves pushed
+  #     up, and holds up in one hand a single round glass flask in which a small
+  #     double helix glows softly. He looks alert and a little surprised at it.
+  #     Warm candlelight on his face. Plain dark stone wall behind him, softly
+  #     out of focus. Nothing else in the picture.
+
+  # Tier 3 — uncomment AFTER rank_postdoc has a final. The lab coat appears here. The style prefix forbids
+  # letters, so the monogram is "a stitched shape"; at 92 px it would not read anyway.
+  # - name: rank_scientist
+  #   description: >
+  #     This is the SAME man shown in [../www/hex/rank_postdoc], drawn again by
+  #     the same hand in exactly the same pixel style, palette, candlelight and
+  #     viewing angle, with the face of [refs/peter], now advanced to a higher
+  #     rank. His hair and short beard are plain medium brown, the same brown as
+  #     a walnut shell, with no red, no orange, no ginger and no copper. He now
+  #     wears a crisp white lab coat, open over the black henley, with a small
+  #     embroidered mark on the breast pocket, a stitched shape and not letters,
+  #     and holds up between thumb and forefinger a single heavy bronze
+  #     challenge coin, no taller than a quarter of the picture, its face exactly
+  #     the design shown in [motif_refs/coin]: three equal wedges divided by
+  #     raised ridges, a Maltese cross, a plain blank shield, a single staff with
+  #     one serpent; no stars of any kind. He looks steady and faintly amused.
+  #     Warm candlelight on his face. Plain dark stone wall behind him, softly
+  #     out of focus. Nothing else in the picture.

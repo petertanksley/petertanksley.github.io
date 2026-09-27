@@ -166,6 +166,17 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
 - **Foreshadowing:** the Research page ends on a dark `.tree-card` (raw HTML in `research.qmd`,
   styles in `theme.scss`) so the visitor has seen the ink palette before the page flips. It is the
   only in-site link to the tree besides the navbar; keep it if the Research page is restructured.
+- **Career ranks (2026-09-27):** `5_skilltree/data/ranks.yml` is an ORDERED chain (each entry evolves from the
+  one above: Doctoral Student 2019 -> Postdoc 2020 -> Research Scientist 2024). `build_tree.R` decides the
+  geometry (`meta.ranks`: a 38-unit bead on the right flank of the ring's year label, left if the right is
+  taken, above as a loud-warning fallback) and `skilltree.js` draws `.rank-node` markers: art under an ink
+  shade with a gold ring, flipped to article size on click, opening the `.sp-evo` class-change screen
+  (previous sticker -> arrow -> new sticker; the first rank shows one hex). Deep links `#rank-<year>`. The
+  key is `ranks`, never `career`, which already means an achievement with no article. Class names only, no
+  level numbers; the character sheet's "Level 2" line stays hand-written. Art: `4_stickers/ranks.yaml`
+  (one tier at a time; each later rank cites the previous framed final) -> `preview_candidates.R <id> --dir
+  ranks --parent <prev>` -> `pick_rank.R <id> <n>`. Missing art falls back to `blank_dark` so the markers
+  ship before the stickers exist.
 - **Easter egg (2026-09-10):** clicking Peter's hex at the origin (or visiting `#me`) flips it and
   opens a joke RPG character sheet in the detail panel: Level 2 Research Scientist, Class: None,
   Race: Homeschooled, etc. The lines live in the `SHEET` object at the top of the panel section of

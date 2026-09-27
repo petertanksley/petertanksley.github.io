@@ -551,6 +551,21 @@ $tiers: ("Bronze": #B87A4B, "Silver": #B9BCC6, "Gold": #D9A441, "Platinum": #C9E
     &.flipping { animation: st-flip 560ms ease-in-out 1 both; }
     &.unflipping { animation: st-unflip 560ms ease-in-out 1 both; }   // same return trip as the article hexes
   }
+  // career-rank markers (2026-09-27): a 38-unit gold bead beside the year label where Peter's class changed
+  // (tree.json meta.ranks; geometry from build_tree.R, RANK_W). Same idiom as .node: art hinted under an ink shade,
+  // revealed by the flip. 3.4 * 100 / 38 lands the lit marker at the same on-screen size as a lit article or origin.
+  .rank-node {
+    --lit: calc(3.4 * 100 / 38); --shade: 0.8;
+    cursor: pointer; outline: none; transform-box: fill-box; transform-origin: center; transition: transform 420ms ease;
+    .rank-hit  { fill: transparent; }
+    .hex-shade { fill: var(--st-bg); opacity: var(--shade); pointer-events: none; transition: opacity 420ms; }
+    .rank-ring { fill: none; stroke: var(--st-gold); stroke-width: 4; opacity: 0.9; stroke-linejoin: round; transition: stroke-width 160ms, opacity 160ms; }
+    &:hover, &:focus-visible { .rank-ring { stroke-width: 7; opacity: 1; } .hex-shade { opacity: 0.45; } }
+    // strokes ride the 8.9x transform: 1.15 reads as ~10 units lit, like an article's 3 at 3.4x
+    &.lit { transform: scale(var(--lit)); .hex-shade { opacity: 0; } .rank-ring { stroke-width: 1.15; opacity: 1; animation: st-pulse-rank 1.6s ease-in-out infinite; } }
+    &.flipping   { animation: st-flip 560ms ease-in-out 1 both; }   &.flipping .hex-shade   { animation: st-light 560ms steps(1, end) 1 both; }
+    &.unflipping { animation: st-unflip 560ms ease-in-out 1 both; } &.unflipping .hex-shade { animation: st-unlight 560ms steps(1, end) 1 both; }
+  }
   // achievements numeral (2026-09-20): roman count upright in the bottom corner, opposite the pips. Gold on an ink
   // halo (paint-order) so it survives any sticker; position and size are set by drawNumeral() in the JS
   .hex-num { font-family: $font-family-monospace; font-weight: 500; fill: var(--st-gold); stroke: var(--st-bg); stroke-width: 3px;
@@ -620,12 +635,15 @@ $tiers: ("Bronze": #B87A4B, "Silver": #B9BCC6, "Gold": #D9A441, "Platinum": #C9E
 }
 @keyframes st-unlight { 0%, 49% { opacity: 0; } 50%, 100% { opacity: var(--shade); } }
 @keyframes st-pulse { 0%, 100% { stroke-width: 3; } 50% { stroke-width: 4.5; } }
+@keyframes st-pulse-rank { 0%, 100% { stroke-width: 1.15; } 50% { stroke-width: 1.7; } }   // rank beads pulse under an 8.9x transform
 @media (prefers-reduced-motion: reduce) {
-  .skilltree .node, .skilltree-panel .sp-body { transition: none; }
-  .skilltree .node.lit, .skilltree .origin-node.lit { transform: none; }
+  .skilltree .node, .skilltree .rank-node, .skilltree .rank-node .hex-shade, .skilltree-panel .sp-body { transition: none; }
+  .skilltree .node.lit, .skilltree .origin-node.lit, .skilltree .rank-node.lit { transform: none; }
   .skilltree .node.flipping, .skilltree .node.flipping .hex-shade, .skilltree .node.lit .hex-ring,
   .skilltree .node.unflipping, .skilltree .node.unflipping .hex-shade, .skilltree .origin-node.unflipping,
-  .skilltree .origin-node.flipping, .skilltree .origin-node.lit .origin-ring { animation: none; }
+  .skilltree .origin-node.flipping, .skilltree .origin-node.lit .origin-ring,
+  .skilltree .rank-node.flipping, .skilltree .rank-node.flipping .hex-shade, .skilltree .rank-node.unflipping,
+  .skilltree .rank-node.unflipping .hex-shade, .skilltree .rank-node.lit .rank-ring { animation: none; }
 }
 
 .skilltree-tooltip {
@@ -726,6 +744,18 @@ aside.skilltree-panel {
   .sp-sheet { display: grid; grid-template-columns: 9.5em 1fr; gap: 0.35rem 0.8rem; font-size: 0.86rem; margin: 0;
     dt { color: var(--sp-soft); font-weight: 400; margin: 0; } dd { margin: 0; }
     .aside { display: block; color: var(--sp-soft); font-style: italic; font-size: 0.8rem; margin-top: 0.05rem; } }
+  // class-change screen (2026-09-27): previous rank, arrow, new rank. Drawer content is ~352px, the <720px sheet on a
+  // 360px phone ~312px: two 128px hexes + arrow + gaps = ~300 fits both
+  .sp-evo { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin: 0.4rem 0 1rem; padding: 0.9rem 0.5rem;
+            background: #1C1B22; border: 1px solid var(--sp-rule); border-radius: 4px;
+    .sp-evo-hex { flex: 0 1 128px; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+      img { width: 100%; height: auto; display: block; }
+      figcaption { font-family: $font-family-monospace; font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--sp-soft); text-align: center; }
+      &.from { opacity: 0.75; }
+      &.to figcaption { color: var(--sp-gold); } }
+    .sp-evo-arrow { flex: none; font-size: 1.7rem; line-height: 1; color: var(--sp-gold); }
+    &.single .sp-evo-hex { flex-basis: 160px; }
+  }
   .sp-xp { margin-top: 1rem; padding-top: 0.7rem; border-top: 1px solid var(--sp-rule); color: var(--sp-fg); font-size: 0.86rem; }
   .sp-stats { .lab { color: var(--sp-soft); } .num { font-family: $font-family-monospace; font-size: 0.74rem; color: var(--sp-soft); }
     .why { grid-column: 2 / 4; color: var(--sp-soft); font-style: italic; font-size: 0.78rem; margin: -0.15rem 0 0.15rem; } }
@@ -751,6 +781,7 @@ aside.skilltree-panel {
   .lg-item { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--st-fg); white-space: nowrap; }
   .lg-hex { width: 1.1em; height: 1.25em; flex: none; }
   .lg-pips circle { fill: var(--st-gold); }
+  .lg-rank path   { stroke: var(--st-gold); }   // career-rank bead (2026-09-27)
   .lg-num { font-family: $font-family-monospace; font-size: 0.8em; color: var(--st-gold); letter-spacing: 0.06em; width: 1.6em; text-align: center; }
   a.lg-ach { text-decoration: none; &:hover, &:focus-visible { color: var(--st-gold); } }
   .lg-note { flex: 1 1 18rem; color: var(--st-soft); }

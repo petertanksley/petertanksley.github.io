@@ -6,6 +6,7 @@ R thinks, JS draws. `data/articles.yml` is the source of truth (30 articles, all
 # from the site repo root
 Rscript 5_skilltree/R/extract_cv.R     # refresh bibliographic fields from 2_cv/tanksley_cv.qmd (keeps ratings)
 Rscript 5_skilltree/R/build_tree.R     # validate, lay out the hex rings, write www/tree.json + www/hex/sm/
+                                       # also reads data/ranks.yml (career-rank markers, 2026-09-27) and data/achievements_log.yml
 Rscript -e 'shiny::runApp("5_skilltree/tools/rate_articles", launch.browser = TRUE)'   # rate/edit articles
 quarto preview                          # skilltree.qmd renders with the rest of the site
 ```

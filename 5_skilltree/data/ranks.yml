@@ -1,0 +1,36 @@
+# ranks.yml — Peter's class at each rank change, drawn as gold markers on the skill tree's year rings.
+# ORDER MATTERS: each entry evolves from the one above it (the panel shows previous -> new). `year` is the
+# ring the marker sits on; the first entry is the starting class. Read by 5_skilltree/R/build_tree.R into
+# tree.json meta.ranks (marker geometry is decided there). Art: 4_stickers/ranks.yaml -> www/hex/<sticker>.png.
+# Copy is in the achievements register (system message, class names only, no level numbers; the character
+# sheet's hand-written "Level 2" line is separate). Key is `ranks`, never `career`: "career-level" already
+# means an achievement with no article.
+- id: student
+  title: Doctoral Student
+  org: School of Criminal Justice, University of Cincinnati
+  years: "to 2020"                 # the degree began before the tree does
+  year: 2019
+  sticker: rank_student            # www/hex/rank_student.png, 480x554
+  headline: "Starting class: Doctoral Student."
+  line: >-
+    Cincinnati. Real winter. The dissertation is the tutorial level, and nobody gets to skip it.
+- id: postdoc
+  title: Postdoc
+  org: Population Research Center, University of Texas at Austin
+  years: "2020–2024"
+  year: 2020
+  sticker: rank_postdoc
+  headline: "Class change: Postdoc."
+  line: >-
+    Home to Austin for genomics in the Harden Lab. Learned to say methylation without pausing. The
+    Constitution stat on the character sheet was earned here.
+- id: scientist
+  title: Research Scientist
+  org: ALERRT Center, Texas State University
+  years: "2024–present"
+  year: 2024
+  sticker: rank_scientist
+  headline: "Class change: Research Scientist."
+  line: >-
+    One exit south on I-35. New subject: the people who run toward the trouble. A colleague bought him a
+    monogrammed lab coat as a joke. He wears it.

@@ -6,15 +6,22 @@
 # side by side, and stacks a 92 px row beneath. Output:
 #   4_stickers/articles/_preview/<id>_contact.png          (gitignored with the candidates)
 #
-# Usage (from repo root):  Rscript 4_stickers/preview_candidates.R <id>
+# Usage (from repo root):  Rscript 4_stickers/preview_candidates.R <id> [--dir <subdir>] [--parent <hexname>]
+#   --dir     candidate folder under 4_stickers/ (default articles; ranks for the career-rank set, 2026-09-27)
+#   --parent  a final in www/hex/ to show on the left instead of the article's builds_on parents (e.g. the
+#             previous rank, so an evolution reads previous -> candidates). Ids that are not articles are allowed.
 
 suppressPackageStartupMessages({ library(here); library(yaml); library(purrr); library(magick) })
 source(here("4_stickers", "frame_hex.R"))
 
-id <- commandArgs(trailingOnly = TRUE)[1]
-if (is.na(id)) stop("usage: Rscript 4_stickers/preview_candidates.R <id>")
+args <- commandArgs(trailingOnly = TRUE)
+id <- args[1]
+if (is.na(id) || startsWith(id, "--")) stop("usage: Rscript 4_stickers/preview_candidates.R <id> [--dir <subdir>] [--parent <hexname>]")
+opt <- function(flag) if (any(i <- args == flag)) args[which(i)[1] + 1] else NA
+sub_dir <- opt("--dir"); if (is.na(sub_dir)) sub_dir <- "articles"
+parent_override <- opt("--parent")
 
-CAND_DIR <- here("4_stickers", "articles")
+CAND_DIR <- here("4_stickers", sub_dir)
 PREV_DIR <- file.path(CAND_DIR, "_preview", id)
 HEX_DIR  <- here("www", "hex")
 SMALL_PX <- 92
@@ -22,7 +29,7 @@ dir.create(PREV_DIR, recursive = TRUE, showWarnings = FALSE)
 
 arts  <- read_yaml(here("5_skilltree", "data", "articles.yml"))
 by_id <- set_names(arts, map_chr(arts, "id"))
-if (is.null(by_id[[id]])) stop("unknown article id: ", id)
+if (is.null(by_id[[id]]) && is.na(parent_override) && sub_dir == "articles") stop("unknown article id: ", id)
 
 cands <- sort(list.files(CAND_DIR, pattern = paste0("^", id, "-\\d+\\.png$"), full.names = TRUE))
 if (!length(cands)) stop("no candidates for ", id, " in ", CAND_DIR, " — run compose + bananarama first")
@@ -34,8 +41,8 @@ framed <- map_chr(cands, function(p) {
 labels <- sub("\\.png$", "", basename(cands))
 
 # parent finals, left of the candidates, so the eye reads parent -> child
-parents <- as.character(unlist(by_id[[id]]$builds_on))
-parent_files <- vapply(parents, function(p) file.path(HEX_DIR, paste0(by_id[[p]]$sticker %||% "", ".png")), character(1))
+parents <- if (!is.na(parent_override)) parent_override else as.character(unlist(by_id[[id]]$builds_on))
+parent_files <- vapply(parents, function(p) file.path(HEX_DIR, paste0(if (!is.na(parent_override)) p else by_id[[p]]$sticker %||% "", ".png")), character(1))
 have <- file.exists(parent_files)
 tiles  <- c(unname(parent_files[have]), framed)
 labels <- c(paste0("parent: ", parents[have], recycle0 = TRUE), labels)   # recycle0: no phantom label when there are no parents
