@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-09-20 15:59",
+    "generated": "2026-09-27 15:54",
     "hex_w": 100,
     "hex_h": 115.47,
     "width": 2781,
@@ -10,7 +10,20 @@
       "y": 1142.4,
       "scale": 1.45,
       "sticker_src": "www/hex/sm/puzzled.png",
-      "achievements": null
+      "achievements": {
+        "n": 1,
+        "best": null,
+        "items": [
+          {
+            "key": "h-index-up-2026-09-27",
+            "date": "2026-09-27",
+            "title": "You've Become Marginally Harder to Ignore.",
+            "tier": null,
+            "box": null,
+            "reward": "Reward: Leveling up is your job. You don't get rewards for doing your job."
+          }
+        ]
+      }
     },
     "axes": [
       {
@@ -147,8 +160,8 @@
     "achievements": {
       "label": "Achievements earned",
       "page": "achievements.html",
-      "total": 4,
-      "latest": "2026-09-20"
+      "total": 5,
+      "latest": "2026-09-27"
     }
   },
   "nodes": [
