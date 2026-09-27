@@ -53,6 +53,16 @@ worth a re-roll at 92 px. Spend: $0.135 + $0.135 + $0.136 = **$0.41**. Squares a
 `finals_src/rank_*.jpg`; finals `www/hex/rank_*.png` (480x554); `sm/` copies 57-67 KB. Rebuilt and re-rendered;
 `#rank-2024` shows postdoc -> Research Scientist with the real art.
 
+## Gotcha: bananarama shrinks reference finals in place
+
+After the third tier, `git status` showed `www/hex/puzzled.png` modified. bananarama had logged "Resizing
+'puzzled.png' from 480x554 to 444x512" and had written the result back over the final. Same for `rank_student.png`
+and `rank_postdoc.png` when they served as the next tier's anchor, and, it turns out, for six article lineage
+parents cited during the 09-18 runs (gonzalez_2025, mcallister_2025, raffington_2022, raffington_2023,
+tanksley_2025_mortality, tanksley_2026_clarifying), committed shrunk ever since. Fixed: origin restored from git,
+rank finals re-framed with `pick_rank.R --no-build`, the six articles re-framed from `finals_src/`; every
+`www/hex/*.png` is 480x554 again. `build_tree.R` now warns on any off-size final; CLAUDE.md carries the rule.
+
 ## Not done
 
 - Debt: three near-identical unpin blocks (node, origin, rank) in `skilltree.js`. Refactor when a fourth appears.

@@ -63,6 +63,11 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
 
 - Style: 16-bit pixel art, sepia-warm, Dresden-universe homage with Peter's likeness and dogs,
   anachronisms welcome. **Hexagons, never hexagrams or pentagrams.** Skull stays nameless.
+- **bananarama resizes reference finals IN PLACE.** Any `www/hex/<id>.png` cited as `[../www/hex/<id>]` comes
+  back 444x512 instead of 480x554, silently (2026-09-27: the origin, two rank finals and six lineage parents from
+  the 09-18 runs). After any generation run that cites a final, re-frame the cited files from
+  `4_stickers/finals_src/` (`frame_hex(src, out, height = 554)`, or `pick_*.R --no-build`); `build_tree.R` now warns
+  on any final that is not 480x554.
 - **One clean symbolic subject per hex.** Stickers are read at 92px on the CV band; anything
   that needs magnifying to parse gets cut. Judge candidates *after* hex-clipping.
 - Pipeline: `4_stickers/bananarama.yaml` (prompts; append, existing outputs are skipped) ->

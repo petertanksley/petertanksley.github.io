@@ -197,6 +197,10 @@ rank_stickers <- map_chr(ranks, "sticker")
 for (s in unique(c(sticker_name, ORIGIN_STICKER, rank_stickers))) {
   src <- file.path(hex_src, paste0(s, ".png")); dst <- file.path(hex_out, paste0(s, ".png"))
   if (!file.exists(src)) { warning("sticker '", s, "' not found in ", hex_src, "; using blank"); next }
+  # bananarama SHRINKS any www/hex/ final it is handed as a reference image to 444x512, in place and silently
+  # (found 2026-09-27: the origin, two rank finals and six lineage parents). Re-frame from finals_src/ when this fires.
+  si <- image_info(image_read(src)); if (si$width != 480 || si$height != 554)
+    warning(sprintf("sticker '%s' is %dx%d, not 480x554: re-frame it from 4_stickers/finals_src/ (bananarama resized it in place)", s, si$width, si$height))
   if (!file.exists(dst) || file.mtime(src) > file.mtime(dst)) {
     image_read(src) |> image_resize(paste0(STICKER_PX, "x")) |> image_write(dst, format = "png")
   }
