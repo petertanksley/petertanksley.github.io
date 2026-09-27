@@ -339,6 +339,7 @@ h2 { clear: both; }
   .when { font-family: $font-family-monospace; font-size: 0.82rem; color: $ink-soft; padding-top: 0.2em; white-space: nowrap; }
   .news-title { display: block; }
   .blurb { display: block; color: $ink-soft; font-size: 0.88rem; margin-top: 0.15rem; }
+  .news-photo { display: block; width: 100%; max-width: 30rem; margin-top: 0.7rem; border-radius: 4px; }
 }
 .newslist-more { margin-top: 0.6rem; }
 @media (max-width: 640px) { .newslist li { grid-template-columns: 1fr; gap: 0.2rem; } }

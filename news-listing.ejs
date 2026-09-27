@@ -4,7 +4,7 @@
 <span class="when"><%= item.date %></span>
 <span>
 <span class="news-title"><%= item.title %></span>
-<% if (blurb) { %><span class="blurb"><%= blurb %></span><% } %>
+<% if (blurb) { %><span class="blurb"><%= blurb %></span><% } %><% if (item.image) { %><img class="news-photo" src="<%= item.image %>" alt="<%- item['image-alt'] || '' %>" loading="lazy"><% } %>
 </span>
 </li>
 <% } %>

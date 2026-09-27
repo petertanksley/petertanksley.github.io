@@ -49,6 +49,8 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   `news.html#<id>`) and `news-listing.ejs` on `news.qmd` (everything; links live; anchors).
   Mirrors the Research Ring site's `_media_entries.yaml` / `_render_media.R` pattern.
 - Always give an entry an `id`, or the homepage headline can only link to the top of the page.
+- Optional `image` (+ `image-alt`) puts a photo under the blurb on the news page only (`www/<file>.jpg`,
+  1200 px wide is plenty); the homepage list stays text. First used 2026-09-27 for the Cincinnati trip.
 - Quarto's EJS: no `<%# %>` comments (bare SyntaxError), and the escaping convention is
   reversed from standard EJS (`<%= %>` is raw, `<%- %>` escapes).
 

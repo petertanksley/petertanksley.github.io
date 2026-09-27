@@ -216,6 +216,10 @@ Liu, Hexuan, **Peter T. Tanksley**, Ryan T. Motz, & J.C. Barnes.\
 #### **2026**
 
 ::: {.cv-indent}
+"Leading causes of death among first responders" Presented to the Tristate FACE (Firefighters Attacking the Cancer Epidemic) Team Meeting, College of Education, Criminal Justice, and Human Services, University of Cincinnati, Cincinnati, OH, USA.
+:::
+
+::: {.cv-indent}
 "A national-level assessment of LEO mortality" Presented to the Police Executive Research Forum (PERF) annual meeting, Los Angeles, CA, USA.
 :::
 

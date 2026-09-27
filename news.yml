@@ -12,6 +12,19 @@
 #   description  ONE lighthearted sentence. Markdown links [text](url) are
 #                allowed and encouraged: they render on the news page and
 #                are stripped to plain text on the homepage
+#   image        optional; a photo under the blurb on the news page only
+#                (www/<file>.jpg, <= 1200 px wide). The homepage stays text
+#   image-alt    required with image; one plain sentence for screen readers
+- date: 2026-09-22
+  id: cincinnati-face-2026
+  title: "Took the first responder mortality work on the road to Cincinnati"
+  description: >
+    Presented the leading causes of death among first responders to the
+    Tristate FACE Team, then spent the rest of the trip with the good people of
+    UC's School of Criminal Justice, and was especially glad to catch up with
+    J.C. Barnes and with Leah Butler, my doctoral cohort-mate and a brand-new mom.
+  image: www/uc_2026.jpg
+  image-alt: "Peter smiling in front of a brick University of Cincinnati building, banners hung between its columns, under a grey September sky."
 - date: 2026-09-19
   id: skill-tree-2026
   title: "Spent a week making my CV playable"
