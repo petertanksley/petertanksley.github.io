@@ -379,14 +379,15 @@
     if (m.origin) {
       const k = m.origin.scale || 1, ow = m.hex_w * k, oh = m.hex_h * k;
       originG = svgEl('g', { class: 'origin-node', tabindex: '0', role: 'button',
-        'aria-label': 'Peter Tanksley, at the origin. Opens a character sheet.' + (ORIGIN_ACH && ORIGIN_ACH.n ? ` ${achPlural(ORIGIN_ACH.n)}.` : '') }, gT);
+        'aria-label': 'Peter Tanksley, at the origin. Opens a character sheet.' }, gT);
       originHome = gT;
       svgEl('image', {
         class: 'origin', href: m.origin.sticker_src, x: m.origin.x - ow / 2, y: m.origin.y - oh / 2,
         width: ow, height: oh, preserveAspectRatio: 'xMidYMid meet', 'aria-hidden': 'true'
       }, originG);
       svgEl('path', { class: 'origin-ring', d: hexPath(m.origin.x, m.origin.y, ow * 1.02, oh * 1.02) }, originG);
-      drawNumeral(originG, m.origin.x, m.origin.y, ow, oh, ORIGIN_ACH ? ORIGIN_ACH.n : 0);   // career-level achievements
+      // no numeral on the origin (Peter, 2026-09-27: every achievement is his, so a count here marks nothing);
+      // career-level entries are listed on the character sheet instead
       const originTip = () => {
         tip.innerHTML = '<div class="tt-title">Peter T. Tanksley</div><div class="tt-meta">Research Scientist · Level 2 · click to inspect</div>';
         tip.style.setProperty('--node', '#D9A441'); tip.hidden = false;   // gold, matching .origin-ring

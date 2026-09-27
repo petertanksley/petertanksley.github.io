@@ -131,7 +131,8 @@ the news stream). Four surfaces, all reading the ledger:
   gold roman numeral upright in the hex's bottom corner, opposite the pips; an Achievements
   section in the panel (tier chip + title, linking to the page); the legend and a fourth stats-card figure.
 - Career-level entries (no `article`: h-index, i10, total citations) ride on `meta.origin.achievements`:
-  numeral on Peter's hex, Achievements section on the character sheet.
+  Achievements section on the character sheet only. No numeral on Peter's hex (Peter, 2026-09-27: every
+  achievement is his, so a count there marks nothing).
 
 Titles are the joke, as in the books ("Patient Zero.", "Please Stop Refreshing Google Scholar."), vaguely about
 the feat and never the bare fact; the body carries the fact (Peter, 2026-09-20). The paper is named by the `paper`

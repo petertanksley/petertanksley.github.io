@@ -135,7 +135,7 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   date, anchors on `key`), the homepage card (`achievement-home.ejs`: the newest *featured* entry, so the two
   biomarker papers never headline; total as a roman numeral), and via `build_tree.R` the tree: a gold roman
   numeral upright in each hex's bottom corner (opposite the pips) counting that paper's achievements, an Achievements
-  section in the panel, career-level entries (no `article`) on the origin hex and its character sheet, a fourth
+  section in the panel, career-level entries (no `article`) on the origin's character sheet only, never as a numeral on Peter's hex (2026-09-27), a fourth
   figure on the stats card. **Achievements are a separate stream from `news.yml`** (Peter, 2026-09-20); a big one
   can also get a hand-written news line. The ledger is derived state: after editing a rule's wording run
   `check_achievements.R --replay` to rebuild it from every snapshot pair. **Refresh = `Rscript 5_skilltree/R/refresh.R`**
