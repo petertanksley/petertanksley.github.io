@@ -8,7 +8,7 @@ deadline: null
 target: Personal academic website with CV, about page, and blog
 effort_remaining: monitoring (annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-09-22
+last_updated: 2026-09-27
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -25,7 +25,10 @@ sync: github
 
 ## Start Here Next Session
 
-- Nothing in flight. Last content push `975d795` (achievements) is live; working tree clean as of 2026-09-22.
+- Nothing in flight. Last push `e21c91b` (career-rank stickers + re-framed finals) is live; working tree clean as of 2026-09-27.
+  Session logs for 09-27: `logs/skilltree/2026-09-27_milestone-ladders.md` (h/i10 ladders, six paper-cited variants,
+  archival replay, origin-bucket bug, EJS blank-line trap), `logs/skilltree/2026-09-27_rank-markers.md` (rank markers,
+  art, bananarama in-place shrink), `logs/2026-09-27_cincinnati-news-cv.md` (CV talk, first news photo).
 - If a few weeks have passed: `Rscript 5_skilltree/R/refresh.R`, then commit the snapshot, `www/scholar.json`,
   `5_skilltree/data/achievements_log.yml` and `www/tree.json`.
 - Check Crossref for entry 27 (Nature) volume/pages and entry 28 (AJPH) DOI before touching `articles.yml`.
@@ -36,7 +39,7 @@ sync: github
 
 ## This Week
 - DONE 2026-09-27: career-rank markers on the skill tree with three generated stickers ($0.41); see
-  `logs/skilltree/2026-09-27_rank-markers.md`. Not yet pushed at time of writing.
+  `logs/skilltree/2026-09-27_rank-markers.md`. Live.
 - [ ] Periodic stats refresh (`Rscript 5_skilltree/R/refresh.R` → commit snapshot, `www/scholar.json`,
   `5_skilltree/data/achievements_log.yml`, `www/tree.json`) — only if not run in the last few weeks
 - Otherwise monitoring only; nothing scheduled
