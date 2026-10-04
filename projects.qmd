@@ -11,7 +11,7 @@ title: "Projects"
 Side projects: dashboards, tooling, and the occasional over-engineered solution to a problem nobody asked me to solve. Everything is built in R unless noted, and everything is open, so you can see exactly how over-engineered.
 
 ::: {.project}
-<h3>Presumptive Laws Dashboard</h3><span class="tag tag--wip">under construction</span>
+<h3><a href="https://github.com/ALERRT-Research/PROJ_presumptive_laws">Presumptive Laws Dashboard</a></h3><span class="tag tag--wip">under construction</span>
 
 A state-by-state history of first responder presumptive workers' compensation laws: which conditions get presumed work-related, for whom, and since when. Every claim is traced to the statute itself, not to somebody's summary of it. Fifty scattered laws in one place, so nobody else has to do what I did to build it.
 
@@ -19,7 +19,7 @@ A state-by-state history of first responder presumptive workers' compensation la
 :::
 
 ::: {.project}
-<h3>anatomogramdata</h3><span class="tag">R package</span>
+<h3><a href="https://github.com/petertanksley/anatomogramdata">anatomogramdata</a></h3><span class="tag">R package</span>
 
 Human body maps (anatomograms) as tidy polygon data for ggplot2. It is an update of Jesper Maag's excellent [gganatogram](https://github.com/jespermaag/gganatogram), the package that first brought the EBI Expression Atlas anatomograms into R and ggplot2. I needed an anatomogram for mortality surveillance work on cancer sites and wanted to bring that work up to date: the polygons are traced fresh from the current EBI drawings, and every organ is tagged with its ontology ID and organ system. The whole thing is the intellectual godchild of gganatogram, and the code was written almost entirely by Claude, so I can't take intellectual credit for the idea or the work.
 
