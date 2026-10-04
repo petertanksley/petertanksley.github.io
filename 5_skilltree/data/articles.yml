@@ -8,7 +8,8 @@
 #   role (lead | contributing), builds_on (ids of lineage nodes), tier (unused for now),
 #   featured (false = muted tier),
 #   contribution.* (collapsed CRediT, 0-3 each), effort (1-5), effort_note, blurb, sticker,
-#   motif (a variant name from 4_stickers/motifs.yml; ~ = inherit from parent or sample by id).
+#   motif (a variant name from 4_stickers/motifs.yml; ~ = inherit from parent or sample by id),
+#   tags (list; `mortality` swaps the Necromancy achievement to its death-free wording).
 # First-run areas and role values are GUESSES from titles and author position — review them.
 # Last extracted 2026-09-09 13:38 from tanksley_cv.qmd
 
@@ -54,6 +55,7 @@
     with a new emphasis on correctional officers, using the same NOMS data.
   sticker: tanksley_2026_correctional
   motif: ~
+  tags: [mortality]
 - id: schwaba_2026_robust
   title: Robust inference and correlates from genetic associations with personality
   year: 2026
@@ -96,6 +98,7 @@
     to work with. Final result: Nature.'
   sticker: schwaba_2026_robust
   motif: a two-faced jester mask, one face laughing and one face frowning
+  tags: ~
 - id: mcallister_2026_inflammation
   title: 'Inflammation on the Frontlines: Linking Salivary and Blood Biomarkers to
     Cardiometabolic Health and Physical Performance Parameters in Firefighters'
@@ -143,6 +146,7 @@
     they wrote up the study.
   sticker: mcallister_2026_inflammation
   motif: a single firefighter helmet, dark leather with a blank brass front plate
+  tags: ~
 - id: eleuterio-da-rocha_2026_striking
   title: Striking or Grappling? Comparing Public and Officers’ Perceptions of Police
     Use of Force
@@ -189,6 +193,7 @@
   sticker: eleuterio-da-rocha_2026_striking
   motif: a rolled black martial-arts belt with a single red rank tab at one end, no
     stripes
+  tags: ~
 - id: wooldredge_2026_upstream
   title: Upstream and downstream racial disparities in prison rule violation processes
   year: 2026
@@ -230,6 +235,7 @@
     is the result.
   sticker: wooldredge_2026_upstream
   motif: keys
+  tags: ~
 - id: tanksley_2026_clarifying
   title: 'Clarifying methods and interpretations in law enforcement mortality surveillance:
     Response to Kamal'
@@ -275,6 +281,7 @@
     acknowledged that useful tip and presented the results in that format.
   sticker: tanksley_2026_clarifying
   motif: ~
+  tags: [mortality]
 - id: martaindale_2026_public
   title: 'Public opinion and the immediate entry dilemma: A factorial survey experiment
     on active shooter response'
@@ -316,6 +323,7 @@
     on to help with the analysis, but I managed to slip in some cool plots as well.
   sticker: martaindale_2026_public
   motif: a small closed wooden door, slightly ajar
+  tags: ~
 - id: tanksley_2025_mortality
   title: 'Mortality among law enforcement officers in the United States: A population-wide
     analysis of the National Occupational Mortality Surveillance data, 2020-2023'
@@ -360,6 +368,7 @@
     rest is history.
   sticker: tanksley_2025_mortality
   motif: boots
+  tags: [mortality]
 - id: blair_2025_we
   title: To what are we inferring? The widespread misuse of inferential testing in
     the most cited criminology and criminal justice journals
@@ -404,6 +413,7 @@
     and a newly lowered snark level later, we had a winner.
   sticker: blair_2025_we
   motif: a small brass bell
+  tags: ~
 - id: blair_2025_active
   title: 'Active attacks with motor vehicles: A short report and case study of the
     2025 New Year’s Day attack in New Orleans, LA'
@@ -449,6 +459,7 @@
     types (e.g., knife, handgun, rifle).
   sticker: blair_2025_active
   motif: a car steering wheel standing upright on its rim
+  tags: ~
 - id: desteiguer_2025_stability
   title: Stability of aging- and cognition-related methylation profile scores across
     two waves in Children and Adolescents
@@ -495,6 +506,7 @@
     helped with some data curation and visualization, but this was all Abby.
   sticker: desteiguer_2025_stability
   motif: ~
+  tags: ~
 - id: gonzalez_2025_relationships
   title: Relationships between physiological stress biomarkers and cardiovascular
     disease risk factors among career firefighters
@@ -539,6 +551,7 @@
     they wrote up the study.
   sticker: gonzalez_2025_relationships
   motif: a single firefighter helmet, dark leather with a blank brass front plate
+  tags: ~
 - id: mcallister_2025_markers
   title: Markers of fitness, stress, and cardiometabolic disease risk among law enforcement
     officers
@@ -585,6 +598,7 @@
   sticker: mcallister_2025_markers
   motif: a dark peaked police service cap with a completely blank badge plate above
     the visor
+  tags: ~
 - id: tanksley_2024_polygenic
   title: Do polygenic indices capture ‘direct’ effects on child externalizing behavior?
     Within-family analyses in two longitudinal birth cohorts
@@ -644,6 +658,7 @@
     legend were the result… there was an academic paper too, I guess.
   sticker: tanksley_2024_polygenic
   motif: tree
+  tags: ~
 - id: barnes_2024_risk
   title: Using Risk of Crime Detection to Study Change in Mechanisms of Decision-Making
   year: 2024
@@ -687,6 +702,7 @@
     in interesting literature-related tidbits about evolutionary psychology.
   sticker: barnes_2024_risk
   motif: dice
+  tags: ~
 - id: willems_2024_self
   title: Self-control is associated with health-relevant disparities in buccal DNA-methylation
     measures of biological aging in older adults
@@ -740,6 +756,7 @@
     just helped generate the polygenic indices they needed in the TTP.
   sticker: willems_2024_self
   motif: clock
+  tags: ~
 - id: tanksley_2023_history
   title: 'History of incarceration and age-related neurodegeneration: Testing models
     of genetic and environmental risks in a longitudinal panel study of older adults'
@@ -781,6 +798,7 @@
     incarceration, genes, and neurodegeneration later in life.
   sticker: tanksley_2023_history
   motif: brain
+  tags: ~
 - id: williams_2023_guidelines
   title: Guidelines for evaluating the comparability of down-sampled GWAS summary
     statistics
@@ -838,6 +856,7 @@
     its performance. Thus, this paper.
   sticker: williams_2023_guidelines
   motif: skyline
+  tags: ~
 - id: raffington_2023_associations
   title: Associations of DNA-methylation measures of biological aging with social
     disparities in child and adolescent mental health
@@ -891,6 +910,7 @@
     shiny new data visualizations, they sailed through. Laurel is a badass.'
   sticker: raffington_2023_associations
   motif: ~
+  tags: ~
 - id: wertz_2023_genetic
   title: 'Genetic associations with parental investment from conception to wealth
     inheritance: 30,000 parents in six cohorts'
@@ -951,6 +971,7 @@
     analyze the two participating cohorts we had data for.
   sticker: wertz_2023_genetic
   motif: a short stack of old gold coins
+  tags: ~
 - id: langevin_2022_life
   title: Life-course persistent antisocial behavior and accelerated biological aging
     in a longitudinal birth cohort
@@ -1003,6 +1024,7 @@
     the ride.
   sticker: langevin_2022_life
   motif: a brass-framed hourglass
+  tags: ~
 - id: raffington_2022_socially
   title: Socially stratified epigenetic profiles are associated with cognitive functioning
     in children and adolescents
@@ -1054,6 +1076,7 @@
     shiny new data visualizations, they sailed through. Laurel is a badass.'
   sticker: raffington_2022_socially
   motif: seedling
+  tags: ~
 - id: liu_2022_incarceration
   title: Incarceration, polygenic risk, and depressive symptoms among males in late
     adulthood
@@ -1098,6 +1121,7 @@
     Classic GxE. He analyzed the HRS, I analyzed the WLS. It worked out great.'
   sticker: liu_2022_incarceration
   motif: one small dark raincloud
+  tags: ~
 - id: liu_2021_adolescent
   title: 'Adolescent criminal justice involvement, educational attainment, and genetic
     inheritance: Testing an integrative model using the Add Health data'
@@ -1141,6 +1165,7 @@
     EA3 polygenic index.
   sticker: liu_2021_adolescent
   motif: a graduation mortarboard cap with a tassel
+  tags: ~
 - id: tanksley_2020_identifying
   title: 'Identifying pathways to polyvictimization: Evidence from a longitudinal
     cohort study of twins from the United Kingdom'
@@ -1188,6 +1213,7 @@
     was the best predictor of future polyvictimization.'
   sticker: tanksley_2020_identifying
   motif: a small wooden signpost with blank arms pointing in different directions
+  tags: ~
 - id: barnes_2019_propensity
   title: 'The propensity for aggressive behavior and lifetime incarceration risk:
     A test for gene-environment interaction (G×E) using whole-genome data'
@@ -1242,6 +1268,7 @@
     final writing and editing.
   sticker: barnes_2019_propensity
   motif: a short lit fuse, sparking
+  tags: ~
 - id: tanksley_2019_genome
   title: The genome-wide study of human social behavior and its application in sociology
   year: 2019
@@ -1286,6 +1313,7 @@
     that became the CASTLE Lab (UC).
   sticker: tanksley_2019_genome
   motif: a web of small glowing linked nodes
+  tags: ~
 - id: motz_2019_every
   title: 'Every contact leaves a trace: Contact with the criminal justice system,
     life outcomes, and the intersection with genetics'
@@ -1331,6 +1359,7 @@
     mark on the people who experience it. And genetic risk can exaggerate that mark.'
   sticker: motz_2019_every
   motif: one large glowing fingerprint
+  tags: ~
 - id: fraemke_2026_developmental
   title: Developmental correlates of epigenetic and polygenic indices of cognition
     and educational attainment from birth to young adulthood
@@ -1375,6 +1404,7 @@
   blurb: ~
   sticker: fraemke_2026_developmental
   motif: a short stack of plain wooden building blocks
+  tags: ~
 - id: williams_2026_genomic
   title: Genomic insights into substance use and disinhibitory disorders
   year: 2026
@@ -1420,4 +1450,5 @@
   blurb: ~
   sticker: williams_2026_genomic
   motif: an uncorked glass bottle with its cork tumbling away
+  tags: ~
 

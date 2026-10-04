@@ -2,7 +2,7 @@
 <a class="ach-card" href="achievements.html<%- key ? '#' + key : '' %>"<% if (tier) { %> data-tier="<%- tier %>"<% } %>>
 <span class="ach-card-mark" aria-hidden="true"><span class="ach-card-num"><%- roman(items.length) %></span><span class="ach-card-lab">earned</span></span>
 <span class="ach-card-text">
-<span class="eyebrow">System message · <%= pick.date %></span>
+<span class="eyebrow">System message · <%= pick.when ? String(pick.when) : pick.date %></span>
 <span class="ach-card-head">New achievement!</span>
 <span class="ach-card-title"><%- pick.title %></span><% if (pick.paper) { %><span class="ach-card-paper"><%- pick.paper %></span><% } %>
 <span class="ach-card-body"><%- pick.body %></span>

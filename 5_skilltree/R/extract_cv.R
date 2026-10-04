@@ -162,12 +162,12 @@ fresh_judgement <- function(a) {
        featured = is.null(cv) || !(cv %in% not_featured),
        contribution = list(conceptualization = NULL, data = NULL, analysis = NULL,
                            methods = NULL, writing = NULL, supervision = NULL),
-       effort = NULL, effort_note = NULL, blurb = NULL, sticker = NULL, motif = NULL)
+       effort = NULL, effort_note = NULL, blurb = NULL, sticker = NULL, motif = NULL, tags = NULL)
 }
 
 # ---- merge with the existing YAML, if any ---------------------------------------------------
 JUDGEMENT <- c("id", "role", "areas", "builds_on", "tier", "featured", "contribution",
-               "effort", "effort_note", "blurb", "sticker", "motif")
+               "effort", "effort_note", "blurb", "sticker", "motif", "tags")
 existing <- if (file.exists(out_path)) read_yaml(out_path) else list()
 key_of <- function(e) if (!is.null(e$cv_number) && !is.na(e$cv_number)) paste0("cv", e$cv_number) else paste0("doi:", e$doi)
 existing <- set_names(existing, map_chr(existing, key_of))
@@ -176,7 +176,7 @@ na2null <- function(x) if (length(x) == 1 && is.na(x)) NULL else x
 entries <- map(articles, function(a) {
   a <- map(a, na2null)
   old <- existing[[key_of(a)]]
-  j   <- if (is.null(old)) fresh_judgement(a) else old[JUDGEMENT]
+  j   <- if (is.null(old)) fresh_judgement(a) else map(set_names(JUDGEMENT), ~ old[[.x]])   # a field added later reads as ~
   extracted <- a[c("title", "year", "venue", "doi", "url", "citation", "cv_number",
                    "authors", "authors_cv", "et_al", "authors_n", "author_position", "status")]
   # field order: identity → extracted bibliographic → judgement
@@ -200,7 +200,8 @@ header <- c(
   "#   role (lead | contributing), builds_on (ids of lineage nodes), tier (unused for now),",
   "#   featured (false = muted tier),",
   "#   contribution.* (collapsed CRediT, 0-3 each), effort (1-5), effort_note, blurb, sticker,",
-  "#   motif (a variant name from 4_stickers/motifs.yml; ~ = inherit from parent or sample by id).",
+  "#   motif (a variant name from 4_stickers/motifs.yml; ~ = inherit from parent or sample by id),",
+  "#   tags (list; `mortality` swaps the Necromancy achievement to its death-free wording).",
   "# First-run areas and role values are GUESSES from titles and author position — review them.",
   sprintf("# Last extracted %s from %s", format(Sys.time(), "%Y-%m-%d %H:%M"), basename(cv_path)),
   "")

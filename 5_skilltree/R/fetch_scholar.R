@@ -77,11 +77,14 @@ fetch_openalex <- function(dois) {
   per_doi <- list()
   dois <- tolower(dois[!is.na(dois) & nzchar(dois)])
   for (chunk in split(dois, ceiling(seq_along(dois) / 40))) {
-    w <- oa_get(paste0("https://api.openalex.org/works?per-page=50&select=doi,cited_by_count,cited_by_percentile_year&filter=doi:", paste(chunk, collapse = "|")))
+    w <- oa_get(paste0("https://api.openalex.org/works?per-page=50&select=doi,cited_by_count,cited_by_percentile_year,counts_by_year&filter=doi:", paste(chunk, collapse = "|")))
     # cited_by_percentile_year is a {min, max} band among ALL OpenAlex works of the same year; keep the
     # conservative end. It runs high (most works are never cited): a 4-citation 2021 paper sits at 89.
+    # counts_by_year (2026-10-03, for Necromancy): citations received per calendar year, last ~10 years; OpenAlex
+    # omits zero years, so a missing year means none. Stored as {"<year>": n} so check_achievements.R can judge dormancy.
     for (r in w$results) per_doi[[str_remove(tolower(r$doi), "^https://doi.org/")]] <-
-      list(cites = r$cited_by_count, pct = r$cited_by_percentile_year$min)
+      list(cites = r$cited_by_count, pct = r$cited_by_percentile_year$min,
+           by_year = set_names(map(r$counts_by_year, "cited_by_count"), map_chr(r$counts_by_year, ~ as.character(.x$year))))
   }
   list(summary = list(id = a$id, works = a$works_count, citations = a$cited_by_count,
                       h_index = a$summary_stats$h_index, i10 = a$summary_stats$i10_index, by_year = by_year),
@@ -92,7 +95,27 @@ fetch_openalex <- function(dois) {
 norm <- function(x) x |> str_to_lower() |> stringi::stri_trans_general("Latin-ASCII") |> str_replace_all("[^a-z0-9 ]", " ") |> str_squish()
 match_articles <- function(arts, pubs) {
   pn <- norm(pubs$title); used <- rep(FALSE, nrow(pubs))
-  out <- list(); unmatched_art <- character()
+  # ---- career counts (2026-10-03) --------------------------------------------------------------------
+# Cumulative counts for the career ladders in achievements.yml. articles = CV-numbered articles in articles.yml
+# (published + in press; preprints carry no cv_number). reviews = rows of the /bob review card's ## Archive table, one
+# per submitted round. Only counts go into the (public) snapshot.
+career_cfg <- read_yaml(here("5_skilltree", "data", "career.yml"))
+count_reviews <- function() {
+  f <- path.expand(career_cfg$review_archive %||% "")
+  if (!nzchar(f) || !file.exists(f)) {
+    warning("review archive not found (", f, "); keeping the previous snapshot's review count", call. = FALSE)
+    return(prev$career$reviews)
+  }
+  L <- readLines(f, warn = FALSE)
+  start <- which(str_detect(L, "^## Archive")); if (!length(start)) { warning("no ## Archive in ", f, call. = FALSE); return(prev$career$reviews) }
+  end <- c(which(str_detect(L, "^## ")), length(L) + 1); end <- min(end[end > start[1]])
+  arch <- L[seq(start[1], end - 1)]
+  rows <- arch[str_detect(arch, "^\\|") & !str_detect(arch, "^\\|\\s*ID\\s*\\|") & !str_detect(arch, "^\\|[-\\s|]+$")]
+  length(rows)                                            # one table row per submitted round
+}
+career <- list(articles = sum(map_lgl(arts, ~ !is.null(.x$cv_number))), reviews = count_reviews())
+
+out <- list(); unmatched_art <- character()
   for (a in arts) {
     an <- norm(a$title)
     hit <- which(!used & pn == an)
@@ -137,7 +160,10 @@ articles <- set_names(map(arts, function(a) {
   # mostly uncited and the band is inflated, and achievements only ever fire upward
   pct <- if (!is.null(rec) && !is.null(rec$pct) && isTRUE(a$year < as.integer(format(Sys.Date(), "%Y")))) rec$pct
          else if (is.null(rec) && !is.null(prev)) prev$articles[[a$id]]$percentile else NULL
-  list(scholar = s, openalex = o, percentile = pct, lineage = lineage[[a$id]])
+  by  <- if (!is.null(rec)) rec$by_year else if (!is.null(prev)) prev$articles[[a$id]]$by_year else NULL
+  # {} (never cited, but OpenAlex answered) is data and differs from null (no record): a paper never cited in three
+  # years is dormant too, and its first citation raises it
+  list(scholar = s, openalex = o, percentile = pct, lineage = lineage[[a$id]], by_year = by)
 }), ids)
 
 out <- list(
@@ -146,7 +172,8 @@ out <- list(
                              openalex = if (!is.null(oa)) "live" else "unavailable")),
   scholar  = if (!is.null(sch)) c(sch$stats, list(by_year = sch$history)) else prev$scholar,
   openalex = if (!is.null(oa)) oa$summary else prev$openalex,
-  articles = articles
+  articles = articles,
+  career   = career
 )
 
 # ---- report ----------------------------------------------------------------------------------------
@@ -163,6 +190,7 @@ if (!is.null(m)) {
 cat(sprintf("%-34s %8s %8s %6s\n", "id", "scholar", "openalex", "pct"))
 for (id in ids) cat(sprintf("%-34s %8s %8s %6s\n", id, fmt(articles[[id]]$scholar), fmt(articles[[id]]$openalex), fmt(articles[[id]]$percentile)))
 
+cat(sprintf("career: %s articles, %s reviews\n", fmt(career$articles), fmt(career$reviews)))
 if (dry_run) { cat("\n--dry-run: nothing written\n"); quit(save = "no") }
 if (is.null(out$scholar) && is.null(out$openalex)) stop("nothing fetched and no snapshot to fall back on; not writing")
 dir.create(SNAP_DIR, showWarnings = FALSE, recursive = TRUE)

@@ -151,6 +151,12 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   paper with no `builds_on` gains descendants (`articles.<id>.lineage`, which the fetcher computes from `articles.yml`
   into each snapshot). Ledger after replay: three Founder Silvers and one percentile Gold. Title, body and joke
   reward may be lists of variants; one is picked per firing by a hash of the key, never the clock, so replay is exact.
+  **Necromancy and manual events** (2026-10-03): a `revival` rule raises a paper that is 3+ years old and went a
+  calendar year uncited (needs `by_year` in both snapshots; `tags: [mortality]` papers get death-free wording), and
+  talks / grants / awards etc. are hand-appended to `data/achievements_manual.yml` as they happen (append-only; `--log`
+  renders new ones). **Forward only**: no retrospective achievements except cumulative milestones (`career.*` ladders).
+  Reviews are counted from the `/bob review` archive; publish the count only, never a journal or date (blind review).
+  Details in `5_skilltree/ACHIEVEMENTS.md`.
 - **Impact-factor pips** (2026-09-19): 1-3 gold dots inside a hex's top vertex mark the venue's Clarivate JIF in
   the JCR year **before** the article's year (`JIF_LAG`), at `IMPACT_TIERS` 5 / 10 / 25 in `build_tree.R`; the panel
   prints the number, the JCR year and the band definition for every node with a JIF, the tooltip a terse suffix.

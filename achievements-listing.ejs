@@ -1,7 +1,7 @@
 <div class="achlist">
 <% let lastDate = null; for (const item of items) { const day = String(item.date); const tier = item.tier ? String(item.tier) : ''; const key = item.key ? String(item.key) : ''; const art = item.article ? String(item.article) : ''; %>
-<% if (day !== lastDate) { lastDate = day; %>
-<h2 class="ach-day"><span class="ach-day-label">Snapshot</span> <%= day %></h2>
+<% if (day !== lastDate) { lastDate = day; const group = items.filter(it => String(it.date) === day); const snap = group.some(it => String(it.source || '') !== 'manual'); const when = group[0].when ? String(group[0].when) : ''; const shown = (!snap && when && group.every(it => String(it.when || '') === when)) ? when : day; %>
+<h2 class="ach-day"><span class="ach-day-label"><%= snap ? 'Snapshot' : 'Event' %></span> <%= shown %></h2>
 <% } %>
 <article class="ach"<% if (key) { %> id="<%- key %>"<% } %><% if (tier) { %> data-tier="<%- tier %>"<% } %>>
 <div class="ach-head">New achievement!</div>

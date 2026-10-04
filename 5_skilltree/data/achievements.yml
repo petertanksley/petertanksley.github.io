@@ -22,6 +22,13 @@
 #            threshold fires once, when new >= `at` and old < `at`
 #            log10     fires when new reaches a new power of ten (1, 10, 100, 1000 ...) that old had not
 #            ladder    fires when new reaches a rung `at` of the reward tier ladder that old had not
+#            revival   (Necromancy) fires when a dormant paper's count rises: at least `min_age` years old and no
+#                      citations in the last `dormant_years` complete calendar years nor the current one, judged from
+#                      articles.<id>.by_year in the OLD snapshot. Needs by_year in both snapshots (from 2026-10-03)
+#            manual    never fires from snapshots: the template for one `kind` of hand-logged event in
+#                      data/achievements_manual.yml ({what} {where} {note} {year}); --log renders new events
+#   forward_only  true: never fires when the old snapshot lacked the metric (per-event rules; Peter, 2026-10-03)
+#   by_tag   {<tag>: {title, body, reward}}: overrides used when the paper carries that tag in articles.yml `tags`
 #   A metric of the form articles.*.scholar expands to one rule per paper in articles.yml (ledger id
 #   <rule>-<article id>); {paper} {venue} {year} fill from the paper, {times} is "once" or "{new} times".
 #   articles.<id>.percentile is the paper's OpenAlex citation percentile among all works of its year (the
@@ -279,3 +286,244 @@
       - {at: 98, tier: Gold}
       - {at: 99, tier: Platinum}
       - {at: 100, tier: Legendary}
+
+# Peter, 2026-10-01: Necromancy. A paper at least three calendar years old with no citations in the last complete
+# calendar year (or so far this year) is dormant; the snapshot that shows its OpenAlex count rise raises it. One flat
+# Gold box: dormancy is a single threshold, so no ladder on how long it was silent. A paper can rise again if it dies
+# again (the key carries the date). {silent} = complete calendar years without a citation, {ys} its plural.
+# Mortality papers (tags: [mortality] in articles.yml) take the by_tag wording: the PAPER wakes, is dusted off, turns up
+# in the archive. No rising-from-the-dead imagery anywhere near a paper about people who died (CLAUDE.md).
+- id: necromancy
+  metric: articles.*.openalex
+  trigger: revival
+  min_age: 3
+  dormant_years: 1
+  title:
+    - "Necromancy."
+    - "It's Alive. Technically."
+    - "Who Disturbed This Tomb?"
+  body:
+    - >-
+      Your {year} paper in {venue} went {silent} year{ys} without a single citation, and has now been cited again.
+      Someone went digging in the literature and brought something back. It was you. You wrote it. It still counts.
+    - >-
+      After {silent} silent year{ys}, your {year} paper in {venue} has twitched. A new citation. The field had
+      quietly agreed to stop mentioning it, and someone did not get the memo.
+    - >-
+      Your {year} paper in {venue} lay undisturbed for {silent} year{ys}. Then someone cited it. It is shambling
+      back into the conversation now, slightly out of date and very confident.
+  reward:
+    type: Phylactery Box
+    tier: Gold
+  by_tag:
+    mortality:
+      title:
+        - "Back From the Stacks."
+        - "Dusted Off."
+        - "Found in the Archive."
+      body:
+        - >-
+          Your {year} paper in {venue} sat on the shelf for {silent} year{ys} without a citation. Someone has
+          pulled it down and cited it. Surveillance work keeps; it just waits for someone to need it.
+        - >-
+          {silent} quiet year{ys}, and now a new citation for your {year} paper in {venue}. Someone found it in
+          the archive, blew the dust off and decided it still holds up. It does. The data were the data.
+        - >-
+          Your {year} paper in {venue} has been cited again after {silent} year{ys} of silence. Nobody announced
+          it was coming back. Good papers rarely do. They just turn up in a reference list one day.
+      reward:
+        type: Archive Box
+        tier: Gold
+
+# ---- career counts (Peter, 2026-10-03) ----------------------------------------------------------------------------
+# career.* is written into each snapshot by fetch_scholar.R (data/career.yml). Achievements fire moving forward; the
+# only retrospective ones are cumulative milestones, which count the whole history and may fire once, at the rung
+# already reached, on the first snapshot that carries the count. Per-event rules take forward_only: true.
+# Reviews: count only, dated to the refresh. Never a journal or a submission date on the site (blind review).
+- id: review-done
+  metric: career.reviews
+  trigger: step
+  forward_only: true
+  title:
+    - "You Were Reviewer 2."
+    - "Unpaid Labor Complete."
+    - "Comments to the Authors, Submitted."
+  body:
+    - >-
+      You reviewed a manuscript. You were thorough, fair, and, according to the authors, the reason they need a
+      drink. Nobody pays for this. Everybody needs it. That makes {new}.
+    - >-
+      Review submitted. You asked for a robustness check you would also have refused to run. Fair is fair. Lifetime
+      total: {new}.
+    - >-
+      You turned in a review, roughly on time. The editor will thank you in an automated email and invite you to
+      review three more. You are at {new}.
+  reward:
+    type: Reviewer 2 Box
+    tier: Bronze
+
+# Peter, 2026-10-01: reviews have a Bronze ceiling, ever. So the milestone ladder is Bronze all the way up.
+- id: review-milestone
+  metric: career.reviews
+  trigger: ladder
+  title:
+    - "Reviewer 2, Tenured."
+    - "The Editors Have Your Number."
+    - "Service to the Field, Itemized."
+  body:
+    - >-
+      You have now reviewed {new} manuscripts. That is {new} papers you read more carefully than their own
+      authors' advisors did, for no money and no credit. The box is Bronze. It will always be Bronze.
+    - >-
+      {new} reviews. Somewhere there is a spreadsheet of reliable reviewers, and you are on it, and that is why
+      the invitations keep coming. Decline one occasionally. You will not.
+    - >-
+      Review number {new}. You have now spent more hours on other people's papers than some of them spent on the
+      discussion section. The reward reflects how much the system values this.
+  reward:
+    type: Reviewer 2 Box
+    tier:
+      - {at: 10, tier: Bronze}
+      - {at: 25, tier: Bronze}
+      - {at: 50, tier: Bronze}
+      - {at: 100, tier: Bronze}
+
+- id: article-milestone
+  metric: career.articles
+  trigger: ladder
+  title:
+    - "Publish, and Then Publish Again."
+    - "The CV Needs a Second Page. And a Third."
+    - "Prolific, Allegedly."
+  body:
+    - >-
+      Article number {new}. Each one took a year longer than you said it would, and you said it would take a year.
+      The publication section of your CV now scrolls.
+    - >-
+      You have {new} articles out or in press. Somewhere in there are the ones you are proud of and the ones that
+      were mostly about getting a student a line on their CV. They count the same. That is the deal.
+    - >-
+      {new} articles. That is {new} cover letters, {new} sets of reviewer comments, and {new} times you formatted a
+      reference list to a style nobody else uses.
+  reward:
+    type: Bibliography Box
+    tier:
+      - {at: 10, tier: Bronze}
+      - {at: 20, tier: Silver}
+      - {at: 30, tier: Gold}
+      - {at: 50, tier: Platinum}
+      - {at: 100, tier: Legendary}
+
+# ---- manual kinds (Peter, 2026-10-01) ---------------------------------------------------------------------------
+# trigger: manual never fires from snapshots. Each rule is the template for one `kind` in data/achievements_manual.yml,
+# which is hand-appended; check_achievements.R --log renders new events into the ledger. {what} {where} {note} {year}
+# fill from the event. Celestial is reserved: `tenure` is the only rule that awards it, and it never fires on its own.
+- id: talk
+  trigger: manual
+  title:
+    - "Podium Acquired."
+    - "Next Slide, Please."
+    - "Any Questions? There Is Always One Question."
+  body:
+    - >-
+      You presented "{what}" to {where}. Somebody in the third row asked a question that was really a
+      comment, and you thanked them for it. That is the job now.
+    - >-
+      You gave "{what}" at {where}. The slides ran long, the clicker worked twice, and at least one person
+      took a photo of the methods slide instead of reading the paper.
+    - >-
+      "{what}", delivered to {where}. You said "this is preliminary" at least once, and meant it each time.
+  reward:
+    type: Podium Box
+    tier: Silver
+
+- id: grant
+  trigger: manual
+  title:
+    - "Someone Else Is Paying."
+    - "The Budget Justification Worked."
+    - "Indirect Costs Unlocked."
+  body:
+    - >-
+      "{what}" has been funded by {where}. Somebody read your aims page and believed it. Now you have to do
+      what it said.
+    - >-
+      "{what}" is funded, by {where}. The university will take its share before you see a cent, and it will
+      not say thank you. You will be asked for a progress report almost immediately.
+    - >-
+      You have been given money: "{what}", from {where}. Somewhere a grants officer has opened a new
+      spreadsheet with your name on it, and it will follow you for years.
+  reward:
+    type: Grant Box
+    tier: Gold
+
+- id: award
+  trigger: manual
+  title:
+    - "Recognized, Formally."
+    - "A Plaque. Somewhere There Is a Plaque."
+    - "Peer-Reviewed Approval."
+  body:
+    - >-
+      You have been given the {what} by {where}. A committee met, read files, and chose yours. Committees do not
+      usually agree on lunch.
+    - >-
+      You received the {what} from {where}. It goes at the top of the CV section nobody else has, and in the
+      bio you will pretend you did not write yourself.
+    - >-
+      The {what}, from {where}. Your peers looked at your work and decided, on the record, that it was good.
+      They will never say so again in a review.
+  reward:
+    type: Laurel Box
+    tier: Platinum
+
+- id: media
+  trigger: manual
+  title:
+    - "Quoted, Approximately."
+    - "As Seen on the Internet."
+    - "A Journalist Called Back."
+  body:
+    - >-
+      Your work was covered by {where}: "{what}". They got most of it right. The headline is not your fault, and
+      it is still going to be attached to your name.
+    - >-
+      Your work turned up in {where}: "{what}". Forty minutes of careful explanation became one sentence and
+      a stock photo.
+    - >-
+      "{what}" ran in {where}. The comments section has opinions about your methods. None of them read the paper.
+  reward:
+    type: Soundbite Box
+    tier: Bronze
+
+- id: irb_first_try
+  trigger: manual
+  title:
+    - "Approved Without Modifications."
+    - "The Board Had No Notes."
+    - "This Has Never Happened Before."
+  body:
+    - >-
+      The IRB approved "{what}" on the first submission. No modifications, no clarifications, no request to
+      reword the consent form for a sixth-grade reading level. Nobody will believe you.
+    - >-
+      "{what}" cleared the IRB without a single round of revisions. Somewhere a compliance officer is checking
+      whether the system glitched.
+    - >-
+      First-pass IRB approval for "{what}". Screenshot the letter. You will need it the next time you tell
+      this story and someone says you are lying.
+  reward:
+    type: Protocol Box
+    tier: Legendary
+
+- id: tenure
+  trigger: manual
+  title:
+    - "Tenured."
+  body:
+    - >-
+      You have been granted tenure by {where}. Years of dossiers, external letters and annual reviews, reduced to one
+      vote. You are now permanent. So is the committee work.
+  reward:
+    type: Tenure Box
+    tier: Celestial

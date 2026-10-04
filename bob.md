@@ -8,7 +8,7 @@ deadline: null
 target: Personal academic website with CV, about page, and blog
 effort_remaining: monitoring (annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-09-27
+last_updated: 2026-10-03
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -25,38 +25,38 @@ sync: github
 
 ## Start Here Next Session
 
-- Nothing in flight. Last push `e21c91b` (career-rank stickers + re-framed finals) is live; working tree clean as of 2026-09-27.
-  Session logs for 09-27: `logs/skilltree/2026-09-27_milestone-ladders.md` (h/i10 ladders, six paper-cited variants,
-  archival replay, origin-bucket bug, EJS blank-line trap), `logs/skilltree/2026-09-27_rank-markers.md` (rank markers,
-  art, bananarama in-place shrink), `logs/2026-09-27_cincinnati-news-cv.md` (CV talk, first news photo).
-- If a few weeks have passed: `Rscript 5_skilltree/R/refresh.R`, then commit the snapshot, `www/scholar.json`,
-  `5_skilltree/data/achievements_log.yml` and `www/tree.json`.
-- Check Crossref for entry 27 (Nature) volume/pages and entry 28 (AJPH) DOI before touching `articles.yml`.
+- IN FLIGHT, uncommitted: Necromancy, manual events, automatic review counts and article/review milestone ladders,
+  built and verified 2026-10-03, forward only (`logs/skilltree/2026-10-03_necromancy-manual.md`). Ready to commit;
+  push needs Peter's yes. Review count (16) now read from the `/bob review` Archive table. Next `refresh.R` fires the
+  review Bronze (10 rung) + article Silver.
+- Crossref still empty for entry 27 (Nature) volume/pages and entry 28 (AJPH) DOI (checked 2026-10-03).
+- If a few weeks have passed since 09-27: `Rscript 5_skilltree/R/refresh.R`, then commit the snapshot,
+  `www/scholar.json`, `5_skilltree/data/achievements_log.yml` and `www/tree.json`.
 - Publications change in `5_skilltree/data/articles.yml`, never in the CV: edit → rate in the Shiny app if new →
   `build_tree.R` + `render_cv_pubs.R` → commit. A new venue also needs its JCR year in `5_skilltree/data/jcr/`
   and `build_journals.R` rerun.
-- Backlog is listed under Upcoming Milestones; none of it is scheduled.
 
 ## This Week
-- DONE 2026-09-27: career-rank markers on the skill tree with three generated stickers ($0.41); see
-  `logs/skilltree/2026-09-27_rank-markers.md`. Live.
-- [ ] Periodic stats refresh (`Rscript 5_skilltree/R/refresh.R` → commit snapshot, `www/scholar.json`,
-  `5_skilltree/data/achievements_log.yml`, `www/tree.json`) — only if not run in the last few weeks
+- [ ] Commit (and push, on Peter's yes) the achievements build
+- [ ] Stats refresh check — not due (last run 2026-09-27); run `refresh.R` only once a few weeks have passed
 - Otherwise monitoring only; nothing scheduled
 
 ## Upcoming Milestones
 
 - TBD: volume/issue/pages for entry 27 (Schwaba et al., Nature, doi:10.1038/s41586-026-10992-9) — set
   `citation:` in `articles.yml` (currently "online first"), rerun `render_cv_pubs.R`. Still online first at
-  last check (2026-09-19).
+  last check (2026-10-03).
 - TBD: DOI, then volume/pages, for entry 28 (Tanksley, Logan, & Barnes, AJPH, in press) — set `doi:`,
   `status: published`, `citation:` in `articles.yml`; the homepage and research-page `.worklist` blocks are
-  hand-written and need the same edit. No DOI at last check (2026-09-19).
+  hand-written and need the same edit. No DOI at last check (2026-10-03).
 - June/July 2027: new JCR year — export all 22 journals into `5_skilltree/data/jcr/jcr_<year>.csv`, run
   `build_journals.R` then `build_tree.R`, commit. Clears nearest-year flags on papers published earlier that year.
 - Backlog, unscheduled: phase stickers beside the matching Research-page sections;
-  achievements extras (total-citation ladder, manual talks/grants/awards, box-reward variants; h/i10 ladders done 09-27 —
-  proposals in `logs/skilltree/2026-09-19_achievements-rules.md`).
+  achievements extras (total-citation ladder, box-reward variants; h/i10 ladders done 09-27, Necromancy + manual
+  events built 10-03; reviews from the `/bob review` archive later — proposals in `logs/skilltree/2026-09-19_achievements-rules.md`); Peter to review drafted achievement
+  wording (live but unreviewed since 09-19; fix + `--replay`); optional wide scene on the Projects page
+  (`logs/2026-09-22_trapdoor-scene.md`); fun-feature list (404 dungeon floor first) in
+  `logs/2026-10-01_fun-ideas.md`.
 
 ## Notes
 

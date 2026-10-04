@@ -80,6 +80,11 @@ is the one way to rewrite history from today's rules.
 | `ladder` on a root paper's descendants (`lineage`, from `builds_on`), 1 / 3 / 5 / 10 | founding a guild | Silver, Gold, Platinum, Legendary; Heirloom Box |
 | `ladder` on a paper's OpenAlex year percentile, 97 / 98 / 99 / 100, papers two calendar years old (`min_age`) | "first crawler to": relative standing | Silver, Gold, Platinum, Legendary |
 | `round every: 100` on total citations | crossing a count | Silver at 100s, Gold at 500, Platinum at 1000 |
+| `revival` on a dormant paper's OpenAlex count (Necromancy, 2026-10-03) | raising the dead | Gold, flat; Phylactery Box (Archive Box on mortality papers) |
+| hand-logged events (`trigger: manual`, 2026-10-03) | Benefactor boxes, boss kills | talk Silver, grant Gold, award Platinum, media Bronze, IRB first try Legendary, tenure Celestial |
+| `step` on `career.reviews`, forward only (2026-10-03) | doing the job anyway | Bronze Reviewer 2 Box, every review |
+| `ladder` on `career.reviews` 10 / 25 / 50 / 100 | crossing a count | Bronze at every rung: reviews have a Bronze ceiling, ever |
+| `ladder` on `career.articles` 10 / 20 / 30 / 50 / 100 | crossing a count | Bronze, Silver, Gold, Platinum, Legendary; Bibliography Box |
 | Celestial | never | tenure, if it comes; nothing else |
 
 Peter, 2026-09-19: "attainable, not rock-star." With 30 papers (7 at zero, 8 at one to nine, 15 at ten to
@@ -113,10 +118,44 @@ papers downstream of it (children, grandchildren ...); 0 for anything mid-lineag
 is added with a `builds_on`, i.e. on the refresh after `add_article.R`. The 2026-09-20 snapshot was backfilled
 so the three existing roots (LEO mortality 2025, Gonzalez 2025, Raffington 2022; two descendants each) fired then.
 
+**Necromancy** (Peter, 2026-10-01; built 2026-10-03). A paper is dormant at a snapshot when it is at least three
+calendar years old and has no citations in the last complete calendar year *or* so far in the current one; the next
+snapshot that shows its OpenAlex count rise, with the new citations landing in that window or later in `by_year`,
+raises it. The current-year condition keeps a paper that already woke up from firing again on every later snapshot;
+the `by_year` condition guards against OpenAlex dedup jitter. One flat Gold box (no ladder on how long it was silent;
+the body says how long, `{silent}`). A paper can rise again if it dies again, since the key carries the date. Data:
+`fetch_scholar.R` stores OpenAlex `counts_by_year` as `articles.<id>.by_year` (`{"2023": 4, ...}`; `{}` = never cited,
+`null` = no record). Snapshots before 2026-10-03 lack it, so nothing fires across them. **Guardrail:** papers tagged
+`mortality` in `articles.yml` (`tags`, a judgement field `extract_cv.R` preserves) take the rule's `by_tag` wording:
+the paper wakes, is dusted off, turns up in the archive; never rising-from-the-dead imagery near a paper about people
+who died. Same "first blood" problem as 09-19.
+
+**Forward only** (Peter, 2026-10-03): achievements pop up as things happen. No dump of the past on entering the
+dungeon. The one exception is a cumulative milestone (30th article, 50th review), which counts the whole history and
+may fire once, at the rung already reached, on the first snapshot that records the count. Per-event rules on a new
+metric carry `forward_only: true`, so they stay silent until the metric has a previous value.
+
+**Manual achievements** (Peter, 2026-10-01; built 2026-10-03). `data/achievements_manual.yml` is append-only, one
+entry per event `{kind, date, what, where, note?, approx?, slug?}`, logged as it happens (no CV backfill). Each
+`kind` is a `trigger: manual` rule in `achievements.yml` (same register: title variants, fact then mock, reward).
+`--log` renders events not yet in the ledger (key `<kind>-<date>-<slug>`, `source: manual`); `--replay` keeps them as
+written like everything else. `approx: month | year` covers a date known only that precisely; the ledger then carries
+`when`, which the page prints in place of a day, and a date group of events is labelled *Event*, not *Snapshot*.
+Manual entries have no `article`, so they sit on the origin's character sheet. R&R and desk-reject kinds were
+planned and dropped the same day (Peter: they would never get logged).
+
+**Career counts and reviews** (2026-10-03). `fetch_scholar.R` writes `career: {articles, reviews}` into each
+snapshot from `data/career.yml`: articles = CV-numbered entries in `articles.yml` (published + in press), reviews = rows
+of the `/bob review` card's `## Archive` table, one per submitted round (so `/bob review done` is all it takes; history
+back to 2024 reconstructed into the table 2026-10-03, 16 rounds). **Only the count is ever published**: no journal, manuscript id or submission date reaches the
+snapshot, ledger or site, and a review achievement is dated to the refresh, because a public journal + date could let
+an author identify a blind reviewer. If the card is unreachable, the previous count is kept with a warning.
+
 **Box types**, themed to the feat as the books do. In use: Appendix Box (total citations), Flask Box /
 Handcuff Box / Challenge Coin Box (per-paper, by domain, matching the phase stickers), Adventurer Box (tied
-domains), Heirloom Box (starting a lineage), Committee Box (h-index and i10 milestones, 2026-09-27). Not yet used:
-Coauthor Box, Reviewer 2 Box, Postdoc Box (junk tier by definition), Grant Box (Benefactor analogue: someone else paid).
+domains), Heirloom Box (starting a lineage), Committee Box (h-index and i10 milestones, 2026-09-27), Phylactery / Archive Box
+(Necromancy), Reviewer 2 and Bibliography Boxes (career counts), and for manual events Podium, Grant (Benefactor
+analogue: someone else paid), Laurel, Soundbite, Protocol and Tenure Boxes (2026-10-03). Not yet used: Coauthor Box, Postdoc Box (junk tier by definition).
 
 **Rendering** (2026-09-20; Peter: gold numeral, career achievements on the origin, achievements separate from
 the news stream). Four surfaces, all reading the ledger:

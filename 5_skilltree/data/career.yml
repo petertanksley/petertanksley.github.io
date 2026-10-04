@@ -1,0 +1,11 @@
+# career.yml — inputs for the cumulative career counts fetch_scholar.R writes into each snapshot (`career.*`), which
+# the cumulative achievement ladders in achievements.yml read. Peter, 2026-10-03: achievements fire moving forward;
+# the only retrospective ones are cumulative milestones (30th article, 50th review), and those count the whole history.
+#
+# Reviews = rows of the ## Archive table on the /bob review queue card, one per submitted round (bob appends a row on
+# `/bob review done`; the history back to 2024 was reconstructed into it 2026-10-03). Only the COUNT reaches the
+# snapshot, the ledger and the site: never a journal, a manuscript id or a submission date. A public journal + date
+# could let an author identify their blind reviewer. If the card is not reachable (another machine, OneDrive not
+# synced), the previous snapshot's count is kept.
+
+review_archive: ~/Library/CloudStorage/OneDrive-TexasStateUniversity/Non_work_work/Journals/reviews/bob.md

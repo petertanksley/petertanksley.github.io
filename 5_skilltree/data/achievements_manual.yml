@@ -1,0 +1,15 @@
+# achievements_manual.yml — hand-appended log of events the citation record cannot see (talks, grants, awards ...).
+# One entry per event. check_achievements.R --log renders new entries into data/achievements_log.yml with the matching
+# `trigger: manual` rule in achievements.yml; once in the ledger an entry is archival (editing it here changes nothing
+# already earned). Append; do not reorder or delete.
+#
+#   kind    talk | grant | award | media | irb_first_try | tenure   (reviews are counted automatically: data/career.yml)
+#   date    YYYY-MM-DD; when only the month or year is known, use the 1st and set approx: month | year
+#   what    the title (talk, grant, award, paper, outlet piece), as it should read in quotes
+#   where   venue / funder / conferring body / journal, read as "to {where}", "from {where}", "for {where}"
+#   note    optional, {note} in a template
+#   slug    optional; needed only when two events share a title and an (approximate) date
+#
+# Forward only (Peter, 2026-10-03): log events as they happen. No backfill from the CV; the dungeon does not dump the
+# past on you. Cumulative milestones (career.* ladders) are the one place history counts.
+
