@@ -704,6 +704,16 @@ aside.skilltree-panel {
   .sp-venue-yr  { color: var(--sp-soft); font-size: 0.78rem; }
   .sp-venue-tier { color: var(--sp-gold); font-size: 0.8rem; .pips { letter-spacing: 0.1em; margin-right: 0.15rem; } }
   .sp-venue-note { color: var(--sp-soft); font-size: 0.76rem; font-style: italic; margin: 0 0 0.9rem; }
+  .sp-cites { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.7rem; font-size: 0.84rem; margin: 0 0 0.9rem; }
+  .sp-cites-n   { color: var(--sp-fg); }
+  .sp-cites-src { color: var(--sp-soft); font-size: 0.78rem; }
+  .sp-cites-none { color: var(--sp-soft); font-style: italic; }
+  .sp-cites-bars { flex: 0 0 100%; display: flex; align-items: flex-end; gap: 3px; height: 44px; margin-top: 0.35rem;
+    border-bottom: 1px solid var(--sp-rule);
+    .b { flex: 1 1 0; height: 100%; display: flex; align-items: flex-end; }
+    .b > span { display: block; width: 100%; background: var(--node, var(--sp-fg)); border-radius: 2px 2px 0 0; } }
+  .sp-cites-axis { flex: 0 0 100%; display: flex; justify-content: space-between; color: var(--sp-soft);
+    font-family: $font-family-monospace; font-size: 0.68rem; margin-top: 0.15rem; }
   .sp-blurb { margin: 0 0 1.1rem; }
   .sp-blurb.pending { color: var(--sp-soft); font-style: italic; }
   .sp-h { font-family: $font-family-monospace; font-size: 0.72rem; color: var(--sp-soft); letter-spacing: 0.04em;

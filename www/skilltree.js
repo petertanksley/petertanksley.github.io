@@ -62,7 +62,9 @@
   function tooltipHTML(n, credit, areas) {
     const jif = n.impact && n.impact.jif != null ? `${pipsHTML(n.impact.tier)}${n.impact.tier ? ' ' : ''}JIF ${fmtJIF(n.impact.jif)}` : '';
     const ach = n.achievements && n.achievements.n ? `<span class="num" title="${esc(achPlural(n.achievements.n))}">${roman(n.achievements.n)}</span>` : '';
-    const meta = [n.year, n.venue, STATUS_LABELS[n.status]].filter(Boolean).join(' · ') + (jif ? ` · ${jif}` : '') + (ach ? ` · ${ach}` : '');
+    const cites = n.cites && n.cites.n > 0 ? `${n.cites.n} cite${n.cites.n === 1 ? '' : 's'}` : '';
+    const meta = [n.year, n.venue, STATUS_LABELS[n.status]].filter(Boolean).join(' · ') + (jif ? ` · ${jif}` : '') +
+                 (cites ? ` · ${cites}` : '') + (ach ? ` · ${ach}` : '');
     const pos = (n.author_position && n.authors_n)
       ? `author ${n.author_position} of ${n.authors_n}`
       : (n.author_position ? `author ${n.author_position}` : '');
@@ -160,6 +162,7 @@
   const EFFORT_LABELS = { 1: 'light', 2: 'modest', 3: 'substantial', 4: 'heavy', 5: 'consuming' };
   function ordinal(k) { const s = ['th', 'st', 'nd', 'rd'], v = k % 100; return k + (s[(v - 20) % 10] || s[v] || s[0]); }
   let EDGES = [], NODE_BY_ID = {}, nodeToggles = {};   // filled in draw(); lineage links in the panel read them
+  let CITES = null;    // tree.meta.cites: source and as-of date for the panel's citation block
   let IMPACT = null;   // tree.meta.impact: tier cutoffs, label and the one-line definition the panel prints
   const fmtJIF = v => (v == null ? '' : Number(v).toFixed(1));
   const pipsHTML = k => k > 0 ? `<span class="pips" aria-hidden="true">${'\u25CF'.repeat(k)}</span>` : '';
@@ -191,6 +194,25 @@
     return `<div class="sp-venue"><span class="sp-venue-jif">Impact factor ${esc(fmtJIF(im.jif))}</span>` +
            `<span class="sp-venue-yr">${yr}</span>${badge}</div>` +
            (IMPACT && IMPACT.note ? `<p class="sp-venue-note">${esc(IMPACT.note)} ${esc(IMPACT.source || '')}.</p>` : '');
+  }
+  // citations (2026-10-04): the Google Scholar count and Scholar's per-year histogram, one bar per year from
+  // publication to the as-of year (missing years are zeros). Nothing for a paper Scholar has no row for; a short
+  // line for one it has but nobody has cited yet. Scholar only, never OpenAlex.
+  function citesHTML(n) {
+    const c = n.cites; if (!c) return '';
+    if (!c.n) return `<div class="sp-cites"><span class="sp-cites-none">No citations yet.</span></div>`;
+    const by = c.by_year || {};
+    const ys = Object.keys(by).map(Number);
+    const asOf = CITES && CITES.as_of ? Number(String(CITES.as_of).slice(0, 4)) : new Date().getFullYear();
+    const y0 = Math.min(n.year, ...ys), y1 = Math.max(asOf, ...ys);
+    const years = []; for (let y = y0; y <= y1; y++) years.push(y);
+    const max = Math.max(1, ...years.map(y => by[y] || 0));
+    const bars = ys.length ? `<div class="sp-cites-bars" role="img" aria-label="Citations by year: ${esc(years.map(y => `${y} ${by[y] || 0}`).join(', '))}">` +
+      years.map(y => { const v = by[y] || 0;
+        return `<span class="b" title="${y}: ${v}"><span style="height:${v ? Math.max(6, Math.round(100 * v / max)) : 0}%"></span></span>`; }).join('') +
+      `</div><div class="sp-cites-axis"><span>${y0}</span><span>${y1}</span></div>` : '';
+    return `<div class="sp-cites"><span class="sp-cites-n">${c.n.toLocaleString('en-US')} citation${c.n === 1 ? '' : 's'}</span>` +
+           `<span class="sp-cites-src">${esc((CITES && CITES.source) || 'Google Scholar')}</span>${bars}</div>`;
   }
   function kinHTML(n) {
     const row = id => { const k = NODE_BY_ID[id]; return k
@@ -232,7 +254,7 @@
     return `<div class="sp-eyebrow">${esc(n.year)} · ${esc(ROLE_LABELS[n.role] || n.role)}</div>` +
            `<h2 class="sp-title">${esc(n.title)}</h2>` +
            `<div class="sp-meta">${esc(meta)}</div>` +
-           venueHTML(n) +
+           venueHTML(n) + citesHTML(n) +
            (authors ? `<div class="sp-authors">${esc(authors)}</div>` : '') +
            blurb + areaDots + kinHTML(n) + achHTML(n.achievements) +
            `<div class="sp-h">What I did</div>` + contrib +
@@ -366,6 +388,7 @@
     const credit = m.credit || Object.keys(CREDIT_LABELS);
     if (m.areas) AREAS_ORDER = m.areas;
     IMPACT = m.impact || null;
+    CITES = m.cites || null;
     ACH = m.achievements || null;
     ORIGIN_ACH = (m.origin && m.origin.achievements) || null;
     // roman numeral in the bottom corner, upright and centred on the bottom vertex (Peter, 2026-09-20: not rotated):

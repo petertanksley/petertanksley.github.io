@@ -257,6 +257,19 @@ ach_pack <- function(entries) {
 # origin's bucket came back NULL for the feature's first three months (caught 2026-09-27 by the first h-index entry)
 CAREER <- "__career__"
 ach_by_article <- split(ledger, map_chr(ledger, ~ .x$article %||% CAREER))
+# ---- citations (2026-10-04) -----------------------------------------------------------------
+# Google Scholar only (Peter, 2026-10-04): the per-paper count for the tooltip and the panel, and Scholar's per-year
+# histogram for the panel's bars. Read from www/scholar.json (fetch_scholar.R); OpenAlex is never put on display.
+# NULL when the paper has no Scholar row (in press, or not yet indexed): the page then shows nothing.
+scholar_file <- here("www", "scholar.json")
+SCH <- if (file.exists(scholar_file)) jsonlite::read_json(scholar_file) else { message("no www/scholar.json; no citation counts"); NULL }
+cites_of <- function(a) {
+  r <- SCH$articles[[a$id]]; if (is.null(r) || is.null(r$scholar)) return(NULL)
+  by <- r$scholar_by_year %||% list()
+  list(n = as.integer(r$scholar),
+       by_year = if (length(by)) map(set_names(names(by)), ~ as.integer(by[[.x]])) else setNames(list(), character()))
+}
+CITES_AS_OF <- SCH$meta$fetched %||% NA
 
 # ---- assemble JSON --------------------------------------------------------------------------
 nodes <- map2(arts, seq_along(arts), function(a, i) {
@@ -274,6 +287,7 @@ nodes <- map2(arts, seq_along(arts), function(a, i) {
     scored = !any(map_lgl(a$contribution[CREDIT], is.null)),
     effort = na_if_null(a$effort), effort_note = na_if_null(a$effort_note), blurb = na_if_null(a$blurb),
     impact = impact_of(a),
+    cites = cites_of(a),
     achievements = ach_pack(ach_by_article[[a$id]]),
     sticker_src = paste0("www/hex/sm/", sticker_name[i], ".png"),
     x = round(r$x, 1), y = round(r$y, 1), ring = r$ring, q = r$q, r = r$r,
@@ -322,6 +336,7 @@ tree <- list(
            from = if (is.null(prev)) NULL else list(id = prev$id, title = prev$title, sticker_src = paste0("www/hex/sm/", rank_src[i - 1], ".png")))
     }),
     areas = names(AREAS), credit = CREDIT,
+    cites = list(source = "Google Scholar", as_of = CITES_AS_OF),
     impact = list(tiers = IMPACT_TIERS, lag = JIF_LAG, label = IMPACT_LABEL, note = impact_note,
                   source = if (length(journals)) "Journal Citation Reports (Clarivate)" else NA),
     achievements = list(label = ACH_LABEL, page = ACH_PAGE, total = length(ledger),

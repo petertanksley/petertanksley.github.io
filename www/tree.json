@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-10-04 09:39",
+    "generated": "2026-10-04 10:46",
     "hex_w": 100,
     "hex_h": 115.47,
     "width": 2781,
@@ -230,6 +230,10 @@
     ],
     "areas": ["biosocial", "criminology", "responders"],
     "credit": ["conceptualization", "data", "analysis", "methods", "writing", "supervision"],
+    "cites": {
+      "source": "Google Scholar",
+      "as_of": "2026-10-04 10:46"
+    },
     "impact": {
       "tiers": [5, 10, 25],
       "lag": 1,
@@ -292,6 +296,7 @@
         "tier": 1,
         "quartile": "Q1"
       },
+      "cites": null,
       "achievements": null,
       "sticker_src": "www/hex/sm/tanksley_2026_correctional.png",
       "x": 2082.4,
@@ -349,6 +354,13 @@
         "nearest": false,
         "tier": 3,
         "quartile": "Q1"
+      },
+      "cites": {
+        "n": 33,
+        "by_year": {
+          "2025": 9,
+          "2026": 23
+        }
       },
       "achievements": null,
       "sticker_src": "www/hex/sm/schwaba_2026_robust.png",
@@ -408,6 +420,10 @@
         "tier": 0,
         "quartile": "Q4"
       },
+      "cites": {
+        "n": 0,
+        "by_year": {}
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/mcallister_2026_inflammation.png",
       "x": 2082.4,
@@ -465,6 +481,12 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q1"
+      },
+      "cites": {
+        "n": 1,
+        "by_year": {
+          "2026": 1
+        }
       },
       "achievements": null,
       "sticker_src": "www/hex/sm/eleuterio-da-rocha_2026_striking.png",
@@ -524,6 +546,12 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "cites": {
+        "n": 3,
+        "by_year": {
+          "2026": 3
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/wooldredge_2026_upstream.png",
       "x": 834.4,
@@ -581,6 +609,10 @@
         "nearest": false,
         "tier": 1,
         "quartile": "Q1"
+      },
+      "cites": {
+        "n": 0,
+        "by_year": {}
       },
       "achievements": null,
       "sticker_src": "www/hex/sm/tanksley_2026_clarifying.png",
@@ -640,6 +672,10 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "cites": {
+        "n": 0,
+        "by_year": {}
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/martaindale_2026_public.png",
       "x": 2238.4,
@@ -697,6 +733,12 @@
         "nearest": false,
         "tier": 1,
         "quartile": "Q1"
+      },
+      "cites": {
+        "n": 6,
+        "by_year": {
+          "2026": 6
+        }
       },
       "achievements": {
         "n": 1,
@@ -769,6 +811,12 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "cites": {
+        "n": 6,
+        "by_year": {
+          "2026": 5
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/blair_2025_we.png",
       "x": 886.4,
@@ -826,6 +874,10 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q1"
+      },
+      "cites": {
+        "n": 0,
+        "by_year": {}
       },
       "achievements": null,
       "sticker_src": "www/hex/sm/blair_2025_active.png",
@@ -885,6 +937,14 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "cites": {
+        "n": 19,
+        "by_year": {
+          "2024": 3,
+          "2025": 6,
+          "2026": 10
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/desteiguer_2025_stability.png",
       "x": 886.4,
@@ -942,6 +1002,13 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q3"
+      },
+      "cites": {
+        "n": 5,
+        "by_year": {
+          "2025": 2,
+          "2026": 2
+        }
       },
       "achievements": {
         "n": 1,
@@ -1014,6 +1081,13 @@
         "tier": 0,
         "quartile": "Q3"
       },
+      "cites": {
+        "n": 6,
+        "by_year": {
+          "2025": 1,
+          "2026": 3
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/mcallister_2025_markers.png",
       "x": 1978.4,
@@ -1071,6 +1145,15 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q1"
+      },
+      "cites": {
+        "n": 31,
+        "by_year": {
+          "2023": 2,
+          "2024": 1,
+          "2025": 17,
+          "2026": 9
+        }
       },
       "achievements": null,
       "sticker_src": "www/hex/sm/tanksley_2024_polygenic.png",
@@ -1130,6 +1213,14 @@
         "tier": 1,
         "quartile": "Q1"
       },
+      "cites": {
+        "n": 4,
+        "by_year": {
+          "2024": 1,
+          "2025": 1,
+          "2026": 2
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/barnes_2024_risk.png",
       "x": 938.4,
@@ -1187,6 +1278,15 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q1"
+      },
+      "cites": {
+        "n": 16,
+        "by_year": {
+          "2023": 2,
+          "2024": 4,
+          "2025": 6,
+          "2026": 4
+        }
       },
       "achievements": null,
       "sticker_src": "www/hex/sm/willems_2024_self.png",
@@ -1246,6 +1346,14 @@
         "tier": 0,
         "quartile": "Q2"
       },
+      "cites": {
+        "n": 15,
+        "by_year": {
+          "2024": 4,
+          "2025": 5,
+          "2026": 6
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/tanksley_2023_history.png",
       "x": 678.4,
@@ -1304,6 +1412,15 @@
         "tier": 0,
         "quartile": "Q2"
       },
+      "cites": {
+        "n": 30,
+        "by_year": {
+          "2023": 3,
+          "2024": 7,
+          "2025": 11,
+          "2026": 9
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/williams_2023_guidelines.png",
       "x": 1094.4,
@@ -1361,6 +1478,16 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q1"
+      },
+      "cites": {
+        "n": 39,
+        "by_year": {
+          "2022": 2,
+          "2023": 1,
+          "2024": 8,
+          "2025": 16,
+          "2026": 12
+        }
       },
       "achievements": {
         "n": 1,
@@ -1433,6 +1560,15 @@
         "tier": 3,
         "quartile": "Q1"
       },
+      "cites": {
+        "n": 31,
+        "by_year": {
+          "2023": 1,
+          "2024": 8,
+          "2025": 11,
+          "2026": 9
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/wertz_2023_genetic.png",
       "x": 990.4,
@@ -1491,6 +1627,16 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "cites": {
+        "n": 36,
+        "by_year": {
+          "2022": 1,
+          "2023": 3,
+          "2024": 7,
+          "2025": 11,
+          "2026": 13
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/langevin_2022_life.png",
       "x": 834.4,
@@ -1548,6 +1694,17 @@
         "nearest": false,
         "tier": 2,
         "quartile": "Q1"
+      },
+      "cites": {
+        "n": 65,
+        "by_year": {
+          "2021": 1,
+          "2022": 4,
+          "2023": 12,
+          "2024": 15,
+          "2025": 14,
+          "2026": 19
+        }
       },
       "achievements": {
         "n": 1,
@@ -1620,6 +1777,15 @@
         "tier": 0,
         "quartile": "Q2"
       },
+      "cites": {
+        "n": 7,
+        "by_year": {
+          "2023": 2,
+          "2024": 3,
+          "2025": 1,
+          "2026": 1
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/liu_2022_incarceration.png",
       "x": 782.4,
@@ -1677,6 +1843,16 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q2"
+      },
+      "cites": {
+        "n": 13,
+        "by_year": {
+          "2022": 3,
+          "2023": 3,
+          "2024": 4,
+          "2025": 0,
+          "2026": 3
+        }
       },
       "achievements": null,
       "sticker_src": "www/hex/sm/liu_2021_adolescent.png",
@@ -1736,6 +1912,18 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "cites": {
+        "n": 35,
+        "by_year": {
+          "2020": 1,
+          "2021": 2,
+          "2022": 8,
+          "2023": 8,
+          "2024": 5,
+          "2025": 4,
+          "2026": 5
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/tanksley_2020_identifying.png",
       "x": 1094.4,
@@ -1793,6 +1981,19 @@
         "nearest": false,
         "tier": 0,
         "quartile": "Q2"
+      },
+      "cites": {
+        "n": 29,
+        "by_year": {
+          "2019": 2,
+          "2020": 2,
+          "2021": 3,
+          "2022": 4,
+          "2023": 4,
+          "2024": 5,
+          "2025": 5,
+          "2026": 3
+        }
       },
       "achievements": null,
       "sticker_src": "www/hex/sm/barnes_2019_propensity.png",
@@ -1852,6 +2053,18 @@
         "tier": 0,
         "quartile": null
       },
+      "cites": {
+        "n": 13,
+        "by_year": {
+          "2020": 1,
+          "2021": 0,
+          "2022": 1,
+          "2023": 3,
+          "2024": 2,
+          "2025": 4,
+          "2026": 1
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/tanksley_2019_genome.png",
       "x": 1094.4,
@@ -1910,6 +2123,18 @@
         "tier": 0,
         "quartile": "Q1"
       },
+      "cites": {
+        "n": 10,
+        "by_year": {
+          "2019": 1,
+          "2020": 1,
+          "2021": 0,
+          "2022": 2,
+          "2023": 3,
+          "2024": 2,
+          "2025": 1
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/motz_2019_every.png",
       "x": 1146.4,
@@ -1961,6 +2186,12 @@
       "effort_note": null,
       "blurb": null,
       "impact": null,
+      "cites": {
+        "n": 1,
+        "by_year": {
+          "2026": 1
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/fraemke_2026_developmental.png",
       "x": 782.4,
@@ -2012,6 +2243,12 @@
       "effort_note": null,
       "blurb": null,
       "impact": null,
+      "cites": {
+        "n": 1,
+        "by_year": {
+          "2026": 1
+        }
+      },
       "achievements": null,
       "sticker_src": "www/hex/sm/williams_2026_genomic.png",
       "x": 938.4,

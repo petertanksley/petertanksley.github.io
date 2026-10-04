@@ -54,6 +54,7 @@ parse_history <- function(h) {
 parse_pubs_raw <- function(h) {
   rows <- h |> html_elements(".gsc_a_tr")
   data.frame(title = rows |> html_element(".gsc_a_at") |> html_text(),
+             pubid = rows |> html_element(".gsc_a_at") |> html_attr("href") |> str_extract("(?<=:)[^:&]+$"),
              year  = rows |> html_element(".gsc_a_y") |> html_text() |> as.integer(),
              cites = rows |> html_element(".gsc_a_c") |> html_text() |> str_remove("\\*") |> as.integer(),
              stringsAsFactors = FALSE)
@@ -62,7 +63,7 @@ fetch_scholar <- function() {
   h <- scholar_page()
   stats <- parse_stats(h); hist <- parse_history(h)
   pubs <- tryCatch(
-    { p <- scholar::get_publications(SCHOLAR_ID, flush = TRUE); data.frame(title = p$title, year = p$year, cites = p$cites, stringsAsFactors = FALSE) },
+    { p <- scholar::get_publications(SCHOLAR_ID, flush = TRUE); data.frame(title = p$title, pubid = p$pubid, year = p$year, cites = p$cites, stringsAsFactors = FALSE) },
     error = function(e) { message("scholar::get_publications failed (", conditionMessage(e), "); using the profile page's rows"); parse_pubs_raw(h) })
   pubs$cites[is.na(pubs$cites)] <- 0L
   list(stats = stats, history = hist, pubs = pubs)
@@ -95,7 +96,7 @@ fetch_openalex <- function(dois) {
 norm <- function(x) x |> str_to_lower() |> stringi::stri_trans_general("Latin-ASCII") |> str_replace_all("[^a-z0-9 ]", " ") |> str_squish()
 match_articles <- function(arts, pubs) {
   pn <- norm(pubs$title); used <- rep(FALSE, nrow(pubs))
-  out <- list(); unmatched_art <- character()
+  out <- list(); pubid <- list(); unmatched_art <- character()
   for (a in arts) {
     an <- norm(a$title)
     hit <- which(!used & pn == an)
@@ -107,9 +108,10 @@ match_articles <- function(arts, pubs) {
       ok <- !used & jac >= 0.6 & (is.na(pubs$year) | abs(pubs$year - a$year) <= 1) & !str_detect(pn, "^(correction|corrigendum)")
       if (any(ok)) hit <- which(ok)[which.max(jac[ok])]
     }
-    if (length(hit)) { used[hit[1]] <- TRUE; out[[a$id]] <- pubs$cites[hit[1]] } else unmatched_art <- c(unmatched_art, a$id)
+    if (length(hit)) { used[hit[1]] <- TRUE; out[[a$id]] <- pubs$cites[hit[1]]; pubid[[a$id]] <- pubs$pubid[hit[1]] }
+    else unmatched_art <- c(unmatched_art, a$id)
   }
-  list(cites = out, unmatched_articles = unmatched_art, unmatched_scholar = pubs$title[!used])
+  list(cites = out, pubid = pubid, unmatched_articles = unmatched_art, unmatched_scholar = pubs$title[!used])
 }
 
 # ---- run -------------------------------------------------------------------------------------------
@@ -145,6 +147,31 @@ oa <- if (no_oa) NULL else tryCatch(fetch_openalex(map_chr(arts, ~ .x$doi %||% N
                                     error = function(e) { warning("OpenAlex fetch failed: ", conditionMessage(e), call. = FALSE); NULL })
 
 m <- if (!is.null(sch)) match_articles(arts, sch$pubs) else NULL
+
+# ---- per-article citations by year (2026-10-04) ------------------------------------------------------
+# Scholar's own per-paper histogram (one request per paper), for the bar chart in the skill-tree panel. Only papers
+# whose count moved since the previous snapshot are re-fetched; the rest reuse it, so a routine refresh costs a
+# handful of requests. Paced, and two failures in a row stop the run (Scholar is blocking): those papers keep the
+# previous snapshot's bars. Uncited papers get {} without a request. Scholar only (Peter, 2026-10-04: no OpenAlex on
+# display).
+prev_sby <- function(id) if (!is.null(prev)) prev$articles[[id]]$scholar_by_year else NULL
+scholar_by_year <- list()
+if (!is.null(m)) {
+  fails <- 0L; fetched <- 0L
+  for (id in names(m$cites)) {
+    n <- m$cites[[id]]; old <- prev_sby(id)
+    if (is.na(n) || n == 0) { scholar_by_year[[id]] <- setNames(list(), character()); next }
+    if (!is.null(old) && identical(as.integer(n), as.integer(prev$articles[[id]]$scholar))) { scholar_by_year[[id]] <- old; next }
+    if (fails >= 2 || is.na(m$pubid[[id]] %||% NA)) { scholar_by_year[[id]] <- old; next }
+    Sys.sleep(runif(1, 2, 5))
+    h <- tryCatch(scholar::get_article_cite_history(SCHOLAR_ID, m$pubid[[id]]), error = function(e) NULL)
+    if (is.null(h)) { fails <- fails + 1L; scholar_by_year[[id]] <- old; next }
+    fails <- 0L; fetched <- fetched + 1L
+    scholar_by_year[[id]] <- as.list(setNames(as.integer(h$cites), h$year))
+  }
+  cat(sprintf("per-article history: %d fetched from Scholar%s\n", fetched,
+              if (fails >= 2) "; STOPPED after repeated failures, the rest keep the previous snapshot's bars" else ""))
+}
 # lineage (2026-09-20): for a paper that builds on none of Peter's earlier work, the number of papers downstream of it
 # (children, grandchildren ...); 0 for anything that itself has a builds_on. Static data from articles.yml, carried
 # in the snapshot so check_achievements.R can diff it like any other metric (the "Founder" rule).
@@ -163,7 +190,8 @@ articles <- set_names(map(arts, function(a) {
   by  <- if (!is.null(rec)) rec$by_year else if (!is.null(prev)) prev$articles[[a$id]]$by_year else NULL
   # {} (never cited, but OpenAlex answered) is data and differs from null (no record): a paper never cited in three
   # years is dormant too, and its first citation raises it
-  list(scholar = s, openalex = o, percentile = pct, lineage = lineage[[a$id]], by_year = by)
+  sby <- if (!is.null(m)) scholar_by_year[[a$id]] else prev_sby(a$id)
+  list(scholar = s, scholar_by_year = sby, openalex = o, percentile = pct, lineage = lineage[[a$id]], by_year = by)
 }), ids)
 
 out <- list(

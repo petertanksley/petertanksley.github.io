@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched": "2026-10-04 09:39",
+    "fetched": "2026-10-04 10:46",
     "scholar_id": "YnIBrB8AAAAJ",
     "orcid": "0000-0002-3449-2838",
     "sources": {
@@ -107,6 +107,7 @@
   "articles": {
     "tanksley_2026_correctional": {
       "scholar": null,
+      "scholar_by_year": null,
       "openalex": null,
       "percentile": null,
       "lineage": 0,
@@ -114,6 +115,10 @@
     },
     "schwaba_2026_robust": {
       "scholar": 33,
+      "scholar_by_year": {
+        "2025": 9,
+        "2026": 23
+      },
       "openalex": 1,
       "percentile": null,
       "lineage": 0,
@@ -123,6 +128,7 @@
     },
     "mcallister_2026_inflammation": {
       "scholar": 0,
+      "scholar_by_year": {},
       "openalex": 0,
       "percentile": null,
       "lineage": 0,
@@ -130,6 +136,9 @@
     },
     "eleuterio-da-rocha_2026_striking": {
       "scholar": 1,
+      "scholar_by_year": {
+        "2026": 1
+      },
       "openalex": 0,
       "percentile": null,
       "lineage": 0,
@@ -137,6 +146,9 @@
     },
     "wooldredge_2026_upstream": {
       "scholar": 3,
+      "scholar_by_year": {
+        "2026": 3
+      },
       "openalex": 2,
       "percentile": null,
       "lineage": 0,
@@ -146,6 +158,7 @@
     },
     "tanksley_2026_clarifying": {
       "scholar": 0,
+      "scholar_by_year": {},
       "openalex": 0,
       "percentile": null,
       "lineage": 0,
@@ -153,6 +166,7 @@
     },
     "martaindale_2026_public": {
       "scholar": 0,
+      "scholar_by_year": {},
       "openalex": 0,
       "percentile": null,
       "lineage": 0,
@@ -160,6 +174,9 @@
     },
     "tanksley_2025_mortality": {
       "scholar": 6,
+      "scholar_by_year": {
+        "2026": 6
+      },
       "openalex": 2,
       "percentile": 96,
       "lineage": 2,
@@ -169,6 +186,9 @@
     },
     "blair_2025_we": {
       "scholar": 6,
+      "scholar_by_year": {
+        "2026": 5
+      },
       "openalex": 2,
       "percentile": 96,
       "lineage": 0,
@@ -178,6 +198,7 @@
     },
     "blair_2025_active": {
       "scholar": 0,
+      "scholar_by_year": {},
       "openalex": 0,
       "percentile": null,
       "lineage": 0,
@@ -185,6 +206,11 @@
     },
     "desteiguer_2025_stability": {
       "scholar": 19,
+      "scholar_by_year": {
+        "2024": 3,
+        "2025": 6,
+        "2026": 10
+      },
       "openalex": 9,
       "percentile": 94,
       "lineage": 0,
@@ -195,6 +221,10 @@
     },
     "gonzalez_2025_relationships": {
       "scholar": 5,
+      "scholar_by_year": {
+        "2025": 2,
+        "2026": 2
+      },
       "openalex": 3,
       "percentile": 91,
       "lineage": 2,
@@ -205,6 +235,10 @@
     },
     "mcallister_2025_markers": {
       "scholar": 6,
+      "scholar_by_year": {
+        "2025": 1,
+        "2026": 3
+      },
       "openalex": 2,
       "percentile": 96,
       "lineage": 0,
@@ -214,6 +248,12 @@
     },
     "tanksley_2024_polygenic": {
       "scholar": 31,
+      "scholar_by_year": {
+        "2023": 2,
+        "2024": 1,
+        "2025": 17,
+        "2026": 9
+      },
       "openalex": 13,
       "percentile": 96,
       "lineage": 0,
@@ -224,6 +264,11 @@
     },
     "barnes_2024_risk": {
       "scholar": 4,
+      "scholar_by_year": {
+        "2024": 1,
+        "2025": 1,
+        "2026": 2
+      },
       "openalex": null,
       "percentile": null,
       "lineage": 0,
@@ -231,6 +276,12 @@
     },
     "willems_2024_self": {
       "scholar": 16,
+      "scholar_by_year": {
+        "2023": 2,
+        "2024": 4,
+        "2025": 6,
+        "2026": 4
+      },
       "openalex": 10,
       "percentile": 89,
       "lineage": 0,
@@ -243,6 +294,11 @@
     },
     "tanksley_2023_history": {
       "scholar": 15,
+      "scholar_by_year": {
+        "2024": 4,
+        "2025": 5,
+        "2026": 6
+      },
       "openalex": 10,
       "percentile": 96,
       "lineage": 0,
@@ -254,6 +310,12 @@
     },
     "williams_2023_guidelines": {
       "scholar": 30,
+      "scholar_by_year": {
+        "2023": 3,
+        "2024": 7,
+        "2025": 11,
+        "2026": 9
+      },
       "openalex": 15,
       "percentile": 93,
       "lineage": 0,
@@ -265,6 +327,13 @@
     },
     "raffington_2023_associations": {
       "scholar": 39,
+      "scholar_by_year": {
+        "2022": 2,
+        "2023": 1,
+        "2024": 8,
+        "2025": 16,
+        "2026": 12
+      },
       "openalex": 26,
       "percentile": 98,
       "lineage": 0,
@@ -276,6 +345,12 @@
     },
     "wertz_2023_genetic": {
       "scholar": 31,
+      "scholar_by_year": {
+        "2023": 1,
+        "2024": 8,
+        "2025": 11,
+        "2026": 9
+      },
       "openalex": 18,
       "percentile": 88,
       "lineage": 0,
@@ -289,6 +364,13 @@
     },
     "langevin_2022_life": {
       "scholar": 36,
+      "scholar_by_year": {
+        "2022": 1,
+        "2023": 3,
+        "2024": 7,
+        "2025": 11,
+        "2026": 13
+      },
       "openalex": 20,
       "percentile": 95,
       "lineage": 0,
@@ -301,6 +383,14 @@
     },
     "raffington_2022_socially": {
       "scholar": 65,
+      "scholar_by_year": {
+        "2021": 1,
+        "2022": 4,
+        "2023": 12,
+        "2024": 15,
+        "2025": 14,
+        "2026": 19
+      },
       "openalex": 42,
       "percentile": 93,
       "lineage": 2,
@@ -314,6 +404,12 @@
     },
     "liu_2022_incarceration": {
       "scholar": 7,
+      "scholar_by_year": {
+        "2023": 2,
+        "2024": 3,
+        "2025": 1,
+        "2026": 1
+      },
       "openalex": 4,
       "percentile": 89,
       "lineage": 0,
@@ -324,6 +420,13 @@
     },
     "liu_2021_adolescent": {
       "scholar": 13,
+      "scholar_by_year": {
+        "2022": 3,
+        "2023": 3,
+        "2024": 4,
+        "2025": 0,
+        "2026": 3
+      },
       "openalex": 10,
       "percentile": 88,
       "lineage": 0,
@@ -337,6 +440,15 @@
     },
     "tanksley_2020_identifying": {
       "scholar": 35,
+      "scholar_by_year": {
+        "2020": 1,
+        "2021": 2,
+        "2022": 8,
+        "2023": 8,
+        "2024": 5,
+        "2025": 4,
+        "2026": 5
+      },
       "openalex": 25,
       "percentile": 91,
       "lineage": 0,
@@ -352,6 +464,16 @@
     },
     "barnes_2019_propensity": {
       "scholar": 29,
+      "scholar_by_year": {
+        "2019": 2,
+        "2020": 2,
+        "2021": 3,
+        "2022": 4,
+        "2023": 4,
+        "2024": 5,
+        "2025": 5,
+        "2026": 3
+      },
       "openalex": 60,
       "percentile": 89,
       "lineage": 0,
@@ -368,6 +490,15 @@
     },
     "tanksley_2019_genome": {
       "scholar": 13,
+      "scholar_by_year": {
+        "2020": 1,
+        "2021": 0,
+        "2022": 1,
+        "2023": 3,
+        "2024": 2,
+        "2025": 4,
+        "2026": 1
+      },
       "openalex": 9,
       "percentile": 89,
       "lineage": 0,
@@ -380,6 +511,15 @@
     },
     "motz_2019_every": {
       "scholar": 10,
+      "scholar_by_year": {
+        "2019": 1,
+        "2020": 1,
+        "2021": 0,
+        "2022": 2,
+        "2023": 3,
+        "2024": 2,
+        "2025": 1
+      },
       "openalex": 7,
       "percentile": 88,
       "lineage": 0,
@@ -392,6 +532,9 @@
     },
     "fraemke_2026_developmental": {
       "scholar": 1,
+      "scholar_by_year": {
+        "2026": 1
+      },
       "openalex": 1,
       "percentile": null,
       "lineage": 0,
@@ -401,6 +544,9 @@
     },
     "williams_2026_genomic": {
       "scholar": 1,
+      "scholar_by_year": {
+        "2026": 1
+      },
       "openalex": 0,
       "percentile": null,
       "lineage": 0,

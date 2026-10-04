@@ -27,9 +27,8 @@ sync: github
 
 - Refresh ran 2026-10-04 (Scholar 456, h 13, i10 15); review Bronze + article Silver fired. Mortality-safe lineage
   wording added and the ledger re-rendered; log `logs/skilltree/2026-10-04_refresh-lineage-wording.md`.
-- NEXT ROUND (Peter, 2026-10-03): put per-article citations on the skill tree / stat cards. The counts already sit in
-  every snapshot and `www/scholar.json` (`articles.<id>.scholar`, `.openalex`, `.percentile`); `build_tree.R` reads
-  none of them yet. Decide where they show (hex, panel, tooltip, stats card) before building.
+- Per-article citations live 2026-10-04: Google Scholar only (count in tooltip; count + per-year bars in the panel).
+  OpenAlex stays off display but still feeds Necromancy + percentile achievements; whether to drop it entirely is open.
 - Crossref still empty for entry 27 (Nature) volume/pages and entry 28 (AJPH) DOI (checked 2026-10-03).
 - If a few weeks have passed since 10-04: `Rscript 5_skilltree/R/refresh.R`, then commit the snapshot,
   `www/scholar.json`, `5_skilltree/data/achievements_log.yml` and `www/tree.json`.
