@@ -813,6 +813,14 @@ aside.skilltree-panel {
   .ss-l    { font-size: 0.68rem; color: var(--st-soft); }
   a.ss-ach { text-decoration: none; .ss-n { color: var(--st-gold); letter-spacing: 0.04em; }
              &:hover .ss-l, &:focus-visible .ss-l { color: var(--st-fg); } }
+  // per-year bars (2026-10-04), Scholar-profile style; the partial current year looks like the rest (hover says "to date")
+  .ss-bars { display: flex; align-items: flex-end; gap: 3px; height: 44px; margin-top: 0.55rem; border-bottom: 1px solid var(--st-rule);
+    .b { flex: 1 1 0; min-width: 14px; height: 100%; display: flex; align-items: flex-end; pointer-events: auto; }
+    .bar { display: block; width: 100%; background: var(--st-gold); opacity: 0.75; border-radius: 2px 2px 0 0; }
+    .b:hover .bar { opacity: 1; }
+ }
+  .ss-axis { display: flex; justify-content: space-between; margin-top: 0.15rem; font-family: $font-family-monospace;
+             font-size: 0.62rem; color: var(--st-soft); }
   .ss-foot { margin-top: 0.35rem; font-size: 0.66rem; color: var(--st-soft);
     a { color: var(--st-soft); text-decoration: underline; pointer-events: auto; &:hover { color: var(--st-fg); } } }
 }

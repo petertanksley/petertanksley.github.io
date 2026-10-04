@@ -671,6 +671,18 @@
   const fmtDate = s => { const d = new Date(String(s).replace(' ', 'T')); return isNaN(d) ? String(s) : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); };
   let STATS_JSON = null, TREE_DRAWN = false;
   const maybeStats = () => { if (STATS_JSON && TREE_DRAWN) { drawStats(STATS_JSON); STATS_JSON = null; } };
+  // citations per year, as on the Scholar profile (2026-10-04): one bar per year; the current year's hover text says
+  // "to date" because it is partial. Scholar's own profile histogram (scholar.by_year), not a sum over papers.
+  function yearBars(by, fetched) {
+    if (!by || !by.length) return '';
+    const now = Number(String(fetched || '').slice(0, 4)) || new Date().getFullYear();
+    const max = Math.max(1, ...by.map(d => d.cites));
+    return `<div class="ss-bars" role="img" aria-label="Citations per year: ${esc(by.map(d => `${d.year} ${d.cites}`).join(', '))}">` +
+      by.map(d => { const part = d.year >= now;
+        return `<span class="b" title="${d.year}${part ? ' (to date)' : ''}: ${fmtN(d.cites)}">` +
+               `<span class="bar" style="height:${Math.max(4, Math.round(100 * d.cites / max))}%"></span></span>`; }).join('') +
+      `</div><div class="ss-axis"><span>${by[0].year}</span><span>${by[by.length - 1].year}</span></div>`;
+  }
   function drawStats(j) {
     const sc = j && j.scholar; if (!sc) return;
     const oa = j.openalex || {};
@@ -684,7 +696,7 @@
         `<div class="ss-stat" title="${esc(tip(sc.h_index_5y, oa.h_index))}"><span class="ss-n">${fmtN(sc.h_index)}</span><span class="ss-l">h-index</span></div>` +
         `<div class="ss-stat" title="${esc(tip(sc.i10_5y, oa.i10))}"><span class="ss-n">${fmtN(sc.i10)}</span><span class="ss-l">i10</span></div>` +
         (ACH && ACH.total ? `<a class="ss-stat ss-ach" href="${esc(ACH.page || 'achievements.html')}" title="${esc(achPlural(ACH.total))}${ACH.latest ? ', latest ' + esc(fmtDate(ACH.latest)) : ''}"><span class="ss-n">${esc(roman(ACH.total))}</span><span class="ss-l">achievements</span></a>` : '') +
-      `</div>` +
+      `</div>` + yearBars(sc.by_year, j.meta && j.meta.fetched) +
       `<div class="ss-foot">as of ${esc(fmtDate(j.meta && j.meta.fetched))} \u00b7 <a href="${url}" target="_blank" rel="noopener">profile \u2192</a></div>`;
     root.appendChild(card);
   }
