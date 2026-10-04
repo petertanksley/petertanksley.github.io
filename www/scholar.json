@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched": "2026-09-27 15:54",
+    "fetched": "2026-10-04 09:39",
     "scholar_id": "YnIBrB8AAAAJ",
     "orcid": "0000-0002-3449-2838",
     "sources": {
@@ -9,10 +9,10 @@
     }
   },
   "scholar": {
-    "citations": 451,
-    "citations_5y": 435,
+    "citations": 456,
+    "citations_5y": 440,
     "h_index": 13,
-    "h_index_5y": 12,
+    "h_index_5y": 13,
     "i10": 15,
     "i10_5y": 14,
     "by_year": [
@@ -42,18 +42,18 @@
       },
       {
         "year": 2025,
-        "cites": 127
+        "cites": 126
       },
       {
         "year": 2026,
-        "cites": 146
+        "cites": 151
       }
     ]
   },
   "openalex": {
     "id": "https://openalex.org/A5080880634",
     "works": 52,
-    "citations": 348,
+    "citations": 349,
     "h_index": 10,
     "i10": 13,
     "by_year": [
@@ -84,7 +84,7 @@
       },
       {
         "year": 2023,
-        "cites": 87,
+        "cites": 88,
         "works": 9
       },
       {
@@ -109,181 +109,306 @@
       "scholar": null,
       "openalex": null,
       "percentile": null,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": null
     },
     "schwaba_2026_robust": {
-      "scholar": 32,
+      "scholar": 33,
       "openalex": 1,
       "percentile": null,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 1
+      }
     },
     "mcallister_2026_inflammation": {
       "scholar": 0,
       "openalex": 0,
       "percentile": null,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {}
     },
     "eleuterio-da-rocha_2026_striking": {
-      "scholar": 0,
+      "scholar": 1,
       "openalex": 0,
       "percentile": null,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {}
     },
     "wooldredge_2026_upstream": {
       "scholar": 3,
       "openalex": 2,
       "percentile": null,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 2
+      }
     },
     "tanksley_2026_clarifying": {
       "scholar": 0,
       "openalex": 0,
       "percentile": null,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {}
     },
     "martaindale_2026_public": {
       "scholar": 0,
       "openalex": 0,
       "percentile": null,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {}
     },
     "tanksley_2025_mortality": {
       "scholar": 6,
       "openalex": 2,
       "percentile": 96,
-      "lineage": 2
+      "lineage": 2,
+      "by_year": {
+        "2026": 2
+      }
     },
     "blair_2025_we": {
       "scholar": 6,
       "openalex": 2,
       "percentile": 96,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 2
+      }
     },
     "blair_2025_active": {
       "scholar": 0,
       "openalex": 0,
       "percentile": null,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {}
     },
     "desteiguer_2025_stability": {
       "scholar": 19,
       "openalex": 9,
       "percentile": 94,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 7,
+        "2025": 2
+      }
     },
     "gonzalez_2025_relationships": {
       "scholar": 5,
       "openalex": 3,
       "percentile": 91,
-      "lineage": 2
+      "lineage": 2,
+      "by_year": {
+        "2026": 2,
+        "2025": 1
+      }
     },
     "mcallister_2025_markers": {
       "scholar": 6,
       "openalex": 2,
       "percentile": 96,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 2
+      }
     },
     "tanksley_2024_polygenic": {
       "scholar": 31,
       "openalex": 13,
       "percentile": 96,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 2,
+        "2025": 11
+      }
     },
     "barnes_2024_risk": {
       "scholar": 4,
       "openalex": null,
       "percentile": null,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": null
     },
     "willems_2024_self": {
-      "scholar": 15,
+      "scholar": 16,
       "openalex": 10,
       "percentile": 89,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 1,
+        "2025": 4,
+        "2024": 4,
+        "2023": 1
+      }
     },
     "tanksley_2023_history": {
       "scholar": 15,
       "openalex": 10,
       "percentile": 96,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 3,
+        "2025": 3,
+        "2024": 4
+      }
     },
     "williams_2023_guidelines": {
       "scholar": 30,
       "openalex": 15,
       "percentile": 93,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 1,
+        "2025": 8,
+        "2024": 6
+      }
     },
     "raffington_2023_associations": {
       "scholar": 39,
       "openalex": 26,
       "percentile": 98,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 7,
+        "2025": 9,
+        "2024": 10
+      }
     },
     "wertz_2023_genetic": {
-      "scholar": 30,
-      "openalex": 17,
+      "scholar": 31,
+      "openalex": 18,
       "percentile": 88,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 3,
+        "2025": 4,
+        "2024": 8,
+        "2023": 2,
+        "2021": 1
+      }
     },
     "langevin_2022_life": {
       "scholar": 36,
       "openalex": 20,
       "percentile": 95,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 6,
+        "2025": 6,
+        "2024": 5,
+        "2023": 3
+      }
     },
     "raffington_2022_socially": {
       "scholar": 65,
       "openalex": 42,
       "percentile": 93,
-      "lineage": 2
+      "lineage": 2,
+      "by_year": {
+        "2026": 9,
+        "2025": 10,
+        "2024": 15,
+        "2023": 6,
+        "2022": 2
+      }
     },
     "liu_2022_incarceration": {
       "scholar": 7,
       "openalex": 4,
       "percentile": 89,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2024": 3,
+        "2023": 1
+      }
     },
     "liu_2021_adolescent": {
-      "scholar": 12,
+      "scholar": 13,
       "openalex": 10,
       "percentile": 88,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 2,
+        "2024": 2,
+        "2023": 1,
+        "2022": 4,
+        "2021": 1
+      }
     },
     "tanksley_2020_identifying": {
       "scholar": 35,
       "openalex": 25,
       "percentile": 91,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 5,
+        "2025": 1,
+        "2024": 5,
+        "2023": 4,
+        "2022": 4,
+        "2021": 3,
+        "2020": 3
+      }
     },
     "barnes_2019_propensity": {
       "scholar": 29,
       "openalex": 60,
       "percentile": 89,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 3,
+        "2025": 2,
+        "2024": 3,
+        "2023": 42,
+        "2021": 6,
+        "2020": 2,
+        "2019": 1,
+        "2018": 1
+      }
     },
     "tanksley_2019_genome": {
       "scholar": 13,
       "openalex": 9,
       "percentile": 89,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2025": 3,
+        "2024": 1,
+        "2022": 2,
+        "2020": 3
+      }
     },
     "motz_2019_every": {
       "scholar": 10,
       "openalex": 7,
       "percentile": 88,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2023": 4,
+        "2021": 1,
+        "2020": 1,
+        "2019": 1
+      }
     },
     "fraemke_2026_developmental": {
       "scholar": 1,
       "openalex": 1,
       "percentile": null,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {
+        "2026": 1
+      }
     },
     "williams_2026_genomic": {
-      "scholar": 0,
+      "scholar": 1,
       "openalex": 0,
       "percentile": null,
-      "lineage": 0
+      "lineage": 0,
+      "by_year": {}
     }
+  },
+  "career": {
+    "articles": 28,
+    "reviews": 16
   }
 }
