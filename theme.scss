@@ -595,22 +595,23 @@ $tiers: ("Bronze": #B87A4B, "Silver": #B9BCC6, "Gold": #D9A441, "Platinum": #C9E
     // Hover = highlight + tooltip. CLICK = flip over and pin.
     transition: transform 420ms ease;   // unpinning eases the tile back to size instead of snapping
     // resting shade deepened 0.58 -> 0.74 (2026-09-18): art is a hint at rest and pops hard when lit.
-    // --shade is the resting value; status variants override it and the flip keyframes read it back.
-    --shade: 0.74;
+    // --shade is the resting value; status variants override --shade-base and the flip keyframes read --shade back.
+    // --cite-k (0..1, set per tile by skilltree.js, 2026-10-04) fades the shade out as citations rise.
+    --shade-base: 0.74; --shade: calc(var(--shade-base) * (1 - var(--cite-k, 0)));
     .hex-shade { fill: var(--st-bg); opacity: var(--shade); pointer-events: none; transition: opacity 420ms; }
     .hex-ring  { fill: none; stroke: var(--node); stroke-linejoin: round; transition: stroke-width 160ms, opacity 160ms; }
     &.role-lead         .hex-ring { stroke-width: 6; }
     &.role-contributing .hex-ring { stroke-width: 2; }
-    &.status-preprint, &.status-in_press { .hex-ring { stroke-dasharray: 10 8; } --shade: 0.84; }
+    &.status-preprint, &.status-in_press { .hex-ring { stroke-dasharray: 10 8; } --shade-base: 0.84; }
     // impact pips (2026-09-19): gold, inked outline so they sit on any sticker; drawn above the shade
     .hex-pips { pointer-events: none; circle { fill: var(--st-gold); stroke: var(--st-bg); stroke-width: 1.5; } }
     // muted tier: deeper shade, quieter ring. Visual only; still focusable and clickable.
-    &.muted { --shade: 0.9; .hex-ring { opacity: 0.6; } .hex-pips { opacity: 0.6; } .hex-num { opacity: 0.6; } }
+    &.muted { --shade-base: 0.9; .hex-ring { opacity: 0.6; } .hex-pips { opacity: 0.6; } .hex-num { opacity: 0.6; } }
     // highlight (hover / keyboard focus): ring up, shade eases, nothing moves
-    &:hover, &:focus-visible { .hex-ring { stroke-width: 8; opacity: 1; } .hex-shade { opacity: 0.45; } }
+    &:hover, &:focus-visible { .hex-ring { stroke-width: 8; opacity: 1; } .hex-shade { opacity: min(0.45, var(--shade)); } }
     // revealed (clicked): face-up, lit, lifted a little, ring pulsing
     // strokes scale with the transform, so the lit ring is set thin and reads as ~9px at 3x
-    &.lit { transform: scale(var(--lit)); .hex-shade { opacity: 0; } .hex-ring { stroke-width: 3; opacity: 1; } }
+    &.lit { transform: scale(var(--lit)); .hex-shade { opacity: 0; } .hex-ring { stroke-width: 3; opacity: 1; } image.boosted { filter: none; } }
     &.lit .hex-ring { animation: st-pulse 1.6s ease-in-out infinite; }
     // the flip: one turn from face-away to face-forward. Squeeze on the vertical axis, the shade drops
     // at the midpoint, land upright. Runs once per click.
@@ -817,7 +818,15 @@ aside.skilltree-panel {
   .ss-bars { display: flex; align-items: flex-end; gap: 3px; height: 44px; margin-top: 0.55rem; border-bottom: 1px solid var(--st-rule);
     .b { flex: 1 1 0; min-width: 14px; height: 100%; display: flex; align-items: flex-end; pointer-events: auto; }
     .bar { display: block; width: 100%; background: var(--st-gold); opacity: 0.75; border-radius: 2px 2px 0 0; }
-    .b:hover .bar { opacity: 1; }
+    .b:hover .bar, .b:focus-visible .bar { opacity: 1; }
+    .b { position: relative; outline: none; }
+    .tip { display: none; position: absolute; left: 50%; transform: translateX(-50%); z-index: 3;
+           background: var(--st-bg); border: 1px solid var(--st-rule); border-radius: 3px; padding: 0.1rem 0.4rem;
+           font-family: $font-family-monospace; font-size: 0.68rem; color: var(--st-fg); white-space: nowrap; pointer-events: none; }
+    .tip-yr { color: var(--st-soft); }
+    .b:hover .tip, .b:focus-visible .tip { display: block; }
+    .b:first-child .tip { left: 0; transform: none; }
+    .b:last-child .tip  { left: auto; right: 0; transform: none; }
  }
   .ss-axis { display: flex; justify-content: space-between; margin-top: 0.15rem; font-family: $font-family-monospace;
              font-size: 0.62rem; color: var(--st-soft); }

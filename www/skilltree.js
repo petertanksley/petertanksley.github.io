@@ -509,6 +509,30 @@
       if (on) mine.forEach(el => el.classList.add('hot'));
     };
 
+    // citation brightness (2026-10-04), two stages on one eased scale of Google Scholar citations. The level is
+    // (citations / most cited) ^ CITE_EASE, so brightness creeps up slowly and the top few pull away (Peter: "a slow
+    // ramp up"; linear spread it too evenly). CITE_FULL marks where the level crosses from stage one to stage two:
+    //  0 -> CITE_FULL   the resting shade fades out (--cite-k 0..1; CSS multiplies --shade-base by 1 - k), so a paper
+    //                   at CITE_FULL shows its art at original brightness
+    //  CITE_FULL -> max the art itself is brightened past the original by an SVG filter, up to CITE_BOOST on the
+    //                   most-cited paper (an SVG filter, not CSS brightness(): Safari ignores CSS filters on SVG)
+    // A pinned (lit) tile drops the boost in CSS, so the open card is never blown out.
+    const CITE_FULL = 25, CITE_BOOST = 1.3, CITE_EASE = 1.5;   // CITE_FULL = the paper-cited Gold rung in achievements.yml
+    const citeMax = Math.max(CITE_FULL + 1, ...tree.nodes.map(n => (n.cites && n.cites.n) || 0));
+    const citesOf = n => (n.cites && n.cites.n) || 0;
+    const level = c => Math.pow(c / citeMax, CITE_EASE), LEVEL_FULL = level(CITE_FULL);
+    const citeK = n => Math.min(1, level(citesOf(n)) / LEVEL_FULL).toFixed(3);
+    const boostFilter = n => {
+      const c = citesOf(n); if (c <= CITE_FULL) return null;
+      const b = (1 + (CITE_BOOST - 1) * (level(c) - LEVEL_FULL) / (1 - LEVEL_FULL)).toFixed(3), id = `st-boost-${b.replace('.', '_')}`;
+      if (!defs.querySelector(`#${id}`)) {
+        const f = svgEl('filter', { id, 'color-interpolation-filters': 'sRGB' }, defs);
+        const ct = svgEl('feComponentTransfer', {}, f);
+        ['feFuncR', 'feFuncG', 'feFuncB'].forEach(t => svgEl(t, { type: 'linear', slope: b }, ct));
+      }
+      return `url(#${id})`;
+    };
+
     // nodes
     const gN = svgEl('g', { class: 'nodes' }, svg);
     nodesLayer = gN;
@@ -522,12 +546,13 @@
                     (n.achievements && n.achievements.n ? ` ${achPlural(n.achievements.n)}.` : '');
       const g = svgEl('g', {
         class: cls, tabindex: 0, role: 'button', 'data-id': n.id,
-        'aria-label': label, style: `--node: ${n.colour}`
+        'aria-label': label, style: `--node: ${n.colour}; --cite-k: ${citeK(n)}`
       }, gN);
-      svgEl('image', {
+      const img = svgEl('image', {
         href: n.sticker_src, x: n.x - m.hex_w / 2, y: n.y - m.hex_h / 2,
         width: m.hex_w, height: m.hex_h, preserveAspectRatio: 'xMidYMid meet'
       }, g);
+      const boost = boostFilter(n); if (boost) { img.setAttribute('filter', boost); img.classList.add('boosted'); }
       svgEl('path', { class: 'hex-shade', d: hexPath(n.x, n.y, m.hex_w * 0.99, m.hex_h * 0.99) }, g);
       svgEl('path', { class: 'hex-ring', d: hexPath(n.x, n.y, m.hex_w * 0.96, m.hex_h * 0.96) }, g);
       // impact pips (2026-09-19): 1-3 gold dots running down the hex's upper-right edge from the top vertex,
@@ -671,16 +696,18 @@
   const fmtDate = s => { const d = new Date(String(s).replace(' ', 'T')); return isNaN(d) ? String(s) : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); };
   let STATS_JSON = null, TREE_DRAWN = false;
   const maybeStats = () => { if (STATS_JSON && TREE_DRAWN) { drawStats(STATS_JSON); STATS_JSON = null; } };
-  // citations per year, as on the Scholar profile (2026-10-04): one bar per year; the current year's hover text says
-  // "to date" because it is partial. Scholar's own profile histogram (scholar.by_year), not a sum over papers.
+  // citations per year, as on the Scholar profile (2026-10-04): one bar per year; hover or focus a bar for its count
+  // (the current year reads "so far" because it is partial). Scholar's own profile histogram (scholar.by_year), not a sum over papers.
   function yearBars(by, fetched) {
     if (!by || !by.length) return '';
     const now = Number(String(fetched || '').slice(0, 4)) || new Date().getFullYear();
     const max = Math.max(1, ...by.map(d => d.cites));
     return `<div class="ss-bars" role="img" aria-label="Citations per year: ${esc(by.map(d => `${d.year} ${d.cites}`).join(', '))}">` +
       by.map(d => { const part = d.year >= now;
-        return `<span class="b" title="${d.year}${part ? ' (to date)' : ''}: ${fmtN(d.cites)}">` +
-               `<span class="bar" style="height:${Math.max(4, Math.round(100 * d.cites / max))}%"></span></span>`; }).join('') +
+        const h = Math.max(4, Math.round(100 * d.cites / max));
+        return `<span class="b" tabindex="0">` +
+               `<span class="bar" style="height:${h}%"></span>` +
+               `<span class="tip" style="bottom:calc(${h}% + 4px)">${fmtN(d.cites)} <span class="tip-yr">in ${d.year}${part ? ' so far' : ''}</span></span></span>`; }).join('') +
       `</div><div class="ss-axis"><span>${by[0].year}</span><span>${by[by.length - 1].year}</span></div>`;
   }
   function drawStats(j) {
