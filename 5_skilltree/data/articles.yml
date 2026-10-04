@@ -9,7 +9,7 @@
 #   featured (false = muted tier),
 #   contribution.* (collapsed CRediT, 0-3 each), effort (1-5), effort_note, blurb, sticker,
 #   motif (a variant name from 4_stickers/motifs.yml; ~ = inherit from parent or sample by id),
-#   tags (list; `mortality` swaps the Necromancy achievement to its death-free wording).
+#   tags (list; `mortality` swaps the Necromancy and lineage achievements to their death-free wording).
 # First-run areas and role values are GUESSES from titles and author position — review them.
 # Last extracted 2026-09-09 13:38 from tanksley_cv.qmd
 

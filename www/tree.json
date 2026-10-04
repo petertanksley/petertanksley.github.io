@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-09-27 18:13",
+    "generated": "2026-10-04 09:39",
     "hex_w": 100,
     "hex_h": 115.47,
     "width": 2781,
@@ -11,9 +11,25 @@
       "scale": 1.45,
       "sticker_src": "www/hex/sm/puzzled.png",
       "achievements": {
-        "n": 1,
-        "best": null,
+        "n": 3,
+        "best": "Silver",
         "items": [
+          {
+            "key": "review-milestone-2026-10-04",
+            "date": "2026-10-04",
+            "title": "Service to the Field, Itemized.",
+            "tier": "Bronze",
+            "box": "Reviewer 2 Box",
+            "reward": "Reward: You've received a Bronze Reviewer 2 Box!"
+          },
+          {
+            "key": "article-milestone-2026-10-04",
+            "date": "2026-10-04",
+            "title": "The CV Needs a Second Page. And a Third.",
+            "tier": "Silver",
+            "box": "Bibliography Box",
+            "reward": "Reward: You've received a Silver Bibliography Box!"
+          },
           {
             "key": "h-index-up-2026-09-27",
             "date": "2026-09-27",
@@ -224,8 +240,8 @@
     "achievements": {
       "label": "Achievements earned",
       "page": "achievements.html",
-      "total": 5,
-      "latest": "2026-09-27"
+      "total": 7,
+      "latest": "2026-10-04"
     }
   },
   "nodes": [
@@ -689,7 +705,7 @@
           {
             "key": "paper-lineage-tanksley_2025_mortality-2026-09-20",
             "date": "2026-09-20",
-            "title": "It Grew Legs.",
+            "title": "Groundwork.",
             "tier": "Silver",
             "box": "Heirloom Box",
             "reward": "Reward: You've received a Silver Heirloom Box!"

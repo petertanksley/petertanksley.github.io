@@ -251,6 +251,24 @@
       - {at: 3, tier: Gold}
       - {at: 5, tier: Platinum}
       - {at: 10, tier: Legendary}
+  # Peter, 2026-10-04: no "Patient Zero", blame or fault on a paper about people who died. The sass stays on the
+  # job and the paper; the variants above stay for everything else.
+  by_tag:
+    mortality:
+      title:
+        - "Load-Bearing."
+        - "Groundwork."
+        - "Built Upon."
+      body:
+        - >-
+          {new} of your later paper{s} build on your {year} paper in {venue}, which builds on nothing of yours. It
+          is a foundation now. Nobody looks at foundations; they just build on them.
+        - >-
+          Your {year} paper in {venue} started a line of work: {new} later paper{s} of yours build on it.
+          Surveillance data has a habit of raising the next question before you have finished answering the first.
+        - >-
+          Your {year} paper in {venue} has {new} descendant{s} on this tree and no ancestors. The groundwork paper.
+          It gets cited in the introduction and never thanked, and nothing after it stands without it.
 
 # Peter, 2026-09-20: the first refresh fired twelve of these at once and it read as noise. Now only papers two full
 # calendar years old, and only the top 3%: a percentile that runs as high as this one has to be near the ceiling

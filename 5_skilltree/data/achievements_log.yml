@@ -9,10 +9,10 @@
   metric: articles.tanksley_2025_mortality.lineage
   old: 0
   new: 2
-  title: It Grew Legs.
-  body: 2 of your later papers trace back to your 2025 paper in The Lancet Regional
-    Health - Americas, which itself traces back to nothing of yours. That makes it
-    a root. Roots get no light and all of the blame.
+  title: Groundwork.
+  body: 'Your 2025 paper in The Lancet Regional Health - Americas started a line of
+    work: 2 later papers of yours build on it. Surveillance data has a habit of raising
+    the next question before you have finished answering the first.'
   reward: 'Reward: You''ve received a Silver Heirloom Box!'
   article: tanksley_2025_mortality
   paper: 'Mortality among law enforcement officers in the United States: A population-wide
@@ -92,5 +92,36 @@
   reward: 'Reward: Leveling up is your job. You don''t get rewards for doing your
     job.'
   rank: 0
+  featured: true
+- key: review-milestone-2026-10-04
+  id: review-milestone
+  date: '2026-10-04'
+  since: '2026-09-27'
+  metric: career.reviews
+  old: 0
+  new: 16
+  title: Service to the Field, Itemized.
+  body: You have now reviewed 16 manuscripts. That is 16 papers you read more carefully
+    than their own authors' advisors did, for no money and no credit. The box is Bronze.
+    It will always be Bronze.
+  reward: 'Reward: You''ve received a Bronze Reviewer 2 Box!'
+  tier: Bronze
+  box: Reviewer 2 Box
+  rank: 1
+  featured: true
+- key: article-milestone-2026-10-04
+  id: article-milestone
+  date: '2026-10-04'
+  since: '2026-09-27'
+  metric: career.articles
+  old: 0
+  new: 28
+  title: The CV Needs a Second Page. And a Third.
+  body: Article number 28. Each one took a year longer than you said it would, and
+    you said it would take a year. The publication section of your CV now scrolls.
+  reward: 'Reward: You''ve received a Silver Bibliography Box!'
+  tier: Silver
+  box: Bibliography Box
+  rank: 2
   featured: true
 

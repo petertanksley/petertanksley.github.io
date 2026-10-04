@@ -8,7 +8,7 @@ deadline: null
 target: Personal academic website with CV, about page, and blog
 effort_remaining: monitoring (annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-10-03
+last_updated: 2026-10-04
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -25,20 +25,20 @@ sync: github
 
 ## Start Here Next Session
 
-- Achievements build (Necromancy, manual events, review/article ladders, forward only) pushed 2026-10-03 as `0de4d7d`;
-  log `logs/skilltree/2026-10-03_necromancy-manual.md`. Next `refresh.R` fires the review Bronze + article Silver.
+- Refresh ran 2026-10-04 (Scholar 456, h 13, i10 15); review Bronze + article Silver fired. Mortality-safe lineage
+  wording added and the ledger re-rendered; log `logs/skilltree/2026-10-04_refresh-lineage-wording.md`.
 - NEXT ROUND (Peter, 2026-10-03): put per-article citations on the skill tree / stat cards. The counts already sit in
   every snapshot and `www/scholar.json` (`articles.<id>.scholar`, `.openalex`, `.percentile`); `build_tree.R` reads
   none of them yet. Decide where they show (hex, panel, tooltip, stats card) before building.
 - Crossref still empty for entry 27 (Nature) volume/pages and entry 28 (AJPH) DOI (checked 2026-10-03).
-- If a few weeks have passed since 09-27: `Rscript 5_skilltree/R/refresh.R`, then commit the snapshot,
+- If a few weeks have passed since 10-04: `Rscript 5_skilltree/R/refresh.R`, then commit the snapshot,
   `www/scholar.json`, `5_skilltree/data/achievements_log.yml` and `www/tree.json`.
 - Publications change in `5_skilltree/data/articles.yml`, never in the CV: edit → rate in the Shiny app if new →
   `build_tree.R` + `render_cv_pubs.R` → commit. A new venue also needs its JCR year in `5_skilltree/data/jcr/`
   and `build_journals.R` rerun.
 
 ## This Week
-- [ ] Stats refresh check — not due (last run 2026-09-27); run `refresh.R` only once a few weeks have passed
+- [ ] Stats refresh check — not due (last run 2026-10-04); run `refresh.R` only once a few weeks have passed
 - Otherwise monitoring only; nothing scheduled
 
 ## Upcoming Milestones
@@ -53,8 +53,8 @@ sync: github
   `build_journals.R` then `build_tree.R`, commit. Clears nearest-year flags on papers published earlier that year.
 - Backlog, unscheduled: phase stickers beside the matching Research-page sections;
   achievements extras (total-citation ladder, box-reward variants; h/i10 ladders done 09-27, Necromancy + manual
-  events built 10-03; reviews from the `/bob review` archive later — proposals in `logs/skilltree/2026-09-19_achievements-rules.md`); Peter to review drafted achievement
-  wording (live but unreviewed since 09-19; fix + `--replay`); optional wide scene on the Projects page
+  events built 10-03; reviews from the `/bob review` archive later — proposals in `logs/skilltree/2026-09-19_achievements-rules.md`); Peter to review the full achievement
+  template bank in `achievements.yml` (the 7 live entries were reviewed 10-04; unfired variants still unread); optional wide scene on the Projects page
   (`logs/2026-09-22_trapdoor-scene.md`); fun-feature list (404 dungeon floor first) in
   `logs/2026-10-01_fun-ideas.md`.
 

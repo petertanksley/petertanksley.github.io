@@ -95,27 +95,7 @@ fetch_openalex <- function(dois) {
 norm <- function(x) x |> str_to_lower() |> stringi::stri_trans_general("Latin-ASCII") |> str_replace_all("[^a-z0-9 ]", " ") |> str_squish()
 match_articles <- function(arts, pubs) {
   pn <- norm(pubs$title); used <- rep(FALSE, nrow(pubs))
-  # ---- career counts (2026-10-03) --------------------------------------------------------------------
-# Cumulative counts for the career ladders in achievements.yml. articles = CV-numbered articles in articles.yml
-# (published + in press; preprints carry no cv_number). reviews = rows of the /bob review card's ## Archive table, one
-# per submitted round. Only counts go into the (public) snapshot.
-career_cfg <- read_yaml(here("5_skilltree", "data", "career.yml"))
-count_reviews <- function() {
-  f <- path.expand(career_cfg$review_archive %||% "")
-  if (!nzchar(f) || !file.exists(f)) {
-    warning("review archive not found (", f, "); keeping the previous snapshot's review count", call. = FALSE)
-    return(prev$career$reviews)
-  }
-  L <- readLines(f, warn = FALSE)
-  start <- which(str_detect(L, "^## Archive")); if (!length(start)) { warning("no ## Archive in ", f, call. = FALSE); return(prev$career$reviews) }
-  end <- c(which(str_detect(L, "^## ")), length(L) + 1); end <- min(end[end > start[1]])
-  arch <- L[seq(start[1], end - 1)]
-  rows <- arch[str_detect(arch, "^\\|") & !str_detect(arch, "^\\|\\s*ID\\s*\\|") & !str_detect(arch, "^\\|[-\\s|]+$")]
-  length(rows)                                            # one table row per submitted round
-}
-career <- list(articles = sum(map_lgl(arts, ~ !is.null(.x$cv_number))), reviews = count_reviews())
-
-out <- list(); unmatched_art <- character()
+  out <- list(); unmatched_art <- character()
   for (a in arts) {
     an <- norm(a$title)
     hit <- which(!used & pn == an)
@@ -136,6 +116,26 @@ out <- list(); unmatched_art <- character()
 arts <- read_yaml(ARTICLES); ids <- map_chr(arts, "id")
 prev_files <- sort(list.files(SNAP_DIR, pattern = "^\\d{4}-\\d{2}-\\d{2}\\.json$", full.names = TRUE))
 prev <- if (length(prev_files)) read_json(tail(prev_files, 1)) else NULL
+
+# ---- career counts (2026-10-03) --------------------------------------------------------------------
+# Cumulative counts for the career ladders in achievements.yml. articles = CV-numbered articles in articles.yml
+# (published + in press; preprints carry no cv_number). reviews = rows of the /bob review card's ## Archive table, one
+# per submitted round. Only counts go into the (public) snapshot.
+career_cfg <- read_yaml(here("5_skilltree", "data", "career.yml"))
+count_reviews <- function() {
+  f <- path.expand(career_cfg$review_archive %||% "")
+  if (!nzchar(f) || !file.exists(f)) {
+    warning("review archive not found (", f, "); keeping the previous snapshot's review count", call. = FALSE)
+    return(prev$career$reviews)
+  }
+  L <- readLines(f, warn = FALSE)
+  start <- which(str_detect(L, "^## Archive")); if (!length(start)) { warning("no ## Archive in ", f, call. = FALSE); return(prev$career$reviews) }
+  end <- c(which(str_detect(L, "^## ")), length(L) + 1); end <- min(end[end > start[1]])
+  arch <- L[seq(start[1], end - 1)]
+  rows <- arch[str_detect(arch, "^\\|") & !str_detect(arch, "^\\|\\s*ID\\s*\\|") & !str_detect(arch, "^\\|[-\\s|]+$")]
+  length(rows)                                            # one table row per submitted round
+}
+career <- list(articles = sum(map_lgl(arts, ~ !is.null(.x$cv_number))), reviews = count_reviews())
 
 sch <- tryCatch(fetch_scholar(), error = function(e) {
   warning("Google Scholar fetch FAILED: ", conditionMessage(e), if (!is.null(prev)) "; keeping the previous snapshot's Scholar block" else "", call. = FALSE)
