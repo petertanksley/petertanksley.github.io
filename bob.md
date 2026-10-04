@@ -25,10 +25,11 @@ sync: github
 
 ## Start Here Next Session
 
-- IN FLIGHT, uncommitted: Necromancy, manual events, automatic review counts and article/review milestone ladders,
-  built and verified 2026-10-03, forward only (`logs/skilltree/2026-10-03_necromancy-manual.md`). Ready to commit;
-  push needs Peter's yes. Review count (16) now read from the `/bob review` Archive table. Next `refresh.R` fires the
-  review Bronze (10 rung) + article Silver.
+- Achievements build (Necromancy, manual events, review/article ladders, forward only) pushed 2026-10-03 as `0de4d7d`;
+  log `logs/skilltree/2026-10-03_necromancy-manual.md`. Next `refresh.R` fires the review Bronze + article Silver.
+- NEXT ROUND (Peter, 2026-10-03): put per-article citations on the skill tree / stat cards. The counts already sit in
+  every snapshot and `www/scholar.json` (`articles.<id>.scholar`, `.openalex`, `.percentile`); `build_tree.R` reads
+  none of them yet. Decide where they show (hex, panel, tooltip, stats card) before building.
 - Crossref still empty for entry 27 (Nature) volume/pages and entry 28 (AJPH) DOI (checked 2026-10-03).
 - If a few weeks have passed since 09-27: `Rscript 5_skilltree/R/refresh.R`, then commit the snapshot,
   `www/scholar.json`, `5_skilltree/data/achievements_log.yml` and `www/tree.json`.
@@ -37,7 +38,6 @@ sync: github
   and `build_journals.R` rerun.
 
 ## This Week
-- [ ] Commit (and push, on Peter's yes) the achievements build
 - [ ] Stats refresh check — not due (last run 2026-09-27); run `refresh.R` only once a few weeks have passed
 - Otherwise monitoring only; nothing scheduled
 
