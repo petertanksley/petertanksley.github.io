@@ -21,7 +21,7 @@ A state-by-state history of first responder presumptive workers' compensation la
 ::: {.project}
 <h3>anatomogramdata</h3><span class="tag">R package</span>
 
-Human body maps as tidy polygon data, ready for ggplot2. The outlines are parsed straight from the EBI Expression Atlas anatomogram source files, not copied from a frozen snapshot, and every organ carries its ontology ID and organ system, male and female. It is a data package on purpose: no custom geom and no plotting function, just polygons you plot with the ggplot2 you already know.
+Human body maps (anatomograms) as tidy polygon data for ggplot2. It is an update of Jesper Maag's excellent [gganatogram](https://github.com/jespermaag/gganatogram), the package that first brought the EBI Expression Atlas anatomograms into R and ggplot2. I needed an anatomogram for mortality surveillance work on cancer sites and wanted to bring that work up to date: the polygons are traced fresh from the current EBI drawings, and every organ is tagged with its ontology ID and organ system. The whole thing is the intellectual godchild of gganatogram, and the code was written almost entirely by Claude, so I can't take intellectual credit for the idea or the work.
 
 <div class="stack">R · ggplot2 <a href="https://petertanksley.github.io/anatomogramdata/">{{< fa book >}} docs</a><a href="https://github.com/petertanksley/anatomogramdata">{{< fa brands github >}} source</a></div>
 :::

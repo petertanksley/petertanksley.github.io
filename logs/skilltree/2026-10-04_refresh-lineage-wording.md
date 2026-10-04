@@ -36,3 +36,27 @@ feeds the Necromancy and percentile achievements; dropping it entirely is deferr
   Scholar has not indexed (e.g. tanksley_2026_correctional). Styles are `.sp-cites*` in `theme.scss`.
 - The bars can sum one or two short of the headline count, because Scholar's year breakdown leaves out undated
   citations. The current year's bar is a partial year.
+
+## Later the same session (appended by Bob, 2026-10-04)
+
+**Stats card: citations-per-year bars** (b8fb51b, 6661e23). Google Scholar profile-style histogram from Scholar's own
+profile series (`scholar.by_year`, not a sum over papers), first/last year on the axis, the current year marked as
+partial ("so far"), hover labels with the count. Code in `skilltree.js` near the stats card builder (`yearBars()`).
+
+**Hex brightness tracks Scholar citations** (6661e23). Two stages on one eased scale, level = (cites / max) ^ CITE_EASE:
+below CITE_FULL the resting shade fades out (`--cite-k`), so a paper at CITE_FULL shows its art at original brightness;
+above it an SVG filter brightens the art up to CITE_BOOST on the most-cited paper (SVG filter because Safari ignores
+CSS `brightness()` on SVG). Constants: CITE_FULL 25 (= paper-cited Gold rung), CITE_BOOST 1.3, CITE_EASE 1.5. Linear
+spread looked too even; Peter wanted "a slow ramp up". His verdict: "run with that for now". Possible later tweak:
+CITE_BOOST 1.4.
+
+**Projects page: anatomogramdata** (f1182a5). R data package entry (human body-map polygons from the EBI Expression
+Atlas anatomogram sources) with docs and source links. Peter may add a line on why he built it.
+
+**Gotchas relearned.** Every `skilltree.js` edit needs the `?v=` cache-buster bumped in `skilltree.qmd` (at
+`2026-10-04l` by session end; fc001c9 was a cache-bust-only fix). `bob-push-gate.py` blocks a combined
+`git commit && git push` when bob.md is still uncommitted at check time; commit, then push, as separate commands.
+
+**Achievements review status.** Peter reviewed the 7 live ledger entries after the refresh. The full template bank
+(18 rules, 122 variants, most never fired) is still unreviewed; review page at
+https://claude.ai/artifact/83gcPoCxpgN6HuPdvQmLra.
