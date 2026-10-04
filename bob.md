@@ -31,6 +31,7 @@ sync: github
   Stats card has Scholar-style citations-per-year bars (10-04). Hex brightness tracks Scholar citations (eased 1.5,
   full art at 25, up to 1.3x boost on the top paper; constants in skilltree.js).
   OpenAlex stays off display but still feeds Necromancy + percentile achievements; whether to drop it entirely is open.
+- Projects page: anatomogramdata entry added 2026-10-04 (docs + source links).
 - Crossref still empty for entry 27 (Nature) volume/pages and entry 28 (AJPH) DOI (checked 2026-10-03).
 - If a few weeks have passed since 10-04: `Rscript 5_skilltree/R/refresh.R`, then commit the snapshot,
   `www/scholar.json`, `5_skilltree/data/achievements_log.yml` and `www/tree.json`.

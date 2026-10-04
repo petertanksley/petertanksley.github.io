@@ -17,3 +17,11 @@ A state-by-state history of first responder presumptive workers' compensation la
 
 <div class="stack">R · Quarto · Shiny <a href="https://github.com/ALERRT-Research/PROJ_presumptive_laws">{{< fa brands github >}} source</a></div>
 :::
+
+::: {.project}
+<h3>anatomogramdata</h3><span class="tag">R package</span>
+
+Human body maps as tidy polygon data, ready for ggplot2. The outlines are parsed straight from the EBI Expression Atlas anatomogram source files, not copied from a frozen snapshot, and every organ carries its ontology ID and organ system, male and female. It is a data package on purpose: no custom geom and no plotting function, just polygons you plot with the ggplot2 you already know.
+
+<div class="stack">R · ggplot2 <a href="https://petertanksley.github.io/anatomogramdata/">{{< fa book >}} docs</a><a href="https://github.com/petertanksley/anatomogramdata">{{< fa brands github >}} source</a></div>
+:::
