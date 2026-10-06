@@ -5,6 +5,8 @@ project:
     - "*.qmd"
     - "1_about/*.qmd"
     - "2_cv/*.qmd"
+    # two-page CV is rendered by hand to PDF (typst, local fonts); keep it off the site
+    - "!2_cv/tanksley_cv_2page.qmd"
     - "3_posts/**/*.qmd"
     - "!bob.md"
     - "!CLAUDE.md"

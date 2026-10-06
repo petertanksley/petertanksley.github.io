@@ -1,0 +1,128 @@
+---
+title: ""
+format:
+  typst:
+    papersize: us-letter
+    margin:
+      x: 0.75in
+      y: 0.65in
+    mainfont: "Helvetica Neue"
+    fontsize: 9.6pt
+    include-in-header: _cv2_header.typ
+    include-before-body:
+      text: |
+        ```{=typst}
+        #set par(justify: false)
+        ```
+    toc: false
+    number-sections: false
+    keep-typ: false
+---
+
+```{=typst}
+#align(center)[
+  #text(size: 17pt, weight: "bold")[Peter T. Tanksley] \
+  #text(size: 10pt)[Research Scientist, ALERRT Center, Texas State University] \
+  #text(size: 9pt)[
+    #link("mailto:peter_tanksley@txstate.edu")[peter_tanksley\@txstate.edu] #h(0.6em) ·
+    #h(0.6em) #link("https://orcid.org/0000-0002-3449-2838")[ORCID 0000-0002-3449-2838] #h(0.6em) ·
+    #h(0.6em) #link("https://scholar.google.com/citations?user=YnIBrB8AAAAJ&hl=en")[Google Scholar] #h(0.6em) ·
+    #h(0.6em) #link("https://github.com/petertanksley")[GitHub]
+  ]
+]
+#v(0.2em)
+```
+
+# Research Profile
+
+Quantitative research scientist with doctoral training in criminal justice and postdoctoral training in social-science genomics and epigenetics. Current work centers on first responder health and mortality, police training and use of force, and public and officer opinion. Primary analyst on population-wide mortality surveillance data, survey experiments, and biomarker studies of law enforcement and fire service personnel; builds ALERRT's public-facing data products.
+
+# Experience
+
+**Research Scientist**, ALERRT Center, Texas State University `#h(1fr)`{=typst} *2024--present*\
+Research design and statistical analysis for first responder health, training, and opinion research.
+
+**Postdoctoral Fellow**, Population Research Center, University of Texas at Austin `#h(1fr)`{=typst} *2020--2024*\
+Social-science genomics and epigenetics. Supervisor: K. Paige Harden, Ph.D.
+
+# Education
+
+**Ph.D., Criminal Justice**, University of Cincinnati `#h(1fr)`{=typst} *2020*\
+Dissertation: *From age to aging: Biological age and its role in the criminal career.* Chair: J.C. Barnes, Ph.D.
+
+**M.S., Criminal Justice & Criminology**, University of Texas at San Antonio `#h(1fr)`{=typst} *2016*
+
+**B.A., Criminal Justice** (minor: Biology), University of Texas at San Antonio `#h(1fr)`{=typst} *2014*
+
+# Selected Peer-Reviewed Publications
+
+*Selected from 28 peer-reviewed articles (one in press) and 2 preprints. Full list: [Google Scholar](https://scholar.google.com/citations?user=YnIBrB8AAAAJ&hl=en), [ORCID](https://orcid.org/0000-0002-3449-2838).*
+
+1. **Tanksley, P.T.**, Barnes, J.C., Blair, J.P., & Martaindale, M.H. (2025). Mortality among law enforcement officers in the United States: A population-wide analysis of the National Occupational Mortality Surveillance data, 2020--2023. [*The Lancet Regional Health -- Americas*](https://doi.org/10.1016/j.lana.2025.101270), 52, 101270.
+
+2. **Tanksley, P.T.**, Logan, M.W., & Barnes, J.C. (in press). Correctional officer mortality in the United States, 2020--2023: Evidence from the National Occupational Mortality Surveillance program. *American Journal of Public Health*.
+
+2. **Tanksley, P.T.**, Barnes, J.C., Blair, J.P., & Martaindale, M.H. (2026). Clarifying methods and interpretations in law enforcement mortality surveillance: Response to Kamal. [*The Lancet Regional Health -- Americas*](https://doi.org/10.1016/j.lana.2025.101330), 53.
+
+3. Martaindale, M.H., & **Tanksley, P.T.** (2026). Public opinion and the immediate entry dilemma: A factorial survey experiment on active shooter response. [*Journal of Criminal Justice*](https://doi.org/10.1016/j.jcrimjus.2025.102578), 102, 102578.
+
+4. Eleuterio-da-Rocha, J., **Tanksley, P.T.**, Martaindale, M.H., Johncox, J., & Blair, J.P. (2026). Striking or grappling? Comparing public and officers' perceptions of police use of force. [*Journal of Criminal Justice*](https://doi.org/10.1016/j.jcrimjus.2026.102601), 103, 102601.
+
+5. Blair, J.P., **Tanksley, P.T.**, Spivey, E.D., & Martaindale, M.H. (2025). To what are we inferring? The widespread misuse of inferential testing in the most cited criminology and criminal justice journals. [*American Journal of Criminal Justice*](https://doi.org/10.1007/s12103-025-09845-4) (online first).
+
+6. Gonzalez, D.E., Coles, M.E., **Tanksley, P.T.**, Martaindale, M.H., Martin, S.E., & McAllister, M.J. (2025). Relationships between physiological stress biomarkers and cardiovascular disease risk factors among career firefighters. [*Journal of Occupational and Environmental Medicine*](https://doi.org/10.1097/JOM.0000000000003389), 67(7), 535--541.
+
+7. McAllister, M.J., Dodge, C., **Tanksley, P.T.**, Martaindale, M.H., Martin, S.E., & Gonzalez, D.E. (2025). Markers of fitness, stress, and cardiometabolic disease risk among law enforcement officers. [*Journal of Occupational and Environmental Medicine*](https://doi.org/10.1097/JOM.0000000000003357), 67(6), 437--444.
+
+8. McAllister, M.J., **Tanksley, P.T.**, Martaindale, M.H., DeArman, A., Samora, M., Martin, S.E., & Gonzalez, D.E. (2026). Inflammation on the frontlines: Linking salivary and blood biomarkers to cardiometabolic health and physical performance parameters in firefighters. [*Journal of Occupational and Environmental Medicine*](https://doi.org/10.1097/JOM.0000000000003792) (online first).
+
+8. **Tanksley, P.T.**, Brislin, S.J., Wertz, J., et al. (2024). Do polygenic indices capture "direct" effects on child externalizing behavior? Within-family analyses in two longitudinal birth cohorts. [*Clinical Psychological Science*](https://doi.org/10.1177/21677026241260260), 13(2), 316--331.
+
+9. Schwaba, T., Clapp Sullivan, M.L., Akingbuwa, W.A., Ilves, K., **Tanksley, P.T.**, et al. (2026). Robust inference and correlates from genetic associations with personality. [*Nature*](https://doi.org/10.1038/s41586-026-10992-9) (online first).
+
+# Funding
+
+**Substance Use Involvement in Law Enforcement Officer Mortality: An Investigation of National Death Certificate Data**\
+National Institute on Drug Abuse, NIH (R01). Role: PI (Co-PI: Seth Watts). \$505,783 (under review). `#h(1fr)`{=typst} *2026*
+
+**Extreme Risk Protection Orders and Firearm Suicide in New York: A Multi-State and Within-State Evaluation**\
+Regional Gun Violence Research Consortium. Role: Co-PI (PI: M. Hunter Martaindale). \$49,999. `#h(1fr)`{=typst} *2026*
+
+**Educating Attention for High-Stakes Decisions: An Ecological Dynamics Approach in Use-of-Force Contexts**\
+National Science Foundation, Decision, Risk and Management Sciences. \$939,016 (submitted; not funded). `#h(1fr)`{=typst} *2025*
+
+**Improving Law Enforcement Officers' Ability to Correctly Identify Weapons Through Training the Visual System**\
+National Science Foundation, Perception, Action, & Cognition. \$517,088 (submitted; not funded). `#h(1fr)`{=typst} *2024*
+
+**Graduate research grants**, University of Cincinnati (three awards) `#h(1fr)`{=typst} *2018--2020*\
+School of Criminal Justice; College of Education, Criminal Justice, & Human Services; Graduate Student Government Association. \$4,700 total.
+
+# Awards
+
+**Early Career Award**, Division of Biopsychosocial Criminology, American Society of Criminology `#h(1fr)`{=typst} *2023*
+
+# Selected Presentations
+
+*18 conference presentations (American Society of Criminology, International Association of Chiefs of Police, Behavior Genetics Association, Integrating Genetics and Social Sciences) and 14 invited talks since 2015.*
+
+- **Tanksley, P.T.** (2026). A national-level assessment of LEO mortality. Invited presentation, Police Executive Research Forum annual meeting, Los Angeles, CA.
+- **Tanksley, P.T.**, Barnes, J.C., Blair, J.P., & Martaindale, M.H. (2025). Leading causes of death among law enforcement occupations: New evidence from the National Occupational Mortality Surveillance data. International Association of Chiefs of Police annual conference, Denver, CO.
+- **Tanksley, P.T.** (2024). Introducing the Active Attack Data Explorer. ALERRT Conference, San Marcos, TX.
+- **Tanksley, P.T.** (2023). The role of environmental factors in a genetic predictor of externalizing behavior: Evidence across development in two UK-based cohorts. Invited talk, Department of Sociology, Purdue University, West Lafayette, IN.
+
+# Professional Service
+
+**Editorial boards:** *Psychology of Addictive Behaviors* (principal reviewer, genetics); *American Journal of Criminal Justice* (member).\
+**Ad hoc reviewer** for 12 journals, including *American Journal of Public Health*, *Journal of Research in Crime & Delinquency*, *Journal of Criminal Justice*, *Molecular Psychiatry*, *Social Science & Medicine*, and *Epigenetics*.
+
+# Analytic Skills & Data Products
+
+**Software:** R (primary), Stata, Bash; Plink and related Linux tools for bioinformatics. macOS, Windows, and Linux.\
+**Public data products:** [ActiveAttackData.org](https://alerrt-research.github.io/PROJ_activeattack_website/), an interactive explorer for ALERRT's active attack data;\
+[ALERRTResearch.org](https://alerrtresearch.org/), the ALERRT research group's public site.
+
+# Advanced Methods Training
+
+**International Statistical Genetics Workshop**, Institute for Behavioral Genetics, University of Colorado Boulder `#h(1fr)`{=typst} *2021*\
+**Genomics for Social Scientists** (2019) and **Genomics for Social Scientists: Epigenetics** (2021), Institute for Social Research, University of Michigan\
+**Introduction to Behavioral Genetics Workshop**, GESIS, Leibniz Institute for the Social Sciences `#h(1fr)`{=typst} *2020*

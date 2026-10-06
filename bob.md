@@ -8,7 +8,7 @@ deadline: null
 target: Personal academic website with CV, about page, and blog
 effort_remaining: monitoring (annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-10-04
+last_updated: 2026-10-06
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -64,5 +64,9 @@ sync: github
 - Phase marks: coin (first responders), handcuffs (criminology); helmet and magnifying glass archived beside them
 - News feed: `news.yml` → `news-listing.ejs` / `news-listing-home.ejs`; achievements are a separate stream
 - Landing masthead = 4-sticker hex collage; real headshot lives on About only
+- Two-page CV (grant/biosketch use): `2_cv/tanksley_cv_2page.qmd` + `_cv2_header.typ`, hand-render with
+  `quarto render 2_cv/tanksley_cv_2page.qmd --to typst` (PDF lands beside the source, gitignored). Excluded from the
+  site render in `_quarto.yml` on purpose (local fonts, not for the website). Selected pubs are hand-picked; update by hand
+  when `articles.yml` changes. Built 2026-10-06 for a TXST research accelerator application.
 - Conventions (voice, content rules, feed, stickers, JCR/pips, CI and pagedjs gotchas): `CLAUDE.md`
 - History: `logs/` and `logs/skilltree/`; prune records `logs/2026-09-02_bob-prune.md`, `logs/2026-09-22_bob-prune.md`
