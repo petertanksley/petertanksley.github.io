@@ -27,9 +27,8 @@ sync: github
 
 - State 2026-10-06: clone in sync with GitHub, CI green, live site serves the full CV and not the two-page one.
   Publication count verified at 28 articles (one in press) + 2 preprints (log `logs/2026-10-06_two-page-cv-and-clone-sync.md`).
-- Open for Peter: (1) ICPSR 2024 training entries (Experiments; Interactive Visualization/Shiny) were in the June CV
-  and are gone from the current one — deliberate? (2) drop OpenAlex entirely, or keep it feeding Necromancy +
-  percentile achievements only? (3) review the unfired achievement templates (https://claude.ai/artifact/83gcPoCxpgN6HuPdvQmLra).
+- Open for Peter: (1) drop OpenAlex entirely, or keep it feeding Necromancy + percentile achievements only?
+  (2) review the unfired achievement templates (https://claude.ai/artifact/83gcPoCxpgN6HuPdvQmLra).
 - Next Scholar refresh not before late October: `Rscript 5_skilltree/R/refresh.R`, then commit the snapshot,
   `www/scholar.json`, `5_skilltree/data/achievements_log.yml`, `www/tree.json`.
 - Publications change in `5_skilltree/data/articles.yml`, never in the CV: edit → rate in the Shiny app if new →

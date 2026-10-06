@@ -25,9 +25,10 @@ correctional officer paper (in press), Schwaba et al. Nature 2026 (online first)
 "Inflammation on the Frontlines", and the NIDA R01 funding entry (PI; Co-PI Seth Watts; $505,783; under
 review). All are present on the remote; nothing to add to `articles.yml`.
 
-**Open question for Peter.** The ICPSR 2024 training entries (Experiments in Social Science Research;
-Interactive Visualization/Shiny) were in the June CV but are absent from the current remote. Unknown whether
-the removal was deliberate.
+**ICPSR 2024 training entries, resolved.** The entries (Experiments in Social Science Research; Interactive
+Visualization/Shiny) were in the June CV and dropped out in commit 1b7c6ce (2026-06-19, a formatting-only commit
+that rewrapped the Advanced Training block). Peter confirmed 2026-10-06 that he does not want ICPSR listed, so the
+omission stands in both the full CV and the two-page CV. Do not restore it.
 
 **bob.md.** `target:` frontmatter held a prose description rather than a date; nulled (Objectives already
 carries the statement). Two-page CV Notes line trimmed to standing facts; repo-rename line added; Start Here
