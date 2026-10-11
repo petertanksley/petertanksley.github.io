@@ -145,6 +145,12 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   can also get a hand-written news line. The ledger is derived state: after editing a rule's wording run
   `check_achievements.R --replay` to rebuild it from every snapshot pair. **Refresh = `Rscript 5_skilltree/R/refresh.R`**
   (fetch, log, build tree, in that order), then commit the snapshot, `scholar.json`, the ledger and `tree.json`.
+  **Weekly check** (2026-10-11): a launchd agent on Peter's **laptop only**
+  (`~/Library/LaunchAgents/com.petertanksley.website-weekly-check.plist`, Mondays 08:30, runs on wake) calls
+  `5_skilltree/R/weekly_check.R`: fast-forward if clean, `fetch_scholar.R --skip-unchanged` (quiet week or Scholar
+  block = nothing written), log, build tree, then a macOS notification. It **never commits or pushes**; Peter says
+  "push the weekly refresh" in a session and that push still needs his yes. Log `~/Library/Logs/tanksley_website_weekly.log`.
+  Not CI and not a cloud agent: Scholar blocks datacenter IPs. Do not install it on the desktop too (git race).
   The first real refresh (2026-09-20) fired 12 percentile achievements at once and Peter called it noise: the
   percentile rule took `min_age: 2` and the top 3% (retired with OpenAlex 2026-10-10, its one entry removed). Same day:
   first-citation Bronze is for lead-author papers only (a rung may carry `role:`), and a **Founder** rule fires when a

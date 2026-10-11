@@ -31,3 +31,21 @@ Points raised for Peter, decisions pending:
 - `review-done` fires on every review; consider dropping it and keeping only the milestones.
 - `tenure` has one variant and may not fit a research-scientist line; keep as a joke or cut.
 - `paper-cited` is the noisiest rule (28 papers, five rungs); watch the next refresh.
+
+## 2026-10-11 — pushed; weekly automatic check
+
+Pushed as `c946101` after rebasing onto three 10-06 commits from the other clone (two-page CV); bob.md conflict merged.
+
+Peter asked for a weekly automatic stat check. Chosen: **refresh + notify, never commit or push** (his per-push rule
+stands), **laptop only**, **Mondays 08:30**. Cloud agents and GitHub Actions were ruled out because Scholar blocks
+datacenter IPs. Built:
+- `fetch_scholar.R --skip-unchanged`: exit 3 (Scholar unreachable, nothing written) or 4 (no count that achievements
+  read has moved: profile stats, per-paper counts, lineage, career), so quiet weeks add no snapshot to git.
+- `5_skilltree/R/weekly_check.R`: fast-forwards from GitHub when the tree is clean, runs fetch / `--log` / `build_tree.R`,
+  logs to `~/Library/Logs/tanksley_website_weekly.log`, and posts a macOS notification (numbers moved, achievements
+  fired, "ask Claude to push").
+- launchd agent `~/Library/LaunchAgents/com.petertanksley.website-weekly-check.plist` (machine-local, not in the repo).
+
+First live run via `launchctl kickstart`, 2026-10-11: exit 0, no macOS privacy block on `~/Documents`, citations
+456 → 462, h 13, i10 15, nothing fired, 3 per-paper histograms re-fetched. Also the first live run of the Scholar-only
+fetcher: `scholar.json` now carries no OpenAlex block.

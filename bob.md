@@ -6,7 +6,7 @@ priority: medium
 path: /Users/PTT2/Documents/GitHub/PROJ_tanksley_website
 deadline: null
 target: null
-effort_remaining: monitoring (annual JCR refresh each June/July; news/pubs as they happen)
+effort_remaining: monitoring (weekly auto-check to review/push; annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
 last_updated: 2026-10-11
 repo: https://github.com/petertanksley/petertanksley.github.io
@@ -31,13 +31,13 @@ sync: github
   reads Scholar (log `logs/skilltree/2026-10-10_drop-openalex.md`). Pushed 2026-10-11.
 - Open for Peter: achievement-template decisions (grant wording for intramural pilots, milestone/step double-fire,
   drop `review-done`?, `tenure`); list in that log. Bank page https://claude.ai/artifact/83gcPoCxpgN6HuPdvQmLra is stale.
-- Next Scholar refresh not before late October: `Rscript 5_skilltree/R/refresh.R`, then commit the snapshot,
-  `www/scholar.json`, `5_skilltree/data/achievements_log.yml`, `www/tree.json`.
+- Scholar refresh is automatic: laptop launchd job, Mondays 08:30, refreshes + notifies, never commits (CLAUDE.md
+  "Weekly check"). When it notifies: review, then commit + push the snapshot, `scholar.json`, ledger, `tree.json`.
 - Publications change in `5_skilltree/data/articles.yml`, never in the CV: edit → rate in the Shiny app if new →
   `build_tree.R` + `render_cv_pubs.R` → commit. Then hand-update the two-page CV's selected pubs and count line.
 
 ## This Week
-- [ ] Nothing due; refresh not before late October
+- [ ] Nothing due; weekly check runs itself Mondays (first live run 2026-10-11: 456 → 462 citations, nothing fired)
 - [ ] Optional: one line on the Projects page saying why anatomogramdata exists
 
 ## Upcoming Milestones

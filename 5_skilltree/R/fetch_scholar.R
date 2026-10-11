@@ -10,7 +10,9 @@
 #   www/scholar.json                          what the skill-tree page reads (declared in _quarto.yml resources)
 #   5_skilltree/data/scholar/YYYY-MM-DD.json  dated snapshot; check_achievements.R diffs the newest two
 #
-# Usage (from repo root):  Rscript 5_skilltree/R/fetch_scholar.R [--dry-run]
+# Usage (from repo root):  Rscript 5_skilltree/R/fetch_scholar.R [--dry-run] [--skip-unchanged]
+#   --skip-unchanged  (the weekly job, weekly_check.R) write nothing and exit 3 if Scholar could not be reached, or
+#                     exit 4 if no count that achievements read has moved since the newest snapshot
 
 suppressPackageStartupMessages({
   library(here); library(httr2); library(rvest); library(yaml); library(jsonlite); library(purrr); library(stringr)
@@ -19,6 +21,7 @@ if (!requireNamespace("scholar", quietly = TRUE)) install.packages("scholar", re
 
 args     <- commandArgs(trailingOnly = TRUE)
 dry_run  <- "--dry-run" %in% args
+skip_same <- "--skip-unchanged" %in% args
 
 SCHOLAR_ID <- "YnIBrB8AAAAJ"
 UA         <- "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128 Safari/537.36"
@@ -184,6 +187,15 @@ cat(sprintf("%-34s %8s\n", "id", "scholar"))
 for (id in ids) cat(sprintf("%-34s %8s\n", id, fmt(articles[[id]]$scholar)))
 
 cat(sprintf("career: %s articles, %s reviews\n", fmt(career$articles), fmt(career$reviews)))
+# a quiet week writes no snapshot: compare only what achievements and the site read (profile stats, per-paper counts,
+# lineage, career counts), so 52 identical files a year never land in git
+if (skip_same) {
+  if (is.null(sch)) { cat("\nScholar unavailable; --skip-unchanged: nothing written\n"); quit(save = "no", status = 3) }
+  fingerprint <- function(x) toJSON(list(s = x$scholar[c("citations", "citations_5y", "h_index", "h_index_5y", "i10", "i10_5y")],
+                                         a = map(x$articles, ~ list(.x$scholar, .x$lineage)), c = x$career),
+                                    auto_unbox = TRUE, null = "null", na = "null")
+  if (!is.null(prev) && identical(fingerprint(out), fingerprint(prev))) { cat("\nno change since the newest snapshot; nothing written\n"); quit(save = "no", status = 4) }
+}
 if (dry_run) { cat("\n--dry-run: nothing written\n"); quit(save = "no") }
 if (is.null(out$scholar)) stop("nothing fetched and no snapshot to fall back on; not writing")
 dir.create(SNAP_DIR, showWarnings = FALSE, recursive = TRUE)
