@@ -712,16 +712,15 @@
   }
   function drawStats(j) {
     const sc = j && j.scholar; if (!sc) return;
-    const oa = j.openalex || {};
-    const tip = (five, o) => `Since 2021: ${fmtN(five)} \u00b7 OpenAlex: ${fmtN(o)}`;
+    const tip = five => `Since 2021: ${fmtN(five)}`;
     const url = `https://scholar.google.com/citations?user=${encodeURIComponent((j.meta && j.meta.scholar_id) || '')}&hl=en`;
     const card = document.createElement('div'); card.className = 'st-stats';
     card.innerHTML =
       `<div class="ss-eyebrow">Google Scholar</div>` +
       `<div class="ss-row">` +
-        `<div class="ss-stat" title="${esc(tip(sc.citations_5y, oa.citations))}"><span class="ss-n">${fmtN(sc.citations)}</span><span class="ss-l">citations</span></div>` +
-        `<div class="ss-stat" title="${esc(tip(sc.h_index_5y, oa.h_index))}"><span class="ss-n">${fmtN(sc.h_index)}</span><span class="ss-l">h-index</span></div>` +
-        `<div class="ss-stat" title="${esc(tip(sc.i10_5y, oa.i10))}"><span class="ss-n">${fmtN(sc.i10)}</span><span class="ss-l">i10</span></div>` +
+        `<div class="ss-stat" title="${esc(tip(sc.citations_5y))}"><span class="ss-n">${fmtN(sc.citations)}</span><span class="ss-l">citations</span></div>` +
+        `<div class="ss-stat" title="${esc(tip(sc.h_index_5y))}"><span class="ss-n">${fmtN(sc.h_index)}</span><span class="ss-l">h-index</span></div>` +
+        `<div class="ss-stat" title="${esc(tip(sc.i10_5y))}"><span class="ss-n">${fmtN(sc.i10)}</span><span class="ss-l">i10</span></div>` +
         (ACH && ACH.total ? `<a class="ss-stat ss-ach" href="${esc(ACH.page || 'achievements.html')}" title="${esc(achPlural(ACH.total))}${ACH.latest ? ', latest ' + esc(fmtDate(ACH.latest)) : ''}"><span class="ss-n">${esc(roman(ACH.total))}</span><span class="ss-l">achievements</span></a>` : '') +
       `</div>` + yearBars(sc.by_year, j.meta && j.meta.fetched) +
       `<div class="ss-foot">as of ${esc(fmtDate(j.meta && j.meta.fetched))} \u00b7 <a href="${url}" target="_blank" rel="noopener">profile \u2192</a></div>`;
