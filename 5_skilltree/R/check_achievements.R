@@ -161,9 +161,13 @@ fire <- function(old_file, new_file, quiet = FALSE) {
     if (!is.na(rw$box))  a$box  <- rw$box
     a$rank     <- if (is.na(rw$tier)) 0L else match(rw$tier, TIERS)                # sorts the page within a date; 0 = joke reward
     a$featured <- is.null(r$paper) || !isFALSE(r$paper$featured)                  # the homepage card skips unfeatured papers (CLAUDE.md)
+    a$suppresses <- r$suppresses                                                  # dropped below, never written
     fired[[length(fired) + 1]] <- a
-    if (!quiet) cat(sprintf("\n[%s] %s: %s -> %s\nNew achievement! %s\n%s\n%s\n", a$id, a$metric, format(o), format(n), a$title, a$body, a$reward))
   }
+  # suppresses (2026-10-11): a milestone that fires silences the step joke for the same tick (one card per event)
+  drop  <- unlist(map(fired, "suppresses"))
+  fired <- map(discard(fired, ~ .x$id %in% drop), ~ { .x$suppresses <- NULL; .x })
+  if (!quiet) for (a in fired) cat(sprintf("\n[%s] %s: %s -> %s\nNew achievement! %s\n%s\n%s\n", a$id, a$metric, format(a$old), format(a$new), a$title, a$body, a$reward))
   fired
 }
 write_ledger <- function(ledger) {

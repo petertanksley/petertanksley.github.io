@@ -29,8 +29,8 @@ sync: github
   Publication count verified at 28 articles (one in press) + 2 preprints (log `logs/2026-10-06_two-page-cv-and-clone-sync.md`).
 - 2026-10-10: OpenAlex dropped, Scholar only; percentile rule + Raffington entry removed (6 ledger entries); Necromancy
   reads Scholar (log `logs/skilltree/2026-10-10_drop-openalex.md`). Pushed 2026-10-11.
-- Open for Peter: achievement-template decisions (grant wording for intramural pilots, milestone/step double-fire,
-  drop `review-done`?, `tenure`); list in that log. Bank page https://claude.ai/artifact/83gcPoCxpgN6HuPdvQmLra is stale.
+- 2026-10-11: template decisions done: grant wording neutral, milestones suppress their step joke, `review-done` and
+  `tenure` cut (same log). Template-bank page https://claude.ai/artifact/83gcPoCxpgN6HuPdvQmLra is stale.
 - Scholar refresh is automatic: laptop launchd job, Mondays 08:30, refreshes + notifies, never commits (CLAUDE.md
   "Weekly check"). When it notifies: review, then commit + push the snapshot, `scholar.json`, ledger, `tree.json`.
 - Publications change in `5_skilltree/data/articles.yml`, never in the CV: edit → rate in the Shiny app if new →
@@ -44,7 +44,9 @@ sync: github
 
 - TBD, on signature: NIOSH HELD FY2027 intramural pilots, BCOPS DNAm ($125k) and BCOPS biological age ($100k), informally
   approved 2026-10-09 via Desta for the full requested amounts; ~$50k direct to Peter over two years. Nothing signed
-  yet, so no CV line or news item until it is. Once signed: one `news.yml` item + CV grants line.
+  yet, so no CV line or news item until it is. Once signed: one `news.yml` item + CV grants line + two `grant` events in
+  `achievements_manual.yml` (one per pilot, `slug: dnam` / `slug: bioage`); dry-run `check_achievements.R` first and
+  change a slug if both cards draw the same wording.
 - TBD: volume/issue/pages for entry 27 (Schwaba et al., Nature, doi:10.1038/s41586-026-10992-9) — set
   `citation:` in `articles.yml` (currently "online first"), rerun `render_cv_pubs.R`. Online first at last check (2026-10-03).
 - TBD: DOI, then volume/pages, for entry 28 (Tanksley, Logan, & Barnes, AJPH, in press) — set `doi:`,
@@ -52,7 +54,7 @@ sync: github
   hand-written and need the same edit; the two-page CV count line ("one in press") too. No DOI at last check (2026-10-03).
 - June/July 2027: new JCR year — export all 22 journals into `5_skilltree/data/jcr/jcr_<year>.csv`, run
   `build_journals.R` then `build_tree.R`, commit. Clears nearest-year flags on papers published earlier that year.
-- Backlog, unscheduled: achievement-template review (above); phase stickers beside the matching Research-page
+- Backlog, unscheduled: phase stickers beside the matching Research-page
   sections; achievements extras (total-citation ladder, box-reward variants, reviews from the `/bob review`
   archive; proposals in `logs/skilltree/2026-09-19_achievements-rules.md`); hex brightness ceiling 1.3 → 1.4 if
   the top papers look flat; optional wide scene on the Projects page (`logs/2026-09-22_trapdoor-scene.md`);

@@ -27,6 +27,7 @@
 #                      articles.<id>.scholar_by_year in the OLD snapshot. Needs it in both snapshots (from 2026-10-04)
 #            manual    never fires from snapshots: the template for one `kind` of hand-logged event in
 #                      data/achievements_manual.yml ({what} {where} {note} {year}); --log renders new events
+#   suppresses  [rule ids]: when this rule fires, those rules' firings in the same snapshot pair are dropped
 #   forward_only  true: never fires when the old snapshot lacked the metric (per-event rules; Peter, 2026-10-03)
 #   by_tag   {<tag>: {title, body, reward}}: overrides used when the paper carries that tag in articles.yml `tags`
 #   A metric of the form articles.*.scholar expands to one rule per paper in articles.yml (ledger id
@@ -128,9 +129,11 @@
 # 2026-09-27: milestone ladders alongside the step jokes above. The step rules mock every tick; these hand out a
 # Committee Box at the round numbers a search committee would actually notice. Ladders, so a jump over two rungs fires
 # once at the higher rung. Values at adoption: h 12, i10 15, so nothing fires until the numbers earn it.
+# suppresses (Peter, 2026-10-11): when a milestone fires, the step joke for the same tick does not; one card per event.
 - id: h-index-milestone
   metric: scholar.h_index
   trigger: ladder
+  suppresses: [h-index-up]
   title:
     - "The Committee Will See You Now."
     - "Hirsch Would Be Mildly Pleased."
@@ -156,6 +159,7 @@
 - id: i10-milestone
   metric: scholar.i10
   trigger: ladder
+  suppresses: [i10-up]
   title:
     - "Double Digits, in Bulk."
     - "A Score Google Made Up, Collected in Quantity."
@@ -323,27 +327,7 @@
 # only retrospective ones are cumulative milestones, which count the whole history and may fire once, at the rung
 # already reached, on the first snapshot that carries the count. Per-event rules take forward_only: true.
 # Reviews: count only, dated to the refresh. Never a journal or a submission date on the site (blind review).
-- id: review-done
-  metric: career.reviews
-  trigger: step
-  forward_only: true
-  title:
-    - "You Were Reviewer 2."
-    - "Unpaid Labor Complete."
-    - "Comments to the Authors, Submitted."
-  body:
-    - >-
-      You reviewed a manuscript. You were thorough, fair, and, according to the authors, the reason they need a
-      drink. Nobody pays for this. Everybody needs it. That makes {new}.
-    - >-
-      Review submitted. You asked for a robustness check you would also have refused to run. Fair is fair. Lifetime
-      total: {new}.
-    - >-
-      You turned in a review, roughly on time. The editor will thank you in an automated email and invite you to
-      review three more. You are at {new}.
-  reward:
-    type: Reviewer 2 Box
-    tier: Bronze
+# review-done (Bronze on every review) cut 2026-10-11 (Peter): the milestones below carry reviews alone.
 
 # Peter, 2026-10-01: reviews have a Bronze ceiling, ever. So the milestone ladder is Bronze all the way up.
 - id: review-milestone
@@ -400,7 +384,7 @@
 # ---- manual kinds (Peter, 2026-10-01) ---------------------------------------------------------------------------
 # trigger: manual never fires from snapshots. Each rule is the template for one `kind` in data/achievements_manual.yml,
 # which is hand-appended; check_achievements.R --log renders new events into the ledger. {what} {where} {note} {year}
-# fill from the event. Celestial is reserved: `tenure` is the only rule that awards it, and it never fires on its own.
+# fill from the event. Celestial is reserved and, since `tenure` was cut (2026-10-11), awarded by no rule.
 - id: talk
   trigger: manual
   title:
@@ -425,14 +409,14 @@
   title:
     - "Someone Else Is Paying."
     - "The Budget Justification Worked."
-    - "Indirect Costs Unlocked."
+    - "Funded. Now Do It."
   body:
     - >-
       "{what}" has been funded by {where}. Somebody read your aims page and believed it. Now you have to do
       what it said.
     - >-
-      "{what}" is funded, by {where}. The university will take its share before you see a cent, and it will
-      not say thank you. You will be asked for a progress report almost immediately.
+      "{what}" is funded, by {where}. The money arrives slowly, the reporting deadlines arrive on time, and you
+      will be asked for a progress report almost immediately.
     - >-
       You have been given money: "{what}", from {where}. Somewhere a grants officer has opened a new
       spreadsheet with your name on it, and it will follow you for years.
@@ -499,14 +483,4 @@
     type: Protocol Box
     tier: Legendary
 
-- id: tenure
-  trigger: manual
-  title:
-    - "Tenured."
-  body:
-    - >-
-      You have been granted tenure by {where}. Years of dossiers, external letters and annual reviews, reduced to one
-      vote. You are now permanent. So is the committee work.
-  reward:
-    type: Tenure Box
-    tier: Celestial
+# tenure (the one Celestial) cut 2026-10-11 (Peter): not on the tenure track. Celestial is now awarded by nothing.

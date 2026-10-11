@@ -49,3 +49,19 @@ datacenter IPs. Built:
 First live run via `launchctl kickstart`, 2026-10-11: exit 0, no macOS privacy block on `~/Documents`, citations
 456 → 462, h 13, i10 15, nothing fired, 3 per-paper histograms re-fetched. Also the first live run of the Scholar-only
 fetcher: `scholar.json` now carries no OpenAlex block.
+
+## 2026-10-11 — achievement-template decisions
+
+Peter's calls on the review points above:
+- **Grant wording neutral.** "Indirect Costs Unlocked." became "Funded. Now Do It."; the "university will take its
+  share" body became one about slow money and punctual reporting deadlines. Every variant now fits intramural awards.
+- **Two NIOSH pilots = two events.** Rendered on a test date both drew the same title and body (the variant is a hash of
+  the key; 1-in-3 per field). The pick depends on the date, so bob.md says: log with `slug: dnam` / `slug: bioage`,
+  dry-run, change a slug if the cards match.
+- **Milestone wins.** New `suppresses:` field; `h-index-milestone` suppresses `h-index-up`, `i10-milestone` suppresses
+  `i10-up`. Implemented in `fire()` after the rule loop (printing moved after the filter). Synthetic test h 13 → 15,
+  i10 15 → 16: milestone only for h, `i10-up` still fires.
+- **Cut `review-done`** (Bronze per review; the 10/25/50/100 milestones remain, at 16 now) and **cut `tenure`**
+  (not on the tenure track; `skilltree.js` already says so on the character sheet). Celestial is now awarded by nothing.
+
+Replay stable after all of it: 4 snapshot pairs, 6 entries, 0 added.

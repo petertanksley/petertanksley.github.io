@@ -80,11 +80,10 @@ is the one way to rewrite history from today's rules.
 | `ladder` on a root paper's descendants (`lineage`, from `builds_on`), 1 / 3 / 5 / 10 | founding a guild | Silver, Gold, Platinum, Legendary; Heirloom Box |
 | `round every: 100` on total citations | crossing a count | Silver at 100s, Gold at 500, Platinum at 1000 |
 | `revival` on a dormant paper's Scholar count (Necromancy, 2026-10-03; Scholar since 2026-10-10) | raising the dead | Gold, flat; Phylactery Box (Archive Box on mortality papers) |
-| hand-logged events (`trigger: manual`, 2026-10-03) | Benefactor boxes, boss kills | talk Silver, grant Gold, award Platinum, media Bronze, IRB first try Legendary, tenure Celestial |
-| `step` on `career.reviews`, forward only (2026-10-03) | doing the job anyway | Bronze Reviewer 2 Box, every review |
+| hand-logged events (`trigger: manual`, 2026-10-03) | Benefactor boxes, boss kills | talk Silver, grant Gold, award Platinum, media Bronze, IRB first try Legendary (tenure Celestial cut 2026-10-11) |
 | `ladder` on `career.reviews` 10 / 25 / 50 / 100 | crossing a count | Bronze at every rung: reviews have a Bronze ceiling, ever |
 | `ladder` on `career.articles` 10 / 20 / 30 / 50 / 100 | crossing a count | Bronze, Silver, Gold, Platinum, Legendary; Bibliography Box |
-| Celestial | never | tenure, if it comes; nothing else |
+| Celestial | never | nothing (tenure was the one; cut 2026-10-11, not on the tenure track) |
 
 Peter, 2026-09-19: "attainable, not rock-star." With 30 papers (7 at zero, 8 at one to nine, 15 at ten to
 ninety-nine, none at a hundred) the per-paper log10 rule is what keeps the dungeon noisy: seven papers are
@@ -94,6 +93,12 @@ the box type from the paper's dominant area (Flask, Handcuff, Challenge Coin; Ad
 
 Why quarters, not log10 (2026-09-19): log10 left fifteen papers queued for Gold and nothing above it reachable.
 Under quarters the next rungs spread 7 / 8 / 6 / 8 / 1 across Bronze to Legendary.
+
+**Template review (Peter, 2026-10-11).** A milestone that fires silences its step joke for the same tick
+(`suppresses:` on `h-index-milestone` and `i10-milestone`): one card per event. `review-done` was cut (a Bronze on every
+review was noise; the 10 / 25 / 50 / 100 milestones carry reviews alone) and so was `tenure` (not on the tenure track;
+Celestial is now awarded by nothing). The `grant` wording was made neutral so it fits intramural awards (no
+indirect-cost jokes). Each award is its own event: two NIOSH pilots are two Grant Boxes.
 
 **Percentile rule (retired 2026-10-10).** A ladder on OpenAlex's `cited_by_percentile_year` (97 / 98 / 99 / 100,
 papers two calendar years old). Peter dropped OpenAlex entirely on 2026-10-10; Scholar has no equivalent ranking, so
