@@ -78,9 +78,8 @@ is the one way to rewrite history from today's rules.
 | `ladder` on h-index 15 / 20 / 25 / 30, and on i10 20 / 30 / 50 / 100 (added 2026-09-27) | crossing a count the committee notices | Silver, Gold, Platinum, Legendary; Committee Box |
 | `ladder` on any single paper's citations, quarters 1 / 10 / 25 / 50 / 100 | first kill, then crossing counts | Bronze (lead-author papers only), Silver, Gold, Platinum, Legendary |
 | `ladder` on a root paper's descendants (`lineage`, from `builds_on`), 1 / 3 / 5 / 10 | founding a guild | Silver, Gold, Platinum, Legendary; Heirloom Box |
-| `ladder` on a paper's OpenAlex year percentile, 97 / 98 / 99 / 100, papers two calendar years old (`min_age`) | "first crawler to": relative standing | Silver, Gold, Platinum, Legendary |
 | `round every: 100` on total citations | crossing a count | Silver at 100s, Gold at 500, Platinum at 1000 |
-| `revival` on a dormant paper's OpenAlex count (Necromancy, 2026-10-03) | raising the dead | Gold, flat; Phylactery Box (Archive Box on mortality papers) |
+| `revival` on a dormant paper's Scholar count (Necromancy, 2026-10-03; Scholar since 2026-10-10) | raising the dead | Gold, flat; Phylactery Box (Archive Box on mortality papers) |
 | hand-logged events (`trigger: manual`, 2026-10-03) | Benefactor boxes, boss kills | talk Silver, grant Gold, award Platinum, media Bronze, IRB first try Legendary, tenure Celestial |
 | `step` on `career.reviews`, forward only (2026-10-03) | doing the job anyway | Bronze Reviewer 2 Box, every review |
 | `ladder` on `career.reviews` 10 / 25 / 50 / 100 | crossing a count | Bronze at every rung: reviews have a Bronze ceiling, ever |
@@ -96,16 +95,11 @@ the box type from the paper's dominant area (Flask, Handcuff, Challenge Coin; Ad
 Why quarters, not log10 (2026-09-19): log10 left fifteen papers queued for Gold and nothing above it reachable.
 Under quarters the next rungs spread 7 / 8 / 6 / 8 / 1 across Bronze to Legendary.
 
-**Percentile rule.** OpenAlex's `cited_by_percentile_year` ranks a work among *all* OpenAlex works of its
-year, most of which are never cited, so it runs high: a 4-citation 2021 paper sits at 89, a 42-citation 2022
-paper at 93 (conservative end of the band). Hence rungs in the nineties, and `fetch_scholar.R` records the
-percentile only once the paper has a full calendar year behind it, because in the publication year the cohort
-is mostly empty and the band is inflated. Achievements only fire upward; a percentile that later slips does
-not un-earn anything. Peter, 2026-09-20, after the first refresh fired twelve of these: too plentiful. The rule
-now waits until a paper is two calendar years old (`min_age: 2`, judged at the snapshot date; a paper too young
-at the old snapshot counts as 0 there, so its first eligible snapshot fires the rung it sits on) and starts at
-the top 3% (97 Silver, 98 Gold, 99 Platinum, 100 Legendary; no Bronze, because top 3% is not a Bronze feat).
-Against the 2026-09-20 data that leaves one: the 2023 Clinical Psychological Science paper at 98, Gold.
+**Percentile rule (retired 2026-10-10).** A ladder on OpenAlex's `cited_by_percentile_year` (97 / 98 / 99 / 100,
+papers two calendar years old). Peter dropped OpenAlex entirely on 2026-10-10; Scholar has no equivalent ranking, so
+the rule went with it and its one ledger entry (the 2023 Clinical Psychological Science paper, Gold, earned
+2026-09-20) was removed by hand, the deliberate exception to "earned is earned". History in
+`logs/skilltree/2026-10-10_drop-openalex.md`.
 
 **First-citation Bronze is lead-author only** (Peter, 2026-09-20): a rung may carry `role:` and then exists only
 for papers of that role, so a contributing-author paper's ladder starts at Silver, ten citations in. Seven papers
@@ -120,12 +114,14 @@ so the three existing roots (LEO mortality 2025, Gonzalez 2025, Raffington 2022;
 
 **Necromancy** (Peter, 2026-10-01; built 2026-10-03). A paper is dormant at a snapshot when it is at least three
 calendar years old and has no citations in the last complete calendar year *or* so far in the current one; the next
-snapshot that shows its OpenAlex count rise, with the new citations landing in that window or later in `by_year`,
+snapshot that shows its Scholar count rise, with the new citations landing in that window or later in its histogram,
 raises it. The current-year condition keeps a paper that already woke up from firing again on every later snapshot;
-the `by_year` condition guards against OpenAlex dedup jitter. One flat Gold box (no ladder on how long it was silent;
+the histogram condition guards against Scholar's merge/dedup jitter. One flat Gold box (no ladder on how long it was silent;
 the body says how long, `{silent}`). A paper can rise again if it dies again, since the key carries the date. Data:
-`fetch_scholar.R` stores OpenAlex `counts_by_year` as `articles.<id>.by_year` (`{"2023": 4, ...}`; `{}` = never cited,
-`null` = no record). Snapshots before 2026-10-03 lack it, so nothing fires across them. **Guardrail:** papers tagged
+Scholar's per-paper histogram, `articles.<id>.scholar_by_year` (`{"2023": 4, ...}`; `{}` = never cited, `null` = no
+Scholar row), with `scholar_by_year_n` recording the count it was fetched at so a failed fetch is retried rather than
+left stale. Until 2026-10-10 this read OpenAlex `counts_by_year` (`by_year`, still in old snapshots, now ignored).
+Snapshots before 2026-10-04 lack the Scholar histogram, so nothing fires across them. **Guardrail:** papers tagged
 `mortality` in `articles.yml` (`tags`, a judgement field `extract_cv.R` preserves) take the rule's `by_tag` wording:
 the paper wakes, is dusted off, turns up in the archive; never rising-from-the-dead imagery near a paper about people
 who died. Same "first blood" problem as 09-19.

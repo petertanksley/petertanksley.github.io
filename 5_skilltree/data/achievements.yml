@@ -16,7 +16,7 @@
 # Fields:
 #   id       slug; becomes the ledger key and, later, the news anchor
 #   metric   dotted path into a snapshot: scholar.citations | scholar.h_index | scholar.i10 |
-#            openalex.citations | articles.<article_id>.scholar
+#            articles.<article_id>.scholar   (Scholar only since 2026-10-10: OpenAlex dropped)
 #   trigger  step      fires on any increase (old < new)
 #            round     fires when new crosses a multiple of `every` that old had not reached
 #            threshold fires once, when new >= `at` and old < `at`
@@ -24,15 +24,13 @@
 #            ladder    fires when new reaches a rung `at` of the reward tier ladder that old had not
 #            revival   (Necromancy) fires when a dormant paper's count rises: at least `min_age` years old and no
 #                      citations in the last `dormant_years` complete calendar years nor the current one, judged from
-#                      articles.<id>.by_year in the OLD snapshot. Needs by_year in both snapshots (from 2026-10-03)
+#                      articles.<id>.scholar_by_year in the OLD snapshot. Needs it in both snapshots (from 2026-10-04)
 #            manual    never fires from snapshots: the template for one `kind` of hand-logged event in
 #                      data/achievements_manual.yml ({what} {where} {note} {year}); --log renders new events
 #   forward_only  true: never fires when the old snapshot lacked the metric (per-event rules; Peter, 2026-10-03)
 #   by_tag   {<tag>: {title, body, reward}}: overrides used when the paper carries that tag in articles.yml `tags`
 #   A metric of the form articles.*.scholar expands to one rule per paper in articles.yml (ledger id
 #   <rule>-<article id>); {paper} {venue} {year} fill from the paper, {times} is "once" or "{new} times".
-#   articles.<id>.percentile is the paper's OpenAlex citation percentile among all works of its year (the
-#   conservative end of the band; null in the publication year). {top} = 100 - {new}, read as "top N%".
 #   {s}      "" when {new} is 1, else "s"
 #   min_age  (per-paper rules) years a paper must have behind it, counted in calendar years from the snapshot
 #            date, before the rule looks at it. Below that age the paper's value counts as 0, so the first
@@ -270,49 +268,16 @@
           Your {year} paper in {venue} has {new} descendant{s} on this tree and no ancestors. The groundwork paper.
           It gets cited in the introduction and never thanked, and nothing after it stands without it.
 
-# Peter, 2026-09-20: the first refresh fired twelve of these at once and it read as noise. Now only papers two full
-# calendar years old, and only the top 3%: a percentile that runs as high as this one has to be near the ceiling
-# before it means anything.
-- id: paper-percentile
-  metric: articles.*.percentile
-  trigger: ladder
-  min_age: 2
-  title:
-    - "Better Than Most Things Nobody Read."
-    - "Top {top}%. Of Everything. Including Corrections."
-    - "The Bad Metric Likes You."
-  body:
-    - >-
-      Among everything published in {year} that OpenAlex has heard of, your paper in {venue} now sits in the
-      top {top}% by citations. Most of the rest was never cited at all, which is either comforting or the
-      whole problem.
-    - >-
-      OpenAlex ranks your {year} paper in {venue} in the top {top}% of everything published that year. The
-      comparison set includes conference abstracts, corrections, and a great many things nobody has opened.
-      Still. Top {top}%.
-    - >-
-      Your {year} paper in {venue} out-cites {new}% of {year}. Most of the field is below you on a measure the
-      field agrees is bad. Enjoy it exactly as much as that deserves.
-  reward:
-    type:
-      biosocial: Flask Box
-      criminology: Handcuff Box
-      responders: Challenge Coin Box
-      mixed: Adventurer Box
-    tier:
-      - {at: 97, tier: Silver}
-      - {at: 98, tier: Gold}
-      - {at: 99, tier: Platinum}
-      - {at: 100, tier: Legendary}
+# paper-percentile (OpenAlex year percentile) retired 2026-10-10 with OpenAlex; its one ledger entry was removed.
 
 # Peter, 2026-10-01: Necromancy. A paper at least three calendar years old with no citations in the last complete
-# calendar year (or so far this year) is dormant; the snapshot that shows its OpenAlex count rise raises it. One flat
+# calendar year (or so far this year) is dormant; the snapshot that shows its Scholar count rise raises it. One flat
 # Gold box: dormancy is a single threshold, so no ladder on how long it was silent. A paper can rise again if it dies
 # again (the key carries the date). {silent} = complete calendar years without a citation, {ys} its plural.
 # Mortality papers (tags: [mortality] in articles.yml) take the by_tag wording: the PAPER wakes, is dusted off, turns up
 # in the archive. No rising-from-the-dead imagery anywhere near a paper about people who died (CLAUDE.md).
 - id: necromancy
-  metric: articles.*.openalex
+  metric: articles.*.scholar
   trigger: revival
   min_age: 3
   dormant_years: 1

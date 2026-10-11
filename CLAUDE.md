@@ -125,7 +125,7 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
 - Stickers per article go through the `4_stickers/` pipeline unchanged; until one exists a node
   shows `blank_dark.png`, which `build_tree.R` cuts from `blank.png`'s alpha.
 - **Citation stats** (2026-09-18): `5_skilltree/R/fetch_scholar.R` scrapes Peter's public Google
-  Scholar profile (no API exists) and OpenAlex (by ORCID), writes `www/scholar.json` (declared in
+  Scholar profile (no API exists; Scholar only, OpenAlex dropped 2026-10-10), writes `www/scholar.json` (declared in
   `_quarto.yml` resources) and a dated snapshot in `5_skilltree/data/scholar/`. **Run it locally and
   commit the outputs**; never from CI (no R there, and Scholar blocks datacenter IPs). Expect the odd
   block: the script keeps the last snapshot's Scholar block and warns. `skilltree.js` draws the card in
@@ -146,13 +146,13 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   `check_achievements.R --replay` to rebuild it from every snapshot pair. **Refresh = `Rscript 5_skilltree/R/refresh.R`**
   (fetch, log, build tree, in that order), then commit the snapshot, `scholar.json`, the ledger and `tree.json`.
   The first real refresh (2026-09-20) fired 12 percentile achievements at once and Peter called it noise: the
-  percentile rule now takes `min_age: 2` (calendar years from the snapshot date) and starts at the top 3%. Same day:
+  percentile rule took `min_age: 2` and the top 3% (retired with OpenAlex 2026-10-10, its one entry removed). Same day:
   first-citation Bronze is for lead-author papers only (a rung may carry `role:`), and a **Founder** rule fires when a
   paper with no `builds_on` gains descendants (`articles.<id>.lineage`, which the fetcher computes from `articles.yml`
-  into each snapshot). Ledger after replay: three Founder Silvers and one percentile Gold. Title, body and joke
+  into each snapshot). Ledger after replay: three Founder Silvers. Title, body and joke
   reward may be lists of variants; one is picked per firing by a hash of the key, never the clock, so replay is exact.
   **Necromancy and manual events** (2026-10-03): a `revival` rule raises a paper that is 3+ years old and went a
-  calendar year uncited (needs `by_year` in both snapshots; `tags: [mortality]` papers get death-free wording), and
+  calendar year uncited (reads Scholar's `scholar_by_year`, needed in both snapshots; `tags: [mortality]` papers get death-free wording), and
   talks / grants / awards etc. are hand-appended to `data/achievements_manual.yml` as they happen (append-only; `--log`
   renders new ones). **Forward only**: no retrospective achievements except cumulative milestones (`career.*` ladders).
   Reviews are counted from the `/bob review` archive; publish the count only, never a journal or date (blind review).

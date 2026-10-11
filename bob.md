@@ -8,7 +8,7 @@ deadline: null
 target: null
 effort_remaining: monitoring (annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-10-06
+last_updated: 2026-10-11
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -27,8 +27,10 @@ sync: github
 
 - State 2026-10-06: clone in sync with GitHub, CI green, live site serves the full CV and not the two-page one.
   Publication count verified at 28 articles (one in press) + 2 preprints (log `logs/2026-10-06_two-page-cv-and-clone-sync.md`).
-- Open for Peter: (1) drop OpenAlex entirely, or keep it feeding Necromancy + percentile achievements only?
-  (2) review the unfired achievement templates (https://claude.ai/artifact/83gcPoCxpgN6HuPdvQmLra).
+- 2026-10-10: OpenAlex dropped, Scholar only; percentile rule + Raffington entry removed (6 ledger entries); Necromancy
+  reads Scholar (log `logs/skilltree/2026-10-10_drop-openalex.md`). Pushed 2026-10-11.
+- Open for Peter: achievement-template decisions (grant wording for intramural pilots, milestone/step double-fire,
+  drop `review-done`?, `tenure`); list in that log. Bank page https://claude.ai/artifact/83gcPoCxpgN6HuPdvQmLra is stale.
 - Next Scholar refresh not before late October: `Rscript 5_skilltree/R/refresh.R`, then commit the snapshot,
   `www/scholar.json`, `5_skilltree/data/achievements_log.yml`, `www/tree.json`.
 - Publications change in `5_skilltree/data/articles.yml`, never in the CV: edit → rate in the Shiny app if new →
@@ -40,6 +42,9 @@ sync: github
 
 ## Upcoming Milestones
 
+- TBD, on signature: NIOSH HELD FY2027 intramural pilots, BCOPS DNAm ($125k) and BCOPS biological age ($100k), informally
+  approved 2026-10-09 via Desta for the full requested amounts; ~$50k direct to Peter over two years. Nothing signed
+  yet, so no CV line or news item until it is. Once signed: one `news.yml` item + CV grants line.
 - TBD: volume/issue/pages for entry 27 (Schwaba et al., Nature, doi:10.1038/s41586-026-10992-9) — set
   `citation:` in `articles.yml` (currently "online first"), rerun `render_cv_pubs.R`. Online first at last check (2026-10-03).
 - TBD: DOI, then volume/pages, for entry 28 (Tanksley, Logan, & Barnes, AJPH, in press) — set `doi:`,
@@ -64,7 +69,7 @@ sync: github
   `quarto render 2_cv/tanksley_cv_2page.qmd --to typst` (PDF beside the source, gitignored). Excluded from the site
   render in `_quarto.yml` on purpose (Helvetica Neue, local font). 11 selected pubs and the count line are hand-maintained.
 - Skill tree, stats card, impact pips, achievements: generator in `5_skilltree/`; PROJ_skill_tree repo archived
-- Displayed citations are Google Scholar only; OpenAlex feeds achievements only (see `logs/skilltree/2026-10-04_refresh-lineage-wording.md`)
+- Citations are Google Scholar only, display and achievements (OpenAlex dropped 2026-10-10)
 - Hex stickers: finals in `www/hex/` + `www/hearth.jpg`; pipeline `4_stickers/`; CV band via `4_stickers/hexband.R`
 - Phase marks: coin (first responders), handcuffs (criminology); helmet and magnifying glass archived beside them
 - News feed: `news.yml` → `news-listing.ejs` / `news-listing-home.ejs`; achievements are a separate stream

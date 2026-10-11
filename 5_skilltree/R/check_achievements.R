@@ -14,7 +14,7 @@
 #   ... --manual <file>                                       manual-event file elsewhere (tests)
 # Triggers: step (any increase), round (crosses a multiple of `every`), threshold (reaches `at` once),
 # log10 (reaches a new power of ten), ladder (reaches a rung `at` of the reward tier ladder that old had not),
-# revival (a dormant paper's count rises; reads articles.<id>.by_year), manual (never fires from snapshots: a
+# revival (a dormant paper's count rises; reads articles.<id>.scholar_by_year), manual (never fires from snapshots: a
 # template for hand-logged events in data/achievements_manual.yml, rendered and merged by --log and --replay).
 #
 # The ledger is committed: every fired achievement is written out in full (rendered text, metric, old and new
@@ -59,7 +59,7 @@ date_of <- function(f) str_remove(basename(f), "\\.json$")
 dig  <- function(x, path) { for (k in str_split_1(path, fixed("."))) { x <- x[[k]]; if (is.null(x)) return(NA) }; if (is.null(x)) NA else as.numeric(x) }
 fill <- function(tpl, o, n, a = NULL, extra = NULL) {
   vals <- c("{old}" = format(o), "{new}" = format(n), "{delta}" = format(n - o), "{times}" = if (n == 1) "once" else paste(format(n), "times"),
-            "{top}" = format(100 - n), "{s}" = if (n == 1) "" else "s")      # a percentile read as "top N%"; a plural
+            "{s}" = if (n == 1) "" else "s")                                 # a plural
   if (!is.null(a)) vals <- c(vals, "{paper}" = a$title, "{venue}" = a$venue %||% "", "{year}" = format(a$year))
   if (length(extra)) vals <- c(vals, set_names(unlist(extra), paste0("{", names(extra), "}")))   # {silent}; manual {what} {where} {note}
   str_replace_all(str_squish(tpl), fixed(vals))
@@ -98,20 +98,21 @@ tagged <- function(r) {
 # Necromancy (2026-10-03). A paper is dormant at the old snapshot when it is at least `min_age` calendar years old
 # then and has zero citations in each of the last `dormant_years` complete calendar years AND so far in the current
 # one (so a paper that already woke up does not fire again on every later snapshot). It revives when its count rises
-# and the new snapshot's by_year shows the citations landing in or after that window (guards OpenAlex dedup jitter).
-# Needs by_year in BOTH snapshots: older snapshots lack it, so nothing fires across them. Returns NULL (no fire) or
-# the number of complete calendar years the paper had been silent, read back as far as by_year and its age allow.
+# and the new snapshot's histogram shows the citations landing in or after that window (guards Scholar's merge/dedup
+# jitter). Reads Scholar's per-paper histogram, scholar_by_year (OpenAlex counts_by_year until 2026-10-10). Needs it in
+# BOTH snapshots: snapshots before 2026-10-04 lack it, so nothing fires across them. Returns NULL (no fire) or the
+# number of complete calendar years the paper had been silent, read back as far as the histogram and its age allow.
 revived <- function(r, old, new, old_date, new_date, o, n) {
   if (is.na(o) || is.na(n) || n <= o || is.null(r$paper)) return(NULL)
   Y <- as.integer(substr(old_date, 1, 4)); pub <- r$paper$year
   if (Y - pub < (r$min_age %||% 0)) return(NULL)
-  by_o <- old$articles[[r$paper$id]]$by_year; by_n <- new$articles[[r$paper$id]]$by_year
+  by_o <- old$articles[[r$paper$id]]$scholar_by_year; by_n <- new$articles[[r$paper$id]]$scholar_by_year
   if (is.null(by_o) || is.null(by_n)) return(NULL)
   cites <- function(by, yrs) map_dbl(as.character(yrs), ~ as.numeric(by[[.x]] %||% 0))
   window <- (Y - (r$dormant_years %||% 1)):Y
   if (any(cites(by_o, window) > 0)) return(NULL)
   if (!any(cites(by_n, min(window):as.integer(substr(new_date, 1, 4))) > 0)) return(NULL)
-  silent <- 0L                                               # OpenAlex keeps ~10 years of counts_by_year: read no further back
+  silent <- 0L                                               # cap the look-back at ten years
   lo <- max(pub + 1, Y - 10)
   if (Y - 1 >= lo) for (y in (Y - 1):lo) { if (cites(by_o, y) > 0) break; silent <- silent + 1L }
   max(silent, 1L)

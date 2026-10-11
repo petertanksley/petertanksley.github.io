@@ -3,14 +3,14 @@
 # Google Scholar has no API; this reads the PUBLIC profile page. It runs LOCALLY (Scholar blocks
 # datacenter IPs, and CI has no R), by hand, whenever the numbers should refresh; commit the outputs
 # like www/tree.json. Expect the occasional block: the script then falls back to the previous
-# snapshot's Scholar block and says so. OpenAlex (open API, by ORCID) is fetched alongside as the
-# reliable cross-check and for per-article counts by DOI.
+# snapshot's Scholar block and says so. Scholar only: OpenAlex was dropped 2026-10-10 (Peter), along with
+# the percentile achievement it fed; Necromancy reads Scholar's per-paper histogram instead.
 #
 # Outputs (both committed):
 #   www/scholar.json                          what the skill-tree page reads (declared in _quarto.yml resources)
 #   5_skilltree/data/scholar/YYYY-MM-DD.json  dated snapshot; check_achievements.R diffs the newest two
 #
-# Usage (from repo root):  Rscript 5_skilltree/R/fetch_scholar.R [--dry-run] [--no-openalex]
+# Usage (from repo root):  Rscript 5_skilltree/R/fetch_scholar.R [--dry-run]
 
 suppressPackageStartupMessages({
   library(here); library(httr2); library(rvest); library(yaml); library(jsonlite); library(purrr); library(stringr)
@@ -19,11 +19,8 @@ if (!requireNamespace("scholar", quietly = TRUE)) install.packages("scholar", re
 
 args     <- commandArgs(trailingOnly = TRUE)
 dry_run  <- "--dry-run" %in% args
-no_oa    <- "--no-openalex" %in% args
 
 SCHOLAR_ID <- "YnIBrB8AAAAJ"
-ORCID      <- "0000-0002-3449-2838"
-MAILTO     <- "peter_tanksley@txstate.edu"
 UA         <- "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128 Safari/537.36"
 OUT_JSON   <- here("www", "scholar.json")
 SNAP_DIR   <- here("5_skilltree", "data", "scholar")
@@ -67,29 +64,6 @@ fetch_scholar <- function() {
     error = function(e) { message("scholar::get_publications failed (", conditionMessage(e), "); using the profile page's rows"); parse_pubs_raw(h) })
   pubs$cites[is.na(pubs$cites)] <- 0L
   list(stats = stats, history = hist, pubs = pubs)
-}
-
-# ---- OpenAlex --------------------------------------------------------------------------------------
-oa_get <- function(url) request(url) |> req_url_query(mailto = MAILTO) |>
-  req_headers(`User-Agent` = sprintf("tanksley-skilltree/1.0 (mailto:%s)", MAILTO)) |> req_perform() |> resp_body_json()
-fetch_openalex <- function(dois) {
-  a <- oa_get(sprintf("https://api.openalex.org/authors/https://orcid.org/%s", ORCID))
-  by_year <- map(a$counts_by_year, ~ list(year = .x$year, cites = .x$cited_by_count, works = .x$works_count))
-  per_doi <- list()
-  dois <- tolower(dois[!is.na(dois) & nzchar(dois)])
-  for (chunk in split(dois, ceiling(seq_along(dois) / 40))) {
-    w <- oa_get(paste0("https://api.openalex.org/works?per-page=50&select=doi,cited_by_count,cited_by_percentile_year,counts_by_year&filter=doi:", paste(chunk, collapse = "|")))
-    # cited_by_percentile_year is a {min, max} band among ALL OpenAlex works of the same year; keep the
-    # conservative end. It runs high (most works are never cited): a 4-citation 2021 paper sits at 89.
-    # counts_by_year (2026-10-03, for Necromancy): citations received per calendar year, last ~10 years; OpenAlex
-    # omits zero years, so a missing year means none. Stored as {"<year>": n} so check_achievements.R can judge dormancy.
-    for (r in w$results) per_doi[[str_remove(tolower(r$doi), "^https://doi.org/")]] <-
-      list(cites = r$cited_by_count, pct = r$cited_by_percentile_year$min,
-           by_year = set_names(map(r$counts_by_year, "cited_by_count"), map_chr(r$counts_by_year, ~ as.character(.x$year))))
-  }
-  list(summary = list(id = a$id, works = a$works_count, citations = a$cited_by_count,
-                      h_index = a$summary_stats$h_index, i10 = a$summary_stats$i10_index, by_year = by_year),
-       per_doi = per_doi)
 }
 
 # ---- match Scholar rows to articles.yml --------------------------------------------------------------
@@ -143,8 +117,6 @@ sch <- tryCatch(fetch_scholar(), error = function(e) {
   warning("Google Scholar fetch FAILED: ", conditionMessage(e), if (!is.null(prev)) "; keeping the previous snapshot's Scholar block" else "", call. = FALSE)
   NULL
 })
-oa <- if (no_oa) NULL else tryCatch(fetch_openalex(map_chr(arts, ~ .x$doi %||% NA_character_)),
-                                    error = function(e) { warning("OpenAlex fetch failed: ", conditionMessage(e), call. = FALSE); NULL })
 
 m <- if (!is.null(sch)) match_articles(arts, sch$pubs) else NULL
 
@@ -152,22 +124,25 @@ m <- if (!is.null(sch)) match_articles(arts, sch$pubs) else NULL
 # Scholar's own per-paper histogram (one request per paper), for the bar chart in the skill-tree panel. Only papers
 # whose count moved since the previous snapshot are re-fetched; the rest reuse it, so a routine refresh costs a
 # handful of requests. Paced, and two failures in a row stop the run (Scholar is blocking): those papers keep the
-# previous snapshot's bars. Uncited papers get {} without a request. Scholar only (Peter, 2026-10-04: no OpenAlex on
-# display).
+# previous snapshot's bars. Uncited papers get {} without a request. Since 2026-10-10 this also feeds Necromancy
+# (check_achievements.R), so a histogram must never go stale silently: scholar_by_year_n records the paper's count
+# when its histogram was fetched, and a paper whose count has moved past that is re-fetched on the next run even if
+# the count did not move since the previous snapshot (i.e. after a run where the fetch failed).
 prev_sby <- function(id) if (!is.null(prev)) prev$articles[[id]]$scholar_by_year else NULL
-scholar_by_year <- list()
+prev_sby_n <- function(id) if (!is.null(prev)) prev$articles[[id]]$scholar_by_year_n %||% prev$articles[[id]]$scholar else NULL
+scholar_by_year <- list(); scholar_by_year_n <- list()
 if (!is.null(m)) {
   fails <- 0L; fetched <- 0L
   for (id in names(m$cites)) {
     n <- m$cites[[id]]; old <- prev_sby(id)
-    if (is.na(n) || n == 0) { scholar_by_year[[id]] <- setNames(list(), character()); next }
-    if (!is.null(old) && identical(as.integer(n), as.integer(prev$articles[[id]]$scholar))) { scholar_by_year[[id]] <- old; next }
-    if (fails >= 2 || is.na(m$pubid[[id]] %||% NA)) { scholar_by_year[[id]] <- old; next }
+    if (is.na(n) || n == 0) { scholar_by_year[[id]] <- setNames(list(), character()); scholar_by_year_n[[id]] <- 0L; next }
+    if (!is.null(old) && identical(as.integer(n), as.integer(prev_sby_n(id)))) { scholar_by_year[[id]] <- old; scholar_by_year_n[[id]] <- as.integer(n); next }
+    if (fails >= 2 || is.na(m$pubid[[id]] %||% NA)) { scholar_by_year[[id]] <- old; scholar_by_year_n[[id]] <- prev_sby_n(id); next }
     Sys.sleep(runif(1, 2, 5))
     h <- tryCatch(scholar::get_article_cite_history(SCHOLAR_ID, m$pubid[[id]]), error = function(e) NULL)
-    if (is.null(h)) { fails <- fails + 1L; scholar_by_year[[id]] <- old; next }
+    if (is.null(h)) { fails <- fails + 1L; scholar_by_year[[id]] <- old; scholar_by_year_n[[id]] <- prev_sby_n(id); next }
     fails <- 0L; fetched <- fetched + 1L
-    scholar_by_year[[id]] <- as.list(setNames(as.integer(h$cites), h$year))
+    scholar_by_year[[id]] <- as.list(setNames(as.integer(h$cites), h$year)); scholar_by_year_n[[id]] <- as.integer(n)
   }
   cat(sprintf("per-article history: %d fetched from Scholar%s\n", fetched,
               if (fails >= 2) "; STOPPED after repeated failures, the rest keep the previous snapshot's bars" else ""))
@@ -181,25 +156,17 @@ descendants <- function(id, seen = character()) { k <- setdiff(kids[[id]], seen)
 lineage <- map_int(set_names(ids), ~ if (length(arts[[match(.x, ids)]]$builds_on)) 0L else length(descendants(.x)))
 articles <- set_names(map(arts, function(a) {
   s  <- if (!is.null(m)) m$cites[[a$id]] else if (!is.null(prev)) prev$articles[[a$id]]$scholar else NULL
-  rec <- if (!is.null(oa) && !is.null(a$doi)) oa$per_doi[[tolower(a$doi)]] else NULL
-  o   <- if (!is.null(rec)) rec$cites else if (!is.null(prev)) prev$articles[[a$id]]$openalex else NULL
-  # percentile only once the paper has a full calendar year behind it: in its publication year the cohort is
-  # mostly uncited and the band is inflated, and achievements only ever fire upward
-  pct <- if (!is.null(rec) && !is.null(rec$pct) && isTRUE(a$year < as.integer(format(Sys.Date(), "%Y")))) rec$pct
-         else if (is.null(rec) && !is.null(prev)) prev$articles[[a$id]]$percentile else NULL
-  by  <- if (!is.null(rec)) rec$by_year else if (!is.null(prev)) prev$articles[[a$id]]$by_year else NULL
-  # {} (never cited, but OpenAlex answered) is data and differs from null (no record): a paper never cited in three
+  # {} (never cited) is data and differs from null (not matched to a Scholar row): a paper never cited in three
   # years is dormant too, and its first citation raises it
-  sby <- if (!is.null(m)) scholar_by_year[[a$id]] else prev_sby(a$id)
-  list(scholar = s, scholar_by_year = sby, openalex = o, percentile = pct, lineage = lineage[[a$id]], by_year = by)
+  sby   <- if (!is.null(m)) scholar_by_year[[a$id]] else prev_sby(a$id)
+  sby_n <- if (!is.null(m)) scholar_by_year_n[[a$id]] else if (!is.null(prev)) prev$articles[[a$id]]$scholar_by_year_n else NULL
+  list(scholar = s, scholar_by_year = sby, scholar_by_year_n = sby_n, lineage = lineage[[a$id]])
 }), ids)
 
 out <- list(
-  meta = list(fetched = format(Sys.time(), "%Y-%m-%d %H:%M"), scholar_id = SCHOLAR_ID, orcid = ORCID,
-              sources = list(scholar = if (!is.null(sch)) "live" else if (!is.null(prev)) paste("snapshot", prev$meta$fetched) else "unavailable",
-                             openalex = if (!is.null(oa)) "live" else "unavailable")),
+  meta = list(fetched = format(Sys.time(), "%Y-%m-%d %H:%M"), scholar_id = SCHOLAR_ID,
+              sources = list(scholar = if (!is.null(sch)) "live" else if (!is.null(prev)) paste("snapshot", prev$meta$fetched) else "unavailable")),
   scholar  = if (!is.null(sch)) c(sch$stats, list(by_year = sch$history)) else prev$scholar,
-  openalex = if (!is.null(oa)) oa$summary else prev$openalex,
   articles = articles,
   career   = career
 )
@@ -208,19 +175,17 @@ out <- list(
 fmt <- function(x) if (is.null(x)) "-" else format(x)
 cat(sprintf("Google Scholar (%s): %s citations (%s since 5y), h %s (%s), i10 %s (%s)\n", out$meta$sources$scholar,
             fmt(out$scholar$citations), fmt(out$scholar$citations_5y), fmt(out$scholar$h_index), fmt(out$scholar$h_index_5y), fmt(out$scholar$i10), fmt(out$scholar$i10_5y)))
-cat(sprintf("OpenAlex (%s): %s works, %s citations, h %s, i10 %s\n", out$meta$sources$openalex,
-            fmt(out$openalex$works), fmt(out$openalex$citations), fmt(out$openalex$h_index), fmt(out$openalex$i10)))
 if (!is.null(m)) {
   cat(sprintf("matched %d of %d articles to Scholar rows\n", length(m$cites), length(arts)))
   if (length(m$unmatched_articles)) cat("  articles with no Scholar row:", paste(m$unmatched_articles, collapse = ", "), "\n")
   if (length(m$unmatched_scholar))  cat("  Scholar rows not in articles.yml:\n", paste0("   - ", substr(m$unmatched_scholar, 1, 90), "\n"), sep = "")
 }
-cat(sprintf("%-34s %8s %8s %6s\n", "id", "scholar", "openalex", "pct"))
-for (id in ids) cat(sprintf("%-34s %8s %8s %6s\n", id, fmt(articles[[id]]$scholar), fmt(articles[[id]]$openalex), fmt(articles[[id]]$percentile)))
+cat(sprintf("%-34s %8s\n", "id", "scholar"))
+for (id in ids) cat(sprintf("%-34s %8s\n", id, fmt(articles[[id]]$scholar)))
 
 cat(sprintf("career: %s articles, %s reviews\n", fmt(career$articles), fmt(career$reviews)))
 if (dry_run) { cat("\n--dry-run: nothing written\n"); quit(save = "no") }
-if (is.null(out$scholar) && is.null(out$openalex)) stop("nothing fetched and no snapshot to fall back on; not writing")
+if (is.null(out$scholar)) stop("nothing fetched and no snapshot to fall back on; not writing")
 dir.create(SNAP_DIR, showWarnings = FALSE, recursive = TRUE)
 js <- toJSON(out, auto_unbox = TRUE, pretty = TRUE, null = "null", na = "null")
 writeLines(js, OUT_JSON); writeLines(js, file.path(SNAP_DIR, paste0(today, ".json")))

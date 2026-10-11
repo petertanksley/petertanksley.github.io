@@ -59,25 +59,6 @@
   box: Heirloom Box
   rank: 2
   featured: true
-- key: paper-percentile-raffington_2023_associations-2026-09-20
-  id: paper-percentile-raffington_2023_associations
-  date: '2026-09-20'
-  since: '2026-09-18'
-  metric: articles.raffington_2023_associations.percentile
-  old: 0
-  new: 98
-  title: Better Than Most Things Nobody Read.
-  body: OpenAlex ranks your 2023 paper in Clinical Psychological Science in the top
-    2% of everything published that year. The comparison set includes conference abstracts,
-    corrections, and a great many things nobody has opened. Still. Top 2%.
-  reward: 'Reward: You''ve received a Gold Flask Box!'
-  article: raffington_2023_associations
-  paper: Associations of DNA-methylation measures of biological aging with social
-    disparities in child and adolescent mental health
-  tier: Gold
-  box: Flask Box
-  rank: 3
-  featured: true
 - key: h-index-up-2026-09-27
   id: h-index-up
   date: '2026-09-27'
