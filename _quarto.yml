@@ -21,6 +21,7 @@ project:
     # skilltree.qmd loads this with a ?v= cache-buster, which hides it from Quarto's resource
     # discovery; without this line the copy in docs/ silently goes stale
     - "www/skilltree.js"
+    - "www/nav-research.js"
 
 website:
   title: "Peter T. Tanksley"
@@ -31,10 +32,10 @@ website:
   navbar:
     pinned: false
     left:
+      # the "Research" label itself links to research.qmd (www/nav-research.js); Quarto cannot give a
+      # menu parent an href, and research.qmd is kept out of the menu on purpose
       - text: Research
         menu:
-          - text: Research
-            href: research.qmd
           - text: Skill tree
             href: skilltree.qmd
           - text: Achievements
@@ -69,6 +70,9 @@ format:
     include-in-header:
       text: |
         <meta name="author" content="Peter T. Tanksley">
+    include-after-body:
+      text: |
+        <script src="/www/nav-research.js"></script>
 
 editor: source
 

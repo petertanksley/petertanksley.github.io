@@ -31,6 +31,8 @@ sync: github
   reads Scholar (log `logs/skilltree/2026-10-10_drop-openalex.md`). Pushed 2026-10-11.
 - 2026-10-11: template decisions done: grant wording neutral, milestones suppress their step joke, `review-done` and
   `tenure` cut (same log). Template-bank page https://claude.ai/artifact/83gcPoCxpgN6HuPdvQmLra current as of 10-11.
+- 2026-10-20: navbar "Research" label is now the link to research.qmd (page removed from the dropdown); hover opens
+  the menu on desktop, double-tap on phones (`www/nav-research.js`, `theme.scss`). Pushed 2026-10-20.
 - Scholar refresh is automatic: laptop launchd job, Mondays 08:30, refreshes + notifies, never commits (CLAUDE.md
   "Weekly check"). When it notifies: review, then commit + push the snapshot, `scholar.json`, ledger, `tree.json`.
 - Publications change in `5_skilltree/data/articles.yml`, never in the CV: edit → rate in the Shiny app if new →

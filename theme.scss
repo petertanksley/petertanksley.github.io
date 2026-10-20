@@ -87,6 +87,14 @@ p > .belt-bar:only-child { margin: 0; }
   .quarto-navbar-tools .quarto-navigation-tool { color: $ink-soft; }
 }
 
+// "Research" is both a link and a menu on hover-capable desktops (www/nav-research.js): open the menu
+// on hover or keyboard focus, flush to the label so the pointer can cross the gap
+@media (min-width: 992px) and (hover: hover) {
+  .navbar .nav-item.dropdown:has(#nav-menu-research) {
+    &:hover > .dropdown-menu, &:focus-within > .dropdown-menu { display: block; margin-top: 0; }
+  }
+}
+
 .nav-footer {
   border-top: 1px solid $rule;
   margin-top: 4rem;
