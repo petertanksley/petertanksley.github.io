@@ -4,7 +4,7 @@ title: "Projects"
 
 <div class="belt-bar--sm"></div>
 
-::: {.hex-mark .hex-mark--hero}
+::: {.hex-mark}
 ![](www/hex/projects.png){fig-alt="Pixel-art hex sticker: a workbench crowded with tools and potion flasks, a glowing hexagonal talisman at its center."}
 :::
 
@@ -44,4 +44,16 @@ Human body maps (anatomograms) as tidy polygon data for ggplot2. It is an update
 A `/bob` command and agent for Claude Code that keeps a whole portfolio of research projects in view. Each project carries a small status card. Bob reads all of them, weighs deadlines against the calendar and against how much each project actually matters, and runs short daily, weekly, and monthly planning check-ins. It does no research and writes no code. It tells you where things stand, and which important project a loud deadline is quietly starving. Named for the skull in the Dresden Files, and every bit as smug about it.
 
 <div class="stack">Claude Code · Python · Markdown <a href="https://github.com/petertanksley/bob-scheduler">{{< fa brands github >}} source</a></div>
+:::
+
+::: {.project}
+::: {.hex-mark .hex-mark--section .hex-mark--left}
+![](www/hex/proj_carpe.png){fig-alt="Pixel-art hex sticker: four paper napkins laid out in a loose grid on a plank table like a storyboard, each with a crayon drawing: a stick figure, a rising red bar chart, a red heart, and a red arrow, with a red crayon nearby."}
+:::
+
+<h3><a href="https://github.com/petertanksley/carpe-audience">Carpe Audience</a></h3><span class="tag">Claude Code skill</span>
+
+A Claude Code skill that builds, converts, and audits research talks in the style of John-Michael Keyes's [*Carpe Audience*](https://iloveuguys.org/downloads/Carpe-Audience.pdf): seven words on a slide, no bullets, white type on black, and the speaker carrying the story. It drafts the talk as stories before any slide exists, builds the deck, and then audits the rendered slides against the book, page citations included. Every number on screen traces back to the results file it came from. It cannot, sadly, make you rehearse.
+
+<div class="stack">Claude Code · R · Quarto <a href="https://github.com/petertanksley/carpe-audience">{{< fa brands github >}} source</a></div>
 :::

@@ -34,7 +34,8 @@ sync: github
 - 2026-10-20: navbar "Research" label is now the link to research.qmd (page removed from the dropdown); hover opens
   the menu on desktop, double-tap on phones (`www/nav-research.js`, `theme.scss`). Pushed 2026-10-20.
 - 2026-10-20: Projects page has a sticker per entry (`4_stickers/projects.yaml`, pick with `border_px = 11`), entries
-  indented beside a left hex column, page hex doubled, Bob (bob-scheduler) added. Pushed 2026-10-20.
+  indented beside a left hex column, Bob (bob-scheduler) and Carpe Audience added; News got a raven page mark; every
+  page mark is 225px (`.hex-mark` default; lists clear below it). Pushed 2026-10-20.
 - Scholar refresh is automatic: laptop launchd job, Mondays 08:30, refreshes + notifies, never commits (CLAUDE.md
   "Weekly check"). When it notifies: review, then commit + push the snapshot, `scholar.json`, ledger, `tree.json`.
 - Publications change in `5_skilltree/data/articles.yml`, never in the CV: edit → rate in the Shiny app if new →
@@ -43,7 +44,6 @@ sync: github
 ## This Week
 - [ ] Nothing due; weekly check runs itself Mondays (latest 2026-10-19: 468 citations, h 13, i10 15, nothing fired; 10-12 + 10-19 committed 10-20)
 - [ ] Optional: one line on the Projects page saying why anatomogramdata exists
-- [ ] Next: carpe-audience as a public repo + Projects entry (digest/copyright decision pending)
 
 ## Upcoming Milestones
 

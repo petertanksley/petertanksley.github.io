@@ -89,3 +89,48 @@ images:
       around it, stands one small brass hourglass with sand running; to
       the left, a lit candle. Plain dark stone wall behind, softly out
       of focus. Nothing else in the picture.
+
+  # carpe-audience talk skill. Keyes's storyboarding exercise: one napkin per story, a crayon held in the fist,
+  # and whatever fits on the napkin is what goes on the slide (where the seven-word rule comes from, p. 43).
+  # Round 2 (Peter, 2026-10-20): one napkin read as a random doodle, not a storyboard; a ragged grid of napkins,
+  # each a different simple picture, reads as a sequence of slides. Round 2 pick #3 is archived as
+  # finals_src/proj_carpe.png (round2/ holds the candidates).
+  # Round 3: #3 felt cramped in the hex. A zoom-out EDIT of that image (cited as a ref) came back unchanged x3:
+  # a reference anchors the framing. Round 4: the whole round tabletop pulled the camera back, but the round
+  # rim was distracting (Peter). Round 5: rectangular plank table, no rim in view; candle and crayon pushed
+  # out toward opposite corners so the frame has to hold space around the napkin grid.
+  - name: proj_carpe
+    seed: 7742
+    description: >
+      Looking straight down from high above at the top of a large
+      rectangular wooden tavern table made of long straight planks that run
+      edge to edge across the whole picture; the table fills the entire
+      frame and none of its edges are visible. Right in the center, in a
+      loose, slightly ragged two-by-two grid, lie exactly four small square
+      white paper napkins, each at a slightly different angle; together the
+      four napkins cover only the middle half of the picture, with a wide
+      margin of bare wooden planks on every side. Each napkin carries one
+      simple drawing in thick, bold, childlike crayon strokes: a stick
+      figure with arms raised, a bar chart of three bars rising left to
+      right with the bars colored in red, a big red heart, and a single
+      bold red arrow pointing right. Well away from the napkins, near the
+      lower left of the picture, lies one fat red wax crayon; near the
+      upper right stands a short lit candle casting warm light across the
+      planks. No letters, no numbers, no writing of any kind. Nothing else
+      in the picture.
+
+  # News page mark (2026-10-20), shown at the standard page-mark size (theme.scss .hex-mark). Kept in this file because it
+  # was made in the same session with the same settings; the older page marks live in bananarama.yaml.
+  - name: news
+    description: >
+      A rough stone ledge in a cozy, candlelit wizard's study, seen from a
+      few steps back so the whole scene sits well inside the picture with
+      dark stone wall on every side. On the ledge, a small neat stack of
+      folded parchment letters, each sealed with a round red wax seal.
+      Perched on top of the stack is one glossy black raven, side-on with
+      its head turned toward the viewer, holding a single sealed letter in
+      its beak, bright-eyed and alert, a messenger that has just arrived.
+      The raven and the letters together are no taller than two thirds of
+      the picture. A lit candle stands behind them casting warm light and a
+      soft glow on the raven's feathers. No letters of the alphabet, no
+      words, no writing anywhere. Nothing else in the picture.

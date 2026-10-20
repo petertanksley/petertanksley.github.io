@@ -10,6 +10,10 @@ listing:
 
 <div class="belt-bar--sm"></div>
 
+::: {.hex-mark}
+![](www/hex/news.png){fig-alt="Pixel-art hex sticker: a black raven perched on a stack of wax-sealed letters in a candlelit stone alcove, holding one sealed letter in its beak."}
+:::
+
 Things that happened. New papers, talks, and the occasional piece of writing that escaped peer review. Newest first, because that is how time works.
 
 ::: {#news-all}
