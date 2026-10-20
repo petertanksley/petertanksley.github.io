@@ -1,14 +1,14 @@
 {
   "meta": {
-    "fetched": "2026-10-11 09:40",
+    "fetched": "2026-10-19 08:30",
     "scholar_id": "YnIBrB8AAAAJ",
     "sources": {
       "scholar": "live"
     }
   },
   "scholar": {
-    "citations": 462,
-    "citations_5y": 446,
+    "citations": 468,
+    "citations_5y": 452,
     "h_index": 13,
     "h_index_5y": 13,
     "i10": 15,
@@ -44,7 +44,7 @@
       },
       {
         "year": 2026,
-        "cites": 157
+        "cites": 163
       }
     ]
   },
@@ -56,12 +56,12 @@
       "lineage": 0
     },
     "schwaba_2026_robust": {
-      "scholar": 37,
+      "scholar": 39,
       "scholar_by_year": {
         "2025": 9,
-        "2026": 27
+        "2026": 29
       },
-      "scholar_by_year_n": 37,
+      "scholar_by_year_n": 39,
       "lineage": 0
     },
     "mcallister_2026_inflammation": {
@@ -115,19 +115,21 @@
       "lineage": 0
     },
     "blair_2025_active": {
-      "scholar": 0,
-      "scholar_by_year": {},
-      "scholar_by_year_n": 0,
+      "scholar": 1,
+      "scholar_by_year": {
+        "2026": 1
+      },
+      "scholar_by_year_n": 1,
       "lineage": 0
     },
     "desteiguer_2025_stability": {
-      "scholar": 19,
+      "scholar": 20,
       "scholar_by_year": {
         "2024": 3,
         "2025": 6,
-        "2026": 10
+        "2026": 11
       },
-      "scholar_by_year_n": 19,
+      "scholar_by_year_n": 20,
       "lineage": 0
     },
     "gonzalez_2025_relationships": {
@@ -149,14 +151,14 @@
       "lineage": 0
     },
     "tanksley_2024_polygenic": {
-      "scholar": 32,
+      "scholar": 34,
       "scholar_by_year": {
         "2023": 2,
         "2024": 1,
         "2025": 17,
-        "2026": 10
+        "2026": 12
       },
-      "scholar_by_year_n": 32,
+      "scholar_by_year_n": 34,
       "lineage": 0
     },
     "barnes_2024_risk": {
