@@ -8,7 +8,7 @@ deadline: null
 target: null
 effort_remaining: monitoring (weekly auto-check to review/push; annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-10-11
+last_updated: 2026-10-20
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -37,7 +37,7 @@ sync: github
   `build_tree.R` + `render_cv_pubs.R` → commit. Then hand-update the two-page CV's selected pubs and count line.
 
 ## This Week
-- [ ] Nothing due; weekly check runs itself Mondays (first live run 2026-10-11: 456 → 462 citations, nothing fired)
+- [ ] Nothing due; weekly check runs itself Mondays (latest 2026-10-19: 468 citations, h 13, i10 15, nothing fired; 10-12 + 10-19 committed 10-20)
 - [ ] Optional: one line on the Projects page saying why anatomogramdata exists
 
 ## Upcoming Milestones
