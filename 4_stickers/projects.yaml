@@ -1,0 +1,91 @@
+# projects.yaml — one sticker per entry on the Projects page (2026-10-20). Each floats beside its entry the way
+# the section hexes do on research.qmd. Sticker name = proj_<slug>.
+#
+# Generate (from repo root):  Rscript -e 'bananarama::bananarama("4_stickers/projects.yaml")'
+#   candidates -> 4_stickers/projects/ (gitignored)
+# Preview:  Rscript 4_stickers/preview_candidates.R proj_presumptive --dir projects
+# Pick:     frame_hex("4_stickers/projects/<id>-<n>.png", "www/hex/<id>.png", height = 554, border_px = 11),
+#           archive the square to finals_src/<id>.png. border_px = 11 matches the page's own projects.png ink;
+#           the default 24 is sized for 1200 px and comes out three times too heavy at 554
+#
+# bananarama skips entries whose outputs already exist; re-roll by changing an entry's `seed`. One clean subject
+# per hex, judged framed and at 92 px. Cost ~ $0.07 per image; n: 3 -> ~ $0.21 per project.
+
+defaults:
+  style: >
+    16-bit pixel art illustration, SNES-era aesthetic, chunky visible
+    pixels, soft dithered shading, limited palette in slightly sepia,
+    warm tones throughout, cozy firelit mood. No text, no words, no
+    letters anywhere. Full-bleed composition filling the entire frame
+    edge to edge, main subject centered with generous margin around it.
+    Never draw a frame, border, badge, or outline shape around the scene.
+    Wherever a mystical sigil, talisman, rune circle, or geometric motif
+    appears, it is the OUTLINE of a regular hexagon — a six-SIDED
+    polygon, like a honeycomb cell. Never a hexagram, never a
+    six-pointed star, never a five-pointed star, never a pentagram,
+    never any star shape.
+  aspect-ratio: "1:1"
+  n: 3
+  seed: 1020
+
+output-dir: projects/
+
+images:
+  # Started for Vickie Speed and Blue Cancer Connect (cancer in law enforcement), so police and fire sit level:
+  # neither pan outweighs the other (Peter, 2026-10-20: "less fire-heavy")
+  - name: proj_presumptive
+    description: >
+      A single brass scale of justice standing on a rough stone ledge, the
+      whole scale no taller than two thirds of the picture, its beam
+      perfectly level. In the left pan sits a dark blue police officer's
+      peaked cap with a small plain badge; in the right pan sits a
+      firefighter's helmet. The two pans hang at exactly the same height.
+      The scale's base rests on one thick closed leather-bound law book.
+      A small blue awareness ribbon, the looped cancer-ribbon shape, is
+      tied around the scale's center post. A lit candle stands behind
+      the scale. Plain dark stone wall behind, softly out of focus.
+      Nothing else in the picture.
+
+  # Round 2 (2026-10-20): round 1 ignored the size limit, filled the hex with flat beige parchment and dropped the
+  # candle. Scene first, the sheet sized against the wall, firelight forced onto it.
+  - name: proj_anatomogram
+    seed: 2041
+    description: >
+      A rough dark stone wall in a dim, candlelit wizard's workshop, seen
+      from a few steps back. Pinned to the middle of the wall with four
+      iron tacks is one small sheet of aged, curling parchment, the sheet
+      no taller than half the picture, with plenty of dark stone wall
+      visible on every side of it. Beside the sheet, on an iron wall
+      bracket, burns one tall candle that casts warm orange light across
+      the parchment, brightest near the candle and falling off into
+      shadow at the far edge. On the parchment is an anatomical chart:
+      one plain front-facing human outline in dark ink, head to feet
+      fully inside the sheet, and inside it the major organs (brain,
+      lungs, heart, liver, stomach, kidneys, intestines) each inked as a
+      separate flat colored shape with crisp borders, like regions on a
+      map, in muted red, ochre, teal, and plum. No labels. Nothing else
+      in the picture.
+
+  # The /bob scheduler skill. The one entry where the skull gets a name (Peter, 2026-10-20): the project is
+  # named for it and the Projects blurb credits the Dresden Files directly. Same skull as the Left-hand Thoughts
+  # sticker; [refs/skull] is a COPY of www/hex/left-hand-thoughts.png, since bananarama resizes refs in place.
+  # Round 2: round 1 read as menacing (heavy scowl, hard glare) and zoomed in past the hourglass. Lighthearted:
+  # a cheeky, chatty skull, soft glow, reading glasses; camera pulled back so the hourglass fits.
+  - name: proj_bob
+    seed: 3307
+    description: >
+      A rough stone ledge in a cozy, candlelit wizard's study, seen from
+      several steps back so the whole scene sits well inside the picture
+      with dark stone wall on every side. On the ledge, a short stack of
+      three thick leather-bound ledgers; resting on top of the stack is
+      one bare human skull, only the skull, no other bones. The skull is
+      friendly and cheeky, not scary: its jaw hangs slightly open as if
+      it is in the middle of telling a joke, it is tipped jauntily to one
+      side, and a small pair of round wire reading glasses sits crooked
+      on its nose hole. Its eye sockets hold a soft, warm, gentle amber
+      glow, like a pleased twinkle, with no scowl, no heavy brow, no
+      glare. The skull and the ledgers together are no taller than half
+      the picture. To the right of the stack, fully visible with space
+      around it, stands one small brass hourglass with sand running; to
+      the left, a lit candle. Plain dark stone wall behind, softly out
+      of focus. Nothing else in the picture.

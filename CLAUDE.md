@@ -62,7 +62,8 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
 ## Hex stickers
 
 - Style: 16-bit pixel art, sepia-warm, Dresden-universe homage with Peter's likeness and dogs,
-  anachronisms welcome. **Hexagons, never hexagrams or pentagrams.** Skull stays nameless.
+  anachronisms welcome. **Hexagons, never hexagrams or pentagrams.** Skull stays nameless, with one exception: the Projects entry
+  for the `/bob` scheduler, which is named for it and credits the Dresden Files (Peter, 2026-10-20).
 - **bananarama resizes reference finals IN PLACE.** Any `www/hex/<id>.png` cited as `[../www/hex/<id>]` comes
   back 444x512 instead of 480x554, silently (2026-09-27: the origin, two rank finals and six lineage parents from
   the 09-18 runs). After any generation run that cites a final, re-frame the cited files from

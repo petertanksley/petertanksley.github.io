@@ -4,13 +4,17 @@ title: "Projects"
 
 <div class="belt-bar--sm"></div>
 
-::: {.hex-mark}
+::: {.hex-mark .hex-mark--hero}
 ![](www/hex/projects.png){fig-alt="Pixel-art hex sticker: a workbench crowded with tools and potion flasks, a glowing hexagonal talisman at its center."}
 :::
 
 Side projects: dashboards, tooling, and the occasional over-engineered solution to a problem nobody asked me to solve. Everything is built in R unless noted, and everything is open, so you can see exactly how over-engineered.
 
 ::: {.project}
+::: {.hex-mark .hex-mark--section .hex-mark--left}
+![](www/hex/proj_presumptive.png){fig-alt="Pixel-art hex sticker: a brass scale of justice standing level on a leather law book, a police cap in one pan and a firefighter's helmet in the other, a blue awareness ribbon tied to the post, a lit candle behind."}
+:::
+
 <h3><a href="https://github.com/ALERRT-Research/PROJ_presumptive_laws">Presumptive Laws Dashboard</a></h3><span class="tag tag--wip">under construction</span>
 
 A state-by-state history of first responder presumptive workers' compensation laws: which conditions get presumed work-related, for whom, and since when. Every claim is traced to the statute itself, not to somebody's summary of it. Fifty scattered laws in one place, so nobody else has to do what I did to build it.
@@ -19,9 +23,25 @@ A state-by-state history of first responder presumptive workers' compensation la
 :::
 
 ::: {.project}
+::: {.hex-mark .hex-mark--section .hex-mark--left}
+![](www/hex/proj_anatomogram.png){fig-alt="Pixel-art hex sticker: an anatomical chart on aged parchment tacked to a stone wall, a human outline with each organ inked as a separately colored shape, lit by a candle on an iron bracket."}
+:::
+
 <h3><a href="https://github.com/petertanksley/anatomogramdata">anatomogramdata</a></h3><span class="tag">R package</span>
 
 Human body maps (anatomograms) as tidy polygon data for ggplot2. It is an update of Jesper Maag's excellent [gganatogram](https://github.com/jespermaag/gganatogram), the package that first brought the EBI Expression Atlas anatomograms into R and ggplot2. I needed an anatomogram for mortality surveillance work on cancer sites and wanted to bring that work up to date: the polygons are traced fresh from the current EBI drawings, and every organ is tagged with its ontology ID and organ system. The whole thing is the intellectual godchild of gganatogram, and the code was written almost entirely by Claude, so I can't take intellectual credit for the idea or the work.
 
 <div class="stack">R · ggplot2 <a href="https://petertanksley.github.io/anatomogramdata/">{{< fa book >}} docs</a><a href="https://github.com/petertanksley/anatomogramdata">{{< fa brands github >}} source</a></div>
+:::
+
+::: {.project}
+::: {.hex-mark .hex-mark--section .hex-mark--left}
+![](www/hex/proj_bob.png){fig-alt="Pixel-art hex sticker: a cheerful human skull in crooked round reading glasses, jaw open mid-joke and eye sockets glowing a soft amber, resting on a stack of leather ledgers between a lit candle and a brass hourglass."}
+:::
+
+<h3><a href="https://github.com/petertanksley/bob-scheduler">Bob</a></h3><span class="tag">Claude Code skill</span>
+
+A `/bob` command and agent for Claude Code that keeps a whole portfolio of research projects in view. Each project carries a small status card. Bob reads all of them, weighs deadlines against the calendar and against how much each project actually matters, and runs short daily, weekly, and monthly planning check-ins. It does no research and writes no code. It tells you where things stand, and which important project a loud deadline is quietly starving. Named for the skull in the Dresden Files, and every bit as smug about it.
+
+<div class="stack">Claude Code · Python · Markdown <a href="https://github.com/petertanksley/bob-scheduler">{{< fa brands github >}} source</a></div>
 :::

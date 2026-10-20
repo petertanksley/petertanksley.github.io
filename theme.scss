@@ -237,10 +237,15 @@ h3 { font-size: 1.2rem; margin-top: 1.8rem; }
 // first paragraph; the h2 above clears any float left over from the previous
 // section so a mark never bleeds into the next heading.
 .hex-mark--section { width: 118px; margin: 0.15rem 0 0.75rem 1.5rem; }
+// Projects page: the page mark at double size, and each entry's mark in its own left column (see .project)
+.hex-mark--hero { width: 300px; }
+.hex-mark--left { float: left; margin: 0.15rem 1.5rem 0.75rem 0; }
 h2 { clear: both; }
 @media (max-width: 640px) {
   .hex-mark { float: none; width: 120px; margin: 0.5rem auto 1.25rem; }
   .hex-mark--section { width: 96px; }
+  .hex-mark--left { margin: 0.5rem auto 1.25rem; }
+  .hex-mark--hero { width: 200px; }
 }
 
 // Hex wall (hexwall.qmd demo): honeycomb of the www/hex/*.png stickers.
@@ -355,7 +360,10 @@ h2 { clear: both; }
 // ---------------------------------------------------------------------------
 // Projects list
 // ---------------------------------------------------------------------------
+// each entry contains its own hex mark (floated right) and clears the page's intro hex above it
 .project {
+  clear: both;
+  display: flow-root;
   padding: 1.2rem 0;
   border-top: 1px solid $rule;
   &:last-of-type { border-bottom: 1px solid $rule; }
@@ -380,6 +388,19 @@ h2 { clear: both; }
   p { margin: 0.4rem 0 0.5rem; }
   .stack { font-family: $font-family-monospace; font-size: 0.78rem; color: $ink-soft; }
   .stack a { margin-left: 0.8rem; }
+  // with a hex mark: mark in a fixed left column, the whole entry indented beside it, so no text wraps
+  // under the image; phones fall back to the stacked layout of the 640px block above
+  @media (min-width: 641px) {
+    &:has(> .hex-mark--left) {
+      display: grid;
+      grid-template-columns: 118px 1fr;
+      column-gap: 1.5rem;
+      align-content: start;
+      > * { grid-column: 2; }
+      > .hex-mark--left { grid-column: 1; grid-row: 1 / span 10; float: none; margin: 0.15rem 0 0; }
+      h3 { justify-self: start; }
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------

@@ -26,3 +26,5 @@ toPdfViaTempFile*
 
 # Career-rank sticker candidates (finals live in www/hex/; squares in 4_stickers/finals_src/)
 4_stickers/ranks/
+# Project-page sticker candidates (finals live in www/hex/; squares in 4_stickers/finals_src/)
+4_stickers/projects/
