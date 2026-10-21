@@ -45,6 +45,8 @@ sync: github
 ## This Week
 - [ ] Nothing due; weekly check runs itself Mondays (latest 2026-10-21 by hand: 472 citations, h 13, i10 15, nothing fired; pushed 10-21)
 - [ ] 2026-10-31: Nature issue for entry 27 lands (see Milestones); update `citation:` that week
+- [ ] Review the year-view plan (`logs/skilltree/plans/2026-10-21_year-view.md`, DRAFT): hover a year label to highlight
+      its papers, click to browse them in a staggered hex grid, pick one to land on the normal card. Approve, amend, or drop.
 - [ ] Optional: one line on the Projects page saying why anatomogramdata exists
 
 ## Upcoming Milestones
