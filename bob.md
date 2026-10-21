@@ -1,4 +1,5 @@
 ---
+card_schema: bob/2
 project: Tanksley Personal Website & CV
 type: web
 status: active
@@ -8,7 +9,7 @@ deadline: null
 target: null
 effort_remaining: monitoring (weekly auto-check to review/push; annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-10-20
+last_updated: 2026-10-21
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -42,7 +43,8 @@ sync: github
   `build_tree.R` + `render_cv_pubs.R` → commit. Then hand-update the two-page CV's selected pubs and count line.
 
 ## This Week
-- [ ] Nothing due; weekly check runs itself Mondays (latest 2026-10-19: 468 citations, h 13, i10 15, nothing fired; 10-12 + 10-19 committed 10-20)
+- [ ] Nothing due; weekly check runs itself Mondays (latest 2026-10-21 by hand: 472 citations, h 13, i10 15, nothing fired; pushed 10-21)
+- [ ] 2026-10-31: Nature issue for entry 27 lands (see Milestones); update `citation:` that week
 - [ ] Optional: one line on the Projects page saying why anatomogramdata exists
 
 ## Upcoming Milestones
@@ -52,11 +54,12 @@ sync: github
   yet, so no CV line or news item until it is. Once signed: one `news.yml` item + CV grants line + two `grant` events in
   `achievements_manual.yml` (one per pilot, `slug: dnam` / `slug: bioage`); dry-run `check_achievements.R` first and
   change a slug if both cards draw the same wording.
-- TBD: volume/issue/pages for entry 27 (Schwaba et al., Nature, doi:10.1038/s41586-026-10992-9) — set
-  `citation:` in `articles.yml` (currently "online first"), rerun `render_cv_pubs.R`. Online first at last check (2026-10-03).
-- TBD: DOI, then volume/pages, for entry 28 (Tanksley, Logan, & Barnes, AJPH, in press) — set `doi:`,
+- 2026-10-31: entry 27 (Schwaba et al., Nature, doi:10.1038/s41586-026-10992-9) publishes in an issue per the
+  publication office (email, 2026-10-21) — set `citation:` in `articles.yml` (currently "online first"), rerun `render_cv_pubs.R`.
+- When the DOI resolves: entry 28 (Tanksley, Logan, & Barnes, AJPH, in press) has a reserved DOI,
+  10.2105/AJPH.2026.308833 (not live as of 2026-10-21; do not add it to the site until it resolves). Then set `doi:`,
   `status: published`, `citation:` in `articles.yml`; the homepage and research-page `.worklist` blocks are
-  hand-written and need the same edit; the two-page CV count line ("one in press") too. No DOI at last check (2026-10-03).
+  hand-written and need the same edit; the two-page CV count line ("one in press") too.
 - June/July 2027: new JCR year — export all 22 journals into `5_skilltree/data/jcr/jcr_<year>.csv`, run
   `build_journals.R` then `build_tree.R`, commit. Clears nearest-year flags on papers published earlier that year.
 - Backlog, unscheduled: phase stickers beside the matching Research-page
@@ -82,4 +85,6 @@ sync: github
 - News feed: `news.yml` → `news-listing.ejs` / `news-listing-home.ejs`; achievements are a separate stream
 - Landing masthead = 4-sticker hex collage; real headshot lives on About only
 - Conventions (voice, content rules, feed, stickers, JCR/pips, CI and pagedjs gotchas): `CLAUDE.md`
+- `git fetch` before any work here: this clone was 8 commits behind on 2026-10-21 and a session redid the OpenAlex
+  drop from scratch (`logs/skilltree/2026-10-21_stale-clone-refresh.md`)
 - History: `logs/` and `logs/skilltree/`; prune records `logs/2026-09-02_bob-prune.md`, `logs/2026-09-22_bob-prune.md`
