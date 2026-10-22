@@ -590,11 +590,11 @@ $tiers: ("Bronze": #B87A4B, "Silver": #B9BCC6, "Gold": #D9A441, "Platinum": #C9E
   // revealed by the flip. 3.4 * 100 / 38 lands the lit marker at the same on-screen size as a lit article or origin.
   .rank-node {
     --lit: calc(3.4 * 100 / 38); --shade: 0.8;
-    cursor: pointer; outline: none; transform-box: fill-box; transform-origin: center; transition: transform 420ms ease;
+    cursor: pointer; outline: none; transform-box: fill-box; transform-origin: center; transition: transform 420ms ease, opacity 160ms;
     .rank-hit  { fill: transparent; }
     .hex-shade { fill: var(--st-bg); opacity: var(--shade); pointer-events: none; transition: opacity 420ms; }
     .rank-ring { fill: none; stroke: var(--st-gold); stroke-width: 4; opacity: 0.9; stroke-linejoin: round; transition: stroke-width 160ms, opacity 160ms; }
-    &:hover, &:focus-visible { .rank-ring { stroke-width: 7; opacity: 1; } .hex-shade { opacity: 0.45; } }
+    &:hover, &:focus-visible, &.year-hot { .rank-ring { stroke-width: 7; opacity: 1; } .hex-shade { opacity: 0.45; } }   // year-hot: lit with its ring's papers
     // strokes ride the 8.9x transform: 1.15 reads as ~10 units lit, like an article's 3 at 3.4x
     &.lit { transform: scale(var(--lit)); .hex-shade { opacity: 0; } .rank-ring { stroke-width: 1.15; opacity: 1; animation: st-pulse-rank 1.6s ease-in-out infinite; } }
     &.flipping   { animation: st-flip 560ms ease-in-out 1 both; }   &.flipping .hex-shade   { animation: st-light 560ms steps(1, end) 1 both; }
@@ -618,7 +618,7 @@ $tiers: ("Bronze": #B87A4B, "Silver": #B9BCC6, "Gold": #D9A441, "Platinum": #C9E
     .year-label { fill: var(--st-fg); }
     .year-label.over-hex { fill: var(--st-bg); stroke: var(--st-gold); }
   }
-  svg.has-year .node:not(.year-hot):not(.lit) { opacity: 0.3; }
+  svg.has-year .node:not(.year-hot):not(.lit), svg.has-year .rank-node:not(.year-hot):not(.lit) { opacity: 0.3; }
   .ring-guide.year-hot { stroke: var(--st-soft); }
   .edge     { fill: none; stroke-width: 5; stroke-linecap: round; opacity: 0.85; transition: opacity 200ms, stroke-width 200ms; }
   .edge-tip { opacity: 0.9; transition: opacity 200ms, r 200ms; }
@@ -860,6 +860,7 @@ aside.skilltree-panel {
     &.role-lead .yv-ring { stroke-width: 6; }
     &.role-contributing .yv-ring { stroke-width: 2; }
     &.status-preprint, &.status-in_press { .yv-ring { stroke-dasharray: 10 8; } }
+    &.yv-rank { --node: #D9A441; .yv-ring { stroke-width: 6; } .yv-title { color: var(--node); } }   // class change: gold, as on the tree
     .yv-title { font-family: $font-display; font-size: 0.82rem; line-height: 1.3; color: var(--yv-fg);
                 display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     // HTML hover is fine here: the tiles do not move

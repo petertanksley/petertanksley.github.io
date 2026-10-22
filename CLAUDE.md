@@ -123,6 +123,8 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   real browser, not only headless. Year labels (2026-10-21) hover-highlight their ring's papers and click-open a year
   view (`#year-<yyyy>`, staggered hex grid, titles only); picking a tile lands on the normal card via `nodeToggles`.
   The label's hit box stays inside its own cell and short of any rank bead, so it never steals a neighbour's hover.
+  A class-change bead belongs to its year: it lights with the papers and leads the year view as a gold tile that
+  opens the class-change screen.
 - Muted tier (`featured: false`) is visual only. Nothing on the page explains why a node is muted;
   legend wording is "contributing author". Blurbs for muted papers get the same care as any other.
 - Stickers per article go through the `4_stickers/` pipeline unchanged; until one exists a node

@@ -32,5 +32,5 @@ include-in-header:
     <div class="yv-grid"><!-- filled by skilltree.js --></div>
   </div>
 </div>
-<script src="www/skilltree.js?v=2026-10-21a" defer></script>
+<script src="www/skilltree.js?v=2026-10-21b" defer></script>
 ```
