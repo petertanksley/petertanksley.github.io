@@ -750,13 +750,15 @@
       if (history.replaceState && /^#year-/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);
       if (restoreFocus && yearNodes[year]) yearNodes[year].focus({ preventScroll: true });
     }
-    // a tile does what a lineage row does: close the view, flip that hex, open its card (with its own #id)
+    // a tile does what a lineage row does, staged the same way so the eye can follow: close the view, bring the hex
+    // into view, and only then flip it and open its card (with its own #id). Flipping during the scroll spent most of
+    // the 560 ms turn off-screen, so the selection looked faster than a click on the tree (Peter, 2026-10-21).
     function pickFromYearView(id) {
       closeYearView(false);
       const t = nodeToggles[id] || (RANK_BY_KEY[id] && rankToggles[id]); if (!t) return;
-      t(noop);
       const kg = root.querySelector(`.node[data-id="${id}"], .rank-node[data-id="${id}"]`);
       if (kg) kg.scrollIntoView({ block: 'center', behavior: REDUCED ? 'auto' : 'smooth' });
+      setTimeout(() => t(noop), REDUCED ? 0 : 420);   // 420: the lineage rows' pause
     }
     if (yv) {
       yv.querySelector('.yv-close').addEventListener('click', e => { e.stopPropagation(); closeYearView(true); });
