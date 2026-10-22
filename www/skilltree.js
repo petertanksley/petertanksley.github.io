@@ -6,7 +6,8 @@
 //
 // Interaction (Phase 1): hover or keyboard-focus a hex → tooltip with title, venue, role and the
 // six contribution bars. Click / Enter / Space pins the tooltip (also how touch works); Esc or a
-// click elsewhere unpins. The click → detail panel is Phase 2.
+// click elsewhere unpins. The click → detail panel is Phase 2. Year labels (2026-10-21): hover highlights that
+// year's papers, click opens a year view (#year-<yyyy>) whose tiles open the normal card.
 
 (function () {
   'use strict';
@@ -18,6 +19,8 @@
   document.body.appendChild(tip);
   const panelEl = document.getElementById('skilltree-panel');
   if (panelEl) document.body.appendChild(panelEl);
+  const yv = document.getElementById('skilltree-yearview');   // year view (2026-10-21), same portal for the same reason
+  if (yv) document.body.appendChild(yv);
 
   const NS = 'http://www.w3.org/2000/svg';
   const CREDIT_LABELS = {
@@ -28,6 +31,7 @@
   const STATUS_LABELS = { in_press: 'in press', preprint: 'preprint', published: '' };
 
   let pinned = null;   // the <g class="node"> whose tooltip is pinned, if any
+  let yvYear = null;   // the year whose year view is open, if any
 
   // --- tiny helpers ------------------------------------------------------------------------
   function svgEl(tag, attrs, parent) {
@@ -434,7 +438,7 @@
       svgEl('line', { class: 'axis-glow', x1: a.x1, y1: a.y1, x2: a.x2, y2: a.y2, mask: `url(#st-axis-mask-${i})`,
         style: `stroke:url(#st-axis-glow-${i})`, 'stroke-width': GLOW_W, 'stroke-linecap': 'round' }, gT);   // round: the three meet in a disc at the origin, not a triangle; the fade mask hides the far cap
     });
-    m.rings.forEach(rg => svgEl('path', { class: 'ring-guide', d: rg.path }, gT));
+    m.rings.forEach(rg => svgEl('path', { class: 'ring-guide', d: rg.path, 'data-year': rg.year }, gT));
     m.axes.forEach(a => svgEl('line', { class: 'axis', x1: a.x1, y1: a.y1, x2: a.x2, y2: a.y2, style: `stroke:${a.colour}` }, gT));
     let toggleOrigin = null;
     if (m.origin) {
@@ -508,6 +512,17 @@
       svg.querySelectorAll('.edge.hot, .edge-tip.hot').forEach(el => el.classList.remove('hot'));
       if (on) mine.forEach(el => el.classList.add('hot'));
     };
+    // year highlight (2026-10-21): hovering or focusing a ring's year label lights that year's papers, its ring guide and
+    // the label; CSS dims the rest. Same rule as the lineage: nothing moves, and a pinned (lit) node is left alone.
+    const nodesByYear = {}, yearNodes = {};   // year -> its node <g>s; year -> its <g class="year-node">
+    const setYearHot = (year, on) => {
+      svg.classList.toggle('has-year', on);
+      svg.querySelectorAll('.year-hot').forEach(el => el.classList.remove('year-hot'));
+      if (!on) return;
+      (nodesByYear[year] || []).forEach(g => g.classList.add('year-hot'));
+      svg.querySelectorAll(`.ring-guide[data-year="${year}"]`).forEach(el => el.classList.add('year-hot'));
+      if (yearNodes[year]) yearNodes[year].classList.add('year-hot');
+    };
 
     // citation brightness (2026-10-04), two stages on one eased scale of Google Scholar citations. The level is
     // (citations / most cited) ^ CITE_EASE, so brightness creeps up slowly and the top few pull away (Peter: "a slow
@@ -548,6 +563,7 @@
         class: cls, tabindex: 0, role: 'button', 'data-id': n.id,
         'aria-label': label, style: `--node: ${n.colour}; --cite-k: ${citeK(n)}`
       }, gN);
+      (nodesByYear[n.year] = nodesByYear[n.year] || []).push(g);
       const img = svgEl('image', {
         href: n.sticker_src, x: n.x - m.hex_w / 2, y: n.y - m.hex_h / 2,
         width: m.hex_w, height: m.hex_h, preserveAspectRatio: 'xMidYMid meet'
@@ -638,10 +654,104 @@
       const t = svgEl('text', { class: 'axis-label', x: a.label_x, y: a.label_y, 'text-anchor': a.anchor, style: `fill:${a.colour}` }, gL);
       t.textContent = a.label;
     });
+    // year labels are controls (2026-10-21): hover highlights that year's papers, click opens the year view
+    const articles = k => `${k} article${k === 1 ? '' : 's'}`;
     m.rings.forEach(rg => {
-      const t = svgEl('text', { class: 'year-label' + (rg.label_over_hex ? ' over-hex' : ''), x: rg.label_x, y: rg.label_y }, gL);
+      const k = (nodesByYear[rg.year] || []).length;
+      const parent = k ? svgEl('g', { class: 'year-node', 'data-year': rg.year, tabindex: 0, role: 'button',
+        'aria-label': `${rg.year}: ${articles(k)}. Show them.` }, gL) : gL;
+      if (k) {
+        // hit target wider than the text but kept inside the label's own cell, so it never takes hover from the
+        // neighbouring hexes (half a hex away), and trimmed short of a career-rank bead on the same ring
+        let x0 = rg.label_x - m.hex_w * 0.46, x1 = rg.label_x + m.hex_w * 0.46;
+        (m.ranks || []).filter(rk => rk.year === rg.year).forEach(rk => {
+          if (rk.x > rg.label_x) x1 = Math.min(x1, rk.x - rk.w / 2 - 2); else x0 = Math.max(x0, rk.x + rk.w / 2 + 2);
+        });
+        svgEl('rect', { class: 'year-hit', x: x0, y: rg.label_y - 21, width: x1 - x0, height: 42 }, parent);
+      }
+      const t = svgEl('text', { class: 'year-label' + (rg.label_over_hex ? ' over-hex' : ''), x: rg.label_x, y: rg.label_y }, parent);
       t.textContent = rg.year;
+      if (!k) return;
+      const g = yearNodes[rg.year] = parent;
+      const yearTip = () => {
+        tip.innerHTML = `<div class="tt-title">${esc(rg.year)}</div><div class="tt-meta">${articles(k)} · click to browse</div>`;
+        tip.style.removeProperty('--node'); tip.hidden = false;
+      };
+      const off = () => { hideTip(); if (yvYear !== rg.year) setYearHot(rg.year, false); };
+      g.addEventListener('mouseenter', e => { setYearHot(rg.year, true); yearTip(); placeTipAt(e.clientX, e.clientY); });
+      g.addEventListener('mousemove',  e => placeTipAt(e.clientX, e.clientY));
+      g.addEventListener('mouseleave', off);
+      g.addEventListener('focus', () => { setYearHot(rg.year, true); yearTip(); placeTipByNode(g); });
+      g.addEventListener('blur', off);
+      const open = e => { e.preventDefault(); e.stopPropagation(); openYearView(rg.year); };
+      g.addEventListener('click', open);
+      g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') open(e); });
     });
+
+    // --- year view: that year's papers as a staggered hex grid, titles only; picking one lands on the normal card ---
+    const yvGrid = yv && yv.querySelector('.yv-grid');
+    const noop = { preventDefault() {}, stopPropagation() {} };
+    // honeycomb by JS: odd rows shift half a tile right. Rows do not interlock vertically: a tile's title runs to
+    // within a few px of the next row's hex tip, so any overlap would put a hex point through a three-line title.
+    function layoutYearView() {
+      if (!yv || yv.hidden) return;
+      const tiles = [...yvGrid.children], N = tiles.length;
+      const tw = window.matchMedia('(max-width: 720px)').matches ? 110 : 150;
+      yvGrid.style.width = '';
+      const W = yvGrid.clientWidth;
+      const cols = Math.floor(W / tw) >= N ? N : Math.max(1, Math.floor((W - tw / 2) / tw));
+      const rows = Math.ceil(N / cols);
+      tiles.forEach(t => { t.style.width = tw + 'px'; });
+      const H = Math.max(...tiles.map(t => t.offsetHeight)), pitch = H + 12;
+      tiles.forEach((t, i) => {
+        const r = Math.floor(i / cols), c = i % cols;
+        t.style.left = (c * tw + (r % 2 ? tw / 2 : 0)) + 'px';
+        t.style.top  = (r * pitch) + 'px';
+      });
+      yvGrid.style.width  = (Math.min(N, cols) * tw + (rows > 1 ? tw / 2 : 0)) + 'px';
+      yvGrid.style.height = ((rows - 1) * pitch + H) + 'px';
+    }
+    function openYearView(year) {
+      const gs = nodesByYear[year] || [];
+      if (!yv || !gs.length) return;
+      unpin(); hideTip();
+      yvYear = year;
+      setYearHot(year, true);
+      const ns = gs.map(g => NODE_BY_ID[g.dataset.id]).sort((a, b) => (a.angle - b.angle) || (a.cv_number - b.cv_number));
+      yv.querySelector('.yv-year').textContent = year;
+      yv.querySelector('.yv-count').textContent = articles(ns.length);
+      yvGrid.innerHTML = ns.map(n =>
+        `<button type="button" class="yv-tile role-${esc(n.role)} status-${esc(n.status)}" data-id="${esc(n.id)}" style="--node:${esc(n.colour)}">` +
+        `<svg viewBox="0 0 ${m.hex_w} ${m.hex_h}" aria-hidden="true"><image href="${esc(n.sticker_src)}" x="0" y="0" width="${m.hex_w}" height="${m.hex_h}" preserveAspectRatio="xMidYMid meet"/>` +
+        `<path class="yv-ring" d="${hexPath(m.hex_w / 2, m.hex_h / 2, m.hex_w * 0.96, m.hex_h * 0.96)}"/></svg>` +
+        `<span class="yv-title">${esc(n.title)}</span></button>`).join('');
+      yvGrid.querySelectorAll('.yv-tile').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); pickFromYearView(b.dataset.id); }));
+      yv.hidden = false;
+      layoutYearView();
+      if (history.replaceState) history.replaceState(null, '', '#year-' + year);
+      const first = yvGrid.querySelector('.yv-tile'); if (first) first.focus({ preventScroll: true });
+    }
+    function closeYearView(restoreFocus) {
+      if (!yv || yv.hidden) return;
+      const year = yvYear; yvYear = null;
+      yv.hidden = true; yvGrid.innerHTML = '';
+      setYearHot(year, false);
+      if (history.replaceState && /^#year-/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);
+      if (restoreFocus && yearNodes[year]) yearNodes[year].focus({ preventScroll: true });
+    }
+    // a tile does what a lineage row does: close the view, flip that hex, open its card (with its own #id)
+    function pickFromYearView(id) {
+      closeYearView(false);
+      const t = nodeToggles[id]; if (!t) return;
+      t(noop);
+      const kg = root.querySelector(`.node[data-id="${id}"]`);
+      if (kg) kg.scrollIntoView({ block: 'center', behavior: REDUCED ? 'auto' : 'smooth' });
+    }
+    if (yv) {
+      yv.querySelector('.yv-close').addEventListener('click', e => { e.stopPropagation(); closeYearView(true); });
+      yv.addEventListener('click', e => { if (!e.target.closest('.yv-inner')) closeYearView(true); });   // the backdrop
+      window.addEventListener('resize', layoutYearView);
+    }
 
     // legend, built from the same JSON as the drawing so nothing drifts: area colours as filled hexes,
     // roles and status as hex outlines drawn with the same stroke weights the nodes use
@@ -659,11 +769,14 @@
         (ACH && ACH.total ? `<a class="lg-item lg-ach" href="${esc(ACH.page || 'achievements.html')}"><span class="lg-num" aria-hidden="true">III</span>${esc(ACH.label || 'Achievements earned')}</a>` : '') +
         // career-rank bead: a smaller gold hex in the same box, echoing the marker's size (gold via CSS, .lg-rank)
         ((m.ranks && m.ranks.length) ? item(`<svg class="lg-hex lg-rank" viewBox="0 0 20 23" aria-hidden="true"><path d="${hexPath(10, 11.5, 11, 12.7)}" fill="none" stroke-width="2.5" stroke-linejoin="round"/></svg>`, 'Class change') : '') +
-        `${item('<svg class="lg-hex" viewBox="0 0 20 23" aria-hidden="true"><path d="M2,19 Q6,9 18,4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="18" cy="4" r="2.4" fill="currentColor"/></svg>', 'Builds on an earlier article')}</div>`;
+        `${item('<svg class="lg-hex" viewBox="0 0 20 23" aria-hidden="true"><path d="M2,19 Q6,9 18,4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="18" cy="4" r="2.4" fill="currentColor"/></svg>', 'Builds on an earlier article')}` +
+        // the year labels look inert; say they are not
+        `${item('<span class="lg-year" aria-hidden="true">20xx</span>', 'Click a year to browse it')}</div>`;
     }
 
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') unpin(); });
-    document.addEventListener('click', e => { if (!e.target.closest('.node') && !e.target.closest('.origin-node') && !e.target.closest('.rank-node') && !e.target.closest('.skilltree-panel')) unpin(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (yv && !yv.hidden) closeYearView(true); else unpin(); } });
+    document.addEventListener('click', e => { if (!e.target.closest('.node') && !e.target.closest('.origin-node') && !e.target.closest('.rank-node') &&
+      !e.target.closest('.skilltree-panel') && !e.target.closest('.skilltree-yearview') && !e.target.closest('.year-node')) unpin(); });
     if (panel) panel.querySelector('.sp-close').addEventListener('click', e => { e.stopPropagation(); unpin(); });
 
     // deep link: /skilltree.html#<id> opens that article, on load and whenever the hash changes
@@ -680,7 +793,10 @@
         if (rg) rg.scrollIntoView({ block: 'center' });
         return;
       }
+      const ym = /^year-(\d{4})$/.exec(want);   // #year-<yyyy>: that year's view
+      if (ym) { if (yvYear !== Number(ym[1])) openYearView(Number(ym[1])); return; }
       if (!want || !nodeToggles[want]) return;
+      closeYearView(false);
       const g = gN.querySelector(`[data-id="${want}"]`);
       if (pinned === g) return;
       nodeToggles[want]({ preventDefault() {}, stopPropagation() {} });

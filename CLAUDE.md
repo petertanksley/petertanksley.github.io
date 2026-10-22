@@ -120,7 +120,9 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   transform thrashes enter/leave at the hex edges). Click flips once and opens the detail panel;
   `#id` deep links. Never rotate a sticker. The resting dim is a filled `hex-shade` path, never a
   CSS `filter` on an SVG `<image>` (GPU Chrome and Safari drop the image). Verify interaction in a
-  real browser, not only headless.
+  real browser, not only headless. Year labels (2026-10-21) hover-highlight their ring's papers and click-open a year
+  view (`#year-<yyyy>`, staggered hex grid, titles only); picking a tile lands on the normal card via `nodeToggles`.
+  The label's hit box stays inside its own cell and short of any rank bead, so it never steals a neighbour's hover.
 - Muted tier (`featured: false`) is visual only. Nothing on the page explains why a node is muted;
   legend wording is "contributing author". Blurbs for muted papers get the same care as any other.
 - Stickers per article go through the `4_stickers/` pipeline unchanged; until one exists a node
