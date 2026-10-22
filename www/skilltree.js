@@ -514,12 +514,14 @@
     };
     // year highlight (2026-10-21): hovering or focusing a ring's year label lights that year's papers, its ring guide and
     // the label; CSS dims the rest. Same rule as the lineage: nothing moves, and a pinned (lit) node is left alone.
-    const nodesByYear = {}, yearNodes = {};   // year -> its node <g>s; year -> its <g class="year-node">
+    // A career-rank bead on that ring counts as part of the year too (2026-10-21): it lights with the papers.
+    const nodesByYear = {}, ranksByYear = {}, yearNodes = {};   // year -> node <g>s; year -> rank <g>s; year -> <g class="year-node">
     const setYearHot = (year, on) => {
       svg.classList.toggle('has-year', on);
       svg.querySelectorAll('.year-hot').forEach(el => el.classList.remove('year-hot'));
       if (!on) return;
       (nodesByYear[year] || []).forEach(g => g.classList.add('year-hot'));
+      (ranksByYear[year] || []).forEach(g => g.classList.add('year-hot'));
       svg.querySelectorAll(`.ring-guide[data-year="${year}"]`).forEach(el => el.classList.add('year-hot'));
       if (yearNodes[year]) yearNodes[year].classList.add('year-hot');
     };
@@ -617,6 +619,7 @@
     (m.ranks || []).forEach(rk => {
       const label = `${rk.year}. ${rk.headline}${rk.from ? ` From ${rk.from.title}.` : ''} Opens the class-change screen.`;
       const g = svgEl('g', { class: 'rank-node', tabindex: 0, role: 'button', 'data-id': rk.key, 'aria-label': label }, gR);
+      (ranksByYear[rk.year] = ranksByYear[rk.year] || []).push(g);
       svgEl('image', { href: rk.sticker_src, x: rk.x - rk.w / 2, y: rk.y - rk.h / 2, width: rk.w, height: rk.h, preserveAspectRatio: 'xMidYMid meet', 'aria-hidden': 'true' }, g);
       svgEl('path', { class: 'hex-shade', d: hexPath(rk.x, rk.y, rk.w * 0.99, rk.h * 0.99) }, g);
       svgEl('path', { class: 'rank-ring', d: hexPath(rk.x, rk.y, rk.w * 0.96, rk.h * 0.96) }, g);
@@ -656,10 +659,13 @@
     });
     // year labels are controls (2026-10-21): hover highlights that year's papers, click opens the year view
     const articles = k => `${k} article${k === 1 ? '' : 's'}`;
+    const RANK_BY_KEY = Object.fromEntries((m.ranks || []).map(rk => [rk.key, rk]));
+    const ranksIn = year => (m.ranks || []).filter(rk => rk.year === year);
+    const yearCount = year => articles((nodesByYear[year] || []).length) + (ranksIn(year).length ? ` · class change` : '');
     m.rings.forEach(rg => {
       const k = (nodesByYear[rg.year] || []).length;
       const parent = k ? svgEl('g', { class: 'year-node', 'data-year': rg.year, tabindex: 0, role: 'button',
-        'aria-label': `${rg.year}: ${articles(k)}. Show them.` }, gL) : gL;
+        'aria-label': `${rg.year}: ${yearCount(rg.year).replace(' · ', ' and a ')}. Show them.` }, gL) : gL;
       if (k) {
         // hit target wider than the text but kept inside the label's own cell, so it never takes hover from the
         // neighbouring hexes (half a hex away), and trimmed short of a career-rank bead on the same ring
@@ -674,7 +680,7 @@
       if (!k) return;
       const g = yearNodes[rg.year] = parent;
       const yearTip = () => {
-        tip.innerHTML = `<div class="tt-title">${esc(rg.year)}</div><div class="tt-meta">${articles(k)} · click to browse</div>`;
+        tip.innerHTML = `<div class="tt-title">${esc(rg.year)}</div><div class="tt-meta">${yearCount(rg.year)} · click to browse</div>`;
         tip.style.removeProperty('--node'); tip.hidden = false;
       };
       const off = () => { hideTip(); if (yvYear !== rg.year) setYearHot(rg.year, false); };
@@ -719,13 +725,18 @@
       setYearHot(year, true);
       const ns = gs.map(g => NODE_BY_ID[g.dataset.id]).sort((a, b) => (a.angle - b.angle) || (a.cv_number - b.cv_number));
       yv.querySelector('.yv-year').textContent = year;
-      yv.querySelector('.yv-count').textContent = articles(ns.length);
-      yvGrid.innerHTML = ns.map(n =>
+      yv.querySelector('.yv-count').textContent = yearCount(year);
+      // the year's class change leads, in gold; it opens the class-change screen, as its bead does
+      yvGrid.innerHTML = ranksIn(year).map(rk =>
+        `<button type="button" class="yv-tile yv-rank" data-rank="${esc(rk.key)}">` +
+        `<svg viewBox="0 0 ${m.hex_w} ${m.hex_h}" aria-hidden="true"><image href="${esc(rk.sticker_src)}" x="0" y="0" width="${m.hex_w}" height="${m.hex_h}" preserveAspectRatio="xMidYMid meet"/>` +
+        `<path class="yv-ring" d="${hexPath(m.hex_w / 2, m.hex_h / 2, m.hex_w * 0.96, m.hex_h * 0.96)}"/></svg>` +
+        `<span class="yv-title">${esc(rk.headline)}</span></button>`).join('') + ns.map(n =>
         `<button type="button" class="yv-tile role-${esc(n.role)} status-${esc(n.status)}" data-id="${esc(n.id)}" style="--node:${esc(n.colour)}">` +
         `<svg viewBox="0 0 ${m.hex_w} ${m.hex_h}" aria-hidden="true"><image href="${esc(n.sticker_src)}" x="0" y="0" width="${m.hex_w}" height="${m.hex_h}" preserveAspectRatio="xMidYMid meet"/>` +
         `<path class="yv-ring" d="${hexPath(m.hex_w / 2, m.hex_h / 2, m.hex_w * 0.96, m.hex_h * 0.96)}"/></svg>` +
         `<span class="yv-title">${esc(n.title)}</span></button>`).join('');
-      yvGrid.querySelectorAll('.yv-tile').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); pickFromYearView(b.dataset.id); }));
+      yvGrid.querySelectorAll('.yv-tile').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); pickFromYearView(b.dataset.id || b.dataset.rank); }));
       yv.hidden = false;
       layoutYearView();
       if (history.replaceState) history.replaceState(null, '', '#year-' + year);
@@ -742,9 +753,9 @@
     // a tile does what a lineage row does: close the view, flip that hex, open its card (with its own #id)
     function pickFromYearView(id) {
       closeYearView(false);
-      const t = nodeToggles[id]; if (!t) return;
+      const t = nodeToggles[id] || (RANK_BY_KEY[id] && rankToggles[id]); if (!t) return;
       t(noop);
-      const kg = root.querySelector(`.node[data-id="${id}"]`);
+      const kg = root.querySelector(`.node[data-id="${id}"], .rank-node[data-id="${id}"]`);
       if (kg) kg.scrollIntoView({ block: 'center', behavior: REDUCED ? 'auto' : 'smooth' });
     }
     if (yv) {
