@@ -619,6 +619,8 @@ $tiers: ("Bronze": #B87A4B, "Silver": #B9BCC6, "Gold": #D9A441, "Platinum": #C9E
     .year-label.over-hex { fill: var(--st-bg); stroke: var(--st-gold); }
   }
   svg.has-year .node:not(.year-hot):not(.lit), svg.has-year .rank-node:not(.year-hot):not(.lit) { opacity: 0.3; }
+  // the year highlight is about papers, not lineage: connections fall back with the rest (a pinned node's stay lit)
+  svg.has-year .edge:not(.hot), svg.has-year .edge-tip:not(.hot) { opacity: 0.18; }
   .ring-guide.year-hot { stroke: var(--st-soft); }
   .edge     { fill: none; stroke-width: 5; stroke-linecap: round; opacity: 0.85; transition: opacity 200ms, stroke-width 200ms; }
   .edge-tip { opacity: 0.9; transition: opacity 200ms, r 200ms; }

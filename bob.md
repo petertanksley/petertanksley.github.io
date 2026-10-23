@@ -9,7 +9,7 @@ deadline: null
 target: null
 effort_remaining: monitoring (weekly auto-check to review/push; annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-10-21
+last_updated: 2026-10-22
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -45,8 +45,7 @@ sync: github
 ## This Week
 - [ ] Nothing due; weekly check runs itself Mondays (latest 2026-10-21 by hand: 472 citations, h 13, i10 15, nothing fired; pushed 10-21)
 - [ ] 2026-10-31: Nature issue for entry 27 lands (see Milestones); update `citation:` that week
-- [x] Year view built and pushed 2026-10-21 (Peter checked it in Safari); class-change beads ride with their year; tile picks flip after the scroll.
-      Log `logs/skilltree/2026-10-21_year-view.md`.
+- [x] Year-label hover no longer lights every connection: edges dim with the off-year papers (pinned lineage stays lit); pushed 2026-10-22
 - [ ] Optional: one line on the Projects page saying why anatomogramdata exists
 
 ## Upcoming Milestones
