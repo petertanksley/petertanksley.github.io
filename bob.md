@@ -9,7 +9,7 @@ deadline: null
 target: null
 effort_remaining: monitoring (weekly auto-check to review/push; annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -37,6 +37,8 @@ sync: github
 - 2026-10-20: Projects page has a sticker per entry (`4_stickers/projects.yaml`, pick with `border_px = 11`), entries
   indented beside a left hex column, Bob (bob-scheduler) and Carpe Audience added; News got a raven page mark; every
   page mark is 225px (`.hex-mark` default; lists clear below it). Pushed 2026-10-20.
+- 2026-10-23: Projects page gained Path Tracer (explainer-video library, https://petertanksley.github.io/path-tracer/),
+  sticker `proj_pathtracer` (candidate 1 of 3, light cycle + cyan trail + twin pawns). Pushed 2026-10-23.
 - Scholar refresh is automatic: laptop launchd job, Mondays 08:30, refreshes + notifies, never commits (CLAUDE.md
   "Weekly check"). When it notifies: review, then commit + push the snapshot, `scholar.json`, ledger, `tree.json`.
 - Publications change in `5_skilltree/data/articles.yml`, never in the CV: edit → rate in the Shiny app if new →
@@ -45,6 +47,7 @@ sync: github
 ## This Week
 - [ ] Nothing due; weekly check runs itself Mondays (latest 2026-10-21 by hand: 472 citations, h 13, i10 15, nothing fired; pushed 10-21)
 - [ ] 2026-10-31: Nature issue for entry 27 lands (see Milestones); update `citation:` that week
+- [x] Path Tracer added to the Projects page with its sticker; pushed 2026-10-23
 - [x] Year-label hover no longer lights every connection: edges dim with the off-year papers (pinned lineage stays lit); pushed 2026-10-22
 - [ ] Optional: one line on the Projects page saying why anatomogramdata exists
 

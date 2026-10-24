@@ -57,3 +57,16 @@ A Claude Code skill that builds, converts, and audits research talks in the styl
 
 <div class="stack">Claude Code · R · Quarto <a href="https://github.com/petertanksley/carpe-audience">{{< fa brands github >}} source</a></div>
 :::
+
+::: {.project}
+::: {.hex-mark .hex-mark--section .hex-mark--left}
+![](www/hex/proj_pathtracer.png){fig-alt="Pixel-art hex sticker: a toy futuristic motorcycle on a candlelit workbench, its glowing cyan light trail running in right angles across the wood to two identical wooden chess pawns."}
+:::
+
+<h3><a href="https://petertanksley.github.io/path-tracer/">Path Tracer</a></h3><span class="tag tag--wip">under construction</span>
+
+Explainer videos on the methods behind biosocial science, dressed up as a light-cycle video game for reasons I decline to examine. Each big topic is a realm (evolution, twins, genomes, penalized regression, DNA methylation), each episode is a sector, and the advanced material waits in a Legendary tier at the end. The house style borrows StatQuest's patience and 3Blue1Brown's pictures: every symbol gets a picture before it gets notation. It is an evenings-and-weekends project, so most of the map is still dark, and you can watch it light up one sector at a time.
+
+<div class="stack">Python · Manim · R · Quarto <a href="https://petertanksley.github.io/path-tracer/">{{< fa gamepad >}} play</a><a href="https://github.com/petertanksley/path-tracer">{{< fa brands github >}} source</a></div>
+:::
+

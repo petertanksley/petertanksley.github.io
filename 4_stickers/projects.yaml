@@ -134,3 +134,24 @@ images:
       the picture. A lit candle stands behind them casting warm light and a
       soft glow on the raven's feathers. No letters of the alphabet, no
       words, no writing anywhere. Nothing else in the picture.
+
+  # Path Tracer (2026-10-23): explainer-video library styled as a Tron-ish game. One clean subject: a toy light cycle
+  # whose glowing trail traces a right-angled path to two identical pawns (the twins it starts with). The trail is
+  # the only cool colour in a warm scene, so it reads at 92 px.
+  - name: proj_pathtracer
+    seed: 8231
+    description: >
+      A dark wooden workbench in a cozy, candlelit wizard's study, seen
+      from a few steps back and a little above, so the whole scene sits
+      well inside the picture with dark wood on every side. On the bench,
+      one small sleek toy motorcycle of a futuristic racing design, low
+      and smooth, dark with thin glowing cyan edges. Behind it the toy has
+      left a thin, bright, glowing cyan ribbon of light lying flat on the
+      wood, a trail that runs in straight lines and turns at sharp right
+      angles, like a path traced on a grid. The trail leads to two small
+      identical carved wooden chess pawns standing side by side. The
+      motorcycle, its trail and the two pawns together take up no more
+      than the middle two thirds of the picture. A short lit candle
+      stands behind them casting warm orange light across the bench; the
+      cyan trail is the only cool colour in the picture. No letters, no
+      numbers, no writing of any kind. Nothing else in the picture.
