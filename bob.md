@@ -46,7 +46,7 @@ sync: github
 
 ## This Week
 - [ ] Nothing due; weekly check runs itself Mondays (latest 2026-10-27 by hand: 474 citations, h 13, i10 15, nothing fired; pushed 10-27)
-- [x] IACP 2026 panel (10-26): first manual achievement (talk, Silver Podium Box) + news item with four photos (new `images:` grid); pushed 2026-10-27
+- [x] IACP 2026: two talk achievements (BCC "Cancer in Law Enforcement" 10-25, IACP's first cancer panel; DoD panel 10-26) + one news item with four photos (new `images:` grid); pushed 2026-10-27
 - [ ] 2026-10-31: Nature issue for entry 27 lands (see Milestones); update `citation:` that week
 - [x] Path Tracer added to the Projects page with its sticker; pushed 2026-10-23
 - [x] Year-label hover no longer lights every connection: edges dim with the off-year papers (pinned lineage stays lit); pushed 2026-10-22

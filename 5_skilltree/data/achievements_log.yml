@@ -119,4 +119,17 @@
   box: Podium Box
   rank: 2
   featured: true
+- key: talk-2026-10-25-cancer-law-enforcement
+  id: talk
+  date: '2026-10-25'
+  source: manual
+  title: Any Questions? There Is Always One Question.
+  body: '"Cancer in Law Enforcement", delivered to the IACP 2026 Annual Conference
+    in Orlando. You said "this is preliminary" at least once, and meant it each time.'
+  reward: 'Reward: You''ve received a Silver Podium Box!'
+  what: Cancer in Law Enforcement
+  tier: Silver
+  box: Podium Box
+  rank: 2
+  featured: true
 
