@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-10-27 15:03",
+    "generated": "2026-10-27 15:50",
     "hex_w": 100,
     "hex_h": 115.47,
     "width": 2781,
@@ -11,13 +11,21 @@
       "scale": 1.45,
       "sticker_src": "www/hex/sm/puzzled.png",
       "achievements": {
-        "n": 4,
+        "n": 5,
         "best": "Silver",
         "items": [
           {
             "key": "talk-2026-10-26-deaths-despair-among-u",
             "date": "2026-10-26",
             "title": "Next Slide, Please.",
+            "tier": "Silver",
+            "box": "Podium Box",
+            "reward": "Reward: You've received a Silver Podium Box!"
+          },
+          {
+            "key": "talk-2026-10-25-cancer-law-enforcement",
+            "date": "2026-10-25",
+            "title": "Any Questions? There Is Always One Question.",
             "tier": "Silver",
             "box": "Podium Box",
             "reward": "Reward: You've received a Silver Podium Box!"
@@ -252,7 +260,7 @@
     "achievements": {
       "label": "Achievements earned",
       "page": "achievements.html",
-      "total": 7,
+      "total": 8,
       "latest": "2026-10-26"
     }
   },
