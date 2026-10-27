@@ -9,7 +9,7 @@ deadline: null
 target: null
 effort_remaining: monitoring (weekly auto-check to review/push; annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-10-23
+last_updated: 2026-10-27
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -45,7 +45,8 @@ sync: github
   `build_tree.R` + `render_cv_pubs.R` → commit. Then hand-update the two-page CV's selected pubs and count line.
 
 ## This Week
-- [ ] Nothing due; weekly check runs itself Mondays (latest 2026-10-21 by hand: 472 citations, h 13, i10 15, nothing fired; pushed 10-21)
+- [ ] Nothing due; weekly check runs itself Mondays (latest 2026-10-27 by hand: 474 citations, h 13, i10 15, nothing fired; pushed 10-27)
+- [x] IACP 2026 panel (10-26): first manual achievement (talk, Silver Podium Box) + news item with four photos (new `images:` grid); pushed 2026-10-27
 - [ ] 2026-10-31: Nature issue for entry 27 lands (see Milestones); update `citation:` that week
 - [x] Path Tracer added to the Projects page with its sticker; pushed 2026-10-23
 - [x] Year-label hover no longer lights every connection: edges dim with the off-year papers (pinned lineage stays lit); pushed 2026-10-22

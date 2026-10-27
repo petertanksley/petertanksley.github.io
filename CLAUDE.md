@@ -51,6 +51,10 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
 - Always give an entry an `id`, or the homepage headline can only link to the top of the page.
 - Optional `image` (+ `image-alt`) puts a photo under the blurb on the news page only (`www/<file>.jpg`,
   1200 px wide is plenty); the homepage list stays text. First used 2026-09-27 for the Cincinnati trip.
+  For several photos use `images:` instead, a list of `{src, alt, position?}` drawn as a two-up grid of 3:4 tiles
+  (`.news-photos`); `position` is a CSS object-position to keep a face in a cropped landscape shot. First used
+  2026-10-27 for IACP. Phone photos: HEIC → `sips` to JPEG, then `magick::image_orient()` + `image_strip()` (drops
+  GPS); magick cannot read iPhone HEIC directly.
 - Quarto's EJS: no `<%# %>` comments (bare SyntaxError), and the escaping convention is
   reversed from standard EJS (`<%= %>` is raw, `<%- %>` escapes).
 - **Never put an optional fragment alone on a template line.** `<% if (x) { %>...<% } %>` on its own line

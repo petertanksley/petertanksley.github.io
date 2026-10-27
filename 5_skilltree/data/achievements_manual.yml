@@ -13,3 +13,9 @@
 # Forward only (Peter, 2026-10-03): log events as they happen. No backfill from the CV; the dungeon does not dump the
 # past on you. Cumulative milestones (career.* ladders) are the one place history counts.
 
+
+- kind: talk
+  date: 2026-10-26
+  what: "Deaths of Despair Among U.S. Law Enforcement Officers"
+  where: "the IACP 2026 Annual Conference in Orlando"
+  note: "panel with John Violanti and Kathleen Padilla"

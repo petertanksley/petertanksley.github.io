@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-10-21 16:40",
+    "generated": "2026-10-27 15:03",
     "hex_w": 100,
     "hex_h": 115.47,
     "width": 2781,
@@ -11,9 +11,17 @@
       "scale": 1.45,
       "sticker_src": "www/hex/sm/puzzled.png",
       "achievements": {
-        "n": 3,
+        "n": 4,
         "best": "Silver",
         "items": [
+          {
+            "key": "talk-2026-10-26-deaths-despair-among-u",
+            "date": "2026-10-26",
+            "title": "Next Slide, Please.",
+            "tier": "Silver",
+            "box": "Podium Box",
+            "reward": "Reward: You've received a Silver Podium Box!"
+          },
           {
             "key": "review-milestone-2026-10-04",
             "date": "2026-10-04",
@@ -232,7 +240,7 @@
     "credit": ["conceptualization", "data", "analysis", "methods", "writing", "supervision"],
     "cites": {
       "source": "Google Scholar",
-      "as_of": "2026-10-21 16:40"
+      "as_of": "2026-10-27 15:03"
     },
     "impact": {
       "tiers": [5, 10, 25],
@@ -244,8 +252,8 @@
     "achievements": {
       "label": "Achievements earned",
       "page": "achievements.html",
-      "total": 6,
-      "latest": "2026-10-04"
+      "total": 7,
+      "latest": "2026-10-26"
     }
   },
   "nodes": [
@@ -1149,12 +1157,12 @@
         "quartile": "Q1"
       },
       "cites": {
-        "n": 35,
+        "n": 37,
         "by_year": {
           "2023": 2,
-          "2024": 1,
+          "2024": 2,
           "2025": 17,
-          "2026": 13
+          "2026": 14
         }
       },
       "achievements": null,

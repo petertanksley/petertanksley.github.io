@@ -105,4 +105,18 @@
   box: Bibliography Box
   rank: 2
   featured: true
+- key: talk-2026-10-26-deaths-despair-among-u
+  id: talk
+  date: '2026-10-26'
+  source: manual
+  title: Next Slide, Please.
+  body: You presented "Deaths of Despair Among U.S. Law Enforcement Officers" to the
+    IACP 2026 Annual Conference in Orlando. Somebody in the third row asked a question
+    that was really a comment, and you thanked them for it. That is the job now.
+  reward: 'Reward: You''ve received a Silver Podium Box!'
+  what: Deaths of Despair Among U.S. Law Enforcement Officers
+  tier: Silver
+  box: Podium Box
+  rank: 2
+  featured: true
 

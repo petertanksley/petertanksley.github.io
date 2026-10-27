@@ -15,6 +15,26 @@
 #   image        optional; a photo under the blurb on the news page only
 #                (www/<file>.jpg, <= 1200 px wide). The homepage stays text
 #   image-alt    required with image; one plain sentence for screen readers
+#   images       optional, several photos as a two-up grid (news page only):
+#                a list of {src, alt, position?}; position is a CSS
+#                object-position (e.g. "left center") to steer the 3:4 crop
+- date: 2026-10-26
+  id: iacp-2026
+  title: "Told a room full of police chiefs where the wellness effort should aim"
+  description: >
+    At IACP 2026 in Orlando, John Violanti, Kathleen Padilla and I walked
+    through deaths of despair among officers, and the short version is
+    suicide, department-wide, and well past retirement.
+  images:
+    - src: www/iacp_2026_panel.jpg
+      alt: "On the panel stage in front of a blue and green IACP 2026 banner, left to right: Scott Coyne, John Violanti, Kathleen Padilla, and Peter."
+    - src: www/iacp_2026_hall.jpg
+      alt: "Peter and Vickie Speed in a carpeted conference-center hallway, both wearing IACP badges."
+    - src: www/iacp_2026_night.jpg
+      alt: "Nighttime selfie of Peter under a lit IACP canopy on a green steel arch."
+    - src: www/iacp_2026_moon.jpg
+      alt: "Early-morning selfie of Peter in an Orlando hotel courtyard, the moon still up over the water."
+      position: left center
 - date: 2026-09-22
   id: cincinnati-face-2026
   title: "Took the first responder mortality work on the road to Cincinnati"
