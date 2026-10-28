@@ -9,7 +9,7 @@
 :::
 
 ::: {.pub-item}
-27. Schwaba, Ted, Margaret L. Clapp Sullivan, Wonuola A. Akingbuwa, Kerli Ilves, **Peter T. Tanksley**, et al.<br>“Robust inference and correlates from genetic associations with personality.” [*Nature*](https://doi.org/10.1038/s41586-026-10992-9){target="_blank"} (online first).
+27. Schwaba, Ted, Margaret L. Clapp Sullivan, Wonuola A. Akingbuwa, Kerli Ilves, **Peter T. Tanksley**, et al.<br>“Robust inference and correlates from genetic associations with personality.” [*Nature*](https://doi.org/10.1038/s41586-026-10992-9){target="_blank"}, 658, 1226–1236.
 :::
 
 ::: {.pub-item}

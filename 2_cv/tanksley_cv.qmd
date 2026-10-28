@@ -99,6 +99,18 @@ Minor: Biology
 
 ### [Academic Conferences]{.smallcaps}
 
+#### **2026**
+
+::: {.cv-indent}
+**Tanksley, Peter T.**, John M. Violanti, & Kathleen Padilla.\
+"Deaths of despair among U.S. law enforcement officers". Panel presented at the annual conference for the International Association of Chiefs of Police, October, Orlando, FL.
+:::
+
+::: {.cv-indent}
+Speed, Victoria, & **Peter T. Tanksley**.\
+"Cancer in law enforcement". Panel presented at the annual conference for the International Association of Chiefs of Police, October, Orlando, FL.
+:::
+
 #### **2025**
 
 ::: {.cv-indent}

@@ -1,4 +1,5 @@
 ---
+# TEMPLATE, not maintained (current as of 2026-10-28). Refresh at build time: see CLAUDE.md "Two-page CV".
 title: ""
 format:
   typst:
@@ -78,7 +79,7 @@ Dissertation: *From age to aging: Biological age and its role in the criminal ca
 
 8. **Tanksley, P.T.**, Brislin, S.J., Wertz, J., et al. (2024). Do polygenic indices capture "direct" effects on child externalizing behavior? Within-family analyses in two longitudinal birth cohorts. [*Clinical Psychological Science*](https://doi.org/10.1177/21677026241260260), 13(2), 316--331.
 
-9. Schwaba, T., Clapp Sullivan, M.L., Akingbuwa, W.A., Ilves, K., **Tanksley, P.T.**, et al. (2026). Robust inference and correlates from genetic associations with personality. [*Nature*](https://doi.org/10.1038/s41586-026-10992-9) (online first).
+9. Schwaba, T., Clapp Sullivan, M.L., Akingbuwa, W.A., Ilves, K., **Tanksley, P.T.**, et al. (2026). Robust inference and correlates from genetic associations with personality. [*Nature*](https://doi.org/10.1038/s41586-026-10992-9), 658, 1226--1236.
 
 # Funding
 
@@ -103,8 +104,9 @@ School of Criminal Justice; College of Education, Criminal Justice, & Human Serv
 
 # Selected Presentations
 
-*18 conference presentations (American Society of Criminology, International Association of Chiefs of Police, Behavior Genetics Association, Integrating Genetics and Social Sciences) and 14 invited talks since 2015.*
+*20 conference presentations (American Society of Criminology, International Association of Chiefs of Police, Behavior Genetics Association, Integrating Genetics and Social Sciences) and 14 invited talks since 2015.*
 
+- **Tanksley, P.T.**, Violanti, J.M., & Padilla, K. (2026). Deaths of despair among U.S. law enforcement officers. International Association of Chiefs of Police annual conference, Orlando, FL.
 - **Tanksley, P.T.** (2026). A national-level assessment of LEO mortality. Invited presentation, Police Executive Research Forum annual meeting, Los Angeles, CA.
 - **Tanksley, P.T.**, Barnes, J.C., Blair, J.P., & Martaindale, M.H. (2025). Leading causes of death among law enforcement occupations: New evidence from the National Occupational Mortality Surveillance data. International Association of Chiefs of Police annual conference, Denver, CO.
 - **Tanksley, P.T.** (2024). Introducing the Active Attack Data Explorer. ALERRT Conference, San Marcos, TX.

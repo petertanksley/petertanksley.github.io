@@ -222,6 +222,25 @@ Exception: the CV (`2_cv/`) is formal and stays formal. Publication titles there
   home/research `.worklist` blocks are still hand-written.
 - Preprints carry no blurb (Peter, 2026-09-09): the panel shows none, the app does not require one.
 
+## Two-page CV (on demand, not maintained)
+
+Peter, 2026-10-28: the two-page CV is built when an application needs one, not kept current. `2_cv/tanksley_cv_2page.qmd`
+is a template that was accurate as of 2026-10-28. Do not update it when papers, talks or grants change; refresh it at build time.
+
+1. Copy the template to a dated working copy for the application, or edit it in place if nobody needs the old one.
+2. Refresh content from the sources of truth: publications from `5_skilltree/data/articles.yml` (or the generated
+   `2_cv/_publications.qmd`), presentations, funding and awards from `2_cv/tanksley_cv.qmd`. The count lines
+   ("N peer-reviewed articles", "N conference presentations and N invited talks") are counted from those files, never
+   copied forward. Pick the selected publications and talks to fit the application.
+3. Render locally: `quarto render 2_cv/tanksley_cv_2page.qmd --to typst`. The PDF lands beside the source (gitignored).
+   Typst styling is in `2_cv/_cv2_header.typ`. Font is Helvetica Neue, local only, which is why `_quarto.yml` keeps the
+   file off the site render and CI never builds it.
+4. Check it is exactly two pages (`python3 -c "import pymupdf;print(pymupdf.open('2_cv/tanksley_cv_2page.pdf').page_count)"`),
+   and trim the selected lists if it runs over.
+5. Hand the PDF over (Desktop or wherever the application needs it). It never goes on the site.
+
+Built originally for the 2026-10-06 research accelerator application (`logs/2026-10-06_two-page-cv-and-clone-sync.md`).
+
 ## Build gotchas
 
 - **Cache-busted script src hides the file from Quarto.** `skilltree.qmd` loads

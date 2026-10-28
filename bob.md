@@ -9,7 +9,7 @@ deadline: null
 target: null
 effort_remaining: monitoring (weekly auto-check to review/push; annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-10-27
+last_updated: 2026-10-28
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -42,12 +42,12 @@ sync: github
 - Scholar refresh is automatic: laptop launchd job, Mondays 08:30, refreshes + notifies, never commits (CLAUDE.md
   "Weekly check"). When it notifies: review, then commit + push the snapshot, `scholar.json`, ledger, `tree.json`.
 - Publications change in `5_skilltree/data/articles.yml`, never in the CV: edit → rate in the Shiny app if new →
-  `build_tree.R` + `render_cv_pubs.R` → commit. Then hand-update the two-page CV's selected pubs and count line.
+  `build_tree.R` + `render_cv_pubs.R` → commit.
 
 ## This Week
 - [ ] Nothing due; weekly check runs itself Mondays (latest 2026-10-27 by hand: 474 citations, h 13, i10 15, nothing fired; pushed 10-27)
 - [x] IACP 2026: two talk achievements (BCC "Cancer in Law Enforcement" 10-25, IACP's first cancer panel; DoD panel 10-26) + one news item with four photos (new `images:` grid); pushed 2026-10-27
-- [ ] 2026-10-31: Nature issue for entry 27 lands (see Milestones); update `citation:` that week
+- [x] Nature entry 27 in its issue (658, 1226–1236); citation set, CV regenerated. IACP panels added to the full CV (Academic Conferences 2026)
 - [x] Path Tracer added to the Projects page with its sticker; pushed 2026-10-23
 - [x] Year-label hover no longer lights every connection: edges dim with the off-year papers (pinned lineage stays lit); pushed 2026-10-22
 - [ ] Optional: one line on the Projects page saying why anatomogramdata exists
@@ -59,12 +59,10 @@ sync: github
   yet, so no CV line or news item until it is. Once signed: one `news.yml` item + CV grants line + two `grant` events in
   `achievements_manual.yml` (one per pilot, `slug: dnam` / `slug: bioage`); dry-run `check_achievements.R` first and
   change a slug if both cards draw the same wording.
-- 2026-10-31: entry 27 (Schwaba et al., Nature, doi:10.1038/s41586-026-10992-9) publishes in an issue per the
-  publication office (email, 2026-10-21) — set `citation:` in `articles.yml` (currently "online first"), rerun `render_cv_pubs.R`.
 - When the DOI resolves: entry 28 (Tanksley, Logan, & Barnes, AJPH, in press) has a reserved DOI,
   10.2105/AJPH.2026.308833 (not live as of 2026-10-21; do not add it to the site until it resolves). Then set `doi:`,
   `status: published`, `citation:` in `articles.yml`; the homepage and research-page `.worklist` blocks are
-  hand-written and need the same edit; the two-page CV count line ("one in press") too.
+  hand-written and need the same edit.
 - June/July 2027: new JCR year — export all 22 journals into `5_skilltree/data/jcr/jcr_<year>.csv`, run
   `build_journals.R` then `build_tree.R`, commit. Clears nearest-year flags on papers published earlier that year.
 - Backlog, unscheduled: phase stickers beside the matching Research-page
@@ -80,9 +78,7 @@ sync: github
   remote updated; local folder keeps the `PROJ_tanksley_website` name by Peter's choice
 - CV source `2_cv/tanksley_cv.qmd`, CSS `2_cv/tanksley_cv.css`; publication block `2_cv/_publications.qmd` is
   generated from `5_skilltree/data/articles.yml` by `render_cv_pubs.R`, never hand-edited (`add_article.R <DOI>`)
-- Two-page CV (grant/biosketch use): `2_cv/tanksley_cv_2page.qmd` + `_cv2_header.typ`; hand-render with
-  `quarto render 2_cv/tanksley_cv_2page.qmd --to typst` (PDF beside the source, gitignored). Excluded from the site
-  render in `_quarto.yml` on purpose (Helvetica Neue, local font). 11 selected pubs and the count line are hand-maintained.
+- Two-page CV is built on demand, not maintained (2026-10-28): steps in CLAUDE.md "Two-page CV"
 - Skill tree, stats card, impact pips, achievements: generator in `5_skilltree/`; PROJ_skill_tree repo archived
 - Citations are Google Scholar only, display and achievements (OpenAlex dropped 2026-10-10)
 - Hex stickers: finals in `www/hex/` + `www/hearth.jpg`; pipeline `4_stickers/`; CV band via `4_stickers/hexband.R`
