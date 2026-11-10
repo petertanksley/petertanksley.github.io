@@ -25,7 +25,7 @@ Peter T. Tanksley
 ::: {.print-only .contact-block}
 Research Scientist, ALERRT Center, Texas State University
 
-[peter\_tanksley\@txstate.edu](mailto:peter_tanksley@txstate.edu)
+[peter\_tanksley\@txstate.edu](mailto:peter_tanksley@txstate.edu) · [petertanksley.github.io](https://petertanksley.github.io)
 
 [Google Scholar](https://scholar.google.com/citations?user=YnIBrB8AAAAJ&hl=en) · [ORCID](https://orcid.org/0000-0002-3449-2838) · [GitHub](https://github.com/petertanksley) · [LinkedIn](https://www.linkedin.com/in/peter-tanksley-107008121)
 :::
@@ -305,47 +305,49 @@ Liu, Hexuan, **Peter T. Tanksley**, Ryan T. Motz, & J.C. Barnes.\
 
 ## [Funding]{.smallcaps}
 
+
 ::: {.cv-indent}
 **Substance Use Involvement in Law Enforcement Officer Mortality: An Investigation of National Death Certificate Data**\
-[*National Institute on Drug Abuse, National Institutes of Health (R01)*]{.smallcaps} [2026]{style="float: right"}\
-Role: PI (Co-PI: Seth Watts) | Amount: \$505,783 (Under review)
+[*National Institute on Drug Abuse, National Institutes of Health (R01)*]{.smallcaps} [2026]{.cvdate}\
+Role: PI (Co-PI: Seth Watts) | Amount: \$505,783 (Unfunded)
 :::
 
 ::: {.cv-indent}
 **Extreme Risk Protection Orders and Firearm Suicide in New York: A Multi-State and Within-State Evaluation**\
-[*Regional Gun Violence Research Consortium*]{.smallcaps} [2026]{style="float: right"}\
+[*Regional Gun Violence Research Consortium*]{.smallcaps} [2026]{.cvdate}\
 Role: Co-PI (PI: M. Hunter Martaindale) | Amount: \$49,999
 :::
 
 ::: {.cv-indent}
 **Educating Attention for High-Stakes Decisions: An Ecological Dynamics Approach in Use-of-Force Contexts**\
-[*Decision, Risk and Management Sciences program, The National Science Foundation*]{.smallcaps} [2025]{style="float: right"}\
-Amount: \$939,016 (Unfunded)
+[*Decision, Risk and Management Sciences program, The National Science Foundation*]{.smallcaps} [2025]{.cvdate}\
+Role: Co-PI (PI: M. Hunter Martaindale) | Amount: \$939,016 (Unfunded)
 :::
 
 ::: {.cv-indent}
 **Improving Law Enforcement Officers' Ability to Correctly Identify Weapons Through Training the Visual System**\
-[*Perception, Action, & Cognition Program, The National Science Foundation*]{.smallcaps} [2024]{style="float: right"}\
-Amount: \$517,088 (Unfunded)
+[*Perception, Action, & Cognition Program, The National Science Foundation*]{.smallcaps} [2024]{.cvdate}\
+Role: Co-PI (PI: M. Hunter Martaindale) | Amount: \$517,088 (Unfunded)
 :::
 
 ::: {.cv-indent}
 **Graduate Study & Faculty Research Mentoring Grant**\
-[*College of Education, Criminal Justice, & Human Services, University of Cincinnati*]{.smallcaps} [2020]{style="float: right"}\
+[*College of Education, Criminal Justice, & Human Services, University of Cincinnati*]{.smallcaps} [2020]{.cvdate}\
 Amount: \$1,000
 :::
 
 ::: {.cv-indent}
 **Research Fellowship Grant**\
-[*Graduate Student Government Association, University of Cincinnati*]{.smallcaps} [2020]{style="float: right"}\
+[*Graduate Student Government Association, University of Cincinnati*]{.smallcaps} [2020]{.cvdate}\
 Amount: \$1,200
 :::
 
 ::: {.cv-indent}
 **Graduate Student Research Grant**\
-[*School of Criminal Justice, University of Cincinnati*]{.smallcaps} [2018]{style="float: right"}\
+[*School of Criminal Justice, University of Cincinnati*]{.smallcaps} [2018]{.cvdate}\
 Amount: \$2,500
 :::
+
 
 ## [Editorial Boards]{.smallcaps}
 
@@ -373,6 +375,10 @@ American Journal of Criminal Justice (member)
 
 ## [Statistical Software & Programming]{.smallcaps}
 
+::::: {.cv-software}
+
+:::: {.cv-software-col}
+
 ::: {.cv-indent}
 **Operating Systems**
 
@@ -388,6 +394,10 @@ American Journal of Criminal Justice (member)
 - Stata
 :::
 
+::::
+
+:::: {.cv-software-col}
+
 ::: {.cv-indent}
 **Data Science Projects**
 
@@ -401,26 +411,30 @@ American Journal of Criminal Justice (member)
 - Bash, Plink, and other Linux-based tools for bioinformatics
 :::
 
+::::
+
+:::::
+
 ## [Advanced Training]{.smallcaps}
 
 ::: {.cv-indent}
 **International Statistical Genetics Workshop**\
-[*Institute for Behavioral Genetics, University of Colorado-Boulder*]{.smallcaps}[2021]{style="float: right"}
+[*Institute for Behavioral Genetics, University of Colorado-Boulder*]{.smallcaps}[2021]{.cvdate}
 :::
 
 ::: {.cv-indent}
 **Genomics for Social Scientists — Epigenetics**\
-[*Institute for Social Research, University of Michigan*]{.smallcaps}[2021]{style="float: right"}
+[*Institute for Social Research, University of Michigan*]{.smallcaps}[2021]{.cvdate}
 :::
 
 ::: {.cv-indent}
 **Introduction to Behavioral Genetics Workshop**\
-[*GESIS, Leibniz Institute for the Social Sciences*]{.smallcaps}[2020]{style="float: right"}
+[*GESIS, Leibniz Institute for the Social Sciences*]{.smallcaps}[2020]{.cvdate}
 :::
 
 ::: {.cv-indent}
 **Genomics for Social Scientists**\
-[*Institute for Social Research, University of Michigan*]{.smallcaps} [2019]{style="float: right"}
+[*Institute for Social Research, University of Michigan*]{.smallcaps} [2019]{.cvdate}
 :::
 
 ## [Teaching]{.smallcaps}

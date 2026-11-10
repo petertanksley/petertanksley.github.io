@@ -9,9 +9,14 @@ h2 {
   border-bottom: none;
 }
 
+/* Right-hand years: upright, in a reserved gutter so entry text wraps short of them */
 .cvdate {
   float: right;
-  font-style: italic
+  font-style: normal;
+  margin-right: -6em;
+}
+.cv-indent p:has(.cvdate) {
+  margin-right: 6em;
 }
 
 .print-only {
@@ -184,9 +189,10 @@ ul li {
   margin-left: 2.5em;
 }
 
+/* hanging bullets: wrapped lines align with the first line's text, not the bullet */
 .cv-indent ul {
-  padding-left: 0;
-  list-style-position: inside;
+  padding-left: 1.2em;
+  list-style-position: outside;
   margin-top: 0;
   margin-block-start: 0;
 }
@@ -221,3 +227,52 @@ ul li {
    as broken-image alt text after Teaching. pagedjs wraps content in .pagedjs_page; hide it there. */
 .pagedjs_pages .hexband, .pagedjs_page .hexband { display: none !important; }
 
+
+
+/* Software: two columns; the second starts at Data Science Projects */
+.cv-software {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2em;
+  align-items: start;
+}
+.cv-software-col + .cv-software-col .cv-indent {
+  margin-left: 0;
+}
+
+/* Keep headings with what follows. Chrome's printer ignores break-after: avoid here, so each heading
+   carries an invisible reserve below it (net zero height): if less than that much room is left on the
+   page, the heading moves to the next one with its content. pagedjs honours break-after on its own,
+   so the reserve is switched off inside .pagedjs_page. */
+@media print {
+  h2, h3, h4 {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  h2::after {
+    padding-bottom: 7em;
+    margin-bottom: -7em;
+    background-clip: content-box;
+  }
+  h3::after, h4::after {
+    content: "";
+    display: block;
+    height: 7em;
+    margin-bottom: -7em;
+  }
+  .pagedjs_page h2::after {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  .pagedjs_page h3::after, .pagedjs_page h4::after {
+    display: none;
+  }
+}
+
+/* Entries are short: never split one across pages. */
+@media print {
+  .cv-indent, .cv-software {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

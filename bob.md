@@ -9,7 +9,7 @@ deadline: null
 target: null
 effort_remaining: monitoring (weekly auto-check to review/push; annual JCR refresh each June/July; news/pubs as they happen)
 weekly_commitment: 1h
-last_updated: 2026-11-05
+last_updated: 2026-11-10
 repo: https://github.com/petertanksley/petertanksley.github.io
 blockers: null
 blocking_others: null
@@ -34,6 +34,7 @@ sync: github
   `build_tree.R` + `render_cv_pubs.R` → commit.
 
 ## This Week
+- [ ] After the 2026-11-10 push (CV layout pass, R01 unfunded, NSF Co-PI roles; `logs/2026-11-10_cv-layout-funding.md`): confirm CI is green and the live CV PDF paginates cleanly
 - [ ] Nothing due; weekly check runs itself Mondays (latest 2026-11-02: 480 citations, h 13, i10 15, nothing fired; committed 11-05)
 - [ ] Optional: one line on the Projects page saying why anatomogramdata exists
 
