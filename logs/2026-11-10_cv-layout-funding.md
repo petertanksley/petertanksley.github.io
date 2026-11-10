@@ -24,3 +24,10 @@ include line, `quarto render tanksley_cv.qmd --to html`, then headless Chrome `-
 Close to the pagedjs build but not identical in page breaks.
 
 **Not verified locally:** the pagedjs (CI) PDF with the new CSS. Check the live PDF after the push.
+
+**Second push, same day.** The first live pagedjs PDF left "Publications" and "Academic Articles" alone at the foot
+of page 1: pagedjs does not carry `break-after: avoid` through the nested section wrappers either, and the first
+version of the reserve was switched off inside `.pagedjs_page`. The reserve is now real padding on the heading with an
+equal negative margin, applied in both builds, larger where a heading is followed directly by a subsection
+(`h2:has(+ section)`, `h3:has(+ section)`). Verified in the Chrome build only; pagedjs could not be run locally (no
+Node; the browser polyfill would not paginate to completion in headless Chrome).

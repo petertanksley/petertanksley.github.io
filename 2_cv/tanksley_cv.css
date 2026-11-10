@@ -240,32 +240,33 @@ ul li {
   margin-left: 0;
 }
 
-/* Keep headings with what follows. Chrome's printer ignores break-after: avoid here, so each heading
-   carries an invisible reserve below it (net zero height): if less than that much room is left on the
-   page, the heading moves to the next one with its content. pagedjs honours break-after on its own,
-   so the reserve is switched off inside .pagedjs_page. */
+/* Keep headings with what follows. Neither Chrome's printer nor pagedjs reliably honours
+   break-after: avoid through the nested section wrappers, so each heading is made unbreakable and
+   given a reserve of padding below it, cancelled by an equal negative margin (net spacing unchanged:
+   h2 keeps 0.5rem padding + 1rem margin, h3/h4 keep 0.5rem margin). If less than the reserve is left
+   on the page, the heading's box overflows and it moves to the next page with its content. A heading
+   that is followed directly by a subsection needs room for that subsection's heading and reserve too,
+   so it carries a larger one. */
 @media print {
   h2, h3, h4 {
     break-inside: avoid;
     page-break-inside: avoid;
   }
-  h2::after {
+  h2 {
+    padding-bottom: calc(0.5rem + 4em);
+    margin-bottom: calc(1rem - 4em);
+  }
+  h2:has(+ section) {
+    padding-bottom: calc(0.5rem + 9em);
+    margin-bottom: calc(1rem - 9em);
+  }
+  h3, h4 {
+    padding-bottom: 4.5em;
+    margin-bottom: calc(0.5rem - 4.5em);
+  }
+  h3:has(+ section) {
     padding-bottom: 7em;
-    margin-bottom: -7em;
-    background-clip: content-box;
-  }
-  h3::after, h4::after {
-    content: "";
-    display: block;
-    height: 7em;
-    margin-bottom: -7em;
-  }
-  .pagedjs_page h2::after {
-    padding-bottom: 0;
-    margin-bottom: 0;
-  }
-  .pagedjs_page h3::after, .pagedjs_page h4::after {
-    display: none;
+    margin-bottom: calc(0.5rem - 7em);
   }
 }
 
