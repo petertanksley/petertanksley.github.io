@@ -139,11 +139,13 @@ if (!is.null(m)) {
   for (id in names(m$cites)) {
     n <- m$cites[[id]]; old <- prev_sby(id)
     if (is.na(n) || n == 0) { scholar_by_year[[id]] <- setNames(list(), character()); scholar_by_year_n[[id]] <- 0L; next }
-    if (!is.null(old) && identical(as.integer(n), as.integer(prev_sby_n(id)))) { scholar_by_year[[id]] <- old; scholar_by_year_n[[id]] <- as.integer(n); next }
+    if (!is.null(old) && length(old) > 0 && identical(as.integer(n), as.integer(prev_sby_n(id)))) { scholar_by_year[[id]] <- old; scholar_by_year_n[[id]] <- as.integer(n); next }
     if (fails >= 2 || is.na(m$pubid[[id]] %||% NA)) { scholar_by_year[[id]] <- old; scholar_by_year_n[[id]] <- prev_sby_n(id); next }
     Sys.sleep(runif(1, 2, 5))
     h <- tryCatch(scholar::get_article_cite_history(SCHOLAR_ID, m$pubid[[id]]), error = function(e) NULL)
-    if (is.null(h)) { fails <- fails + 1L; scholar_by_year[[id]] <- old; scholar_by_year_n[[id]] <- prev_sby_n(id); next }
+    # 2026-11-10: Scholar can answer 200 with no chart (soft block). A cited paper with zero histogram rows is a failed
+    # fetch, not an empty history: it keeps the previous bars and previous n, so the next run retries it.
+    if (is.null(h) || NROW(h) == 0) { fails <- fails + 1L; scholar_by_year[[id]] <- old; scholar_by_year_n[[id]] <- prev_sby_n(id); next }
     fails <- 0L; fetched <- fetched + 1L
     scholar_by_year[[id]] <- as.list(setNames(as.integer(h$cites), h$year)); scholar_by_year_n[[id]] <- as.integer(n)
   }

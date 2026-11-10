@@ -31,3 +31,16 @@ version of the reserve was switched off inside `.pagedjs_page`. The reserve is n
 equal negative margin, applied in both builds, larger where a heading is followed directly by a subsection
 (`h2:has(+ section)`, `h3:has(+ section)`). Verified in the Chrome build only; pagedjs could not be run locally (no
 Node; the browser polyfill would not paginate to completion in headless Chrome).
+
+**Live PDF check (same day, after the second push).** Downloaded the live `tanksley_cv.pdf` (10 pages, modified
+09:56 CST, two minutes after d3c3bb3). Last text block on every page is an entry, never a bare heading or year label;
+page 1 closes on Research Concentrations with its content. The stranded "Publications" / "Academic Articles" problem is
+gone in the pagedjs build. Checked by text-block position only, not by eye; CI run status not confirmed (`gh` absent).
+
+**Scholar refresh and soft-block bug (same day).** Manual refresh: 480 -> 481 citations, 0 rules fired. The first run
+wrote empty `scholar_by_year` for the five papers whose count moved: Scholar answered the per-paper chart request
+without a chart, and `fetch_scholar.R` only guarded `is.null(h)`, so `{}` overwrote the good bars and `scholar_by_year_n`
+was stamped current (Necromancy would never have retried). Fix: zero rows for a cited paper now counts as a failed
+fetch (keeps previous bars and n, two strikes stop the run), and a stored empty histogram is no longer reused. Re-run
+fetched nothing (Scholar still blocking the chart), so the five keep their 11-02 bars with new totals and a stale `n`;
+the next weekly run retries them. Bad snapshot kept in scratchpad, not committed.
