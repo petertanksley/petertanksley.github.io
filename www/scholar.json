@@ -1,14 +1,14 @@
 {
   "meta": {
-    "fetched": "2026-11-02 08:39",
+    "fetched": "2026-11-10 11:09",
     "scholar_id": "YnIBrB8AAAAJ",
     "sources": {
       "scholar": "live"
     }
   },
   "scholar": {
-    "citations": 480,
-    "citations_5y": 464,
+    "citations": 481,
+    "citations_5y": 465,
     "h_index": 13,
     "h_index_5y": 13,
     "i10": 15,
@@ -40,7 +40,7 @@
       },
       {
         "year": 2025,
-        "cites": 126
+        "cites": 127
       },
       {
         "year": 2026,
@@ -56,7 +56,7 @@
       "lineage": 0
     },
     "schwaba_2026_robust": {
-      "scholar": 42,
+      "scholar": 43,
       "scholar_by_year": {
         "2025": 9,
         "2026": 32
@@ -123,7 +123,7 @@
       "lineage": 0
     },
     "desteiguer_2025_stability": {
-      "scholar": 20,
+      "scholar": 19,
       "scholar_by_year": {
         "2024": 3,
         "2025": 6,
@@ -151,7 +151,7 @@
       "lineage": 0
     },
     "tanksley_2024_polygenic": {
-      "scholar": 38,
+      "scholar": 39,
       "scholar_by_year": {
         "2023": 2,
         "2024": 2,
@@ -204,7 +204,7 @@
       "lineage": 0
     },
     "raffington_2023_associations": {
-      "scholar": 39,
+      "scholar": 40,
       "scholar_by_year": {
         "2022": 2,
         "2023": 1,
@@ -239,7 +239,7 @@
       "lineage": 0
     },
     "raffington_2022_socially": {
-      "scholar": 67,
+      "scholar": 66,
       "scholar_by_year": {
         "2021": 1,
         "2022": 4,
