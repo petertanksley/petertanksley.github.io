@@ -44,3 +44,6 @@ was stamped current (Necromancy would never have retried). Fix: zero rows for a 
 fetch (keeps previous bars and n, two strikes stop the run), and a stored empty histogram is no longer reused. Re-run
 fetched nothing (Scholar still blocking the chart), so the five keep their 11-02 bars with new totals and a stale `n`;
 the next weekly run retries them. Bad snapshot kept in scratchpad, not committed.
+
+**Projects page stickers clickable (same day).** Each project hex on `projects.qmd` is now wrapped in the same link as its
+title (titles were already links). No hover cue and no aria change on purpose; both are open if wanted.

@@ -35,7 +35,8 @@ sync: github
 
 ## This Week
 - [x] 2026-11-10 CV pushes (layout pass, R01 unfunded, NSF Co-PI roles, then a heading keep-with-content fix; `logs/2026-11-10_cv-layout-funding.md`): live PDF checked 2026-11-10, no stranded headings
-- [ ] Nothing due; weekly check runs itself Mondays (latest 2026-11-02: 480 citations, h 13, i10 15, nothing fired; committed 11-05)
+- [ ] Nothing due; weekly check runs itself Mondays (latest manual 2026-11-10: 481 citations, nothing fired; five papers kept stale histograms (Scholar soft block), next run retries; pushed 11-10)
+- [x] Project hex stickers on the Projects page link like their titles (2026-11-10)
 - [ ] Optional: one line on the Projects page saying why anatomogramdata exists
 
 ## Upcoming Milestones

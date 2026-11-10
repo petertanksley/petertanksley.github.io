@@ -12,7 +12,7 @@ Side projects: dashboards, tooling, and the occasional over-engineered solution 
 
 ::: {.project}
 ::: {.hex-mark .hex-mark--section .hex-mark--left}
-![](www/hex/proj_presumptive.png){fig-alt="Pixel-art hex sticker: a brass scale of justice standing level on a leather law book, a police cap in one pan and a firefighter's helmet in the other, a blue awareness ribbon tied to the post, a lit candle behind."}
+[![](www/hex/proj_presumptive.png){fig-alt="Pixel-art hex sticker: a brass scale of justice standing level on a leather law book, a police cap in one pan and a firefighter's helmet in the other, a blue awareness ribbon tied to the post, a lit candle behind."}](https://github.com/ALERRT-Research/PROJ_presumptive_laws)
 :::
 
 <h3><a href="https://github.com/ALERRT-Research/PROJ_presumptive_laws">Presumptive Laws Dashboard</a></h3><span class="tag tag--wip">under construction</span>
@@ -24,7 +24,7 @@ A state-by-state history of first responder presumptive workers' compensation la
 
 ::: {.project}
 ::: {.hex-mark .hex-mark--section .hex-mark--left}
-![](www/hex/proj_anatomogram.png){fig-alt="Pixel-art hex sticker: an anatomical chart on aged parchment tacked to a stone wall, a human outline with each organ inked as a separately colored shape, lit by a candle on an iron bracket."}
+[![](www/hex/proj_anatomogram.png){fig-alt="Pixel-art hex sticker: an anatomical chart on aged parchment tacked to a stone wall, a human outline with each organ inked as a separately colored shape, lit by a candle on an iron bracket."}](https://github.com/petertanksley/anatomogramdata)
 :::
 
 <h3><a href="https://github.com/petertanksley/anatomogramdata">anatomogramdata</a></h3><span class="tag">R package</span>
@@ -36,7 +36,7 @@ Human body maps (anatomograms) as tidy polygon data for ggplot2. It is an update
 
 ::: {.project}
 ::: {.hex-mark .hex-mark--section .hex-mark--left}
-![](www/hex/proj_bob.png){fig-alt="Pixel-art hex sticker: a cheerful human skull in crooked round reading glasses, jaw open mid-joke and eye sockets glowing a soft amber, resting on a stack of leather ledgers between a lit candle and a brass hourglass."}
+[![](www/hex/proj_bob.png){fig-alt="Pixel-art hex sticker: a cheerful human skull in crooked round reading glasses, jaw open mid-joke and eye sockets glowing a soft amber, resting on a stack of leather ledgers between a lit candle and a brass hourglass."}](https://github.com/petertanksley/bob-scheduler)
 :::
 
 <h3><a href="https://github.com/petertanksley/bob-scheduler">Bob</a></h3><span class="tag">Claude Code skill</span>
@@ -48,7 +48,7 @@ A `/bob` command and agent for Claude Code that keeps a whole portfolio of resea
 
 ::: {.project}
 ::: {.hex-mark .hex-mark--section .hex-mark--left}
-![](www/hex/proj_carpe.png){fig-alt="Pixel-art hex sticker: four paper napkins laid out in a loose grid on a plank table like a storyboard, each with a crayon drawing: a stick figure, a rising red bar chart, a red heart, and a red arrow, with a red crayon nearby."}
+[![](www/hex/proj_carpe.png){fig-alt="Pixel-art hex sticker: four paper napkins laid out in a loose grid on a plank table like a storyboard, each with a crayon drawing: a stick figure, a rising red bar chart, a red heart, and a red arrow, with a red crayon nearby."}](https://github.com/petertanksley/carpe-audience)
 :::
 
 <h3><a href="https://github.com/petertanksley/carpe-audience">Carpe Audience</a></h3><span class="tag">Claude Code skill</span>
@@ -60,7 +60,7 @@ A Claude Code skill that builds, converts, and audits research talks in the styl
 
 ::: {.project}
 ::: {.hex-mark .hex-mark--section .hex-mark--left}
-![](www/hex/proj_pathtracer.png){fig-alt="Pixel-art hex sticker: a toy futuristic motorcycle on a candlelit workbench, its glowing cyan light trail running in right angles across the wood to two identical wooden chess pawns."}
+[![](www/hex/proj_pathtracer.png){fig-alt="Pixel-art hex sticker: a toy futuristic motorcycle on a candlelit workbench, its glowing cyan light trail running in right angles across the wood to two identical wooden chess pawns."}](https://petertanksley.github.io/path-tracer/)
 :::
 
 <h3><a href="https://petertanksley.github.io/path-tracer/">Path Tracer</a></h3><span class="tag tag--wip">under construction</span>
